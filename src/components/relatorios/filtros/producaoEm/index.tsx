@@ -1,8 +1,8 @@
-import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
-import "./agrupamentoContagem.scss";
+import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import "./producaoEm.scss";
 import { useState } from "react";
-
-const AgrupamentoContagem = () => {
+const ProducaoEm = () => {
+    
     const [exibirProducaoSelecionado, setExibirProducaoSelecionado]= useState<any>("pecas")
 
     const handleChangeExibirProducao = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,15 +15,9 @@ const AgrupamentoContagem = () => {
         setExibirPesoSelecionado((event.target as HTMLInputElement).value);
     };
 
-    const [exibirAgrupamentoSelecionado, setExibirAgrupamentoSelecionado]= useState<any>("agrupamentoPosto")
-
-    const handleChangeExibirAgrupamento = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setExibirAgrupamentoSelecionado((event.target as HTMLInputElement).value);
-    };
-
     return (
-        <div className="container agrupamento-contagem">
-            <h3>Agrup. e Contagem de Produção</h3>
+        <div className="container producao-em">
+            <h3>Produção em</h3>
             <div className="group-radio">
                 <RadioGroup 
                     aria-labelledby="demo-radio-buttons-group-label"
@@ -94,43 +88,7 @@ const AgrupamentoContagem = () => {
                 </div>
                 : <></>
             }
-            <div className="group-radio">
-                <RadioGroup 
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue={exibirAgrupamentoSelecionado}
-                    onChange={handleChangeExibirAgrupamento}
-                    name="radio-buttons-group"
-                    className="radio"
-                >
-                    <FormControlLabel
-                        control={<h4>Agrupar dados por: </h4>}
-                        label=""
-                        className="form"
-                    />
-                    <FormControlLabel
-                        value="agrupamentoPosto"
-                        control={<Radio />}
-                        label="Posto"
-                        name="agrupamentoPosto"
-                        className="form"
-                    />
-                    <FormControlLabel
-                        value="agrupamentoFerramenta"
-                        control={<Radio />}
-                        label="Ferramenta"
-                        name="agrupamentoFerramenta"
-                        className="form"
-                    />
-                    <FormControlLabel
-                        value="agrupamentoProduto"
-                        control={<Radio />}
-                        label="Produto"
-                        name="agrupamentoProduto"
-                        className="form"
-                    />
-                </RadioGroup>
-            </div>
         </div>
     )
 }
-export default AgrupamentoContagem
+export default ProducaoEm;

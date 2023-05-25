@@ -1,8 +1,16 @@
-import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
-import "./agrupamentoContagem.scss";
 import { useState } from "react";
+import DateInput from "../../customInput/date";
+import SelectTime from "../../customInput/time";
+import "./intervaloContagem.scss";
+import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 
-const AgrupamentoContagem = () => {
+const IntervaloContagem = () => {
+
+    const [dataInicio, setDataInicio] = useState<any>(new Date());
+    const [dataTermino, setDataTermino] = useState<any>(new Date());
+    const [horaInicio, setHoraInicio] = useState<string>("");
+    const [horaFim, setHoraFim] = useState<string>("");
+
     const [exibirProducaoSelecionado, setExibirProducaoSelecionado]= useState<any>("pecas")
 
     const handleChangeExibirProducao = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,16 +22,49 @@ const AgrupamentoContagem = () => {
     const handleChangeExibirPeso = (event: React.ChangeEvent<HTMLInputElement>) => {
         setExibirPesoSelecionado((event.target as HTMLInputElement).value);
     };
-
-    const [exibirAgrupamentoSelecionado, setExibirAgrupamentoSelecionado]= useState<any>("agrupamentoPosto")
-
-    const handleChangeExibirAgrupamento = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setExibirAgrupamentoSelecionado((event.target as HTMLInputElement).value);
-    };
-
+    
     return (
-        <div className="container agrupamento-contagem">
-            <h3>Agrup. e Contagem de Produção</h3>
+        <div className="container intervalo-contagem">
+            <h3>Intervalo e Contagem de Produção</h3>
+            <table>
+                <thead>
+                    <th>Início</th>
+                    <th>Fim</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <DateInput
+                                value={dataInicio}
+                                onChangeValue={ ( value : any) => {
+                                    setDataInicio(value);
+                                } }
+                                label = "Dia de Início"
+                                helperText={"Campo obrigatório"}
+                            />
+                        </td>
+                        <td>
+                            <DateInput
+                                value={dataInicio}
+                                onChangeValue={ ( value : any) => {
+                                    setDataInicio(value);
+                                } }
+                                label = "Dia de Fim"
+                                helperText={"Campo obrigatório"}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <SelectTime changed={ (value : string) => setHoraInicio(value)} />
+                        </td>
+                        <td>
+                            <SelectTime changed={ (value : string) => { setHoraFim(value) }} />
+                        </td>
+                    </tr>
+                
+                </tbody>
+            </table>
             <div className="group-radio">
                 <RadioGroup 
                     aria-labelledby="demo-radio-buttons-group-label"
@@ -94,43 +135,9 @@ const AgrupamentoContagem = () => {
                 </div>
                 : <></>
             }
-            <div className="group-radio">
-                <RadioGroup 
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue={exibirAgrupamentoSelecionado}
-                    onChange={handleChangeExibirAgrupamento}
-                    name="radio-buttons-group"
-                    className="radio"
-                >
-                    <FormControlLabel
-                        control={<h4>Agrupar dados por: </h4>}
-                        label=""
-                        className="form"
-                    />
-                    <FormControlLabel
-                        value="agrupamentoPosto"
-                        control={<Radio />}
-                        label="Posto"
-                        name="agrupamentoPosto"
-                        className="form"
-                    />
-                    <FormControlLabel
-                        value="agrupamentoFerramenta"
-                        control={<Radio />}
-                        label="Ferramenta"
-                        name="agrupamentoFerramenta"
-                        className="form"
-                    />
-                    <FormControlLabel
-                        value="agrupamentoProduto"
-                        control={<Radio />}
-                        label="Produto"
-                        name="agrupamentoProduto"
-                        className="form"
-                    />
-                </RadioGroup>
-            </div>
+
         </div>
     )
 }
-export default AgrupamentoContagem
+
+export default IntervaloContagem;

@@ -1,7 +1,9 @@
 import AgrupamentoContagem from "./filtros/agrupamentoContagem";
 import DataTurnoPosto from "./filtros/dataTurnoPosto";
+import IntervaloContagem from "./filtros/intervaloContagem";
 import OpPeriodo from "./filtros/opPeriodo";
 import PostosFerramentas from "./filtros/postosFerramentas";
+import ProducaoEm from "./filtros/producaoEm";
 import "./relatorios.scss";
 
 const Relatorios = () => {
@@ -12,6 +14,8 @@ const Relatorios = () => {
             <PostosFerramentas />
             <AgrupamentoContagem />
             <DataTurnoPosto />
+            <ProducaoEm />
+            <IntervaloContagem />
         </div>
     )
 }
