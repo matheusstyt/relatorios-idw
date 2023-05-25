@@ -2,6 +2,7 @@ import AgrupamentoContagem from "./filtros/agrupamentoContagem";
 import DataTurnoPosto from "./filtros/dataTurnoPosto";
 import IntervaloContagem from "./filtros/intervaloContagem";
 import OpPeriodo from "./filtros/opPeriodo";
+import Postos from "./filtros/postos";
 import PostosFerramentas from "./filtros/postosFerramentas";
 import ProducaoEm from "./filtros/producaoEm";
 import "./relatorios.scss";
@@ -16,6 +17,7 @@ const Relatorios = () => {
             <DataTurnoPosto />
             <ProducaoEm />
             <IntervaloContagem />
+            <Postos />
         </div>
     )
 }
