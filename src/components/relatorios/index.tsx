@@ -1,11 +1,12 @@
-import AgrupamentoContagem from "./filtros/agrupamentoContagem";
-import DataTurnoPosto from "./filtros/dataTurnoPosto";
-import IntervaloContagem from "./filtros/intervaloContagem";
-import OpPeriodo from "./filtros/opPeriodo";
-import PeriodoTurno from "./filtros/periodoTurno";
-import Postos from "./filtros/postos";
-import PostosFerramentas from "./filtros/postosFerramentas";
-import ProducaoEm from "./filtros/producaoEm";
+import AgrupamentoContagem from "./filtros/view/agrupamentoContagem";
+import AreaResponsavel from "./filtros/view/areaResponsavel";
+import DataTurnoPosto from "./filtros/view/dataTurnoPosto";
+import IntervaloContagem from "./filtros/view/intervaloContagem";
+import OpPeriodo from "./filtros/view/opPeriodo";
+import PeriodoTurno from "./filtros/view/periodoTurno";
+import Postos from "./filtros/view/postos";
+import PostosFerramentas from "./filtros/view/postosFerramentas";
+import ProducaoEm from "./filtros/view/producaoEm";
 import "./relatorios.scss";
 
 const Relatorios = () => {
@@ -19,6 +20,7 @@ const Relatorios = () => {
             <ProducaoEm />
             <IntervaloContagem />
             <Postos />
+            <AreaResponsavel />
             <PeriodoTurno />
         </div>
     )

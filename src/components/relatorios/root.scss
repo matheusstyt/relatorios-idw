@@ -1,0 +1,20 @@
+.container{
+    width: 70%;
+    margin: 1em auto;
+    background-color: #fff;
+    box-shadow: 5px 5px 10px #646464;
+    box-sizing: border-box;
+    padding: 1em;
+
+    text-align: left;
+
+    .radio{
+        display:flex;
+        flex-flow: row wrap;
+    }
+}
+
+.radio{
+    display:flex;
+    flex-flow: row wrap;
+}

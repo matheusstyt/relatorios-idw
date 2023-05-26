@@ -1,8 +1,7 @@
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import SelectIDW from "../../customInput/select";
 import "./postosFerramentas.scss";
 import { useState } from "react";
-import jobPostServices from "../../../../services/jobPostServices";
-import SelectIDW from "../../customInput/select";
 const PostosFerramentas = () => {
 
     const [postoFerramentaValorSelecionado, setPostoFerramentaValorSelecionado]= useState<any>(" ")

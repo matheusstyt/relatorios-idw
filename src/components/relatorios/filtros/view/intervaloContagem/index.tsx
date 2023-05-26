@@ -45,9 +45,9 @@ const IntervaloContagem = () => {
                         </td>
                         <td>
                             <DateInput
-                                value={dataInicio}
+                                value={dataTermino}
                                 onChangeValue={ ( value : any) => {
-                                    setDataInicio(value);
+                                    setDataTermino(value);
                                 } }
                                 label = "Dia de Fim"
                                 helperText={"Campo obrigatório"}

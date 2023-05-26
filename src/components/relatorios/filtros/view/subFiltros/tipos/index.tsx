@@ -16,7 +16,7 @@ const Tipos = (props : any) => {
             <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 defaultValue={exibirTipoSelecionado}
-                onChange={handleChangeExibirTipo}
+                   onChange={handleChangeExibirTipo}
                 name="radio-buttons-group"
                 className="radio" >
                 <FormControlLabel   

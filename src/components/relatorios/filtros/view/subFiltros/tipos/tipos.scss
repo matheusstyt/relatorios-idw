@@ -1,7 +1,11 @@
-@import "../../../styles/root.scss";
+@import "../../../../root.scss";
 .group-radio{
     box-sizing: border-box;
     padding: 0 2em;
     display: flex;
     align-items: center;
+    .radio{
+        display:flex;
+        flex-flow: row wrap;
+    }
 }
