@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./opPeriodo.scss";
 import DateInput from "../../customInput/date";
 import SelectIDW from "../../customInput/select";
+import Tipos from "../subFiltros/tipos";
 const OpPeriodo = () => {
     
 
@@ -109,6 +110,7 @@ const OpPeriodo = () => {
                 </tbody>
                 
             </table>
+            <Tipos changed={(value : any) => { alert(value) }}/>
         </div>
 
     )
