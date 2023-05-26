@@ -4,6 +4,9 @@ import "./postosFerramentas.scss";
 import { useState } from "react";
 import React from "react";
 import Postos from "../subFiltros/postos";
+import GrupoFerramentas from "../subFiltros/grupoFerramentas";
+import GrupoTrabalho from "../subFiltros/grupoTrabalho";
+import Ferramentas from "../subFiltros/ferramentas";
 const PostosFerramentas = () => {
 
     const [postoFerramentaValorSelecionado, setPostoFerramentaValorSelecionado]= useState<any>(" ")
@@ -13,23 +16,17 @@ const PostosFerramentas = () => {
         let lista : [] = [];
         let label : string = "";
         if(postoFerramentaSelecionado=="Postos"){
-           return (
-            <Postos />
-           )
+           return <Postos />
         }
         else if(postoFerramentaSelecionado=="grupoTrabalho"){
-            lista = [];
-            label = "Grupo de Trabalho"
+            return <GrupoTrabalho />
         }
         else if(postoFerramentaSelecionado=="ferramentas"){
-            lista = [];
-            label = "Ferramenta"
+            return <Ferramentas />
         }
         else if(postoFerramentaSelecionado=="grupoFerramenta"){
-            lista = [];
-            label = "Grupo de Ferramenta"
+            return <GrupoFerramentas />
         }
-        
     }
 
     const handleChangePostoFerramenta = (event: React.ChangeEvent<HTMLInputElement>) => {

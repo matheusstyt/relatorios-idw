@@ -30,3 +30,12 @@ export async function getAllWorkStation (
     const url = "bi/filtrosBI/ptsAtivos";
     return await api.get<IJobPostResponse>(`${APP_BASE_URL}/${url}`);
 }
+
+export async function getAllJobGroupActive (
+    conteudoPesquisa?: string,
+    pagina?: number,
+    registrosPorPagina?: number
+) {
+    const url = "bi/filtrosBI/gtsAtivos";
+    return await api.get<IJobPostResponse>(`${APP_BASE_URL}/${url}`);
+}
