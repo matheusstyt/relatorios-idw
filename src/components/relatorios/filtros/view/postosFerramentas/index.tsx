@@ -2,22 +2,20 @@ import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import SelectIDW from "../../customInput/select";
 import "./postosFerramentas.scss";
 import { useState } from "react";
+import React from "react";
+import Postos from "../subFiltros/postos";
 const PostosFerramentas = () => {
 
     const [postoFerramentaValorSelecionado, setPostoFerramentaValorSelecionado]= useState<any>(" ")
     const [postoFerramentaSelecionado, setPostoFerramentaSelecionado] = useState("Postos");
 
-    const obterListaPostos = () => {
-        // jobPostServices.getAllWorkStation("", 1, 10000).then(res => {
-
-        // })
-    }
     const SelectPostoFerramenta = ()=>{
         let lista : [] = [];
         let label : string = "";
         if(postoFerramentaSelecionado=="Postos"){
-           lista = [];
-           label = "Posto"
+           return (
+            <Postos />
+           )
         }
         else if(postoFerramentaSelecionado=="grupoTrabalho"){
             lista = [];
@@ -31,20 +29,6 @@ const PostosFerramentas = () => {
             lista = [];
             label = "Grupo de Ferramenta"
         }
-        
-            return (
-                <SelectIDW
-                  id="Posto"
-                  label={label}
-                  name="Posto"
-                  options={lista}
-                  width="100%"
-                  value={postoFerramentaValorSelecionado}
-                  onChange={(value: any) => {
-                      setPostoFerramentaValorSelecionado(value?.target?.value);
-                  } }
-                  defaultValue={"todos"} />  
-            )
         
     }
 

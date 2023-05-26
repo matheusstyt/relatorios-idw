@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./postos.scss";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import SelectIDW from "../../customInput/select";
+import React from "react";
 
 const Postos = () => {
     const [postoValorSelecionado, setPostoValorSelecionado] = useState<any>(" ")
