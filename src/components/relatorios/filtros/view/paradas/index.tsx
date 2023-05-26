@@ -1,15 +1,16 @@
-import { Box, Chip, FormControl, MenuItem, OutlinedInput, Select } from "@mui/material";
-import { getStops } from "../../services/stops";
+import { Box, Checkbox, Chip, FormControl, FormControlLabel, MenuItem, OutlinedInput, Select } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { getStops } from "../../services";
 
 const Paradas = (props) => {
 
+    const [areasSelecionadas, setAreasSelecionadas] = useState<any[]>([]);
+    const [todasSelecionado, setTodasSelecionado] = useState<boolean>(false);
+    
     const [listParadas, setListParadas] = useState<any[]>([]);
     const [listaParadasSelecionadas, setlistaParadasSelecionadas] = useState<any[]>([]);
     
-    useEffect(() => {
-        startGetStops();
-    }, []);
+    
     const startGetStops = () => {
 
         getStops("", 1, 10000, false).then((result) => {
@@ -25,18 +26,29 @@ const Paradas = (props) => {
             }
         });
     }
+
+    useEffect(() => {
+        startGetStops();
+    }, []);
+    
     function handleParada (value) {
         setlistaParadasSelecionadas(value);
     }
     return (
         <div className="container paradas">
             <h3>Paradas</h3>
+            <FormControlLabel 
+                label="Todas as Paradas"
+                value={todasSelecionado}
+                control={ <Checkbox onChange={() => { setTodasSelecionado(!todasSelecionado) }} />}
+            />
             <FormControl fullWidth>
                 <Select
                     style={{width: "100%"}}
                     labelId="demo-multiple-chip-label"
                     id="demo-multiple-chip"
                     multiple
+                    disabled={todasSelecionado}
                     value={listaParadasSelecionadas}
                     onChange={(e) => { handleParada(e.target.value) }}
                     input={<OutlinedInput id="select-multiple-chip" label="Chip" />}

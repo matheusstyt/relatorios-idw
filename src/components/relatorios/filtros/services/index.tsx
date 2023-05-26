@@ -4,7 +4,7 @@ import { getAllShifts, getAllShiftsSemCalativos } from "./shift";
 import { getAllArea } from "./area";
 import { getAllStops, getStops } from "./stops";
 
-export default { 
+export { 
     getAllJobPost, 
     getAllWorkStation,
     getAllToolsGroup,

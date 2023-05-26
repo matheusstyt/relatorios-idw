@@ -8,6 +8,9 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import list_areas from "./areas.json";
+import { getAllArea } from "../../services";
+import { useEffect, useState } from "react";
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -38,6 +41,26 @@ export default function Mult(props : any) {
     props.changed(e);
   };
 
+  const [ListaAreaResponsavel, setListaAreaResponsavel] = useState<any[]>([]);
+    const [listaParadasSelecionadas, setlistaParadasSelecionadas] = useState<any[]>([]);
+
+    const startGetAllArea = () => {
+        getAllArea()
+        .then((result : any) => {
+            let tempList = result.data?.items.map((i: any)=>{
+                return {
+                  name: i?.dsAreaResponsavel,
+                  value: i?.cdAreaResponsavel
+                }
+              }); 
+              setListaAreaResponsavel(tempList);
+              console.log(tempList);
+        })
+    }
+    useEffect(() => {
+        startGetAllArea();
+    }, []);
+
   return (
     <FormControl sx={{ m: 1, width: "99%" }}>
         <InputLabel id="multi-area-label">Área</InputLabel>
@@ -59,12 +82,12 @@ export default function Mult(props : any) {
           )}
           MenuProps={MenuProps}
         >
-          {areas.map((area) => (
+          {ListaAreaResponsavel.map((area) => (
             <MenuItem
-              key={area.cdArea}
-              value={area.dsArea}
-              style={getStyles(area.dsArea, areaResponsavel, theme)} >
-              {area.dsArea} - {area.cdArea}
+              key={area?.name}
+              value={area?.name}
+              style={getStyles(area.name, areaResponsavel, theme)} >
+              {area?.value} - {area?.name}
             </MenuItem>
           ))}
         </Select>

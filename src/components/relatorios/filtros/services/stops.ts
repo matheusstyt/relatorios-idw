@@ -14,12 +14,12 @@ export async function getAllStops () {
     });
 }
 
-export async function getStops (   
+export const  getStops = async (   
     conteudoPesquisa?: string,
     pagina?: number,
     registrosPorPagina?: number,
     ativos?:boolean
-    ) {
+    ) =>{
       const url = "cadastros/paradas";
       return await api.get(`${APP_BASE_URL}/${url}`, {
         params: {

@@ -1,15 +1,13 @@
 import { Checkbox, FormControl, FormControlLabel, MenuItem, Select } from "@mui/material";
 import "./areaResponsavel.scss";
-import teste  from "./areas.json";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Mult from "./multi";
+import React from "react";
 const AreaResponsavel = () => {
 
     const [areasSelecionadas, setAreasSelecionadas] = useState<any[]>([]);
     const [todasSelecionado, setTodasSelecionado] = useState<boolean>(false);
-    useEffect(() => {
-        
-    })
+    
     return(
         <div className="container area-responsavel">
             <h3>Área Responsável</h3>
