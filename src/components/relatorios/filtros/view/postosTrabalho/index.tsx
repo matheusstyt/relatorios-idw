@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "./postos.scss";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import SelectIDW from "../../customInput/select";
 import React from "react";
+import Postos from "../subFiltros/postos";
+import GrupoTrabalho from "../subFiltros/grupoTrabalho";
 
-const Postos = () => {
+const PostosTrabalho = () => {
     const [postoValorSelecionado, setPostoValorSelecionado] = useState<any>(" ")
     const [postoSelecionado, setPostoSelecionado] = useState("Postos");
     
@@ -14,29 +15,14 @@ const Postos = () => {
     };
 
     const SelectPostoFerramenta = ()=>{
-        let lista : [] = [];
-        let label : string = "";
+
         if(postoSelecionado=="Postos"){
-           lista = [];
-           label = "Posto"
+            return <Postos />
         }
         else if(postoSelecionado=="grupoTrabalho"){
-            lista = [];
-            label = "Grupo de Trabalho"
+            return <GrupoTrabalho />
         }
-            return (
-                <SelectIDW
-                  id="Posto"
-                  label={label}
-                  name="Posto"
-                  options={lista}
-                  width="100%"
-                  value={postoValorSelecionado}
-                  onChange={(value: any) => {
-                      setPostoValorSelecionado(value?.target?.value);
-                  } }
-                  defaultValue={"todos"} />  
-            )
+
         
     }
     return (
@@ -75,4 +61,4 @@ const Postos = () => {
         </div>
     )
 }
-export default Postos;
+export default PostosTrabalho;
