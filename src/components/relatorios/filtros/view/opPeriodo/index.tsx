@@ -1,5 +1,5 @@
 import { Checkbox, FormControlLabel, FormLabel, RadioGroup, TextField } from "@mui/material"
-import { useState } from "react";
+import React, { useState } from "react";
 import "./opPeriodo.scss";
 import DateInput from "../../customInput/date";
 import SelectIDW from "../../customInput/select";
@@ -23,7 +23,7 @@ const OpPeriodo = () => {
     };
 
     return (
-        <div className="containet-op-periodo">
+        <div className="container op-periodo">
             <h3>OP e Período</h3>       
             <table>
                 <tbody>

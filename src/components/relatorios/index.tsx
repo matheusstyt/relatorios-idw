@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import AgrupamentoContagem from "./filtros/view/agrupamentoContagem";
 import AreaResponsavel from "./filtros/view/areaResponsavel";
 import DataTurnoPosto from "./filtros/view/dataTurnoPosto";
@@ -9,10 +10,14 @@ import PostosFerramentas from "./filtros/view/postosFerramentas";
 import ProducaoEm from "./filtros/view/producaoEm";
 import "./relatorios.scss";
 
+import Paradas from "./filtros/view/paradas";
+//import  getStops from "./filtros/services";
+//const [listaParadas, setListaParadas] = useState<any[]>([]);
 const Relatorios = () => {
+  
     return (
         <div className="container-relatorio-page">
-            <h2>Relatórios</h2>
+            <h2>Grupos de Filtros</h2>
             <OpPeriodo />
             <PostosFerramentas />
             <AgrupamentoContagem />
@@ -22,6 +27,7 @@ const Relatorios = () => {
             <Postos />
             <AreaResponsavel />
             <PeriodoTurno />
+            <Paradas />
         </div>
     )
 }
