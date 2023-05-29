@@ -1,12 +1,22 @@
-
-import { Link } from "react-router-dom";
-import { APP_ROUTES } from "./config";
+import "./sidebar.scss"
+import { NavLink } from "react-router-dom";
+import { BsTable} from "react-icons/bs";
+import { AiOutlineHome } from "react-icons/ai";
 export default function SideBar () {
     return (
         <nav>
-            <ul>
-                <li> <Link to={APP_ROUTES.REPORT.path.indiceparadaxposto}>Índice de Paradas por Posto</Link> </li>
-            </ul>
+            <NavLink to="/" end>
+                <AiOutlineHome size={25}/>
+                <h4>Início</h4>
+                 
+            </NavLink>
+
+            <NavLink to="/indiceparadaxarea" end>
+                <BsTable size={25}/>
+                <h4>Índices de Paradas Por Área Responsável (R028)</h4>
+            </NavLink>
+
+
         </nav>
-    )
+     )
 }

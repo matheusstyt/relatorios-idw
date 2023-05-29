@@ -12,16 +12,23 @@ import PeriodoTurno from './components/relatorios/filtros/view/periodoTurno';
 import PostosTrabalho from './components/relatorios/filtros/view/postosTrabalho';
 import ProducaoEm from './components/relatorios/filtros/view/producaoEm';
 import AppRoutes from './router';
+import { BrowserRouter as Router } from 'react-router-dom';
 import SideBar from './components/sidebar';
-
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <SideBar />
+        <h1>RELATÓRIOS IDW</h1>
       </header>
-      <AppRoutes />
+      
+      <Router>
+        <div className='container-geral'>
+          <SideBar />
+          <AppRoutes />
+        </div>
+
+      </Router>
     </div>
   );
 }

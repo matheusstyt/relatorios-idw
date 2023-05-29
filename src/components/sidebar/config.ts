@@ -4,7 +4,7 @@ export const APP_ROUTES = {
           main: "consolidado",
           indice_paradas: "indiceparadas",
           planejado_realizado: "planejadoxrealizado",
-          indiceparadaxposto: "indiceparadaxposto",
+          indiceparadaxarea: "indiceparadaxarea",
         },
       },
 }

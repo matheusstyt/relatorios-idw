@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SelectIDW from "../../../customInput/select"
 import { getAllShifts } from "../../../services";
 
-const Turnos = () => {
+const Turnos = (props : any) => {
 
     const [turnoValorSelecionado, setTurnoValorSelecionado] = useState("");
     
@@ -43,6 +43,7 @@ const Turnos = () => {
             defaultValue={"todos"} 
             onChange={(value: any) => {
                 setTurnoValorSelecionado(value?.target?.value);
+                props.changed(value?.target.value);
             } }
             />  
     )

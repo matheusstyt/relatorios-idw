@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+nav{
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-flow: column;
+    max-width: 20%;
+    padding: 1em;
+    box-sizing: border-box;
+    gap: 0.5em;
+    a{
+        
+        text-decoration: none;
+        color: rgb(39, 39, 39);
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        h4{
+            font-weight: 400;
+        }
+        opacity: 0.8;
+        &:hover{
+            opacity: 1;
+        }
+    }
+
+}

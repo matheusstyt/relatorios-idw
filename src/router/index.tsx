@@ -2,14 +2,15 @@ import React from "react";
 
 import IndiceParadasXAreResponsavel from "../pages/reports/paradas/indiceParadasXAreaResponsavel";
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import Inicio from "../pages/outros";
+import { APP_ROUTES } from "../components/sidebar/config";
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="indiceparadaxposto" element={<IndiceParadasXAreResponsavel />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={ <Inicio />} />
+      <Route path={APP_ROUTES.REPORT.path.indiceparadaxarea} element={<IndiceParadasXAreResponsavel />} />
+    </Routes>
   );
 }

@@ -2,10 +2,9 @@ import { useState } from "react";
 import DateInput from "../../customInput/date";
 import "./periodoTurno.scss";
 import { Checkbox, FormControlLabel, FormLabel } from "@mui/material";
-import SelectIDW from "../../customInput/select";
 import Turnos from "../subFiltros/turnos";
 
-const PeriodoTurno = () => {
+const PeriodoTurno = (props : any) => {
 
     const [periodoChecked, setPeriodoChecked] = useState<boolean>(false);
     
@@ -41,19 +40,14 @@ const PeriodoTurno = () => {
                                 <DateInput 
                                     disabled={!periodoChecked}
                                     value={dataInicio}
-                                    onChangeValue={ ( value : any) => {
-                                        setDataInicio(value);
-                                    } }
+                                    onChangeValue={ ( value : any) => props.dataInicio(value)}
                                     label = "Dia de Início"
                                     helperText={"Campo obrigatório"}
                                 />
                                 <DateInput 
                                     disabled={!periodoChecked}
                                     value={dataTermino}
-                                    onChangeValue={ ( value : any) => {
-                                        setDataTermino(value);
-                                    } }
-                                    label = "Dia de Fim"
+                                    onChangeValue={ ( value : any) => props.dataTermino(value) }                                    label = "Dia de Fim"
                                     helperText={"Campo obrigatório"}
                                 />
                             </div>
@@ -65,7 +59,7 @@ const PeriodoTurno = () => {
                             <FormLabel>Turno</FormLabel>
                         </td>
                         <td>
-                            <Turnos />
+                            <Turnos changed={(value: any) => { props.turno(value) }} />
                         </td>
                     </tr>
                 </tbody>
