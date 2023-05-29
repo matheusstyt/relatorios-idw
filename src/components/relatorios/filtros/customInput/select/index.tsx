@@ -1,4 +1,4 @@
-import { InputLabel, OutlinedInput } from "@mui/material";
+import { InputLabel } from "@mui/material";
 import { HelperText, InputControl, Option, SelectMUI } from "./styles";
 import { useTheme } from "styled-components";
 function SelectIDW({
@@ -23,7 +23,6 @@ function SelectIDW({
     minWidth,
     ...rest
 }: any) {
-    const styledTheme = useTheme();
 
     const disableOptions = (option: any, _value: any) => {
         let isSelected = false;

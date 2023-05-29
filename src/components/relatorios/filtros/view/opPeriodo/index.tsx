@@ -1,9 +1,10 @@
-import { Checkbox, FormControlLabel, FormLabel, RadioGroup, TextField } from "@mui/material"
+import { Checkbox, FormControlLabel, FormLabel, TextField } from "@mui/material"
 import React, { useState } from "react";
 import "./opPeriodo.scss";
 import DateInput from "../../customInput/date";
 import SelectIDW from "../../customInput/select";
 import Tipos from "../subFiltros/tipos";
+import Turnos from "../subFiltros/turnos";
 const OpPeriodo = () => {
     
 
@@ -94,17 +95,7 @@ const OpPeriodo = () => {
                             <FormLabel>Turno</FormLabel>
                         </td>
                         <td>
-                            <SelectIDW
-                                id="Turno"
-                                label="Turno"
-                                name="Turno"
-                                options={[]}
-                                width="100%"
-                                value={turnoSelecionado}
-                                onChange={(value: any) => {
-                                    setTurnoSelecionado(value?.target?.value);
-                                } }
-                                defaultValue={"todos"} />
+                            <Turnos />
                         </td>
                     </tr>
                 </tbody>

@@ -6,20 +6,19 @@ import Postos from "../subFiltros/postos";
 import GrupoTrabalho from "../subFiltros/grupoTrabalho";
 
 const PostosTrabalho = () => {
-    const [postoValorSelecionado, setPostoValorSelecionado] = useState<any>(" ")
     const [postoSelecionado, setPostoSelecionado] = useState("Postos");
     
     const handleChangePosto = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPostoValorSelecionado(" ");
+
         setPostoSelecionado((event.target as HTMLInputElement).value);
     };
 
     const SelectPostoFerramenta = ()=>{
 
-        if(postoSelecionado=="Postos"){
+        if(postoSelecionado === "Postos"){
             return <Postos />
         }
-        else if(postoSelecionado=="grupoTrabalho"){
+        else if(postoSelecionado === "grupoTrabalho"){
             return <GrupoTrabalho />
         }
 
@@ -34,6 +33,7 @@ const PostosTrabalho = () => {
                 name="radio-buttons-group"
                 className="radio"
                 onChange={(e) => { 
+                    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                     handleChangePosto
                     setPostoSelecionado(e.target.value);
 

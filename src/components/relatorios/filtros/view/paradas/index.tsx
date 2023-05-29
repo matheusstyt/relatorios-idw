@@ -2,7 +2,7 @@ import { Box, Checkbox, Chip, FormControl, FormControlLabel, MenuItem, OutlinedI
 import React, { useEffect, useState } from "react";
 import { getStops } from "../../services";
 
-const Paradas = (props) => {
+const Paradas = (props : any) => {
 
     const [areasSelecionadas, setAreasSelecionadas] = useState<any[]>([]);
     const [todasSelecionado, setTodasSelecionado] = useState<boolean>(false);
@@ -31,7 +31,7 @@ const Paradas = (props) => {
         startGetStops();
     }, []);
     
-    function handleParada (value) {
+    function handleParada (value : any) {
         setlistaParadasSelecionadas(value);
     }
     return (

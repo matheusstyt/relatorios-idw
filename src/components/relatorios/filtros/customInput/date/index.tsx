@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Calendar } from "react-feather";
 
 import { TextField } from "@mui/material";
@@ -31,14 +32,14 @@ function DateInput({
                 label={label}
                 value={value}
                 minDate={minDate}
-                onChange={(newValue) =>
+                onChange={(newValue: any) =>
                     onChangeValue && onChangeValue(newValue)
                 }
                 components={{
                     OpenPickerIcon: Calendar,
                 }}
                 disabled={disabled}
-                renderInput={(params) => (
+                renderInput={(params : any) => (
                     <TextField
                         variant="filled"
                         {...params}

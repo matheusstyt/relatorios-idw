@@ -1,5 +1,4 @@
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import SelectIDW from "../../customInput/select";
 import "./postosFerramentas.scss";
 import { useState } from "react";
 import React from "react";
@@ -9,28 +8,25 @@ import GrupoTrabalho from "../subFiltros/grupoTrabalho";
 import Ferramentas from "../subFiltros/ferramentas";
 const PostosFerramentas = () => {
 
-    const [postoFerramentaValorSelecionado, setPostoFerramentaValorSelecionado]= useState<any>(" ")
     const [postoFerramentaSelecionado, setPostoFerramentaSelecionado] = useState("Postos");
 
     const SelectPostoFerramenta = ()=>{
-        let lista : [] = [];
-        let label : string = "";
-        if(postoFerramentaSelecionado=="Postos"){
+
+        if(postoFerramentaSelecionado === "Postos"){
            return <Postos />
         }
-        else if(postoFerramentaSelecionado=="grupoTrabalho"){
+        else if(postoFerramentaSelecionado === "grupoTrabalho"){
             return <GrupoTrabalho />
         }
-        else if(postoFerramentaSelecionado=="ferramentas"){
+        else if(postoFerramentaSelecionado === "ferramentas"){
             return <Ferramentas />
         }
-        else if(postoFerramentaSelecionado=="grupoFerramenta"){
+        else if(postoFerramentaSelecionado === "grupoFerramenta"){
             return <GrupoFerramentas />
         }
     }
 
     const handleChangePostoFerramenta = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPostoFerramentaValorSelecionado(" ");
         setPostoFerramentaSelecionado((event.target as HTMLInputElement).value);
       };
     return (
@@ -42,6 +38,7 @@ const PostosFerramentas = () => {
                 name="radio-buttons-group"
                 className="radio"
                 onChange={(e) => { 
+                    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                     handleChangePostoFerramenta
                     setPostoFerramentaSelecionado(e.target.value);
 

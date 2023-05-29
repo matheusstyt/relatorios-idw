@@ -1,7 +1,7 @@
+import "./intervaloContagem.scss";
 import { useState } from "react";
 import DateInput from "../../customInput/date";
 import SelectTime from "../../customInput/time";
-import "./intervaloContagem.scss";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 
 const IntervaloContagem = () => {
@@ -104,7 +104,7 @@ const IntervaloContagem = () => {
             </div>
 
             {
-                exibirProducaoSelecionado != "pecas" 
+                exibirProducaoSelecionado !== "pecas" 
                 ? <div className="group-radio">
                     <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"

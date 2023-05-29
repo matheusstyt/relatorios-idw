@@ -1,23 +1,19 @@
-import { toast } from "react-toastify";
-
 import axios from "axios";
-
-import { APP_SETTINGS } from "../";
-import { ErrorTranslate } from "./errorTranslate";
-import React from "react";
 
 const APP_BASE_URL = "http://170.10.0.206:8080/idw/rest/v2";
 
-const body_login = {
-  login : "map",
-  senha : "map"
+async function getToken(){
+  const body_login = {
+    login : "map",
+    senha : "map"
+  }
+  await axios.post(`${APP_BASE_URL}/login`, body_login)
+  .then( res => {
+    sessionStorage.setItem("token", res.data.token);
+    sessionStorage.setItem("cdGt", res.data.cdGt);
+  })
 }
-await axios.post(`${APP_BASE_URL}/login`, body_login)
-      .then( res => {
-        sessionStorage.setItem("token", res.data.token);
-        sessionStorage.setItem("cdGt", res.data.cdGt);
-      })
-
+getToken();
 
 const api = axios.create({
   baseURL: `${APP_BASE_URL}`,

@@ -1,4 +1,4 @@
-import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
+import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import "./agrupamentoContagem.scss";
 import { useState } from "react";
 
@@ -63,7 +63,7 @@ const AgrupamentoContagem = () => {
             </div>
 
             {
-                exibirProducaoSelecionado != "pecas" 
+                exibirProducaoSelecionado !== "pecas" 
                 ? <div className="group-radio">
                     <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"

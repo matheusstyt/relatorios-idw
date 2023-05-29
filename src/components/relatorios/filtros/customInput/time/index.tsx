@@ -1,5 +1,5 @@
 import { FormControl, MenuItem, Select } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import times from "./times.json";
 
 export default function SelectTime(props : any) {

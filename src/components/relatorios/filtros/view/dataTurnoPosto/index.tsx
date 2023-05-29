@@ -3,7 +3,7 @@ import SelectTime from "../../customInput/time";
 import "./dataTurnoPosto.scss";
 import DateInput from "../../customInput/date";
 import { FormLabel } from "@mui/material";
-import SelectIDW from "../../customInput/select";
+import Postos from "../subFiltros/postos";
 
 const DataTurnoPosto = () => {
     const [dataInicio, setDataInicio] = useState<any>(new Date());
@@ -61,17 +61,7 @@ const DataTurnoPosto = () => {
                             <FormLabel>Postos</FormLabel>
                         </td>
                         <td>
-                        <SelectIDW
-                            id="Posto"
-                            label="Posto"
-                            name="Posto"
-                            options={[]}
-                            width="100%"
-                            value={postoSelecionado}
-                            onChange={(value: any) => {
-                                setPostoSelecionado(value?.target?.value);
-                            } }
-                            defaultValue={"todos"} />  
+                        <Postos />
           
                         </td>
                     </tr>

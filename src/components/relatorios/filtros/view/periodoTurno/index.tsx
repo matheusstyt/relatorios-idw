@@ -3,6 +3,7 @@ import DateInput from "../../customInput/date";
 import "./periodoTurno.scss";
 import { Checkbox, FormControlLabel, FormLabel } from "@mui/material";
 import SelectIDW from "../../customInput/select";
+import Turnos from "../subFiltros/turnos";
 
 const PeriodoTurno = () => {
 
@@ -64,17 +65,7 @@ const PeriodoTurno = () => {
                             <FormLabel>Turno</FormLabel>
                         </td>
                         <td>
-                            <SelectIDW
-                                id="Turno"
-                                label="Turno"
-                                name="Turno"
-                                options={[]}
-                                width="100%"
-                                value={turnoSelecionado}
-                                onChange={(value: any) => {
-                                    setTurnoSelecionado(value?.target?.value);
-                                } }
-                                defaultValue={"todos"} />
+                            <Turnos />
                         </td>
                     </tr>
                 </tbody>

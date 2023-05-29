@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SelectIDW from "../../../customInput/select"
-import { getAllJobGroupActive, getAllToolsActive } from "../../../services";
+import {  getAllToolsActive } from "../../../services";
 
 const Ferramentas = () => {
 
