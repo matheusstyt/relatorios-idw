@@ -8,8 +8,6 @@ import PeriodoTurno from "./filtros/view/periodoTurno";
 import Postos from "./filtros/view/postosTrabalho";
 import PostosFerramentas from "./filtros/view/postosFerramentas";
 import ProducaoEm from "./filtros/view/producaoEm";
-import "./relatorios.scss";
-
 import Paradas from "./filtros/view/paradas";
 import PostosTrabalho from "./filtros/view/postosTrabalho";
 //import  getStops from "./filtros/services";

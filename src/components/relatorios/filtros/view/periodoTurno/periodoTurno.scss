@@ -15,4 +15,7 @@ td{
     padding: 1em;
     box-sizing: border-box;
     border-bottom: 2px solid rgb(212, 212, 212);  
+    &:first-child{
+        border-right:  2px solid rgb(212, 212, 212);
+    }
 }

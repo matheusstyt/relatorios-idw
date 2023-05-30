@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+import "../../filtros.scss";
 import PeriodoTurno from "../../../../components/relatorios/filtros/view/periodoTurno";
 import PostosFerramentas from "../../../../components/relatorios/filtros/view/postosFerramentas";
 import Paradas from "../../../../components/relatorios/filtros/view/paradas";
 import AreaResponsavel from "../../../../components/relatorios/filtros/view/areaResponsavel";
-import { Button } from "@mui/material";
+import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
 
 const Filtros = (props : any) => {
@@ -73,34 +74,38 @@ const Filtros = (props : any) => {
         }
         console.log(payload);
         console.log(descricao);
-        
-        props.getFiltro(payload);
+
+        props.getPayload(payload);
         props.getDescricao(descricao);
 
     }
     return (
-        <div>
-            <h4>Filtros:</h4>
-
+        <div className="container-filtro">
             <PeriodoTurno 
                 turno={(value : any) => setTurnoSelecionado(value)}
                 dataInicio={(value : any) => setDataInicio(value)}
                 dataTermino={(value : any) => setDataTermino(value)}
                 periodoChecked={(value : boolean) => setPeriodoChecked(value)}
             />
+            <Divider />
             <PostosFerramentas
                 postoFerramentaSelecionado={(value : any) => setPostoFerramentaSelecionado(value)}
                 changed={(value : any) => setPostoFerramentaValorSelecionado(value)}
             />
+            <Divider />
             <Paradas 
                 changed={(value : any) => setListaParadasSelecionadas(value)}
                 todasSelecionado={(value : any) => setTodasParadasSelecionado(value)}
-                />
+            />
+            <Divider />
             <AreaResponsavel 
                 changed={(value : any) => setListaAreaSelecionadas(value)}
                 todasSelecionado={(value : any) => setTodasAreaSelecioando(value)}
             />
-            <Button disabled={!periodoChecked} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
+            <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
+                <Button variant="contained">LIMPAR</Button>
+                <Button disabled={!periodoChecked} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
+            </Container>
         </div>
     )
 }
