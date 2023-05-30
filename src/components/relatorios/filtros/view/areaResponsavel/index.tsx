@@ -3,9 +3,8 @@ import "./areaResponsavel.scss";
 import { useState } from "react";
 import Mult from "./multi";
 import React from "react";
-const AreaResponsavel = () => {
+const AreaResponsavel = (props: any) => {
 
-    const [areasSelecionadas, setAreasSelecionadas] = useState<any[]>([]);
     const [todasSelecionado, setTodasSelecionado] = useState<boolean>(false);
     
     return(
@@ -14,10 +13,15 @@ const AreaResponsavel = () => {
             <FormControlLabel 
                 label="Todas as Áreas Responsáveis"
                 value={todasSelecionado}
-                control={ <Checkbox onChange={() => { setTodasSelecionado(!todasSelecionado) }} />}
+                control={ <Checkbox onChange={(e) => { 
+                    setTodasSelecionado(!todasSelecionado); 
+                    props.todasSelecionado(!todasSelecionado);
+                }} />}
             />
 
-            <Mult disabled={todasSelecionado} changed={(novaLista : any) => { setAreasSelecionadas(novaLista) } }/>
+            <Mult disabled={todasSelecionado} changed={(novaLista : any) => { 
+                props.changed(novaLista);
+                } }/>
 
         </div>
     )

@@ -30,6 +30,7 @@ const PeriodoTurno = (props : any) => {
                                         value={periodoChecked}
                                         onChange={() => {
                                             setPeriodoChecked(!periodoChecked);
+                                            props.periodoChecked(!periodoChecked);
                                         }}
                                     />
                                 }
@@ -40,14 +41,21 @@ const PeriodoTurno = (props : any) => {
                                 <DateInput 
                                     disabled={!periodoChecked}
                                     value={dataInicio}
-                                    onChangeValue={ ( value : any) => props.dataInicio(value)}
+                                    onChangeValue={ ( value : any) => {
+                                        setDataInicio(value);
+                                        props.dataInicio(value);
+                                    }}
                                     label = "Dia de Início"
                                     helperText={"Campo obrigatório"}
                                 />
                                 <DateInput 
                                     disabled={!periodoChecked}
                                     value={dataTermino}
-                                    onChangeValue={ ( value : any) => props.dataTermino(value) }                                    label = "Dia de Fim"
+                                    onChangeValue={ ( value : any) => {
+                                        setDataTermino(value);
+                                        props.dataTermino(value);
+                                    }}     
+                                    label = "Dia de Fim"
                                     helperText={"Campo obrigatório"}
                                 />
                             </div>

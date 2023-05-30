@@ -49,8 +49,8 @@ export default function Mult(props : any) {
         .then((result : any) => {
             let tempList = result.data?.items.map((i: any)=>{
                 return {
-                  name: i?.dsAreaResponsavel,
-                  value: i?.cdAreaResponsavel
+                  value: i?.cdAreaResponsavel,
+                  name: i?.dsAreaResponsavel
                 }
               }); 
               setListaAreaResponsavel(tempList);
@@ -82,10 +82,10 @@ export default function Mult(props : any) {
           )}
           MenuProps={MenuProps}
         >
-          {ListaAreaResponsavel.map((area) => (
+          {ListaAreaResponsavel.map((area: any, index: number) => (
             <MenuItem
-              key={area?.name}
-              value={area?.name}
+              key={index}
+              value={`${area?.value} - ${area?.name}`}
               style={getStyles(area.name, areaResponsavel, theme)} >
               {area?.value} - {area?.name}
             </MenuItem>

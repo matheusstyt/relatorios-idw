@@ -6,24 +6,28 @@ import Postos from "../subFiltros/postos";
 import GrupoFerramentas from "../subFiltros/grupoFerramentas";
 import GrupoTrabalho from "../subFiltros/grupoTrabalho";
 import Ferramentas from "../subFiltros/ferramentas";
-const PostosFerramentas = () => {
+const PostosFerramentas = (props : any) => {
 
     const [postoFerramentaSelecionado, setPostoFerramentaSelecionado] = useState("Postos");
 
     const SelectPostoFerramenta = ()=>{
 
         if(postoFerramentaSelecionado === "Postos"){
-           return <Postos />
+           return <Postos changed={(value : any) => grupoSelecioando(value) } />
         }
         else if(postoFerramentaSelecionado === "grupoTrabalho"){
-            return <GrupoTrabalho />
+            return <GrupoTrabalho changed={(value : any) => grupoSelecioando(value) } />
         }
         else if(postoFerramentaSelecionado === "ferramentas"){
-            return <Ferramentas />
+            return <Ferramentas changed={(value : any) => grupoSelecioando(value) } />
         }
         else if(postoFerramentaSelecionado === "grupoFerramenta"){
-            return <GrupoFerramentas />
+            return <GrupoFerramentas changed={(value : any) => grupoSelecioando(value) } />
         }
+    }
+    function grupoSelecioando(value : any){
+        props.changed(value);
+        props.postoFerramentaSelecionado(postoFerramentaSelecionado);
     }
 
     const handleChangePostoFerramenta = (event: React.ChangeEvent<HTMLInputElement>) => {

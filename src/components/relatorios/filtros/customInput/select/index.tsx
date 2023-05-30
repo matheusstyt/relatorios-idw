@@ -54,7 +54,7 @@ function SelectIDW({
             variant={variant ? variant : "filled"}
             size={size}
             width={width}
-            minWidth={minWidth}
+    
             no_padding_top={noPaddingTop?.toString()}
         >
             <InputLabel error={error} id={id} shrink={shrink}>

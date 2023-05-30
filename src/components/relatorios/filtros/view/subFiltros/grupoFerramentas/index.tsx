@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SelectIDW from "../../../customInput/select"
 import { getAllToolsGroupActive } from "../../../services";
 
-const GrupoFerramentas = () => {
+const GrupoFerramentas = (props : any) => {
 
     const [grupoFerramentasValorSelecionado, setGrupoFerramentasValorSelecionado] = useState("");
     
@@ -39,6 +39,7 @@ const GrupoFerramentas = () => {
             defaultValue={"todos"} 
             onChange={(value: any) => {
                 setGrupoFerramentasValorSelecionado(value?.target?.value);
+                props.changed(value?.target?.value);
             } }
         />  
     )

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SelectIDW from "../../../customInput/select"
 import { getAllWorkStation } from "../../../services";
 
-const Postos = () => {
+const Postos = (props : any) => {
 
     const [postoValorSelecionado, setPostoValorSelecionado] = useState("");
     
@@ -37,6 +37,7 @@ const Postos = () => {
             defaultValue={"todos"} 
             onChange={(value: any) => {
                 setPostoValorSelecionado(value?.target?.value);
+                props.changed(value?.target?.value);
             } }
             />  
     )

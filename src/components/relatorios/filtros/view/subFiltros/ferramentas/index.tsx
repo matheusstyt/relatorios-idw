@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SelectIDW from "../../../customInput/select"
 import {  getAllToolsActive } from "../../../services";
 
-const Ferramentas = () => {
+const Ferramentas = (props : any) => {
 
     const [FerramentasValorSelecionado, setFerramentasValorSelecionado] = useState("");
     
@@ -37,6 +37,7 @@ const Ferramentas = () => {
             defaultValue={"todos"} 
             onChange={(value: any) => {
                 setFerramentasValorSelecionado(value?.target?.value);
+                props.changed(value?.target?.value);
             } }
         />  
     )

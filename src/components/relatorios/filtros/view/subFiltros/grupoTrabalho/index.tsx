@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SelectIDW from "../../../customInput/select"
 import { getAllJobGroupActive } from "../../../services";
 
-const GrupoTrabalho = () => {
+const GrupoTrabalho = (props : any) => {
 
     const [grupoTrabalhoValorSelecionado, setGrupoTrabalhoValorSelecionado] = useState("");
     
@@ -38,8 +38,10 @@ const GrupoTrabalho = () => {
             defaultValue={"todos"} 
             onChange={(value: any) => {
                 setGrupoTrabalhoValorSelecionado(value?.target?.value);
+                props.changed(value?.target?.value);
             } }
         />  
     )
 }
+
 export default GrupoTrabalho;

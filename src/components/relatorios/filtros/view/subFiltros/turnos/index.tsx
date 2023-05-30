@@ -20,7 +20,7 @@ const Turnos = (props : any) => {
                  }
                 });
                 tempList.unshift({
-                 value: " ",
+                 value: "todos",
                  name: "TODOS"
                 })
                 setListaTurnos(tempList);  

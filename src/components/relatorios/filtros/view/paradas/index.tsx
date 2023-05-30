@@ -4,7 +4,6 @@ import { getStops } from "../../services";
 
 const Paradas = (props : any) => {
 
-    const [areasSelecionadas, setAreasSelecionadas] = useState<any[]>([]);
     const [todasSelecionado, setTodasSelecionado] = useState<boolean>(false);
     
     const [listParadas, setListParadas] = useState<any[]>([]);
@@ -14,7 +13,7 @@ const Paradas = (props : any) => {
     const startGetStops = () => {
 
         getStops("", 1, 10000, false).then((result) => {
-            
+            console.log(result.data)
             if(result?.data!=null){
                 let tempList = result.data?.items.map((i: any)=>{
                     return {
@@ -33,6 +32,9 @@ const Paradas = (props : any) => {
     
     function handleParada (value : any) {
         setlistaParadasSelecionadas(value);
+        props.changed(value);
+        console.log(value)
+        
     }
     return (
         <div className="container paradas">
@@ -40,7 +42,10 @@ const Paradas = (props : any) => {
             <FormControlLabel 
                 label="Todas as Paradas"
                 value={todasSelecionado}
-                control={ <Checkbox onChange={() => { setTodasSelecionado(!todasSelecionado) }} />}
+                control={ <Checkbox onChange={() => { 
+                    setTodasSelecionado(!todasSelecionado);
+                    props.todasSelecionado(!todasSelecionado);
+                 }} />}
             />
             <FormControl fullWidth>
                 <Select
@@ -61,13 +66,13 @@ const Paradas = (props : any) => {
                     )}
                     // MenuProps={MenuProps}
                     >
-                  {listParadas.map((e: any) => (
+                  {listParadas.map((parada: any, index: number) => (
                     <MenuItem
-                      key={e?.name}
-                      value={`${e?.value} - ${e?.name}`}
-                      // style={getStyles(name, personName, theme)}
+                      key={index}
+                      value={`${parada?.value} - ${parada?.name}`}
+
                     >
-                      {`${e?.value} - ${e?.name}`}
+                      {`${parada?.value} - ${parada?.name}`}
                     </MenuItem>
                   ))}
                 </Select>
