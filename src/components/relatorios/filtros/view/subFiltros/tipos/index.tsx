@@ -4,26 +4,22 @@ import { useState } from "react";
 
 const Tipos = (props : any) => {
 
-    const [exibirTipoSelecionado, setExibirTipoSelecionado]= useState<any>("kilograma")
+    const [exibirTipoSelecionado, setExibirTipoSelecionado]= useState<any>("padrao")
 
-    const handleChangeExibirTipo = (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.changed(event.target.value);
-        setExibirTipoSelecionado((event.target as HTMLInputElement).value);
+    const handleChangeExibirTipo = (value: string) => {
+        props.changed(value);
+        setExibirTipoSelecionado(value);
     };
 
     return (
-        <div className="group-radio">
+        <div className="container tipo">
+            <h3>Tipo</h3>
             <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 defaultValue={exibirTipoSelecionado}
-                   onChange={handleChangeExibirTipo}
+                   onChange={e => handleChangeExibirTipo(e.target.value)}
                 name="radio-buttons-group"
                 className="radio" >
-                <FormControlLabel   
-                    control={<h4>Mostrar tipo como: </h4>}
-                    label=""
-                    className="form"
-                />
                 <FormControlLabel
                     value="padrao"
                     control={<Radio />}

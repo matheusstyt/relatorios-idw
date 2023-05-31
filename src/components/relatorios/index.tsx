@@ -10,8 +10,7 @@ import PostosFerramentas from "./filtros/view/postosFerramentas";
 import ProducaoEm from "./filtros/view/producaoEm";
 import Paradas from "./filtros/view/paradas";
 import PostosTrabalho from "./filtros/view/postosTrabalho";
-//import  getStops from "./filtros/services";
-//const [listaParadas, setListaParadas] = useState<any[]>([]);
+
 const Relatorios = () => {
   
     return (

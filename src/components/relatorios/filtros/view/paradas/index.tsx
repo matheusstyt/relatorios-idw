@@ -1,10 +1,10 @@
-import { Box, Checkbox, Chip, FormControl, FormControlLabel, MenuItem, OutlinedInput, Select } from "@mui/material";
+import { Box, Checkbox, Chip, FormControl, FormControlLabel, InputLabel, MenuItem, OutlinedInput, Select } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { getStops } from "../../services";
 
 const Paradas = (props : any) => {
 
-    const [todasSelecionado, setTodasSelecionado] = useState<boolean>(false);
+    const [todasSelecionado, setTodasSelecionado] = useState<boolean>(true);
     
     const [listParadas, setListParadas] = useState<any[]>([]);
     const [listaParadasSelecionadas, setlistaParadasSelecionadas] = useState<any[]>([]);
@@ -41,6 +41,7 @@ const Paradas = (props : any) => {
             <h3>Paradas</h3>
             <FormControlLabel 
                 label="Todas as Paradas"
+                checked={todasSelecionado}
                 value={todasSelecionado}
                 control={ <Checkbox onChange={() => { 
                     setTodasSelecionado(!todasSelecionado);
@@ -48,11 +49,13 @@ const Paradas = (props : any) => {
                  }} />}
             />
             <FormControl fullWidth>
+                <InputLabel id="multi-paradas-label">Paradas</InputLabel>
                 <Select
                     style={{width: "100%"}}
-                    labelId="demo-multiple-chip-label"
-                    id="demo-multiple-chip"
+                    labelId="multi-paradas-label"
+                    id="multi-paradas"
                     multiple
+                
                     disabled={todasSelecionado}
                     value={listaParadasSelecionadas}
                     onChange={(e) => { handleParada(e.target.value) }}
@@ -70,7 +73,6 @@ const Paradas = (props : any) => {
                     <MenuItem
                       key={index}
                       value={`${parada?.value} - ${parada?.name}`}
-
                     >
                       {`${parada?.value} - ${parada?.name}`}
                     </MenuItem>
