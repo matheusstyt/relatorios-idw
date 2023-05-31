@@ -5,7 +5,7 @@ import DateInput from "../../customInput/date";
 import { FormLabel } from "@mui/material";
 import Postos from "../subFiltros/postos";
 
-const DataTurnoPosto = () => {
+const DataTurnoPosto = (props : any) => {
     const [dataInicio, setDataInicio] = useState<any>(new Date());
     const [dataTermino, setDataTermino] = useState<any>(new Date());
     const [horaInicio, setHoraInicio] = useState<string>("");
@@ -32,6 +32,7 @@ const DataTurnoPosto = () => {
                                 value={dataInicio}
                                 onChangeValue={ ( value : any) => {
                                     setDataInicio(value);
+                                    props.dataInicio(value);
                                 } }
                                 label = "Dia de Início"
                                 helperText={"Campo obrigatório"}
@@ -42,6 +43,7 @@ const DataTurnoPosto = () => {
                                 value={dataTermino}
                                 onChangeValue={ ( value : any) => {
                                     setDataTermino(value);
+                                    props.dataTermino(value);
                                 } }
                                 label = "Dia de Fim"
                                 helperText={"Campo obrigatório"}
@@ -50,10 +52,18 @@ const DataTurnoPosto = () => {
                     </tr>
                     <tr>
                         <td>
-                            <SelectTime changed={ (value : string) => setHoraInicio(value)} />
+                            <SelectTime 
+                                changed={ (value : string) => {
+                                    setHoraInicio(value);
+                                    props.horaInicio(value);
+                                }} />
                         </td>
                         <td>
-                            <SelectTime changed={ (value : string) => { setHoraFim(value) }} />
+                            <SelectTime 
+                            changed={ (value : string) => { 
+                                setHoraFim(value);
+                                props.horaTermino(value);
+                                }} />
                         </td>
                     </tr>
                     <tr>
@@ -61,8 +71,7 @@ const DataTurnoPosto = () => {
                             <FormLabel>Postos</FormLabel>
                         </td>
                         <td>
-                        <Postos />
-          
+                        <Postos changed={(value : any) => props.posto(value)} />
                         </td>
                     </tr>
                 </tbody>

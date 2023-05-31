@@ -1,19 +1,10 @@
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import "./producaoEm.scss";
 import { useState } from "react";
-const ProducaoEm = () => {
+const ProducaoEm = (props : any) => {
     
     const [exibirProducaoSelecionado, setExibirProducaoSelecionado]= useState<any>("pecas")
-
-    const handleChangeExibirProducao = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setExibirProducaoSelecionado((event.target as HTMLInputElement).value);
-      };
-
     const [exibirPesoSelecionado, setExibirPesoSelecionado]= useState<any>("kilograma")
-
-    const handleChangeExibirPeso = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setExibirPesoSelecionado((event.target as HTMLInputElement).value);
-    };
 
     return (
         <div className="container producao-em">
@@ -22,7 +13,10 @@ const ProducaoEm = () => {
                 <RadioGroup 
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue={exibirProducaoSelecionado}
-                    onChange={handleChangeExibirProducao}
+                    onChange={(e) => {
+                        setExibirProducaoSelecionado(e.target.value);
+                        props.producaoValorSelecionado(e.target.value);
+                    }}
                     name="radio-buttons-group"
                     className="radio"
                 >
@@ -62,7 +56,10 @@ const ProducaoEm = () => {
                     <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
                         defaultValue={exibirPesoSelecionado}
-                        onChange={handleChangeExibirPeso}
+                        onChange={(e) => {
+                            setExibirProducaoSelecionado(e.target.value);
+                            props.pesoValorSelecionado(e.target.value);
+                        }}
                         name="radio-buttons-group"
                         className="radio" >
                         <FormControlLabel   

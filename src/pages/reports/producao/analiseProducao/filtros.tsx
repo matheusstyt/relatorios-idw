@@ -1,88 +1,45 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import "../../filtros.scss";
-import PostosFerramentas from "../../../../components/relatorios/filtros/view/postosFerramentas";
-import Paradas from "../../../../components/relatorios/filtros/view/paradas";
-import AreaResponsavel from "../../../../components/relatorios/filtros/view/areaResponsavel";
-import { Button, Container, Divider } from "@mui/material";
-import { useState } from "react";
-import Tipos from "../../../../components/relatorios/filtros/view/subFiltros/tipos";
-import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
-import AgrupamentoContagem from "../../../../components/relatorios/filtros/view/agrupamentoContagem";
 import DataTurnoPosto from "../../../../components/relatorios/filtros/view/dataTurnoPosto";
 import ProducaoEm from "../../../../components/relatorios/filtros/view/producaoEm";
+import { Button, Container, Divider } from "@mui/material";
+import { useState } from "react";
+import "../../filtros.scss";
 
 const Filtros = (props : any) => {
+
     // períodos e turnos
-    const [OPChecked, setOPChecked] = useState<boolean>(false);
-    const [OpNumber, setOpNumber] = useState<string>("");
-    const [periodoChecked, setPeriodoChecked] = useState<boolean>(false);
     const [dataInicio, setDataInicio] = useState<any>(new Date());
     const [dataTermino, setDataTermino] = useState<any>(new Date());
-    const [turnoSelecionado, setTurnoSelecionado] = useState<any>("");
-
-    // tipo
-    const [tipoSelecionado, setTipoSelecionado]= useState<any>("padrao")
+    const [horaInicio, setHoraInicio] = useState<any>(new Date());
+    const [horaTermino, setHoraTermino] = useState<any>(new Date());
+    const [postoTrabalhoSelecionado, setPostoTrabalhoSelecionado] = useState<any>("");
 
     // postos e ferramentas
-    const [postoFerramentaSelecionado, setPostoFerramentaSelecionado] = useState<string>("");
-    const [postoFerramentaValorSelecionado, setPostoFerramentaValorSelecionado] = useState<string>("");
-    // paradas 
-    const [listaParadasSelecionadas, setListaParadasSelecionadas] = useState<any[]>([]);
-    const [todasParadasSelecionado, setTodasParadasSelecionado] = useState<boolean>(true);
-
-    // área responsável
-    const [listaAreaSelecionadas, setListaAreaSelecionadas] = useState<any[]>([]);
-    const [todasAreaSelecioando, setTodasAreaSelecioando] = useState<boolean>(true);
+    const [producaoValorSelecionado, setProducaoValorSelecionado] = useState<string>("");
+    const [pesoValorSelecionado, setPesoValorSelecionado] = useState<string>("");
 
     const verFiltros = () => {
-        // cortar apenas o cdParada e cdArea
-        var listaParadaPayload : string[] = [], listaAreaPayload : string[] = [];
-        console.log(listaAreaSelecionadas);
-        listaParadasSelecionadas.length > 0 ? listaParadaPayload = listaParadasSelecionadas.map(
-            (parada : string) => {
-                const cdParada = parada.split('-');
-                return cdParada[0].trim();
-            })
-        : null
-        listaAreaSelecionadas.length > 0 ? listaAreaPayload = listaAreaSelecionadas.map(
-            (area : string) => {
-                const cdArea = area.split('-');
-                return cdArea[0].trim();
-            })
-        : null
-        // fim da lógica
 
         // carga útil
         const payload = {
-            OPChecked : OPChecked,
-            periodoChecked : periodoChecked,
-            dthrIni : periodoChecked? dataInicio : null,
-            dthFim : periodoChecked? dataTermino : null,
-            cdTurno : turnoSelecionado === "todos" ? null : turnoSelecionado,
 
-            tipo : tipoSelecionado,
+            dthrIni : dataInicio ? dataInicio : null,
+            dthFim : dataInicio ? dataTermino : null,
+            cdPt : postoTrabalhoSelecionado ? postoTrabalhoSelecionado : null,
+            isProducaoEmPeca: producaoValorSelecionado=="pecas",
+            isProducaoEmPesoBruto: producaoValorSelecionado=="pesoBruto",
+            isProducaoEmPesoLiquido: producaoValorSelecionado=="pesoLiquido",
+            isPesoEmKg: producaoValorSelecionado!="pecas" && pesoValorSelecionado=="kilograma",
+            isPesoEmTon: producaoValorSelecionado!="pecas" &&  pesoValorSelecionado=="tonelada" 
 
-            cdPt : postoFerramentaSelecionado === "Postos" ? postoFerramentaValorSelecionado : null,
-            cdGt : postoFerramentaSelecionado === "grupoTrabalho" ? postoFerramentaValorSelecionado : null,
-            cdFerramenta : postoFerramentaSelecionado === "ferramentas" ? postoFerramentaValorSelecionado : null,
-            cdGrpFerramenta : postoFerramentaSelecionado === "grupoFerramenta" ? postoFerramentaValorSelecionado : null,
-
-            isTodasAreas: todasAreaSelecioando,
-            isTodasParadas: todasParadasSelecionado,
-            listaCdParadas: listaParadaPayload,
-            listaCdAreas: listaAreaPayload,
         };
 
         let grupoTrabalho = "";
 
-        if(payload.cdGt!=null)  grupoTrabalho = `GRUPO DE TRABALHO: ${payload.cdGt}`
         if(payload.cdPt!=null)  grupoTrabalho = `POSTO DE TRABALHO: ${payload.cdPt}`
-        if(payload.cdFerramenta!=null)  grupoTrabalho = `FERRAMENTA: ${payload.cdFerramenta}`
-        if(payload.cdGrpFerramenta!=null)  grupoTrabalho = `GRUPO DE FERRAMENTA: ${payload.cdGrpFerramenta}`
         
         const descricao = {
             grupoTrabalho : grupoTrabalho,
-            turno : payload.cdTurno === "todos" || payload.cdTurno === null ? "TODOS OS TURNOS" : payload.cdTurno,
             periodo: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`,
         }
         console.log(payload);
@@ -95,13 +52,22 @@ const Filtros = (props : any) => {
     return (
         <div className="container-filtro">
             
-            <DataTurnoPosto />
+            <DataTurnoPosto 
+                dataInicio={(value : any) => setDataInicio(value)}
+                dataTermino={(value : any) => setDataTermino(value)}
+                horaInicio={(value : any) => setHoraInicio(value)}
+                horaTermino={(value : any) => setHoraTermino(value)}
+                posto={(value : any) => setPostoTrabalhoSelecionado(value)}
+            />
             <Divider />
-            <ProducaoEm />
+            <ProducaoEm 
+                pesoValorSelecionado={(value : string) => setPesoValorSelecionado(value)}
+                producaoValorSelecionado={(value : string) => setProducaoValorSelecionado(value)}
+            />
 
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
                 <Button variant="contained">LIMPAR</Button>
-                <Button disabled={!periodoChecked} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
+                <Button onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
             </Container>
         </div>
     )
