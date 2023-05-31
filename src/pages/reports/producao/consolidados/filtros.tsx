@@ -7,6 +7,7 @@ import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
 import Tipos from "../../../../components/relatorios/filtros/view/subFiltros/tipos";
 import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
+import AgrupamentoContagem from "../../../../components/relatorios/filtros/view/agrupamentoContagem";
 
 const Filtros = (props : any) => {
     // períodos e turnos
@@ -23,31 +24,14 @@ const Filtros = (props : any) => {
     // postos e ferramentas
     const [postoFerramentaSelecionado, setPostoFerramentaSelecionado] = useState<string>("");
     const [postoFerramentaValorSelecionado, setPostoFerramentaValorSelecionado] = useState<string>("");
-    // paradas 
-    const [listaParadasSelecionadas, setListaParadasSelecionadas] = useState<any[]>([]);
-    const [todasParadasSelecionado, setTodasParadasSelecionado] = useState<boolean>(true);
 
-    // área responsável
-    const [listaAreaSelecionadas, setListaAreaSelecionadas] = useState<any[]>([]);
-    const [todasAreaSelecioando, setTodasAreaSelecioando] = useState<boolean>(true);
+    // agrupamentos
+    const [exibirProducaoSelecionado, setExibirProducaoSelecionado]= useState<any>("pecas");
+    const [exibirPesoSelecionado, setExibirPesoSelecionado]= useState<any>("kilograma");
+    const [exibirAgrupamentoSelecionado, setExibirAgrupamentoSelecionado]= useState<any>("agrupamentoPosto");
 
+    
     const verFiltros = () => {
-        // cortar apenas o cdParada e cdArea
-        var listaParadaPayload : string[] = [], listaAreaPayload : string[] = [];
-        console.log(listaAreaSelecionadas);
-        listaParadasSelecionadas.length > 0 ? listaParadaPayload = listaParadasSelecionadas.map(
-            (parada : string) => {
-                const cdParada = parada.split('-');
-                return cdParada[0].trim();
-            })
-        : null
-        listaAreaSelecionadas.length > 0 ? listaAreaPayload = listaAreaSelecionadas.map(
-            (area : string) => {
-                const cdArea = area.split('-');
-                return cdArea[0].trim();
-            })
-        : null
-        // fim da lógica
 
         // carga útil
         const payload = {
@@ -57,17 +41,19 @@ const Filtros = (props : any) => {
             dthFim : periodoChecked? dataTermino : null,
             cdTurno : turnoSelecionado === "todos" ? null : turnoSelecionado,
 
-            tipo : tipoSelecionado,
-
             cdPt : postoFerramentaSelecionado === "Postos" ? postoFerramentaValorSelecionado : null,
             cdGt : postoFerramentaSelecionado === "grupoTrabalho" ? postoFerramentaValorSelecionado : null,
             cdFerramenta : postoFerramentaSelecionado === "ferramentas" ? postoFerramentaValorSelecionado : null,
             cdGrpFerramenta : postoFerramentaSelecionado === "grupoFerramenta" ? postoFerramentaValorSelecionado : null,
 
-            isTodasAreas: todasAreaSelecioando,
-            isTodasParadas: todasParadasSelecionado,
-            listaCdParadas: listaParadaPayload,
-            listaCdAreas: listaAreaPayload,
+            isAgrupadoPorPt: exibirAgrupamentoSelecionado=="agrupamentoPosto",
+            isAgrupadoPorFerramenta: exibirAgrupamentoSelecionado=="agrupamentoFerramenta",
+            isAgrupadoPorProduto: exibirAgrupamentoSelecionado=="agrupamentoProduto",
+            isProducaoEmPeca: exibirProducaoSelecionado=="pecas",
+            isProducaoEmPesoBruto: exibirProducaoSelecionado=="pesoBruto",
+            isProducaoEmPesoLiquido: exibirProducaoSelecionado=="pesoLiquido",
+            isPesoEmKg: exibirProducaoSelecionado!="pecas" && exibirPesoSelecionado=="kilograma",
+            isPesoEmTon: exibirProducaoSelecionado!="pecas" &&  exibirPesoSelecionado=="tonelada" 
         };
 
         let grupoTrabalho = "";
@@ -106,14 +92,10 @@ const Filtros = (props : any) => {
                 changed={(value : any) => setPostoFerramentaValorSelecionado(value)}
             />
             <Divider />
-            <Paradas 
-                changed={(value : any) => setListaParadasSelecionadas(value)}
-                todasSelecionado={(value : any) => setTodasParadasSelecionado(value)}
-            />
-            <Divider />
-            <AreaResponsavel 
-                changed={(value : any) => setListaAreaSelecionadas(value)}
-                todasSelecionado={(value : any) => setTodasAreaSelecioando(value)}
+            <AgrupamentoContagem
+                producaoValorSelecionado={(value : any) => setExibirProducaoSelecionado(value)}
+                pesoValorSelecionado={(value : any) => setExibirPesoSelecionado(value)}
+                agrupamentoValorSelecionado={(value : any) => setExibirAgrupamentoSelecionado(value)}
             />
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
                 <Button variant="contained">LIMPAR</Button>

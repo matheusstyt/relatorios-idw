@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import "../../filtros.scss";
 import PostosFerramentas from "../../../../components/relatorios/filtros/view/postosFerramentas";
-import Paradas from "../../../../components/relatorios/filtros/view/paradas";
 import AreaResponsavel from "../../../../components/relatorios/filtros/view/areaResponsavel";
+import Paradas from "../../../../components/relatorios/filtros/view/paradas";
 import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
 import Tipos from "../../../../components/relatorios/filtros/view/subFiltros/tipos";
@@ -52,12 +52,10 @@ const Filtros = (props : any) => {
         // carga útil
         const payload = {
             OPChecked : OPChecked,
-            periodoChecked : periodoChecked,
+            OpNumber : OpNumber,
             dthrIni : periodoChecked? dataInicio : null,
             dthFim : periodoChecked? dataTermino : null,
             cdTurno : turnoSelecionado === "todos" ? null : turnoSelecionado,
-
-            tipo : tipoSelecionado,
 
             cdPt : postoFerramentaSelecionado === "Postos" ? postoFerramentaValorSelecionado : null,
             cdGt : postoFerramentaSelecionado === "grupoTrabalho" ? postoFerramentaValorSelecionado : null,

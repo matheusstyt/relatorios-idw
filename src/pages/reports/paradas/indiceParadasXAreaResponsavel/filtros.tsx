@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import "../../filtros.scss";
-import PeriodoTurno from "../../../../components/relatorios/filtros/view/periodoTurno";
 import PostosFerramentas from "../../../../components/relatorios/filtros/view/postosFerramentas";
 import Paradas from "../../../../components/relatorios/filtros/view/paradas";
 import AreaResponsavel from "../../../../components/relatorios/filtros/view/areaResponsavel";
 import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
+import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
 
 const Filtros = (props : any) => {
     // períodos e turnos
+    const [OPChecked, setOPChecked] = useState<boolean>(false);
+    const [OpNumber, setOpNumber] = useState<string>("");
     const [periodoChecked, setPeriodoChecked] = useState<boolean>(false);
     const [dataInicio, setDataInicio] = useState<any>(new Date());
     const [dataTermino, setDataTermino] = useState<any>(new Date());
@@ -45,6 +47,8 @@ const Filtros = (props : any) => {
 
         // carga útil
         const payload = {
+            OPChecked : OPChecked,
+            OpNumber : OpNumber,
             dthrIni : periodoChecked? dataInicio : null,
             dthFim : periodoChecked? dataTermino : null,
             cdTurno : turnoSelecionado === "todos" ? null : turnoSelecionado,
@@ -81,11 +85,13 @@ const Filtros = (props : any) => {
     }
     return (
         <div className="container-filtro">
-            <PeriodoTurno 
+            <OpPeriodo 
+                periodoChecked={(value : boolean) => setPeriodoChecked(value)}
+                OPChecked={(value : boolean) => setOPChecked(value)}
+                OpNumber={(value : string) => setOpNumber(value)}
                 turno={(value : any) => setTurnoSelecionado(value)}
                 dataInicio={(value : any) => setDataInicio(value)}
                 dataTermino={(value : any) => setDataTermino(value)}
-                periodoChecked={(value : boolean) => setPeriodoChecked(value)}
             />
             <Divider />
             <PostosFerramentas

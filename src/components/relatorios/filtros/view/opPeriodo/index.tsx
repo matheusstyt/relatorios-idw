@@ -2,10 +2,8 @@ import { Checkbox, FormControlLabel, FormLabel, TextField } from "@mui/material"
 import React, { useState } from "react";
 import "./opPeriodo.scss";
 import DateInput from "../../customInput/date";
-import SelectIDW from "../../customInput/select";
-import Tipos from "../subFiltros/tipos";
 import Turnos from "../subFiltros/turnos";
-const OpPeriodo = () => {
+const OpPeriodo = (props : any) => {
     
 
 
@@ -18,10 +16,6 @@ const OpPeriodo = () => {
     const [dataTermino, setDataTermino] = useState<any>(new Date());
 
     const [turnoSelecionado, setTurnoSelecionado] = useState<any>("");
-
-    const handleOp = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setOpNumber((event.target as HTMLInputElement).value);
-    };
 
     return (
         <div className="container op-periodo">
@@ -40,13 +34,22 @@ const OpPeriodo = () => {
                                     value={opChecked}
                                     onChange={() => {
                                         setOpChecked(!opChecked);
+                                        props.OPChecked(!opChecked);
                                     }}
                                 />
                             }
                             />
                         </td>
                         <td>
-                            <TextField disabled={!opChecked} style={{ width : "100%" }} value={opNumber} onChange={handleOp} />
+                            <TextField 
+                                disabled={!opChecked} 
+                                style={{ width : "100%" }} 
+                                value={opNumber} 
+                                onChange={e => {
+                                    setOpNumber(e.target.value);
+                                    props.OpNumber(e.target.value);
+                                }} 
+                            />
                         </td>
                     </tr>
                     <tr>
@@ -61,6 +64,7 @@ const OpPeriodo = () => {
                                         value={periodoChecked}
                                         onChange={() => {
                                             setPeriodoChecked(!periodoChecked);
+                                            props.periodoChecked(!periodoChecked);
                                         }}
                                     />
                                 }
@@ -73,6 +77,7 @@ const OpPeriodo = () => {
                                     value={dataInicio}
                                     onChangeValue={ ( value : any) => {
                                         setDataInicio(value);
+                                        props.dataInicio(value);
                                     } }
                                     label = "Dia de Início"
                                     helperText={"Campo obrigatório"}
@@ -82,6 +87,7 @@ const OpPeriodo = () => {
                                     value={dataTermino}
                                     onChangeValue={ ( value : any) => {
                                         setDataTermino(value);
+                                        props.dataTermino(value);
                                     } }
                                     label = "Dia de Fim"
                                     helperText={"Campo obrigatório"}
@@ -95,13 +101,15 @@ const OpPeriodo = () => {
                             <FormLabel>Turno</FormLabel>
                         </td>
                         <td>
-                            <Turnos />
+                            <Turnos changed={(value: any) => { 
+                                setTurnoSelecionado(value);
+                                props.turno(value);
+                            }} />
                         </td>
                     </tr>
                 </tbody>
                 
             </table>
-            <Tipos changed={(value : any) => { alert(value) }}/>
         </div>
 
     )

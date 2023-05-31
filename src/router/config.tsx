@@ -1,5 +1,11 @@
 import IndiceParadas from "../pages/reports/paradas/indiceParadas";
 import IndiceParadasXAreResponsavel from "../pages/reports/paradas/indiceParadasXAreaResponsavel";
+import IndiceParadasXPosto from "../pages/reports/paradas/indiceParadasXPosto";
+import OcorrenciaParada from "../pages/reports/paradas/ocorrenciaParada";
+import QuantidadeParadas from "../pages/reports/paradas/quantidadeParada";
+import AcompanhamentoProducao from "../pages/reports/producao/acompanhamentoProducao";
+import AnaliseProducao from "../pages/reports/producao/analiseProducao";
+import Consolidados from "../pages/reports/producao/consolidados";
 
 export const APP_ROUTES = {
     REPORT: [
@@ -14,34 +20,34 @@ export const APP_ROUTES = {
         element: <IndiceParadasXAreResponsavel />
       },
       {
-        title : "Índice de Parada por Máquinas (R029)",
-        path : "indiceparadaxmaquina",
-        element: <IndiceParadasXAreResponsavel />
+        title : "Índice de Parada por Posto (R029)",
+        path : "indiceparadaxposto",
+        element: <IndiceParadasXPosto />
       },
       {
         title : "Ocorrências de Paradas (R031)",
         path : "ocorrenciaparada",
-        element: <IndiceParadasXAreResponsavel />
+        element: <OcorrenciaParada />
       },
       {
         title : "Quantidade de Paradas (R033)",
         path : "quantidadeparada",
-        element: <IndiceParadasXAreResponsavel />
+        element: <QuantidadeParadas />
       },
       {
         title : " Consolidados (R013)",
         path : "consolidados",
-        element: <IndiceParadasXAreResponsavel />
+        element: <Consolidados />
       },
       {
         title : "Análise de Produção e Eficiência Hora/Hora (R014)",
         path : "analiseproducaoeficiencia",
-        element: <IndiceParadasXAreResponsavel />
+        element: <AnaliseProducao />
       },
       {
         title : "Acompanhamento de Produção (R015)",
         path : "acompanhamentoproducao",
-        element: <IndiceParadasXAreResponsavel />
+        element: <AcompanhamentoProducao />
       },
       {
         title : "Refugos (R020)",

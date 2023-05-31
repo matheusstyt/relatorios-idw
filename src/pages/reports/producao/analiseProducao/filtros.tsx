@@ -7,6 +7,9 @@ import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
 import Tipos from "../../../../components/relatorios/filtros/view/subFiltros/tipos";
 import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
+import AgrupamentoContagem from "../../../../components/relatorios/filtros/view/agrupamentoContagem";
+import DataTurnoPosto from "../../../../components/relatorios/filtros/view/dataTurnoPosto";
+import ProducaoEm from "../../../../components/relatorios/filtros/view/producaoEm";
 
 const Filtros = (props : any) => {
     // períodos e turnos
@@ -91,30 +94,11 @@ const Filtros = (props : any) => {
     }
     return (
         <div className="container-filtro">
-            <OpPeriodo 
-                periodoChecked={(value : boolean) => setPeriodoChecked(value)}
-                OPChecked={(value : boolean) => setOPChecked(value)}
-                OpNumber={(value : string) => setOpNumber(value)}
-                turno={(value : any) => setTurnoSelecionado(value)}
-                dataInicio={(value : any) => setDataInicio(value)}
-                dataTermino={(value : any) => setDataTermino(value)}
-            />
-            <Tipos changed={(value : string) => setTipoSelecionado(value)} />
+            
+            <DataTurnoPosto />
             <Divider />
-            <PostosFerramentas
-                postoFerramentaSelecionado={(value : any) => setPostoFerramentaSelecionado(value)}
-                changed={(value : any) => setPostoFerramentaValorSelecionado(value)}
-            />
-            <Divider />
-            <Paradas 
-                changed={(value : any) => setListaParadasSelecionadas(value)}
-                todasSelecionado={(value : any) => setTodasParadasSelecionado(value)}
-            />
-            <Divider />
-            <AreaResponsavel 
-                changed={(value : any) => setListaAreaSelecionadas(value)}
-                todasSelecionado={(value : any) => setTodasAreaSelecioando(value)}
-            />
+            <ProducaoEm />
+
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
                 <Button variant="contained">LIMPAR</Button>
                 <Button disabled={!periodoChecked} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>

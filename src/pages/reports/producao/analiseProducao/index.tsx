@@ -3,7 +3,7 @@ import { Component, useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
 import { Header } from "../../export";
-export default function IndiceParadas () {
+export default function AnaliseProducao () {
 
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<any>({});
@@ -11,7 +11,7 @@ export default function IndiceParadas () {
     return (
         <div className="container-page">
             <AccordionDinamic 
-                title="Índices de Paradas (R027)"
+                title="Consolidados (R013)"
                 component={
                     <Filtros 
                         getPayload={(value: any ) => setCargaUtil(value)}
@@ -22,7 +22,7 @@ export default function IndiceParadas () {
 
             <div className="export-content">
                 <Header 
-                    title="Índices de Paradas (R027)" 
+                    title="Análise de Produção e Eficiência Hora/Hora (R014)" 
                     components={
                         <>
                             <p>GRUPO DE TRABALHO: {descricao.grupoTrabalho}</p>

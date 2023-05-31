@@ -9,7 +9,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={ <Inicio />} />
       {
-        APP_ROUTES.REPORT.map( (route, index) => <Route path={`/${route.path}`} element={ route.element } />)
+        APP_ROUTES.REPORT.map( (route, index) => <Route key={index} path={`/${route.path}`} element={ route.element } />)
       }
     </Routes>
   );
