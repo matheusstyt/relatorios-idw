@@ -3,7 +3,7 @@ import { Component, useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
 import { Header } from "../../export";
-export default function Consolidados () {
+export default function Consolidados (props : any) {
 
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<any>({});
@@ -11,7 +11,7 @@ export default function Consolidados () {
     return (
         <div className="container-page">
             <AccordionDinamic 
-                title="Consolidados (R013)"
+                title={props.title}
                 component={
                     <Filtros 
                         getPayload={(value: any ) => setCargaUtil(value)}
@@ -19,10 +19,9 @@ export default function Consolidados () {
                     />
                 }
             />
-
             <div className="export-content">
                 <Header 
-                    title="Consolidados (R013)" 
+                    title={props.title}
                     components={
                         <>
                             <p>GRUPO DE TRABALHO: {descricao.grupoTrabalho}</p>

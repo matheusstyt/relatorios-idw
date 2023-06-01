@@ -9,12 +9,11 @@ const PostosTrabalho = (props : any) => {
     const [postoSelecionado, setPostoSelecionado] = useState("Postos");
 
     const SelectPostoFerramenta = ()=>{
-
         if(postoSelecionado === "Postos"){
-            return <Postos changed={(value : any) => props.postoTrabalhoValor(value) }/>
+            return <Postos changed={(value : any) => props.postoTrabalhoValorSelecionado(value) }/>
         }
         else if(postoSelecionado === "grupoTrabalho"){
-            return <GrupoTrabalho changed={(value : any) => props.postoTrabalhoValor(value) }/>
+            return <GrupoTrabalho changed={(value : any) => props.postoTrabalhoValorSelecionado(value) }/>
         }
     } 
     return (
@@ -27,7 +26,7 @@ const PostosTrabalho = (props : any) => {
                 className="radio"
                 onChange={(e) => { 
                     setPostoSelecionado(e.target.value);
-                    props.postoSelecionado( e.target.value )
+                    props.postoTrabalhoSelecionado( e.target.value )
 
                 }}
             >

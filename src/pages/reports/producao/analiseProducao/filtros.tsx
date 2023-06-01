@@ -14,7 +14,7 @@ const Filtros = (props : any) => {
     const [horaTermino, setHoraTermino] = useState<any>(new Date());
     const [postoTrabalhoSelecionado, setPostoTrabalhoSelecionado] = useState<any>("");
 
-    // postos e ferramentas
+    // producao em 
     const [producaoValorSelecionado, setProducaoValorSelecionado] = useState<string>("");
     const [pesoValorSelecionado, setPesoValorSelecionado] = useState<string>("");
 
@@ -25,18 +25,21 @@ const Filtros = (props : any) => {
 
             dthrIni : dataInicio ? dataInicio : null,
             dthFim : dataInicio ? dataTermino : null,
+            intervaloIni : horaInicio? horaInicio : null,
+            intervaloFim : horaTermino? horaTermino : null,
+
             cdPt : postoTrabalhoSelecionado ? postoTrabalhoSelecionado : null,
-            isProducaoEmPeca: producaoValorSelecionado=="pecas",
-            isProducaoEmPesoBruto: producaoValorSelecionado=="pesoBruto",
-            isProducaoEmPesoLiquido: producaoValorSelecionado=="pesoLiquido",
-            isPesoEmKg: producaoValorSelecionado!="pecas" && pesoValorSelecionado=="kilograma",
-            isPesoEmTon: producaoValorSelecionado!="pecas" &&  pesoValorSelecionado=="tonelada" 
+            isProducaoEmPeca: producaoValorSelecionado === "pecas",
+            isProducaoEmPesoBruto: producaoValorSelecionado === "pesoBruto",
+            isProducaoEmPesoLiquido: producaoValorSelecionado === "pesoLiquido",
+            isPesoEmKg: producaoValorSelecionado !== "pecas" && pesoValorSelecionado === "kilograma",
+            isPesoEmTon: producaoValorSelecionado !== "pecas" &&  pesoValorSelecionado === "tonelada" 
 
         };
 
         let grupoTrabalho = "";
 
-        if(payload.cdPt!=null)  grupoTrabalho = `POSTO DE TRABALHO: ${payload.cdPt}`
+        if(payload.cdPt !== null)  grupoTrabalho = `POSTO DE TRABALHO: ${payload.cdPt}`
         
         const descricao = {
             grupoTrabalho : grupoTrabalho,

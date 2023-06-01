@@ -52,6 +52,7 @@ const Filtros = (props : any) => {
         // carga útil
         const payload = {
             OPChecked : OPChecked,
+            OpNumber : OpNumber,
             periodoChecked : periodoChecked,
             dthrIni : periodoChecked? dataInicio : null,
             dthFim : periodoChecked? dataTermino : null,

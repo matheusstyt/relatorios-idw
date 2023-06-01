@@ -2,7 +2,8 @@ import AccordionDinamic from "../../../../components/relatorios/accordion";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-export default function QuantidadeParadas () {
+import { Header } from "../../export";
+export default function QuantidadeParadas (props : any) {
 
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<any>({});
@@ -10,7 +11,7 @@ export default function QuantidadeParadas () {
     return (
         <div className="container-page">
             <AccordionDinamic 
-                title="Quantidade de Paradas (R033)"
+                title={props.title}
                 component={
                     <Filtros 
                         getPayload={(value: any ) => setCargaUtil(value)}
@@ -18,6 +19,19 @@ export default function QuantidadeParadas () {
                     />
                 }
             />
+            <div className="export-content">
+                <Header 
+                    title={props.title}
+                    components={
+                        <>
+                            <p>GRUPO DE TRABALHO: {descricao.grupoTrabalho}</p>
+                            <p>TURNO: {descricao.turno}</p>
+                            <p>PERÍODO: {descricao.periodo}</p>
+                        </>
+                    }
+                />
+
+            </div>
         </div>
     )   
 }

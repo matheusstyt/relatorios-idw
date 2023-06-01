@@ -1,9 +1,9 @@
 import AccordionDinamic from "../../../../components/relatorios/accordion";
-import { Component, useState } from "react";
+import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
 import { Header } from "../../export";
-export default function AnaliseProducao () {
+export default function AnaliseProducao (props : any) {
 
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<any>({});
@@ -11,7 +11,7 @@ export default function AnaliseProducao () {
     return (
         <div className="container-page">
             <AccordionDinamic 
-                title="Consolidados (R013)"
+                title={props.title}
                 component={
                     <Filtros 
                         getPayload={(value: any ) => setCargaUtil(value)}
@@ -22,11 +22,10 @@ export default function AnaliseProducao () {
 
             <div className="export-content">
                 <Header 
-                    title="Análise de Produção e Eficiência Hora/Hora (R014)" 
+                    title={props.title}
                     components={
                         <>
                             <p>GRUPO DE TRABALHO: {descricao.grupoTrabalho}</p>
-                            <p>TURNO: {descricao.turno}</p>
                             <p>PERÍODO: {descricao.periodo}</p>
                         </>
                     }
