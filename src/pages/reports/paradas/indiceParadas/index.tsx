@@ -1,8 +1,9 @@
 import AccordionDinamic from "../../../../components/relatorios/accordion";
-import { Component, useState } from "react";
+import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
 import { Header } from "../../export";
+import { FiFilter } from "react-icons/fi";
 export default function IndiceParadas (props : any) {
 
     const [cargaUtil, setCargaUtil] = useState<any>({});
@@ -10,8 +11,10 @@ export default function IndiceParadas (props : any) {
 
     return (
         <div className="container-page">
-            <AccordionDinamic 
-                title={props.title}
+            <h3 className="title-relatorio">{props.title}</h3>
+            <AccordionDinamic
+                title="Filtro"
+                img={<FiFilter size={25}/>}
                 component={
                     <Filtros 
                         getPayload={(value: any ) => setCargaUtil(value)}

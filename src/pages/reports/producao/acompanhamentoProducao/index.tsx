@@ -1,8 +1,9 @@
 import AccordionDinamic from "../../../../components/relatorios/accordion";
-import { Component, useState } from "react";
+import { FiFilter } from "react-icons/fi";
+import { useState } from "react";
+import { Header } from "../../export";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import { Header } from "../../export";
 export default function AcompanhamentoProducao (props : any) {
 
     const [cargaUtil, setCargaUtil] = useState<any>({});
@@ -10,8 +11,10 @@ export default function AcompanhamentoProducao (props : any) {
 
     return (
         <div className="container-page">
-            <AccordionDinamic 
-                title={props.title}
+            <h3 className="title-relatorio">{props.title}</h3>
+            <AccordionDinamic
+                title="Filtro"
+                img={<FiFilter size={25}/>}
                 component={
                     <Filtros 
                         getPayload={(value: any ) => setCargaUtil(value)}
@@ -25,7 +28,7 @@ export default function AcompanhamentoProducao (props : any) {
                     title={props.title}
                     components={
                         <>
-                            <p>GRUPO DE TRABALHO: {descricao.grupoTrabalho}</p>
+                            <p>{descricao.grupoTrabalho}</p>
                             <p>PERÍODO: {descricao.periodo}</p>
                         </>
                     }

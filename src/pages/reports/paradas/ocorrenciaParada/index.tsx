@@ -1,8 +1,9 @@
 import AccordionDinamic from "../../../../components/relatorios/accordion";
+import { FiFilter } from "react-icons/fi";
+import { Header } from "../../export";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import { Header } from "../../export";
 export default function OcorrenciaParada (props : any) {
 
     const [cargaUtil, setCargaUtil] = useState<any>({});
@@ -10,8 +11,10 @@ export default function OcorrenciaParada (props : any) {
 
     return (
         <div className="container-page">
+            <h3 className="title-relatorio">{props.title}</h3>
             <AccordionDinamic 
-                title={props.title}
+                title="Filtro"
+                img={<FiFilter size={25}/>}
                 component={
                     <Filtros 
                         getPayload={(value: any ) => setCargaUtil(value)}

@@ -21,11 +21,11 @@ const Filtros = (props : any) => {
     const [postoFerramentaValorSelecionado, setPostoFerramentaValorSelecionado] = useState<string>("");
     // paradas 
     const [listaParadasSelecionadas, setListaParadasSelecionadas] = useState<any[]>([]);
-    const [todasParadasSelecionado, setTodasParadasSelecionado] = useState<boolean>(false);
+    const [todasParadasSelecionado, setTodasParadasSelecionado] = useState<boolean>(true);
 
     // área responsável
     const [listaAreaSelecionadas, setListaAreaSelecionadas] = useState<any[]>([]);
-    const [todasAreaSelecioando, setTodasAreaSelecioando] = useState<boolean>(false);
+    const [todasAreaSelecioando, setTodasAreaSelecioando] = useState<boolean>(true);
 
     const verFiltros = () => {
         // cortar apenas o cdParada e cdArea

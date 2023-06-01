@@ -16,7 +16,7 @@ const Filtros = (props : any) => {
     const [horaTermino, setHoraTermino] = useState<string>("");
 
     // postos e ferramentas
-    const [postoTrabalhoSelecionado, setPostoTrabalhoSelecionado] = useState<string>("");
+    const [postoTrabalhoSelecionado, setPostoTrabalhoSelecionado] = useState<string>("Postos");
     const [postoTrabalhoValorSelecionado, setPostoTrabalhoValorSelecionado] = useState<string>("");
 
     // producao em 
