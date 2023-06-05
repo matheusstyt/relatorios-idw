@@ -12,6 +12,7 @@ const Postos = (props : any) => {
 
         getAllWorkStation("", 1, 10000)
         .then((result : any) => {
+            
             let lista = result.data.map((i: any)=>{
                 return {
                     value: i?.cdPt,

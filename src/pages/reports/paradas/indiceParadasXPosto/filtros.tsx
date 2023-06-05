@@ -7,14 +7,15 @@ import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
 import Tipos from "../../../../components/relatorios/filtros/view/subFiltros/tipos";
 import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
+import { DateFormat } from "../../export";
 
 const Filtros = (props : any) => {
     // períodos e turnos
     const [OPChecked, setOPChecked] = useState<boolean>(false);
     const [OpNumber, setOpNumber] = useState<string>("");
     const [periodoChecked, setPeriodoChecked] = useState<boolean>(false);
-    const [dataInicio, setDataInicio] = useState<any>(new Date());
-    const [dataTermino, setDataTermino] = useState<any>(new Date());
+    const [dataInicio, setDataInicio] = useState<Date>(new Date());
+    const [dataTermino, setDataTermino] = useState<Date>(new Date());
     const [turnoSelecionado, setTurnoSelecionado] = useState<any>("");
 
     // tipo
@@ -51,11 +52,11 @@ const Filtros = (props : any) => {
 
         // carga útil
         const payload = {
-            OPChecked : OPChecked,
-            OpNumber : OpNumber,
-            dthrIni : periodoChecked? dataInicio : null,
-            dthFim : periodoChecked? dataTermino : null,
-            cdTurno : turnoSelecionado === "todos" ? null : turnoSelecionado,
+           // OPChecked : OPChecked,
+            op : OpNumber,
+            dthrIni : periodoChecked? DateFormat(dataInicio) : null,
+            dthrFim : periodoChecked? DateFormat(dataTermino) : null,
+            cdTurno : turnoSelecionado === "todos" || turnoSelecionado === "" ? null : turnoSelecionado,
 
             cdPt : postoFerramentaSelecionado === "Postos" ? postoFerramentaValorSelecionado : null,
             cdGt : postoFerramentaSelecionado === "grupoTrabalho" ? postoFerramentaValorSelecionado : null,
@@ -77,14 +78,12 @@ const Filtros = (props : any) => {
         
         const descricao = {
             grupoTrabalho : grupoTrabalho,
-            turno : payload.cdTurno === "todos" || payload.cdTurno === null ? "TODOS OS TURNOS" : payload.cdTurno,
+            turno : payload.cdTurno === "todos" || payload.cdTurno === null || payload.cdTurno === ""? "TODOS OS TURNOS" : payload.cdTurno,
             periodo: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`,
         }
-        console.log(payload);
-        console.log(descricao);
-
         props.getPayload(payload);
         props.getDescricao(descricao);
+        props.openPreview(true);
 
     }
     return (

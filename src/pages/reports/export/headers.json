@@ -1,0 +1,115 @@
+{
+    "paradas" : {
+        "indiceParadasPadrao" : [
+            "PARADA",
+            "TEMPO",
+            "ÍNDICE"
+        ],
+        "totaisIndiceParadasPadrao" : [
+            "TEMPO DE PARADAS DO POSTO (C):",
+            "HORAS PRODUTIVAS:",
+            "% DISP.:",
+            "ÍNDICE (C)/(A):",
+            "ÍNDICE (C)/(D):",
+            "ÍNDICE (C)/(D):",
+            "QTDE OCORR. MTBF/MTTR:",
+            "TEMPO PARADAS MTBF/MTTR:",
+            "MTTR (min):",
+            "MTBF (min):"
+            
+        ],
+        "indiceParadasProduto" : [
+            "PRODUTO",
+            "POSTO",
+            "PARADA",
+            "TEMPO (A)",
+            "ÍNDICE (A)(B)"
+        ],
+        "indiceParadasFerramenta" : [
+            "FERRAMENTA",
+            "POSTO",
+            "PARADA",
+            "TEMPO (A)",
+            "ÍNDICE (A)(B)"
+        ],
+        "indiceParadasArea" : [
+            "ÁREA RESPONSÁVEL",
+            "PARADA",
+            "TEMPO",
+            "ÍNDICE"
+        ],
+        "indiceParadasPosto" : [
+            "POSTO",
+            "TEMPO ATIVO (A)",
+            "PARADA",
+            "QUANT.",
+            "TEMPO (B)",
+            "ÍNDICE (B)/(A)"
+        ]
+    },
+    "producao" : {
+        "consolidadoFerramenta" : [
+            "FERRAMENTA",
+            "POSTO",
+            "CICLO PADRÃO",
+            "CICLO LIDO",
+            "EFIC. CICLO",
+            "HORAS TRAB.",
+            "HORAS PARADAS",
+            "TEMPO ATIVO",
+            "ÍND. PARADA",
+            "PRODUTO",
+            "CAV.",
+            "ÍND. CAV.",
+            "PROD. PREV.",
+            "PROD. BRUTA",
+            "PROD. LÍQ.",
+            "ÍND. REF.",
+            "EFIC. REALIZ.",
+            "OEE",
+            "OEE CAP"
+        ],
+        "consolidadoPosto" : [
+            "POSTO",
+            "HORAS TRAB.",
+            "HORAS PARADAS",
+            "TEMPO ATIVO",
+            "ÍND. PARADA",
+            "FERRAMENTA",
+            "CICLO PADRÃO",
+            "CICLO LIDO",
+            "EFIC. CICLO",
+            "PRODUTO",
+            "CAV.",
+            "ÍND. CAV.",
+            "PROD. PREV.",
+            "PROD. BRUTA",
+            "PROD. LÍQ.",
+            "ÍND. REF.",
+            "EFIC. REALIZ.",
+            "OEE",
+            "OEE CAP"
+        ],
+        "consolidadoProduto" : [
+            "PRODUTO",
+            "FERRAMENTA",
+            "CAV.",
+            "ÍND. CAV.",
+            "POSTO",
+            "CICLO PADRÃO",
+            "CICLO LIDO",
+            "EFIC. CICLO",
+            "HORAS TRAB.",
+            "HORAS PARADAS",
+            "TEMPO ATIVO",
+            "ÍND. PARADA",
+            "PROD. PREV.",
+            "PROD. BRUTA",
+            "PROD. LÍQ.",
+            "ÍND. REF.",
+            "EFIC. REALIZ.",
+            "OEE",
+            "OEE CAP"
+        ]
+    }
+}

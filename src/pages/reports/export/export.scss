@@ -1,1 +1,35 @@
-
+.export-header{
+    padding: 1em;
+    h2{
+        font-size: 1.3em;
+        color: #414141;
+    }
+    p{
+        font-weight: 500;
+    }
+}
+.container-totais{
+    background-color: #1d6bc4;
+    padding: 1em;
+ 
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column wrap;
+    height: 120px;
+    h3{
+        width: 100%;
+        color: #fff;
+    }
+    p{
+        color: #fff;
+        font-weight: 500;
+    }
+}
+#table-main{
+    width: 100%;
+    border-top: 2px solid #414141;
+}
+#totais-totais{
+    margin-top: 2em;
+    background-color: #0f53a1;
+}
