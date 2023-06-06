@@ -12,9 +12,8 @@ const APP_API = "http://170.10.0.206:8080";
 //             return error
 //         })
 // }
-export function IndiceParadaPostoServices (body: any) {
-       console.log(body)
-    return api.post(`${APP_API}/idw/rest/v2/relatorios/indiceparadasporposto`, body)
+export async function IndiceParadaPostoServices (body: any) {
+    return await api.post(`${APP_API}/idw/rest/v2/relatorios/indiceparadasporposto`, body)
         .then( (res : AxiosResponse<IIndiceParadaPostoResponse>) => {
             return res.data
         })
