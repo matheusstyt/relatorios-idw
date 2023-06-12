@@ -23,6 +23,7 @@ export interface IConsolidadosResponse {
 }
 
 export interface IPosto {
+  produtos?: IProduto[];
   ferramentas?: IFerramenta[];
   isPrimeiraLinha?: boolean | string;
   isLinhaTotal?: boolean | string;

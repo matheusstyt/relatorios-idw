@@ -1,7 +1,7 @@
 import AccordionDinamic from "../../../../components/relatorios/accordion";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
-import { ConsolidadosPostoBody, Header, TableDinamic, TotalGeralConsolidados } from "../../export";
+import { ConsolidadosFerramentaBody, ConsolidadosPostoBody, ConsolidadosProdutoBody, Header, TableDinamic, TotalGeralConsolidados } from "../../export";
 import Filtros from "./filtros";
 import "../../../pages.scss";
 import { ConsolidadosServices } from "../../export/services/paradas";
@@ -39,7 +39,7 @@ export default function Consolidados (props : any) {
                     }
                 />
                 <div className="table-content">
-                    <TableDinamic body={<ConsolidadosPostoBody postos={consolidadosResponse?.postos} />}/>
+                    <TableDinamic body={<ConsolidadosProdutoBody produtos={consolidadosResponse?.produtos} />}/>
                 </div>
                 <TotalGeralConsolidados totais={consolidadosResponse} />
             </div>

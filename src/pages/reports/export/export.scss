@@ -19,11 +19,20 @@ h2{
 
     #table-main{
         width: 100%;
+        thead{
+            top: 0;
+            position: sticky;  
+            
+        }
+        th{
+            background-color: #ebebeb;
+            color: #585858;
+            border-bottom: 2px solid #8a8a8ab6;
+        }
         tr{
-            opacity: 0.8;
         }
         tr:hover{
-            opacity: 1;
+            background-color: #41414115;
         }
         td{
             padding: 0 0.5em;

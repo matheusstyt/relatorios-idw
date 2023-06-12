@@ -88,7 +88,7 @@ export function TableDinamic (props : any){
             <thead>
                 <tr>
                     {
-                        headers.producao.consolidadoPosto.map( item => {
+                        headers.producao.consolidadoProduto.map( item => {
                             return <th key={item}>{item}</th>
                         })
                     }
@@ -174,6 +174,188 @@ export function ConsolidadosPostoBody (props : any){
                         {/* PRIMEIRA CAMADA */}
                         <td>{posto?.oee}</td>
                         <td>{posto?.oeeCap}</td>
+                    </tr>
+                })
+            }   
+        </tbody>
+    )
+}
+// POR FERRAMENTA
+export function ConsolidadosFerramentaBody (props : any){
+    console.log(props.ferramentas)
+    return  (
+        <tbody>
+            {
+                props?.ferramentas?.map( (ferramenta : IFerramenta ,index : number) => {
+                    return <tr key={index}>
+                        {/* PRIMEIRA CAMADA */}
+                        <td>{ferramenta?.ferramenta}</td>
+
+                        {/* SEGUNDA CAMADA */}
+                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                            return <span className="span nv2" key={index}>{posto.posto}</span>}
+                        )}</td>
+                        {/* PRIMEIRA CAMADA */}
+                        <td>{ferramenta?.cicloPadrao}</td>
+                        <td>{ferramenta?.cicloLido}</td>
+                        <td>{ferramenta?.eficienciaCiclo}</td>
+                        {/* SEGUNDA CAMADA */}
+                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                                return <span className="span nv2" key={index}>{posto.horasTrabalhadas}</span>}
+                        )}</td>
+                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                                return <span className="span nv2" key={index}>{posto.horasParadas}</span>}
+                        )}</td>
+                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                                return <span className="span nv2" key={index}>{posto.tempoAtivo}</span>}
+                        )}</td>
+                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                                return <span className="span nv2" key={index}>{posto.indiceParadas}</span>}
+                        )}</td>
+                        {/* TERCEIRA CAMADA */}
+                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                            return posto?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.produto}</span>
+                                })
+                            }
+                        )}</td>
+                       {/* PRIMEIRA CAMADA */}
+                       <td>{ferramenta?.cavidadesTotais}</td>
+                       <td>{ferramenta?.indiceCavidades}</td>
+                       {/* TERCEIRA CAMADA */}
+                       <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                            return posto?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.pecasPrevistas}</span>
+                                })
+                            }
+                        )}</td>
+                       <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                            return posto?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.pecasProduzidas}</span>
+                                })
+                            }
+                        )}</td>
+                       <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                            return posto?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.pecasRefugadas}</span>
+                                })
+                            }
+                        )}</td>
+                       <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                            return posto?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.pecasBoas}</span>
+                                })
+                            }
+                        )}</td>
+                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                            return posto?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.indiceRefugo}</span>
+                                })
+                            }
+                        )}</td>
+                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                            return posto?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.eficienciaRealizacao}</span>
+                                })
+                            }
+                        )}</td>
+                        {/* SEGUNDA CAMADA */}
+                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                                return <span className="span nv2" key={index}>{posto.oee}</span>}
+                        )}</td>
+                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                                return <span className="span nv2" key={index}>{posto.oeeCap}</span>}
+                        )}</td>
+
+                    </tr>
+                })
+            }   
+        </tbody>
+    )
+}
+// POR PRODUTO
+export function ConsolidadosProdutoBody (props : any){
+    console.log(props.produtos)
+    return  (
+        <tbody>
+            {
+                props?.produtos?.map( (produto : IProduto ,index : number) => {
+                    return <tr key={index}>
+                        {/* PRIMEIRA CAMADA */}
+                        <td>{produto?.produto}</td>
+
+                        {/* SEGUNDA CAMADA */}
+                        <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return <span className="span nv2" key={index}>{ferramenta.ferramenta}</span>}
+                        )}</td>
+                        <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return <span className="span nv2" key={index}>{ferramenta.cavidadesTotais}</span>}
+                        )}</td>
+                        <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return <span className="span nv2" key={index}>{ferramenta.indiceCavidades}</span>}
+                        )}</td>
+                        {/* TERCEIRA CAMADA */}
+                        <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                                return <span className="span nv3" key={index}>{posto.posto}</span>
+                                })
+                            }
+                        )}</td>
+                        {/* SEGUNDA CAMADA */}
+                        <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return <span className="span nv2" key={index}>{ferramenta.cicloPadrao}</span>}
+                        )}</td>
+                        <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return <span className="span nv2" key={index}>{ferramenta.cicloLido}</span>}
+                        )}</td>
+                        <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return <span className="span nv2" key={index}>{ferramenta.eficienciaCiclo}</span>}
+                        )}</td>
+                        {/* TERCEIRA CAMADA */}
+                        <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                                return <span className="span nv3" key={index}>{posto.horasTrabalhadas}</span>
+                                })
+                            }
+                        )}</td>
+                        <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                                return <span className="span nv3" key={index}>{posto.horasParadas}</span>
+                                })
+                            }
+                        )}</td>
+                        <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                                return <span className="span nv3" key={index}>{posto.tempoAtivo}</span>
+                                })
+                            }
+                        )}</td>
+                        <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                                return <span className="span nv3" key={index}>{posto.indiceParadas}</span>
+                                })
+                            }
+                        )}</td>
+                        {/* PRIMEIRA CAMADA */}
+                        <td>{produto?.pecasPrevistas}</td>
+                        <td>{produto?.pecasProduzidas}</td>
+                        <td>{produto?.pecasRefugadas}</td>
+                        <td>{produto?.pecasBoas}</td>
+                        <td>{produto?.indiceRefugo}</td>
+                        <td>{produto?.eficienciaRealizacao}</td>
+                        {/* TERCEIRA CAMADA */}
+                        <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                                return <span className="span nv3" key={index}>{posto.oee}</span>
+                                })
+                            }
+                        )}</td>
+                        <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.postos?.map((posto : IPosto, index : number) => {
+                                return <span className="span nv3" key={index}>{posto.oeeCap}</span>
+                                })
+                            }
+                        )}</td>
                     </tr>
                 })
             }   
