@@ -8,6 +8,7 @@ import { useState } from "react";
 import Tipos from "../../../../components/relatorios/filtros/view/subFiltros/tipos";
 import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
 import AgrupamentoContagem from "../../../../components/relatorios/filtros/view/agrupamentoContagem";
+import { DateFormat } from "../../export/datetime";
 
 const Filtros = (props : any) => {
     // períodos e turnos
@@ -16,7 +17,7 @@ const Filtros = (props : any) => {
     const [periodoChecked, setPeriodoChecked] = useState<boolean>(false);
     const [dataInicio, setDataInicio] = useState<any>(new Date());
     const [dataTermino, setDataTermino] = useState<any>(new Date());
-    const [turnoSelecionado, setTurnoSelecionado] = useState<any>("");
+    const [turnoSelecionado, setTurnoSelecionado] = useState<any>(null);
 
     // tipo
     const [tipoSelecionado, setTipoSelecionado]= useState<any>("padrao")
@@ -35,10 +36,8 @@ const Filtros = (props : any) => {
 
         // carga útil
         const payload = {
-            OPChecked : OPChecked,
-            periodoChecked : periodoChecked,
-            dthrIni : periodoChecked? dataInicio : null,
-            dthFim : periodoChecked? dataTermino : null,
+            dthrIni : periodoChecked? DateFormat(dataInicio) : null,
+            dthrFim : periodoChecked? DateFormat(dataTermino) : null,
             cdTurno : turnoSelecionado === "todos" ? null : turnoSelecionado,
 
             cdPt : postoFerramentaSelecionado === "Postos" ? postoFerramentaValorSelecionado : null,
@@ -56,7 +55,7 @@ const Filtros = (props : any) => {
             isPesoEmTon: exibirProducaoSelecionado!="pecas" &&  exibirPesoSelecionado=="tonelada" 
         };
 
-        let grupoTrabalho = "";
+        let grupoTrabalho = "TODOS OS POSTOS";
 
         if(payload.cdGt!=null)  grupoTrabalho = `GRUPO DE TRABALHO: ${payload.cdGt}`
         if(payload.cdPt!=null)  grupoTrabalho = `POSTO DE TRABALHO: ${payload.cdPt}`

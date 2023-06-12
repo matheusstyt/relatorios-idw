@@ -3,7 +3,47 @@ h2{
     font-size: 1.3em;
     color: #414141;
 }
+.span{
+    display: block;
+    margin: 0.2em 0;
+}
+.nv2{
+    background-color: #90b5d83b;
+}
+.nv3{
+    background-color: #94bce27c;
+}
+.table-content{
+    max-height: 70vh;
+    overflow-x: auto;
+
+    #table-main{
+        width: 100%;
+        tr{
+            opacity: 0.8;
+        }
+        tr:hover{
+            opacity: 1;
+        }
+        td{
+            padding: 0 0.5em;
+            background-color: #9db7cf36;
+            border-bottom: 2px solid #41414146;
+        }
+    
+    }
+}
+
+.span-nv2{
+    background-color: #00000021;
+
+}
+.span-nv3{
+    background-color: #00000021;
+
+}
 .export-header{
+    border-bottom: 2px solid #414141b0;
     padding: 1em;
     p{
         font-weight: 500;
@@ -26,10 +66,7 @@ h2{
         font-weight: 500;
     }
 }
-#table-main{
-    width: 100%;
-    border-top: 2px solid #414141;
-}
+
 #totais-totais{
     background-color: #0f53a1;
 }

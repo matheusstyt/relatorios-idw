@@ -3,6 +3,7 @@ import { convertSecondsToTime } from "./datetime";
 import "./export.scss";
 import headers from "./headers.json"
 import { useEffect } from 'react';
+import { IConsolidadosResponse, IFerramenta, IPosto, IProduto } from './interface/consolidados';
 
 export function Header(props : any) {
     return (
@@ -19,7 +20,7 @@ export function MainTable (props : any) {
         return ( 
             props.dados?.subRelatorioIndiceParadas?.map((row : ISubRelatorioIndiceParada, index : number) => {
                 return <>
-                    <table id="table-main">
+                    <table id="table-main" key={index}>
                         <thead>
                             {
                                 tableHeader.map( item => {
@@ -81,34 +82,112 @@ export function TotalGeralIndiceParadaXPosto (props : any) {
         </div>
     )
 }
+export function TableDinamic (props : any){
+    return (
+        <table id="table-main">
+            <thead>
+                <tr>
+                    {
+                        headers.producao.consolidadoPosto.map( item => {
+                            return <th key={item}>{item}</th>
+                        })
+                    }
+                </tr>
+            </thead>
+            {props.body}
+        </table>
+    )
+}
+export function ConsolidadosBody (props : any){
 
+        props?.postos?.map( (posto : IPosto ,index : number) => {
+            console.log(posto.posto);
+        })
 
-    // const dinamicBody = (row : any) => {
-    //     return  (<table id="table-main">
-    //                 <thead>
-    //                 {
-    //                     tableHeader.map( item => {
-    //                         return <th>{item}</th>
-    //                     })
-    //                 }
-    //                 </thead>
-    //                 <tbody>
-    //                     <tr>
-    //                         <td>{row?.maquina}</td>
-    //                         <td>{ convertSecondsToTime( row?.tempoAtivo ) }</td>
-    //                         <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{i.parada}</p>)}</td>
-    //                         <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{i.quantidade}</p>)}</td>
-    //                         <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{convertSecondsToTime(i.tempoParada)}</p>)}</td>
-    //                         <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{i.indiceBA}</p>)}</td>
-    //                     </tr>
-    //                 </tbody>
-    //             </table>)
-    // }
+    return  (
+        <tbody>
+            {
+                props?.postos?.map( (posto : IPosto ,index : number) => {
+                    return <tr key={index}>
+                        {/* PRIMEIRA CAMADA */}
+                        <td>{posto?.posto}</td>
+                        <td>{posto?.horasTrabalhadas}</td>
+                        <td>{posto?.horasParadas}</td>
+                        <td>{posto?.tempoAtivo}</td>
+                        <td>{posto?.indiceParadas}</td>
 
-                            {/* {
-                            indicesPercorrido2.map((i) => (
-                                <td key={i}>{
-                                    Object.values(row)[i]
-                                }</td>
-                            ))
-                        } */}
+                        {/* SEGUNDA CAMADA */}
+                        <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                                return <span className="span nv2" key={index}>{ferramenta.ferramenta}</span>}
+                        )}</td>
+                        <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                                return <span className="span nv2" key={index}>{ferramenta.cicloPadrao}</span>}
+                        )}</td>
+                        <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                                return <span className="span nv2" key={index}>{ferramenta.cicloLido}</span>}
+                        )}</td>
+                        <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                                return <span className="span nv2" key={index}>{ferramenta.eficienciaCiclo}</span>}
+                        )}</td>
+                        {/* TERCEIRA CAMADA */}
+                        <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.produto}</span>
+                                })
+                            }
+                        )}</td>
+                        {/* SEGUNDA CAMADA */}
+                        <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                                return <span className="span nv2" key={index}>{ferramenta.cavidadesAtivas}</span>}
+                        )}</td>
+                        <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                                return <span className="span nv2" key={index}>{ferramenta.indiceCavidades}</span>}
+                        )}</td>
+                        {/* TERCEIRA CAMADA */}
+                        <td>{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.pecasPrevistas}</span>
+                                })
+                            }
+                        )}</td>
+                        <td>{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.pecasProduzidas}</span>
+                                })
+                            }
+                        )}</td>
+                        <td>{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.pecasRefugadas}</span>
+                                })
+                            }
+                        )}</td>
+                        <td>{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.pecasBoas}</span>
+                                })
+                            }
+                        )}</td>
+                        <td>{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.eficienciaRealizacao}</span>
+                                })
+                            }
+                        )}</td>
+                        {/* PRIMEIRA CAMADA */}
+                        <td>{posto?.oee}</td>
+                        <td>{posto?.oeeCap}</td>
+                    </tr>
+                })
+            }   
+        </tbody>
+    )
+}
+
+                        //  {
+                        //     indicesPercorrido2.map((i) => (
+                        //         <td key={i}>{
+                        //             Object.values(row)[i]
+                        //         }</td>
+                        //     ))
+                        //  }
