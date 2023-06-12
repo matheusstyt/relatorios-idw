@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ConsolidadosFerramentaBody, ConsolidadosPostoBody, ConsolidadosProdutoBody, Header, TableDinamic, TotalGeralConsolidados } from "../../export";
 import Filtros from "./filtros";
 import "../../../pages.scss";
+import headers from "../../export/headers.json";
 import { ConsolidadosServices } from "../../export/services/paradas";
 import { IConsolidadosResponse, IPosto } from "../../export/interface/consolidados";
 export default function Consolidados (props : any) {
@@ -39,7 +40,16 @@ export default function Consolidados (props : any) {
                     }
                 />
                 <div className="table-content">
-                    <TableDinamic body={<ConsolidadosProdutoBody produtos={consolidadosResponse?.produtos} />}/>
+                    {
+                        cargaUtil.isAgrupadoPorPt === true ? 
+                        <TableDinamic headers={headers.producao.consolidadoPosto} body={<ConsolidadosPostoBody postos={consolidadosResponse?.postos} />}/>
+                        : cargaUtil.isAgrupadoPorFerramenta == true ?
+                        <TableDinamic headers={headers.producao.consolidadoFerramenta} body={<ConsolidadosFerramentaBody ferramentas={consolidadosResponse?.ferramentas} />}/>
+                        : cargaUtil.isAgrupadoPorProduto == true ?
+                        <TableDinamic headers={headers.producao.consolidadoProduto} body={<ConsolidadosProdutoBody produtos={consolidadosResponse?.produtos} />}/>
+                        : <></>
+                    }
+                    
                 </div>
                 <TotalGeralConsolidados totais={consolidadosResponse} />
             </div>

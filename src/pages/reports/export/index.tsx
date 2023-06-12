@@ -1,7 +1,6 @@
 import { ISubRelatorioIndiceParada } from "../../../components/relatorios/filtros/interface/indiceParadasXPosto";
 import { convertSecondsToTime } from "./datetime";
 import "./export.scss";
-import headers from "./headers.json"
 import { useEffect } from 'react';
 import { IConsolidadosResponse, IFerramenta, IPosto, IProduto } from './interface/consolidados';
 
@@ -15,19 +14,18 @@ export function Header(props : any) {
 }
 export function MainTable (props : any) {
 
-    const tableHeader = headers.paradas.indiceParadasPosto;
     const  generateTable = () => {
         return ( 
             props.dados?.subRelatorioIndiceParadas?.map((row : ISubRelatorioIndiceParada, index : number) => {
                 return <>
                     <table id="table-main" key={index}>
-                        <thead>
+                        {/* <thead>
                             {
                                 tableHeader.map( item => {
                                     return <th>{item}</th>
                                 })
                             }
-                        </thead>
+                        </thead> */}
                         <tbody>
                             <tr>
                                 <td>{row?.maquina}</td>
@@ -88,7 +86,7 @@ export function TableDinamic (props : any){
             <thead>
                 <tr>
                     {
-                        headers.producao.consolidadoProduto.map( item => {
+                        props.headers.map( (item : string) => {
                             return <th key={item}>{item}</th>
                         })
                     }
