@@ -1,5 +1,8 @@
 export interface IConsolidadosResponse {
-  postos: IPosto[];
+  postos?: IPosto[];
+  ferramentas?: IFerramenta[];
+  produtos?: IProduto[];
+
   horasTrabalhadasTotal: string;
   horasParadasTotal: string;
   tempoAtivoTotal: string;
@@ -20,9 +23,10 @@ export interface IConsolidadosResponse {
 }
 
 export interface IPosto {
-  ferramentas: IFerramenta[];
-  isPrimeiraLinha: boolean | string;
-  isLinhaTotal: boolean | string;
+  ferramentas?: IFerramenta[];
+  isPrimeiraLinha?: boolean | string;
+  isLinhaTotal?: boolean | string;
+
   posto: string;
   ton: string;
   horasTrabalhadas: string;
@@ -35,7 +39,11 @@ export interface IPosto {
 }
 
 export interface IFerramenta {
-  produtos: IProduto[];
+  postos?: IPosto[];
+  produtos?: IProduto[];
+  isPrimeiraLinha?: boolean | string;
+  isLinhaTotal?: boolean | string;
+
   ferramenta: string;
   cicloPadrao: string;
   cicloLido: string;
@@ -46,6 +54,10 @@ export interface IFerramenta {
 }
 
 export interface IProduto {
+    ferramentas?: IFerramenta[];
+    isPrimeiraLinha?: boolean | string;
+    isLinhaTotal?: boolean | string;
+    
     produto: string;
     pecasPrevistas: string;
     pecasProduzidas: string;

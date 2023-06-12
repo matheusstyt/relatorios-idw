@@ -1,7 +1,7 @@
 import AccordionDinamic from "../../../../components/relatorios/accordion";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
-import { ConsolidadosBody, Header, TableDinamic } from "../../export";
+import { ConsolidadosPostoBody, Header, TableDinamic, TotalGeralConsolidados } from "../../export";
 import Filtros from "./filtros";
 import "../../../pages.scss";
 import { ConsolidadosServices } from "../../export/services/paradas";
@@ -11,13 +11,12 @@ export default function Consolidados (props : any) {
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<any>({});
 
-    const [listaConsolidado, setListaConsolidado] = useState<IPosto[]>([]);
-
+    const [consolidadosResponse, setConsoldidadosResponse] = useState<IConsolidadosResponse>();
     async function getIndiceRelatorioPosto (value : any) {
         setCargaUtil(value);
         await ConsolidadosServices( value)
         .then( (data) => {
-            setListaConsolidado(data?.postos);
+            setConsoldidadosResponse(data);
             
         })
         // setExibirPreloader(false);
@@ -31,15 +30,18 @@ export default function Consolidados (props : any) {
                     title={props.title}
                     components={
                         <>
-                            <p>GRUPO DE TRABALHO: {descricao.grupoTrabalho}</p>
-                            <p>TURNO: {descricao.turno}</p>
-                            <p>PERÍODO: {descricao.periodo}</p>
+                            <p><strong>PRODUÇÃO EM: </strong> {descricao.producao}</p>
+                            <p><strong>GRUPO DE TRABALHO:: </strong> {descricao.grupoTrabalho}</p>
+                            <p><strong>TURNO: </strong> {descricao.turno}</p>
+                            <p><strong>PERÍODO: </strong> {descricao.periodo}</p>
+                            <p><strong>OP: </strong> {descricao.OP}</p>
                         </>
                     }
                 />
                 <div className="table-content">
-                    <TableDinamic body={<ConsolidadosBody postos={listaConsolidado} />}/>
+                    <TableDinamic body={<ConsolidadosPostoBody postos={consolidadosResponse?.postos} />}/>
                 </div>
+                <TotalGeralConsolidados totais={consolidadosResponse} />
             </div>
         )
     }

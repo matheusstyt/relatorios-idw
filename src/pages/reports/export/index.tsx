@@ -98,12 +98,9 @@ export function TableDinamic (props : any){
         </table>
     )
 }
-export function ConsolidadosBody (props : any){
-
-        props?.postos?.map( (posto : IPosto ,index : number) => {
-            console.log(posto.posto);
-        })
-
+// CONSOLIDADOS 
+// POR POSTO
+export function ConsolidadosPostoBody (props : any){
     return  (
         <tbody>
             {
@@ -183,11 +180,35 @@ export function ConsolidadosBody (props : any){
         </tbody>
     )
 }
-
-                        //  {
-                        //     indicesPercorrido2.map((i) => (
-                        //         <td key={i}>{
-                        //             Object.values(row)[i]
-                        //         }</td>
-                        //     ))
-                        //  }
+// TOTAL GERAL 
+export function TotalGeralConsolidados (props : any) {
+    console.log(props?.totais)
+    return (
+        <div className="container-totais" id="totais-totais">
+            <p>HRS. TRABALHADAS: { props.totais?.horasTrabalhadasTotal }</p>
+            <p>HRS. PARADAS: { props.totais?.horasParadasTotal }</p>
+            <p>TEMPO ATIVO: { props.totais?.tempoAtivoTotal }</p>
+            <p>ÍNDICE PARADAS: {props.totais?.indiceParadasTotal}</p>
+            <p>EFIC. REALIZAÇÃO: {props.totais?.eficienciaRealizacaoTotal}</p>
+            <p>PROD. PREVISTA: {props.totais?.pecasPrevistasTotal}</p>
+            <p>PROD. BRUTA: { props.totais?.pecasProduzidasTotal }</p>
+            <p>PROD. REFUGADA: {props.totais?.pecasRefugadasTotal}</p>
+            <p>PROD. LÍQUIDA: {props.totais?.pecasBoasTotal}</p>
+            <p>ÍNDICE REFUGOS: {props.totais?.indiceRefugosTotal}</p>
+            <p>CICLO PADRÃO: {props.totais?.cicloPadraoTotal}</p>
+            <p>CICLO LIDO: {props.totais?.cicloLidoTotal}</p>
+            <p>EFIC.CICLO: {props.totais?.eficienciaCicloTotal}</p>
+            <p>EFIC. CICLO POND.: {props.totais?.eficienciaCicloPondTotal}</p>
+            <p>ÍNDICE CAV. ATIVAS: {props.totais?.indiceCavidadesAtivasTotal}</p>
+            <p>OEE: {props.totais?.oeeTotal}</p>
+            <p>OEE CAP: {props.totais?.oeeCapTotal}</p>
+        </div>
+    )
+}
+//  {
+//     indicesPercorrido2.map((i) => (
+//         <td key={i}>{
+//             Object.values(row)[i]
+//         }</td>
+//     ))
+//  }
