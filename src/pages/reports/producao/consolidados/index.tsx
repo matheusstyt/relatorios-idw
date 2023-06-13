@@ -7,28 +7,30 @@ import "../../../pages.scss";
 import headers from "../../export/headers.json";
 import { ConsolidadosServices } from "../../export/services/paradas";
 import { IConsolidadosResponse, IPosto } from "../../export/interface/consolidados";
+import { Preloader } from "../../../../components/relatorios/preloader";
 export default function Consolidados (props : any) {
-
+    const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
+    const [exibirExportar, setExibirExportar] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<any>({});
 
     const [consolidadosResponse, setConsoldidadosResponse] = useState<IConsolidadosResponse>();
-    async function getIndiceRelatorioPosto (value : any) {
+    async function getConsolidados (value : any) {
         setCargaUtil(value);
         await ConsolidadosServices( value)
         .then( (data) => {
             setConsoldidadosResponse(data);
             
         })
-        // setExibirPreloader(false);
-        // setExibirExportar(true);
+        setExibirPreloader(false);
+        setExibirExportar(true);
     }
 
     const previewPDF = () => {
         return (
             <div className="export-content">
                 <Header 
-                    title={props.title}
+                    title={`${props.title} - POR ${descricao.agrupamento}`}
                     components={
                         <>
                             <p><strong>PRODUÇÃO EM: </strong> {descricao.producao}</p>
@@ -57,25 +59,27 @@ export default function Consolidados (props : any) {
     }
     return (
         <div className="container-page">
+
+            { exibirPreloader ? <Preloader /> : <></> }
+
             <h3 className="title-relatorio">{props.title}</h3>
             <AccordionDinamic
                 title="Filtro"
                 img={<FiFilter size={25}/>}
                 component={
                     <Filtros 
-                        getPayload={(value: any ) => {
-                            console.log(value)
-                            setCargaUtil(value);
-                            getIndiceRelatorioPosto(value);
+                        getPayload={async (value: any ) => {
+                            getConsolidados(value);
                         }
 
                         }
                         getDescricao={(value: any ) => setDescricao(value)}
+                        openPreview={(value: boolean) =>  setExibirPreloader(true) }
                     />
                 }
             />
             <div className="export-content">
-                {previewPDF()}
+                { !exibirExportar ? <></> : previewPDF()}
 
             </div>
         </div>

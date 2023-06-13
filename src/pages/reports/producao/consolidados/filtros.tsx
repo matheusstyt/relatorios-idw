@@ -45,12 +45,12 @@ const Filtros = (props : any) => {
             cdFerramenta : postoFerramentaSelecionado === "ferramentas" ? postoFerramentaValorSelecionado : null,
             cdGrpFerramenta : postoFerramentaSelecionado === "grupoFerramenta" ? postoFerramentaValorSelecionado : null,
 
-            isAgrupadoPorPt: exibirAgrupamentoSelecionado=="agrupamentoPosto",
-            isAgrupadoPorFerramenta: exibirAgrupamentoSelecionado=="agrupamentoFerramenta",
-            isAgrupadoPorProduto: exibirAgrupamentoSelecionado=="agrupamentoProduto",
-            isProducaoEmPeca: exibirProducaoSelecionado=="pecas",
-            isProducaoEmPesoBruto: exibirProducaoSelecionado=="pesoBruto",
-            isProducaoEmPesoLiquido: exibirProducaoSelecionado=="pesoLiquido",
+            isAgrupadoPorPt: exibirAgrupamentoSelecionado==="agrupamentoPosto",
+            isAgrupadoPorFerramenta: exibirAgrupamentoSelecionado==="agrupamentoFerramenta",
+            isAgrupadoPorProduto: exibirAgrupamentoSelecionado==="agrupamentoProduto",
+            isProducaoEmPeca: exibirProducaoSelecionado==="pecas",
+            isProducaoEmPesoBruto: exibirProducaoSelecionado==="pesoBruto",
+            isProducaoEmPesoLiquido: exibirProducaoSelecionado==="pesoLiquido",
             isPesoEmKg: exibirProducaoSelecionado!="pecas" && exibirPesoSelecionado=="kilograma",
             isPesoEmTon: exibirProducaoSelecionado!="pecas" &&  exibirPesoSelecionado=="tonelada" 
         };
@@ -63,23 +63,30 @@ const Filtros = (props : any) => {
         if(payload.cdGrpFerramenta!=null)  grupoTrabalho = `GRUPO DE FERRAMENTA: ${payload.cdGrpFerramenta}`
 
         let producao = "PEÇAS";
+
         if(exibirProducaoSelecionado==="pecas") producao = "PEÇAS"
         if(exibirProducaoSelecionado==="pesoBruto") producao = `PESO BRUTO - ${exibirPesoSelecionado.toUpperCase()}` 
         if(exibirProducaoSelecionado==="pesoLiquido") producao =  `PESO LÍQUIDO - ${exibirPesoSelecionado.toUpperCase()}` 
+
+        let agrupamento = "POSTO";
+        exibirAgrupamentoSelecionado==="agrupamentoPosto" ? agrupamento = "POSTO" :
+        exibirAgrupamentoSelecionado==="agrupamentoFerramenta" ? agrupamento = "FERRAMENTA" :
+        exibirAgrupamentoSelecionado==="agrupamentoProduto" ? agrupamento = "PRODUTO" : agrupamento = ""
 
         const descricao = {
             grupoTrabalho : grupoTrabalho,
             turno : payload.cdTurno === "todos" || payload.cdTurno === null ? "TODOS OS TURNOS" : payload.cdTurno,
             periodo: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`,
             producao: producao,
-            OP : OpNumber
+            OP : OpNumber,
+            agrupamento
         }
         console.log(payload);
         console.log(descricao);
 
         props.getPayload(payload);
         props.getDescricao(descricao);
-
+        props.openPreview(true);
     }
     return (
         <div className="container-filtro">
@@ -91,7 +98,7 @@ const Filtros = (props : any) => {
                 dataInicio={(value : any) => setDataInicio(value)}
                 dataTermino={(value : any) => setDataTermino(value)}
             />
-            <Tipos changed={(value : string) => setTipoSelecionado(value)} />
+            {/* <Tipos changed={(value : string) => setTipoSelecionado(value)} /> */}
             <Divider />
             <PostosFerramentas
                 postoFerramentaSelecionado={(value : any) => setPostoFerramentaSelecionado(value)}
