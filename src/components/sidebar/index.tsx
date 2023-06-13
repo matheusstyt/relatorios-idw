@@ -1,14 +1,10 @@
 import "./sidebar.scss"
 import { NavLink } from "react-router-dom";
 import { IoIosPaper} from "react-icons/io";
-import { BsTable} from "react-icons/bs";
 import { CgFileDocument} from "react-icons/cg";
 import { AiOutlineHome } from "react-icons/ai";
 import { APP_ROUTES } from "../../router/config";
-import { Accordion, AccordionSummary, Typography } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
-import { FiFilter } from "react-icons/fi";
 import AccordionDinamic from '../relatorios/accordion/index';
 export default function SideBar () {
     const [expanded, setExpanded] = useState<boolean>(true);
@@ -47,6 +43,19 @@ export default function SideBar () {
                                 })
                             }
                         />
+                        <AccordionDinamic 
+                            title={"Planejamento"} 
+                            img={<IoIosPaper size={20} />} 
+                            component={
+                                APP_ROUTES.REPORT.map( (route, index) => {
+                                    return route.category === "planejamento" ?<NavLink key={index} to={`/${route.path}`} end>
+                                        <CgFileDocument className="ico-nav" />
+                                        <h4>{route.title}</h4>
+                                    </NavLink>  : <></>
+                                })
+                            }
+                        />
+
                     </>
                     
                 }

@@ -13,12 +13,12 @@ export default function SelectTime(props : any) {
           <Select
               value={intervalSelecionado}
               id="select-interval-time" 
+              
               onChange={ (e) => {
                 props.changed(e.target.value);
                 setIntervalSelecionado(e.target.value);
               }}>
-              { intervalListTime.map( intevalo => <MenuItem value={intevalo}>{intevalo}</MenuItem> ) }
-          
+              { intervalListTime.map( (intevalo, index) => <MenuItem key={index} value={intevalo.hrIni}>{`${intevalo.hrIni} - ${intevalo.hrFim}`}</MenuItem> ) }
           </Select>
       </FormControl>
         

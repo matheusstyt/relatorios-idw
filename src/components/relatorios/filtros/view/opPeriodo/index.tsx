@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./opPeriodo.scss";
 import DateInput from "../../customInput/date";
 import Turnos from "../subFiltros/turnos";
+import Periodo from "../subFiltros/periodo";
 const OpPeriodo = (props : any) => {
     
 
@@ -71,29 +72,20 @@ const OpPeriodo = (props : any) => {
                             />
                         </td>
                         <td>
-                            <div className="calendar">
-                                <DateInput 
-                                    disabled={!periodoChecked}
-                                    value={dataInicio}
-                                    onChangeValue={ ( value : any) => {
-                                        setDataInicio(value);
-                                        props.dataInicio(value);
-                                    } }
-                                    label = "Dia de Início"
-                                    helperText={"Campo obrigatório"}
-                                />
-                                <DateInput 
-                                    disabled={!periodoChecked}
-                                    value={dataTermino}
-                                    onChangeValue={ ( value : any) => {
-                                        setDataTermino(value);
-                                        props.dataTermino(value);
-                                    } }
-                                    label = "Dia de Fim"
-                                    helperText={"Campo obrigatório"}
-                                />
-                            </div>
-
+                            <Periodo 
+                                changeDataInicio={(value: any) => {
+                                    props.dataInicio(value);
+                                    setDataInicio(value);
+                                }}
+                                changeDataTermino={(value: any) => {
+                                    props.dataTermino(value);
+                                    setDataTermino(value);
+                                }}
+                                dataInicio={dataInicio}
+                                dataTermino={dataTermino}
+                                disabled={periodoChecked}
+                            />
+                           
                         </td>
                     </tr>
                     <tr>

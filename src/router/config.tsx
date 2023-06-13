@@ -3,6 +3,7 @@ import IndiceParadasXAreResponsavel from "../pages/reports/paradas/indiceParadas
 import IndiceParadasXPosto from "../pages/reports/paradas/indiceParadasXPosto";
 import OcorrenciaParada from "../pages/reports/paradas/ocorrenciaParada";
 import QuantidadeParadas from "../pages/reports/paradas/quantidadeParada";
+import PlanejadoRealizado from "../pages/reports/planejamento/planejadoRealizado";
 import AcompanhamentoProducao from "../pages/reports/producao/acompanhamentoProducao";
 import AnaliseProducao from "../pages/reports/producao/analiseProducao";
 import Consolidados from "../pages/reports/producao/consolidados";
@@ -56,6 +57,12 @@ export const APP_ROUTES = {
         title : "Acompanhamento de Produção (R015)",
         path : "acompanhamentoproducao",
         element: <AcompanhamentoProducao title="Acompanhamento de Produção (R015)" />
+      },
+      {
+        category : "planejamento",
+        title : "Planejado x Realizado (R036)",
+        path : "planejadoxrealizado",
+        element: <PlanejadoRealizado title="Planejado x Realizado (R036)" />
       },
       {
         category : "any",

@@ -133,7 +133,7 @@ export function ConsolidadosPostoBody (props : any){
                         )}</td>
                         {/* SEGUNDA CAMADA */}
                         <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                                return <span className="span nv2" key={index}>{ferramenta.cavidadesAtivas}</span>}
+                                return <span className="span nv2" key={index}>{ferramenta.cavidadesTotais === "0" ? "" : `${ferramenta.cavidadesAtivas}/${ferramenta.cavidadesTotais}`}</span>}
                         )}</td>
                         <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                                 return <span className="span nv2" key={index}>{ferramenta.indiceCavidades}</span>}
@@ -160,6 +160,12 @@ export function ConsolidadosPostoBody (props : any){
                         <td>{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
                                 return <span className="span nv3" key={index}>{produto.pecasBoas}</span>
+                                })
+                            }
+                        )}</td>
+                        <td>{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
+                            return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
+                                return <span className="span nv3" key={index}>{produto.indiceRefugo}</span>
                                 })
                             }
                         )}</td>
@@ -218,7 +224,7 @@ export function ConsolidadosFerramentaBody (props : any){
                             }
                         )}</td>
                        {/* PRIMEIRA CAMADA */}
-                       <td>{ferramenta?.cavidadesTotais}</td>
+                       <td>{ferramenta.cavidadesTotais === "0" ? "" : `${ferramenta.cavidadesAtivas}/${ferramenta.cavidadesTotais}`}</td>
                        <td>{ferramenta?.indiceCavidades}</td>
                        {/* TERCEIRA CAMADA */}
                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
@@ -287,7 +293,7 @@ export function ConsolidadosProdutoBody (props : any){
                             return <span className="span nv2" key={index}>{ferramenta.ferramenta}</span>}
                         )}</td>
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                            return <span className="span nv2" key={index}>{ferramenta.cavidadesTotais}</span>}
+                            return <span className="span nv2" key={index}>{ferramenta.cavidadesTotais === "0" ? "" : `${ferramenta.cavidadesAtivas}/${ferramenta.cavidadesTotais}`}</span>}
                         )}</td>
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return <span className="span nv2" key={index}>{ferramenta.indiceCavidades}</span>}
@@ -385,10 +391,6 @@ export function TotalGeralConsolidados (props : any) {
         </div>
     )
 }
-//  {
-//     indicesPercorrido2.map((i) => (
-//         <td key={i}>{
-//             Object.values(row)[i]
-//         }</td>
-//     ))
-//  }
+
+// PLANEJADO X REALIZADO
+
