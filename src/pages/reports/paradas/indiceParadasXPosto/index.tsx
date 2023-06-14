@@ -3,8 +3,8 @@ import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import { Header, TotalGeralIndiceParadaXPosto } from "../../export";
-import { MainTable } from '../../export/index';
+import headers from "../../export/headers.json";
+import { Header, IndiceParadaXPostoBody, TableDinamic, TotalGeralIndiceParadaXPosto } from "../../export";
 import { IIndiceParadaPostoResponse } from '../../../../components/relatorios/filtros/interface/indiceParadasXPosto';
 import { IndiceParadaPostoServices } from "../../export/services/paradas";
 import { Audio, Blocks, ProgressBar } from 'react-loader-spinner';
@@ -15,12 +15,13 @@ export default function IndiceParadasXPosto (props : any) {
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<any>({});
     
-    const [listaIndiceParadaPosto, setListIndiceParadaPosto] = useState<IIndiceParadaPostoResponse[]>([]);
+    const [listaIndiceParadaPosto, setListIndiceParadaPosto] = useState<IIndiceParadaPostoResponse>();
     async function getIndiceRelatorioPosto (value : any) {
         setCargaUtil(value);
         await IndiceParadaPostoServices( value)
         .then( (data) => {
             setListIndiceParadaPosto(data)
+            console.log(data)
             
         })
         setExibirPreloader(false);
@@ -40,7 +41,9 @@ export default function IndiceParadasXPosto (props : any) {
                         </>
                     }
                 />
-                <MainTable dados={listaIndiceParadaPosto}/>
+                <div className="table-content">
+                    <TableDinamic headers={headers.paradas.indiceParadasPosto} body={<IndiceParadaXPostoBody parada={listaIndiceParadaPosto} />} />
+                </div>
                 <h2>Total Geral</h2>
                 <TotalGeralIndiceParadaXPosto dados={listaIndiceParadaPosto} />
             </div>

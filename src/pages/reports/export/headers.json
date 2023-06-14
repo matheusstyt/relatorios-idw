@@ -114,5 +114,21 @@
             "OEE",
             "OEE CAP"
         ]
+    },
+    "planejamento" : {
+        "planejadoxrealizado" : [
+            "O.P",
+            "PEDIDO",
+            "CLIENTE",
+            "SIUAÇÃO DA O.P",
+            "DT. PREV. FIM",
+            "FERRAMENTA",
+            "PRODUTO",
+            "PLANO",
+            "PRODUÇÃO",
+            "A PRODUZIR",
+            "POSTO",
+            "PROD. POSTO"
+        ]
     }
 }

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "@types/pdfmake": "^0.2.2",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@types/react-input-mask": "^3.0.2",
@@ -25,6 +26,7 @@
     "dayjs": "^1.11.7",
     "maker": "^0.1.11",
     "pdf": "^0.1.0",
+    "pdfmake": "^0.2.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-feather": "^2.0.10",

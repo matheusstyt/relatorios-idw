@@ -4,6 +4,8 @@ import Filtros from "./filtro";
 import { useState } from "react";
 import { PlanejadoXRealizadoServices } from "../../export/services/planejamentos";
 import { IPlanejadoXRealizadoResponse } from "../../export/interface/planejadoxrealizado";
+import { Header, PlanejadoXRealizadoBody, TableDinamic } from "../../export";
+import headers from "../../export/headers.json";
 
 const PlanejadoRealizado = (props : any) => {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
@@ -25,6 +27,29 @@ const PlanejadoRealizado = (props : any) => {
         setExibirExportar(true);
     }
 
+    const previewPDF = () => {
+        return (
+            <div className="export-content">
+                <Header 
+                    title={props.title}
+                    components={
+                        <>
+                            <p><strong>PRODUÇÃO EM: </strong> {descricao.producao}</p>
+                            <p><strong>GRUPO DE TRABALHO:: </strong> {descricao.grupoTrabalho}</p>
+                            <p><strong>PERÍODO: </strong> {descricao.periodo}</p>
+                        </>
+                    }
+                />
+                <div className="table-content">
+                    {<TableDinamic 
+                        headers={headers.planejamento.planejadoxrealizado} 
+                        body={<PlanejadoXRealizadoBody itens={planejadoXRealizadoResponse?.itens} 
+                    />}/>}
+                </div>
+            </div>
+        )
+    }
+
     return(
         <div className="container-page">
             <h3 className="title-relatorio">{props.title}</h3>
@@ -43,6 +68,9 @@ const PlanejadoRealizado = (props : any) => {
                     />
                 }
             />
+            {
+                previewPDF()
+            }
         </div>
     )
 }

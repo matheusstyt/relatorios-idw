@@ -3,6 +3,7 @@ import { convertSecondsToTime } from "./datetime";
 import "./export.scss";
 import { useEffect } from 'react';
 import { IConsolidadosResponse, IFerramenta, IPosto, IProduto } from './interface/consolidados';
+import { IItem } from "./interface/planejadoxrealizado";
 
 export function Header(props : any) {
     return (
@@ -10,57 +11,6 @@ export function Header(props : any) {
             <h2>{props.title}</h2>
             { props.components}
         </div>
-    )
-}
-export function MainTable (props : any) {
-
-    const  generateTable = () => {
-        return ( 
-            props.dados?.subRelatorioIndiceParadas?.map((row : ISubRelatorioIndiceParada, index : number) => {
-                return <>
-                    <table id="table-main" key={index}>
-                        {/* <thead>
-                            {
-                                tableHeader.map( item => {
-                                    return <th>{item}</th>
-                                })
-                            }
-                        </thead> */}
-                        <tbody>
-                            <tr>
-                                <td>{row?.maquina}</td>
-                                <td>{ convertSecondsToTime( row?.tempoAtivo ) }</td>
-                                <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{i.parada}</p>)}</td>
-                                <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{i.quantidade}</p>)}</td>
-                                <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{convertSecondsToTime(i.tempoParada)}</p>)}</td>
-                                <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{i.indiceBA}</p>)}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div className="container-totais">
-                        <p>TEMPO DE PARADAS DO POSTO (C): { convertSecondsToTime( props.dados?.subRelatorioIndiceParadas?.find((i: any) => true)?.tempoParadas) }</p>
-                        <p>HORAS PRODUTIVAS: {convertSecondsToTime(props.dados?.subRelatorioIndiceParadas?.find((i: any) => true)?.horasProdutivas)}</p>
-                        <p>% DISP.: {props.dados?.subRelatorioIndiceParadas?.find((i: any) => true)?.disponibilidade?.toFixed(2)}</p>
-                        <p>ÍNDICE (C)/(A): {props.dados?.subRelatorioIndiceParadas?.find((i: any) => true)?.indiceCA}</p>
-                        <p>ÍNDICE (C)/(D): {props.dados?.subRelatorioIndiceParadas?.find((i: any) => true)?.indiceCD}</p>
-                        <p>QTDE OCORR. PPE: {props.dados?.subRelatorioIndiceParadas?.find((i: any) => true)?.qtdOcorrenciasPPE}</p>
-                        <p>QTDE OCORR. MTBF/MTTR: {props.dados?.subRelatorioIndiceParadas?.find((i: any) => true)?.qtdMTTR_MTBF}</p>
-                        <p>TEMPO PARADAS MTBF/MTTR: {props.dados?.subRelatorioIndiceParadas?.find((i: any) => true)?.tempoMTTR_MTBF}</p>
-                        <p>MTTR (min): {props.dados?.segMTTR}</p>
-                        <p>MTBF (min): {props.dados?.segMTBF?.toFixed(2)}</p>
-                    </div>
-                </>
-            })     
-        )
-    }
-    useEffect(() => {
-        generateTable()
-    }, [props.dados]);
-
-    return (
-        <>
-            {generateTable()}
-        </>
     )
 }
 export function TotalGeralIndiceParadaXPosto (props : any) {
@@ -80,7 +30,7 @@ export function TotalGeralIndiceParadaXPosto (props : any) {
         </div>
     )
 }
-export function TableDinamic (props : any){
+export function TableDinamic ( props : any ){
     return (
         <table id="table-main">
             <thead>
@@ -98,7 +48,7 @@ export function TableDinamic (props : any){
 }
 // CONSOLIDADOS 
 // POR POSTO
-export function ConsolidadosPostoBody (props : any){
+export function ConsolidadosPostoBody ( props : any ){
     return  (
         <tbody>
             {
@@ -185,7 +135,7 @@ export function ConsolidadosPostoBody (props : any){
     )
 }
 // POR FERRAMENTA
-export function ConsolidadosFerramentaBody (props : any){
+export function ConsolidadosFerramentaBody ( props : any ){
     console.log(props.ferramentas)
     return  (
         <tbody>
@@ -278,7 +228,7 @@ export function ConsolidadosFerramentaBody (props : any){
     )
 }
 // POR PRODUTO
-export function ConsolidadosProdutoBody (props : any){
+export function ConsolidadosProdutoBody ( props : any ){
     console.log(props.produtos)
     return  (
         <tbody>
@@ -367,7 +317,7 @@ export function ConsolidadosProdutoBody (props : any){
     )
 }
 // TOTAL GERAL 
-export function TotalGeralConsolidados (props : any) {
+export function TotalGeralConsolidados ( props : any ) {
     console.log(props?.totais)
     return (
         <div className="container-totais" id="totais-totais">
@@ -394,3 +344,69 @@ export function TotalGeralConsolidados (props : any) {
 
 // PLANEJADO X REALIZADO
 
+export function PlanejadoXRealizadoBody ( props : any ) {
+    return (
+        <tbody>
+            {
+                props?.itens?.map( (item : IItem ,index : number) => {
+                    return <tr key={index}>
+                        {/* PRIMEIRA CAMADA */}
+                        <td>{item?.op}</td>
+                        <td>{item?.pedido}</td>
+                        <td>{item?.cliente}</td>
+                        <td>{item?.situacao}</td>
+                        <td>{item?.dataPrevFim}</td>
+                        <td>{item?.molde}</td>
+                        <td>{item?.produto}</td>
+                        <td>{item?.plano}</td>
+                        <td>{item?.producao}</td>
+                        <td>{item?.produzir}</td>
+                        <td>{item?.maquina}</td>
+                        <td>{item?.prodMaq}</td>
+                    </tr>
+                })
+            }   
+        </tbody>
+    )
+}
+
+// ÍNDICE PARADA POR POSTO
+
+export function IndiceParadaXPostoBody( props : any ){
+    console.log(props.parada);
+    return ( 
+        <tbody>
+        {props.parada?.subRelatorioIndiceParadas?.map((row : ISubRelatorioIndiceParada, index : number) => {
+            return (
+                <>
+                    <tr>
+                        <td>{row?.maquina}</td>
+                        <td>{ convertSecondsToTime( row?.tempoAtivo ) }</td>
+                        <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{i.parada}</p>)}</td>
+                        <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{i.quantidade}</p>)}</td>
+                        <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{convertSecondsToTime(i.tempoParada)}</p>)}</td>
+                        <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{i.indiceBA}</p>)}</td>
+                    
+                    </tr>
+                    <tr >
+                        <td colSpan={6}>
+                            <div className="container-totais">
+                                <p>TEMPO DE PARADAS DO POSTO (C): { props.parada?.itensRelatorio[index]?.tempoParada }</p>
+                                <p>HORAS PRODUTIVAS: {props.parada?.itensRelatorio[index]?.horasProdutivas }</p>
+                                <p>% DISP.: {props.parada?.itensRelatorio[index]?.disponibilidade}</p>
+                                <p>ÍNDICE (C)/(A): {props.parada?.itensRelatorio[index]?.indiceCA}</p>
+                                <p>ÍNDICE (C)/(D): {props.parada?.itensRelatorio[index]?.indiceCD}</p>
+                                <p>QTDE OCORR. PPE: {row?.qtdOcorrenciasPPE}</p>
+                                <p>QTDE OCORR. MTBF/MTTR: {row?.qtdMTTR_MTBF}</p>
+                                <p>TEMPO PARADAS MTBF/MTTR: {row?.tempoMTTR_MTBF}</p>
+                                <p>MTTR (min): {props.parada?.itensRelatorio[index]?.minMTTR}</p>
+                                <p>MTBF (min): {props.parada?.itensRelatorio[index]?.minMTBF}</p>                               
+                            </div>
+                        </td>
+                    </tr>
+                </>           
+            )
+        })     }
+        </tbody>
+    )
+}
