@@ -375,10 +375,10 @@ export function PlanejadoXRealizadoBody ( props : any ) {
 export function IndiceParadaXPostoBody( props : any ){
     console.log(props.parada);
     return ( 
-        <tbody>
-        {props.parada?.subRelatorioIndiceParadas?.map((row : ISubRelatorioIndiceParada, index : number) => {
+        props.parada?.subRelatorioIndiceParadas?.map((row : ISubRelatorioIndiceParada, index : number) => {
             return (
-                <>
+                
+                <tbody className={`t-${props?.className}`}>
                     <tr>
                         <td>{row?.maquina}</td>
                         <td>{ convertSecondsToTime( row?.tempoAtivo ) }</td>
@@ -388,7 +388,7 @@ export function IndiceParadaXPostoBody( props : any ){
                         <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{i.indiceBA}</p>)}</td>
                     
                     </tr>
-                    <tr >
+                    <tr id="tr-totais">
                         <td colSpan={6}>
                             <div className="container-totais">
                                 <p>TEMPO DE PARADAS DO POSTO (C): { props.parada?.itensRelatorio[index]?.tempoParada }</p>
@@ -404,9 +404,9 @@ export function IndiceParadaXPostoBody( props : any ){
                             </div>
                         </td>
                     </tr>
-                </>           
+                </tbody>
+                        
             )
-        })     }
-        </tbody>
+        })     
     )
 }

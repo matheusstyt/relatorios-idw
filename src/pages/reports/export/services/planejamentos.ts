@@ -1,5 +1,6 @@
 import api from "../../../../config/api";
 import { AxiosResponse } from "axios";
+import { IPlanejadoXRealizadoResponse } from "../interface/planejadoxrealizado";
 
 const APP_API = "http://170.10.0.206:8080";
 

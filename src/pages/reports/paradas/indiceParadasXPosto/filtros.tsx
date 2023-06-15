@@ -115,6 +115,7 @@ const Filtros = (props : any) => {
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
                 <Button variant="contained">LIMPAR</Button>
                 <Button disabled={!periodoChecked} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
+                
             </Container>
         </div>
     )
