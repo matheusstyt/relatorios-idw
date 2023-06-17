@@ -76,11 +76,11 @@ const Filtros = (props : any) => {
         if(payload.cdFerramenta!=null)  grupoTrabalho = `FERRAMENTA: ${payload.cdFerramenta}`
         if(payload.cdGrpFerramenta!=null)  grupoTrabalho = `GRUPO DE FERRAMENTA: ${payload.cdGrpFerramenta}`
         
-        const descricao = {
-            grupoTrabalho : grupoTrabalho,
-            turno : payload.cdTurno === "todos" || payload.cdTurno === null || payload.cdTurno === ""? "TODOS OS TURNOS" : payload.cdTurno,
-            periodo: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`,
-        }
+        let descricao : Object[] = [];
+        descricao.push({propery : "GRUPO DE TRABALHO", description : grupoTrabalho})
+        descricao.push({propery : "TURNOS", description: payload.cdTurno === "todos" || payload.cdTurno === null || payload.cdTurno === ""? "TODOS OS TURNOS" : payload.cdTurno})
+        descricao.push({propery : "PERÍODO", description :`${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`})
+        
         props.getPayload(payload);
         props.getDescricao(descricao);
         props.openPreview(true);
