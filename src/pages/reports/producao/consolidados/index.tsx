@@ -8,11 +8,13 @@ import headers from "../../export/headers.json";
 import { ConsolidadosServices } from "../../export/services/paradas";
 import { IConsolidadosResponse, IPosto } from "../../export/interface/consolidados";
 import { Preloader } from "../../../../components/relatorios/preloader";
+import getTableDinamicDOM from "../../export/script";
+import { Button } from "@mui/material";
 export default function Consolidados (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
-    const [descricao, setDescricao] = useState<any>({});
+    const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
 
     const [consolidadosResponse, setConsoldidadosResponse] = useState<IConsolidadosResponse>();
     async function getConsolidados (value : any) {
@@ -30,16 +32,8 @@ export default function Consolidados (props : any) {
         return (
             <div className="export-content">
                 <Header 
-                    title={`${props.title} - POR ${descricao.agrupamento}`}
-                    components={
-                        <>
-                            <p><strong>PRODUÇÃO EM: </strong> {descricao.producao}</p>
-                            <p><strong>GRUPO DE TRABALHO:: </strong> {descricao.grupoTrabalho}</p>
-                            <p><strong>TURNO: </strong> {descricao.turno}</p>
-                            <p><strong>PERÍODO: </strong> {descricao.periodo}</p>
-                            <p><strong>OP: </strong> {descricao.OP}</p>
-                        </>
-                    }
+                    title={`${props.title} - POR ${descricao[4].description}`}
+                    components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
                 <div className="table-content">
                     {
@@ -51,9 +45,10 @@ export default function Consolidados (props : any) {
                         <TableDinamic headers={headers.producao.consolidadoProduto} body={<ConsolidadosProdutoBody produtos={consolidadosResponse?.produtos} />}/>
                         : <></>
                     }
-                    
                 </div>
                 <TotalGeralConsolidados totais={consolidadosResponse} />
+                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, `${props.title} - POR ${descricao[4].description}`, "landscape", 5) }}>GERAR PDF</Button>
+
             </div>
         )
     }
@@ -80,7 +75,6 @@ export default function Consolidados (props : any) {
             />
             <div className="export-content">
                 { !exibirExportar ? <></> : previewPDF()}
-
             </div>
         </div>
     )   

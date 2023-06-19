@@ -15,7 +15,7 @@ export function Header(props : any) {
 }
 export function TotalGeralIndiceParadaXPosto (props : any) {
     return (
-        <div className="container-totais" id="totais-totais">
+        <div className="container-totais total-geral" id="totais-totais">
             <p>TEMPO ATIVO TOTAL (D): { convertSecondsToTime(props.dados?.tempoAtivo)}</p>
             <p>TEMPO PARADAS SEM PESO NA EFICIENCIA: { convertSecondsToTime(props.dados?.tempoParadasSP) }</p>
             <p>TEMPO PARADAS COM PESO NA EFICIENCIA (E): { convertSecondsToTime(props.dados?.tempoParadasCP) }</p>
@@ -320,7 +320,7 @@ export function ConsolidadosProdutoBody ( props : any ){
 export function TotalGeralConsolidados ( props : any ) {
     console.log(props?.totais)
     return (
-        <div className="container-totais" id="totais-totais">
+        <div className="container-totais total-geral" id="totais-totais">
             <p>HRS. TRABALHADAS: { props.totais?.horasTrabalhadasTotal }</p>
             <p>HRS. PARADAS: { props.totais?.horasParadasTotal }</p>
             <p>TEMPO ATIVO: { props.totais?.tempoAtivoTotal }</p>
@@ -388,9 +388,9 @@ export function IndiceParadaXPostoBody( props : any ){
                         <td>{row?.listaParadasRelatorio?.map((i, index) => <p key={index}>{i.indiceBA}</p>)}</td>
                     
                     </tr>
-                    <tr id="tr-totais">
+                    <tr>
                         <td colSpan={6}>
-                            <div className="container-totais">
+                            <div className="container-totais sub-totais">
                                 <p>TEMPO DE PARADAS DO POSTO (C): { props.parada?.itensRelatorio[index]?.tempoParada }</p>
                                 <p>HORAS PRODUTIVAS: {props.parada?.itensRelatorio[index]?.horasProdutivas }</p>
                                 <p>% DISP.: {props.parada?.itensRelatorio[index]?.disponibilidade}</p>

@@ -6,6 +6,9 @@ import { PlanejadoXRealizadoServices } from "../../export/services/planejamentos
 import { IPlanejadoXRealizadoResponse } from "../../export/interface/planejadoxrealizado";
 import { Header, PlanejadoXRealizadoBody, TableDinamic } from "../../export";
 import headers from "../../export/headers.json";
+import { Button } from "@mui/material";
+import getTableDinamicDOM from "../../export/script";
+import { Preloader } from "../../../../components/relatorios/preloader";
 
 const PlanejadoRealizado = (props : any) => {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
@@ -32,13 +35,7 @@ const PlanejadoRealizado = (props : any) => {
             <div className="export-content">
                 <Header 
                     title={props.title}
-                    components={
-                        <>
-                            <p><strong>PRODUÇÃO EM: </strong> {descricao.producao}</p>
-                            <p><strong>GRUPO DE TRABALHO:: </strong> {descricao.grupoTrabalho}</p>
-                            <p><strong>PERÍODO: </strong> {descricao.periodo}</p>
-                        </>
-                    }
+                 //   components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
                 <div className="table-content">
                     {<TableDinamic 
@@ -46,12 +43,17 @@ const PlanejadoRealizado = (props : any) => {
                         body={<PlanejadoXRealizadoBody itens={planejadoXRealizadoResponse?.itens} 
                     />}/>}
                 </div>
+                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, props.title, "landscape", 6) }}>GERAR PDF</Button>
+
             </div>
         )
     }
 
     return(
         <div className="container-page">
+
+            { exibirPreloader ? <Preloader /> : <></> }
+
             <h3 className="title-relatorio">{props.title}</h3>
             <AccordionDinamic
                 title="Filtro"
@@ -68,9 +70,9 @@ const PlanejadoRealizado = (props : any) => {
                     />
                 }
             />
-            {
-                previewPDF()
-            }
+            <div className="export-content">
+                { !exibirExportar ? <></> : previewPDF()}
+            </div>
         </div>
     )
 }

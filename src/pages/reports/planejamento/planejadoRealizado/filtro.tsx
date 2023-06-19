@@ -53,11 +53,11 @@ const Filtros = (props : any) => {
         if(exibirProducaoSelecionado==="pesoBruto") producao = `PESO BRUTO - ${exibirPesoSelecionado.toUpperCase()}` 
         if(exibirProducaoSelecionado==="pesoLiquido") producao =  `PESO LÍQUIDO - ${exibirPesoSelecionado.toUpperCase()}` 
 
-        const descricao = {
-            grupoTrabalho : grupoTrabalho,
-            periodo: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`,
-            producao: producao,
-        }
+        let descricao : Object[] = [];
+        descricao.push({propery : "GRUPO DE TRABALHO", description: grupoTrabalho})
+        descricao.push({propery : "PERÍODO", description: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`})
+        descricao.push({propery : "PRODUÇÃO", description: producao})
+        
         console.log(payload);
         console.log(descricao);
 

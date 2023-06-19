@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import "../../filtros.scss";
 import PostosFerramentas from "../../../../components/relatorios/filtros/view/postosFerramentas";
-import Paradas from "../../../../components/relatorios/filtros/view/paradas";
-import AreaResponsavel from "../../../../components/relatorios/filtros/view/areaResponsavel";
 import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
-import Tipos from "../../../../components/relatorios/filtros/view/subFiltros/tipos";
 import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
 import AgrupamentoContagem from "../../../../components/relatorios/filtros/view/agrupamentoContagem";
 import { DateFormat } from "../../export/datetime";
@@ -73,17 +70,14 @@ const Filtros = (props : any) => {
         exibirAgrupamentoSelecionado==="agrupamentoFerramenta" ? agrupamento = "FERRAMENTA" :
         exibirAgrupamentoSelecionado==="agrupamentoProduto" ? agrupamento = "PRODUTO" : agrupamento = ""
 
-        const descricao = {
-            grupoTrabalho : grupoTrabalho,
-            turno : payload.cdTurno === "todos" || payload.cdTurno === null ? "TODOS OS TURNOS" : payload.cdTurno,
-            periodo: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`,
-            producao: producao,
-            OP : OpNumber,
-            agrupamento
-        }
-        console.log(payload);
-        console.log(descricao);
-
+        let descricao : Object[] = [];
+        descricao.push({propery : "GRUPO DE TRABALHO", description: grupoTrabalho})
+        descricao.push({propery : "TURNOS", description: payload.cdTurno === "todos" || payload.cdTurno === null || payload.cdTurno === ""? "TODOS OS TURNOS" : payload.cdTurno})
+        descricao.push({propery : "PERÍODO", description: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`})
+        descricao.push({propery : "PRODUÇÃO EM", description: producao})
+        descricao.push({propery : "AGRUPAR POR", description: agrupamento})
+        descricao.push({propery : "OP", description: OpNumber})
+        
         props.getPayload(payload);
         props.getDescricao(descricao);
         props.openPreview(true);
@@ -98,7 +92,6 @@ const Filtros = (props : any) => {
                 dataInicio={(value : any) => setDataInicio(value)}
                 dataTermino={(value : any) => setDataTermino(value)}
             />
-            {/* <Tipos changed={(value : string) => setTipoSelecionado(value)} /> */}
             <Divider />
             <PostosFerramentas
                 postoFerramentaSelecionado={(value : any) => setPostoFerramentaSelecionado(value)}
