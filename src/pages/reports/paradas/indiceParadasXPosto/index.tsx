@@ -43,7 +43,7 @@ export default function IndiceParadasXPosto (props : any) {
             const primeiroThead: HTMLTableSectionElement | any = thead?.[i];
             let columns : HTMLCollectionOf<HTMLTableCellElement> = primeiroThead.getElementsByTagName("tr");
             Array.from(columns).forEach((coluna: HTMLTableCellElement) => {
-                Array.from(coluna.getElementsByTagName("th")).forEach((i : any) => {headers.push({text : i.textContent, fontSize : 9, bold : true})});
+                Array.from(coluna.getElementsByTagName("th")).forEach((i : any) => {headers.push({text : i.textContent, fontSize : 9, bold : true, style: "tableHeaderCell"})});
             });
         }  
         // TRECHO QUE BUSCA O CORPO DA TABELA
@@ -58,19 +58,48 @@ export default function IndiceParadasXPosto (props : any) {
                 arrRows.push(trDinamic(columns));
                 // COM UM LOOP, CONSEGUE TODAS AS TAG P QUE REPRESENTA OS TOTAIS DE UMA LINHA
                 let totais: HTMLCollectionOf<HTMLParagraphElement> | any = Tbody.lastElementChild?.firstElementChild?.firstElementChild?.getElementsByTagName("p");
-                
-                    let arrTotais = Array.from(totais).map((p : any) => {
-                        let objTextTotais: {text?: string, fontSize?: number, bold?: boolean, colSpan?: number} = {};
-                        
-                        objTextTotais.text = p?.textContent;
-                        objTextTotais.fontSize = 9;
-                        objTextTotais.colSpan = 6;
-                        objTextTotais.bold = true;
+                let ul: {items?: any, render?: any} = {};
 
-                        return objTextTotais;
+                let arrTotais = Array.from(totais).map((p : any) => {
+                    let objTextTotais: {
+                        text?: string, 
+                        fontSize?: number, 
+                        bold?: boolean, 
+                        marker?: string,
+                        margin?: number[],
+                        listType?: string
+                    } = {};
                     
-                    });
-                    arrRows.push([{colSpan: 6, ul :arrTotais}]);           
+                    objTextTotais.text = p?.textContent;
+                    objTextTotais.fontSize = 9;
+                    objTextTotais.marker = "";
+                    objTextTotais.margin = [0, 0, 0, 5];
+                    objTextTotais.listType = "none";
+
+                    return objTextTotais;
+                
+                });
+
+            // DIVIDIR EM DUAS COLUNAS
+                const numColumns = Math.ceil(arrTotais.length / 2);
+
+                const firstcolumn: any[] = [];
+                for(let i = 0; i < numColumns; ++i){
+                    firstcolumn.push(arrTotais[i]);
+                }
+                const secondcolumn: any[] = [];
+                for(let i = numColumns; i < arrTotais.length; ++i){
+                    secondcolumn.push(arrTotais[i]);
+                }
+            // RENDERIZAÇÃO PERSONALIZADA DA LISTA
+                    arrRows.push([{colSpan: 6, margin: [0, 0, 0, 15], columns: [
+                        {
+                            ul : firstcolumn
+                        },
+                        {
+                            ul : secondcolumn
+                        }
+                    ]}]);   
             }else{
                 const rowsDetails: HTMLCollectionOf<HTMLTableRowElement> | any = tbodies?.[i]?.getElementsByTagName("tr");
                 Array.from(rowsDetails).forEach((linha : any ) => {
@@ -78,7 +107,6 @@ export default function IndiceParadasXPosto (props : any) {
                     arrRows.push(trDinamic(columns));
                 })
             }
-            //details.push(arrRows);
         }
         // VARRER CÉLULAS DE LINHA
         function trDinamic(cell : HTMLCollectionOf<HTMLTableCellElement> ){
