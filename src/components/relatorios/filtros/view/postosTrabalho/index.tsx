@@ -1,10 +1,8 @@
 import { useState } from "react";
 import "./postos.scss";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import React from "react";
-import Postos from "../subFiltros/postos";
-import GrupoTrabalho from "../subFiltros/grupoTrabalho";
-
+import Postos from "../../../subFiltros/postos";
+import GrupoTrabalho from "../../../subFiltros/grupoTrabalho";
 const PostosTrabalho = (props : any) => {
     const [postoSelecionado, setPostoSelecionado] = useState("Postos");
 

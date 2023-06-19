@@ -1,7 +1,6 @@
 import { Accordion, AccordionSummary, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
-import { FiFilter } from "react-icons/fi";
 
 type AccordionnDinamic = {
     title : string

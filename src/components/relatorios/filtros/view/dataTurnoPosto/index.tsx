@@ -3,7 +3,7 @@ import SelectTime from "../../customInput/time";
 import "./dataTurnoPosto.scss";
 import DateInput from "../../customInput/date";
 import { FormLabel } from "@mui/material";
-import Postos from "../subFiltros/postos";
+import Postos from "../../../subFiltros/postos";
 
 const DataTurnoPosto = (props : any) => {
     const [dataInicio, setDataInicio] = useState<any>(new Date());

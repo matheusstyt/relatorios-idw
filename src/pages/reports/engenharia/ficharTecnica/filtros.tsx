@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import "../../filtros.scss";
-import PostosFerramentas from "../../../../components/relatorios/filtros/view/postosFerramentas";
 import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
-import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
-import AgrupamentoContagem from "../../../../components/relatorios/filtros/view/agrupamentoContagem";
-import { DateFormat } from "../../../../components/relatorios/export/datetime";
 
 const Filtros = (props : any) => {
     // períodos e turnos
@@ -33,8 +29,7 @@ const Filtros = (props : any) => {
 
         // carga útil
         const payload = {
-            dthrIni : periodoChecked? DateFormat(dataInicio) : null,
-            dthrFim : periodoChecked? DateFormat(dataTermino) : null,
+
             cdTurno : turnoSelecionado === "todos" ? null : turnoSelecionado,
 
             cdPt : postoFerramentaSelecionado === "Postos" ? postoFerramentaValorSelecionado : null,
@@ -84,25 +79,7 @@ const Filtros = (props : any) => {
     }
     return (
         <div className="container-filtro">
-            <OpPeriodo 
-                periodoChecked={(value : boolean) => setPeriodoChecked(value)}
-                OPChecked={(value : boolean) => setOPChecked(value)}
-                OpNumber={(value : string) => setOpNumber(value)}
-                turno={(value : any) => setTurnoSelecionado(value)}
-                dataInicio={(value : any) => setDataInicio(value)}
-                dataTermino={(value : any) => setDataTermino(value)}
-            />
-            <Divider />
-            <PostosFerramentas
-                postoFerramentaSelecionado={(value : any) => setPostoFerramentaSelecionado(value)}
-                changed={(value : any) => setPostoFerramentaValorSelecionado(value)}
-            />
-            <Divider />
-            <AgrupamentoContagem
-                producaoValorSelecionado={(value : any) => setExibirProducaoSelecionado(value)}
-                pesoValorSelecionado={(value : any) => setExibirPesoSelecionado(value)}
-                agrupamentoValorSelecionado={(value : any) => setExibirAgrupamentoSelecionado(value)}
-            />
+
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
                 <Button variant="contained">LIMPAR</Button>
                 <Button disabled={!periodoChecked} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>

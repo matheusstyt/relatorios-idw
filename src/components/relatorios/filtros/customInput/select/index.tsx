@@ -1,6 +1,5 @@
 import { InputLabel } from "@mui/material";
 import { HelperText, InputControl, Option, SelectMUI } from "./styles";
-import { useTheme } from "styled-components";
 function SelectIDW({
     id,
     options,

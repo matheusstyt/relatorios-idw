@@ -1,4 +1,4 @@
-import DateInput from "../../../customInput/date";
+import DateInput from "../../filtros/customInput/date";
 
 const Periodo = (props : any) => {
     return (

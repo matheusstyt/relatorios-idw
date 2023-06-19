@@ -3,13 +3,14 @@ import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import headers from "../../export/headers.json";
-import { Header, IndiceParadaXPostoBody, TableDinamic, TotalGeralIndiceParadaXPosto } from "../../export";
+import headers from "../../../../components/relatorios/export/headers.json";
+
+import { Header, IndiceParadaXPostoBody, TableDinamic, TotalGeralIndiceParadaXPosto } from "../../../../components/relatorios/export";
 import { IIndiceParadaPostoResponse } from '../../../../components/relatorios/filtros/interface/indiceParadasXPosto';
-import { IndiceParadaPostoServices } from "../../export/services/paradas";
 import { Preloader } from "../../../../components/relatorios/preloader";
 import { Button } from "@mui/material";
-import getTableDinamicDOM from "../../export/script";
+import { IndiceParadaPostoServices } from "../../../../components/relatorios/export/services/paradas";
+import getTableDinamicDOM from "../../../../components/relatorios/export/script";
 export default function IndiceParadasXPosto (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);

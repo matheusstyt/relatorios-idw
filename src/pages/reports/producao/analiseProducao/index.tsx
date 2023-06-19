@@ -1,6 +1,6 @@
 import AccordionDinamic from "../../../../components/relatorios/accordion";
 import { FiFilter } from "react-icons/fi";
-import { Header } from "../../export";
+import { Header } from "../../../../components/relatorios/export";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";

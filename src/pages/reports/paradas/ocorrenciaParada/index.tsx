@@ -1,9 +1,9 @@
 import AccordionDinamic from "../../../../components/relatorios/accordion";
 import { FiFilter } from "react-icons/fi";
-import { Header } from "../../export";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
+import { Header } from "../../../../components/relatorios/export";
 export default function OcorrenciaParada (props : any) {
 
     const [cargaUtil, setCargaUtil] = useState<any>({});

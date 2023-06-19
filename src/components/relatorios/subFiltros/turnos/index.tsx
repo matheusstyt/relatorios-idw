@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import SelectIDW from "../../../customInput/select"
-import { getAllShifts } from "../../../services";
+import { getAllShifts } from "../../filtros/services";
+import SelectIDW from "../../filtros/customInput/select";
 
 const Turnos = (props : any) => {
 

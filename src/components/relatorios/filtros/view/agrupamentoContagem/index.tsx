@@ -1,7 +1,7 @@
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import "./agrupamentoContagem.scss";
 import { useState } from "react";
-import Contagem from "../subFiltros/contagem";
+import Contagem from "../../../subFiltros/contagem";
 
 const AgrupamentoContagem = (props : any) => {
     

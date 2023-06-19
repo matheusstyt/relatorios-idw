@@ -2,13 +2,13 @@ import { FiFilter } from "react-icons/fi";
 import AccordionDinamic from "../../../../components/relatorios/accordion";
 import Filtros from "./filtro";
 import { useState } from "react";
-import { PlanejadoXRealizadoServices } from "../../export/services/planejamentos";
-import { IPlanejadoXRealizadoResponse } from "../../export/interface/planejadoxrealizado";
-import { Header, PlanejadoXRealizadoBody, TableDinamic } from "../../export";
-import headers from "../../export/headers.json";
+import headers from "../../../../components/relatorios/export/headers.json";
 import { Button } from "@mui/material";
-import getTableDinamicDOM from "../../export/script";
 import { Preloader } from "../../../../components/relatorios/preloader";
+import { PlanejadoXRealizadoServices } from "../../../../components/relatorios/export/services/planejamentos";
+import { Header, PlanejadoXRealizadoBody, TableDinamic } from "../../../../components/relatorios/export";
+import getTableDinamicDOM from "../../../../components/relatorios/export/script";
+import { IPlanejadoXRealizadoResponse } from "../../../../components/relatorios/export/interface/planejadoxrealizado";
 
 const PlanejadoRealizado = (props : any) => {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);

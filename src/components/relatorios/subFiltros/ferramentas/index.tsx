@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import SelectIDW from "../../../customInput/select"
-import {  getAllToolsActive } from "../../../services";
+import { useEffect, useState } from "react";
+import { getAllToolsActive } from "../../filtros/services";
+import SelectIDW from "../../filtros/customInput/select";
+
 
 const Ferramentas = (props : any) => {
 

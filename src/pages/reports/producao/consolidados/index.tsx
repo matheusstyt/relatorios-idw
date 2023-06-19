@@ -1,15 +1,15 @@
 import AccordionDinamic from "../../../../components/relatorios/accordion";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
-import { ConsolidadosFerramentaBody, ConsolidadosPostoBody, ConsolidadosProdutoBody, Header, TableDinamic, TotalGeralConsolidados } from "../../export";
+import { ConsolidadosFerramentaBody, ConsolidadosPostoBody, ConsolidadosProdutoBody, Header, TableDinamic, TotalGeralConsolidados } from "../../../../components/relatorios/export";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import headers from "../../export/headers.json";
-import { ConsolidadosServices } from "../../export/services/paradas";
-import { IConsolidadosResponse, IPosto } from "../../export/interface/consolidados";
+import headers from "../../../../components/relatorios/export/headers.json";
 import { Preloader } from "../../../../components/relatorios/preloader";
-import getTableDinamicDOM from "../../export/script";
 import { Button } from "@mui/material";
+import { IConsolidadosResponse } from "../../../../components/relatorios/export/interface/consolidados";
+import { ConsolidadosServices } from "../../../../components/relatorios/export/services/paradas";
+import getTableDinamicDOM from "../../../../components/relatorios/export/script";
 export default function Consolidados (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);

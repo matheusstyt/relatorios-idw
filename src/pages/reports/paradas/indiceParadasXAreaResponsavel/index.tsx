@@ -3,7 +3,7 @@ import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import { Header } from "../../export";
+import { Header } from "../../../../components/relatorios/export";
 export default function IndiceParadasXAreResponsavel (props : any) {
 
     const [cargaUtil, setCargaUtil] = useState<any>({});

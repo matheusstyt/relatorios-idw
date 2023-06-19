@@ -1,9 +1,9 @@
 import { Checkbox, FormControlLabel, FormLabel, TextField } from "@mui/material"
-import React, { useState } from "react";
+import { useState } from "react";
 import "./opPeriodo.scss";
-import DateInput from "../../customInput/date";
-import Turnos from "../subFiltros/turnos";
-import Periodo from "../subFiltros/periodo";
+import Periodo from "../../../subFiltros/periodo";
+import Turnos from "../../../subFiltros/turnos";
+
 const OpPeriodo = (props : any) => {
     
 

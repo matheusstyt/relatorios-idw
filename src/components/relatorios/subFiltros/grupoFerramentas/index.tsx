@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import SelectIDW from "../../../customInput/select"
-import { getAllToolsGroupActive } from "../../../services";
+import  { useEffect, useState } from "react";
+import { getAllToolsGroupActive } from "../../filtros/services";
+import SelectIDW from "../../filtros/customInput/select";
+
 
 const GrupoFerramentas = (props : any) => {
 
@@ -10,7 +11,7 @@ const GrupoFerramentas = (props : any) => {
         
     const startGetAllWorkstation = () => {
 
-        getAllToolsGroupActive("", 1, 10000).then((result) => {
+        getAllToolsGroupActive("", 1, 10000).then((result : any) => {
             if(result?.data!=null){
                 let listTemp = result.data.map((i: any)=>{
                  return {
@@ -18,12 +19,10 @@ const GrupoFerramentas = (props : any) => {
                      name: `${i?.cdGrpRAP} - ${i?.dsGrpRAP}`
                  }
                 });
-                setListaGrupoFerramentas(listTemp);
-                
+                setListaGrupoFerramentas(listTemp);     
             }
         });
     }
-
     useEffect(() => {
         startGetAllWorkstation();
     }, []);

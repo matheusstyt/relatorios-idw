@@ -3,9 +3,9 @@ import "../../filtros.scss";
 import PostosFerramentas from "../../../../components/relatorios/filtros/view/postosFerramentas";
 import { Button, Checkbox, Container, Divider, FormControlLabel } from "@mui/material";
 import { useState } from "react";
-import { DateFormat } from "../../export/datetime";
-import Periodo from "../../../../components/relatorios/filtros/view/subFiltros/periodo";
-import Contagem from "../../../../components/relatorios/filtros/view/subFiltros/contagem";
+import { DateFormat } from "../../../../components/relatorios/export/datetime";
+import Periodo from "../../../../components/relatorios/subFiltros/periodo";
+import Contagem from "../../../../components/relatorios/subFiltros/contagem";
 
 const Filtros = (props : any) => {
     // períodos e turnos

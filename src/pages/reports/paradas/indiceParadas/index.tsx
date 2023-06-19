@@ -2,8 +2,8 @@ import AccordionDinamic from "../../../../components/relatorios/accordion";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import { Header } from "../../export";
 import { FiFilter } from "react-icons/fi";
+import { Header } from "../../../../components/relatorios/export";
 export default function IndiceParadas (props : any) {
 
     const [cargaUtil, setCargaUtil] = useState<any>({});

@@ -2,10 +2,11 @@ import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import "./postosFerramentas.scss";
 import { useState } from "react";
 import React from "react";
-import Postos from "../subFiltros/postos";
-import GrupoFerramentas from "../subFiltros/grupoFerramentas";
-import GrupoTrabalho from "../subFiltros/grupoTrabalho";
-import Ferramentas from "../subFiltros/ferramentas";
+import Postos from "../../../subFiltros/postos";
+import GrupoTrabalho from "../../../subFiltros/grupoTrabalho";
+import Ferramentas from "../../../subFiltros/ferramentas";
+import GrupoFerramentas from "../../../subFiltros/grupoFerramentas";
+
 const PostosFerramentas = (props : any) => {
 
     const [postoFerramentaSelecionado, setPostoFerramentaSelecionado] = useState("Postos");

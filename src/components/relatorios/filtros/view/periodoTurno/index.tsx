@@ -2,7 +2,7 @@ import { useState } from "react";
 import DateInput from "../../customInput/date";
 import "./periodoTurno.scss";
 import { Checkbox, FormControlLabel, FormLabel } from "@mui/material";
-import Turnos from "../subFiltros/turnos";
+import Turnos from "../../../subFiltros/turnos";
 
 const PeriodoTurno = (props : any) => {
 

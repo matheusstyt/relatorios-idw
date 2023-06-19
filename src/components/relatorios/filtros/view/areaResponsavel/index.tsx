@@ -2,7 +2,6 @@ import { Checkbox, FormControl, FormControlLabel} from "@mui/material";
 import "./areaResponsavel.scss";
 import { useState } from "react";
 import Mult from "./multi";
-import React from "react";
 const AreaResponsavel = (props: any) => {
 
     const [todasSelecionado, setTodasSelecionado] = useState<boolean>(true);

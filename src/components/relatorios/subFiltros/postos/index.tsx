@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import SelectIDW from "../../../customInput/select"
-import { getAllWorkStation } from "../../../services";
+import { getAllWorkStation } from "../../filtros/services";
+import SelectIDW from "../../filtros/customInput/select";
 
 const Postos = (props : any) => {
 
