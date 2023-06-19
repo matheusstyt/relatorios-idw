@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { IIndiceParadaPostoResponse } from "../../../../components/relatorios/filtros/interface/indiceParadasXPosto";
+import { IIndiceParadaPostoResponse } from "../../filtros/interface/reports/paradas/indiceParadasXPosto";
 import api from "../../../../config/api";
 import { IConsolidadosResponse } from "../interface/consolidados";
 const APP_API = "http://170.10.0.206:8080";

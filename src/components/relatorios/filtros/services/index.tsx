@@ -1,8 +1,8 @@
-import { getAllJobPost, getAllWorkStation, getAllJobGroupActive } from "./jobPost";
-import { getAllToolsGroup, getAllToolsActive, getAllToolsGroupActive } from "./toolsGroup";
-import { getAllShifts, getAllShiftsSemCalativos } from "./shift";
-import { getAllArea } from "./area";
-import { getAllStops, getStops } from "./stops";
+import { getAllJobPost, getAllWorkStation, getAllJobGroupActive } from "./filters/posto";
+import { getAllToolsGroup, getAllToolsActive, getAllToolsGroupActive } from "./filters/ferramentas";
+import { getAllShifts, getAllShiftsSemCalativos } from "./filters/turno";
+import { getAllArea } from "./filters/area";
+import { getAllStops, getStops } from "./filters/parada";
 
 export { 
     getAllJobPost, 

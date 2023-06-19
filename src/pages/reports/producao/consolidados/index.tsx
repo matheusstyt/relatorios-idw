@@ -7,9 +7,9 @@ import "../../../pages.scss";
 import headers from "../../../../components/relatorios/export/headers.json";
 import { Preloader } from "../../../../components/relatorios/preloader";
 import { Button } from "@mui/material";
-import { IConsolidadosResponse } from "../../../../components/relatorios/export/interface/consolidados";
 import { ConsolidadosServices } from "../../../../components/relatorios/export/services/paradas";
 import getTableDinamicDOM from "../../../../components/relatorios/export/script";
+import { IConsolidadosResponse } from "../../../../components/relatorios/filtros/interface/reports/producao/consolidados";
 export default function Consolidados (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);

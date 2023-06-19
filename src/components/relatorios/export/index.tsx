@@ -1,9 +1,8 @@
-import { ISubRelatorioIndiceParada } from "../../../components/relatorios/filtros/interface/indiceParadasXPosto";
+import { ISubRelatorioIndiceParada } from "../filtros/interface/reports/paradas/indiceParadasXPosto";
+import { IItem } from "../filtros/interface/reports/planejamento/planejadoxrealizado";
+import { IFerramenta, IPosto, IProduto } from "../filtros/interface/reports/producao/consolidados";
 import { convertSecondsToTime } from "./datetime";
 import "./export.scss";
-import { useEffect } from 'react';
-import { IConsolidadosResponse, IFerramenta, IPosto, IProduto } from './interface/consolidados';
-import { IItem } from "./interface/planejadoxrealizado";
 
 export function Header(props : any) {
     return (

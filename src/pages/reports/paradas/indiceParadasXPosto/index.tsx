@@ -6,7 +6,7 @@ import "../../../pages.scss";
 import headers from "../../../../components/relatorios/export/headers.json";
 
 import { Header, IndiceParadaXPostoBody, TableDinamic, TotalGeralIndiceParadaXPosto } from "../../../../components/relatorios/export";
-import { IIndiceParadaPostoResponse } from '../../../../components/relatorios/filtros/interface/indiceParadasXPosto';
+import { IIndiceParadaPostoResponse } from '../../../../components/relatorios/filtros/interface/reports/paradas/indiceParadasXPosto';
 import { Preloader } from "../../../../components/relatorios/preloader";
 import { Button } from "@mui/material";
 import { IndiceParadaPostoServices } from "../../../../components/relatorios/export/services/paradas";
