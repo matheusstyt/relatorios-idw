@@ -1,4 +1,4 @@
-export interface IProduto {
+interface IProduto {
     cdProduto?: string;
     dsProduto?: string;
     molde?: string;

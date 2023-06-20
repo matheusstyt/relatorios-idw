@@ -1,46 +1,47 @@
-import React, { useEffect, useState } from "react";
-import { getAllWorkStation } from "../../filtros/services";
+import { getAllProducts } from "../../filtros/services/filters/produto";
 import SelectIDW from "../../filtros/customInput/select";
+import { useEffect, useState } from "react";
 
 const Produtos = (props : any) => {
 
-    const [postoValorSelecionado, setPostoValorSelecionado] = useState("");
+    const [produtoValorSelecionado, setProdutoValorSelecionado] = useState("");
     
-    const [listaPostos, setListaPostos] = useState<any[]>([])
+    const [listaProdutos, setListaProdutos] = useState<any[]>([]);
         
-    const startGetAllWorkstation = () => {
+    const startGetAllProduct = () => {
 
-        getAllWorkStation("", 1, 10000)
+        getAllProducts()
         .then((result : any) => {
-            
-            let lista = result.data.map((i: any)=>{
+            console.log(result)
+            let lista = result.data.items.map((i: any)=>{
                 return {
-                    value: i?.cdPt,
-                    name: `${i?.cdPt} - ${i?.dsPt}`
+                    value: i?.cdProduto,
+                    name: `${i?.cdProduto} - ${i?.dsProduto}`,
+                    id: i?.idProduto
                 }
             });
-            setListaPostos(lista);
+            setListaProdutos(lista);
         })
     }
 
     useEffect(() => {
-        startGetAllWorkstation();
+        startGetAllProduct();
     }, []);
 
     return (
         <SelectIDW
-            id="Posto"
-            label="Postos"
-            name="Posto"
-            options={listaPostos}
+            id="Produto"
+            label="Produtos"
+            name="Produto"
+            options={listaProdutos}
             width="100%"
-            value={postoValorSelecionado}
+            value={produtoValorSelecionado}
             defaultValue={"todos"} 
             onChange={(value: any) => {
-                setPostoValorSelecionado(value?.target?.value);
+                setProdutoValorSelecionado(value?.target?.value);
                 props.changed(value?.target?.value);
             } }
-            />  
+        />  
     )
 }
 

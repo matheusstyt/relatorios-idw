@@ -1,3 +1,4 @@
+import { IFichaTecnicaResponse, IProduto as IProdFT } from '../filtros/interface/reports/engenharia/fichaTecnica';
 import { ISubRelatorioIndiceParada } from "../filtros/interface/reports/paradas/indiceParadasXPosto";
 import { IItem } from "../filtros/interface/reports/planejamento/planejadoxrealizado";
 import { IFerramenta, IPosto, IProduto } from "../filtros/interface/reports/producao/consolidados";
@@ -340,9 +341,7 @@ export function TotalGeralConsolidados ( props : any ) {
         </div>
     )
 }
-
 // PLANEJADO X REALIZADO
-
 export function PlanejadoXRealizadoBody ( props : any ) {
     return (
         <tbody>
@@ -368,9 +367,7 @@ export function PlanejadoXRealizadoBody ( props : any ) {
         </tbody>
     )
 }
-
 // ÍNDICE PARADA POR POSTO
-
 export function IndiceParadaXPostoBody( props : any ){
     console.log(props.parada);
     return ( 
@@ -407,5 +404,31 @@ export function IndiceParadaXPostoBody( props : any ){
                         
             )
         })     
+    )
+}
+// FICHA TÉCNICA 
+
+export function FichaTecnicaBody( props : any){
+    console.log(props)
+    return (
+        <tbody>
+            {
+                props?.itens?.map( (item : IProdFT ,index : number) => {
+                    return <tr key={index}>
+                        {/* PRIMEIRA CAMADA */}
+                        <td>{item?.cdProduto}</td>
+                        <td>{item?.dsProduto}</td>
+                        <td>{item?.molde}</td>
+                        <td>{item?.cavAtivas}</td>
+                        <td>{item?.maquina}</td>
+                        <td>{item?.cioPadrao}</td>
+                        <td>{item?.cdCliente}</td>
+                        <td>{item?.nmCliente}</td>
+                        <td>{item?.psBruto}</td>
+                        <td>{item?.psLiquido}</td>
+                    </tr>
+                })
+            }   
+        </tbody>
     )
 }

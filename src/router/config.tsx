@@ -1,3 +1,4 @@
+import FichaTecnica from "../pages/reports/engenharia/ficharTecnica";
 import IndiceParadas from "../pages/reports/paradas/indiceParadas";
 import IndiceParadasXAreResponsavel from "../pages/reports/paradas/indiceParadasXAreaResponsavel";
 import IndiceParadasXPosto from "../pages/reports/paradas/indiceParadasXPosto";
@@ -100,7 +101,12 @@ export const APP_ROUTES = {
         path : "relatorioproducao",
         element: <IndiceParadasXAreResponsavel title="Relatório de Produção (R043)" />
       },
-    
+      {
+        category : "engineering",
+        title : "Ficha Técnica - Produto (R001)",
+        path : "fichatecnica",
+        element: <FichaTecnica title="Ficha Técnica - Produto (R001)" />
+      },
     ]
 
 }

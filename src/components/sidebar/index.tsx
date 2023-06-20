@@ -55,6 +55,18 @@ export default function SideBar () {
                                 })
                             }
                         />
+                        <AccordionDinamic 
+                            title={"Engenharia"} 
+                            img={<IoIosPaper size={20} />} 
+                            component={
+                                APP_ROUTES.REPORT.map( (route, index) => {
+                                    return route.category === "engineering" ?<NavLink key={index} to={`/${route.path}`} end>
+                                        <CgFileDocument className="ico-nav" />
+                                        <h4>{route.title}</h4>
+                                    </NavLink>  : <></>
+                                })
+                            }
+                        />
 
                     </>
                     

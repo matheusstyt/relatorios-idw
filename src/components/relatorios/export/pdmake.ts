@@ -9,56 +9,6 @@ const relatorioPDF = (props: any) => {
   // Configurações extras
   const pageOrientation: types.PageOrientation = props.orientation; // ou "landscape"
   const fontPrimary: number = props.fontSize;
-  console.log(props.descricao)
-  function titleReport(atual: any, total: any){
-    const reportTitle = [
-      { text: props.title, style: "headerStyle",},
-      {
-        columns: [
-          {
-            ul: props.descricao?.map((i: any) => ({
-              text: `${i.propery}: ${i.description}`,
-              fontSize: fontPrimary,
-              marker: "",
-              margin: [10, 5, 0, 0],
-              listType: "none",
-            })),
-          },
-          {
-            ul: [
-              {
-                text: DateTimeFormat(new Date()),
-                fontSize: fontPrimary,
-                bold: true,
-                alignment: "right",
-                listType: "none",
-                margin: [0, 5, 5, 0] as types.Margins,
-              },
-              {
-                text: "v0.131.10",
-                fontSize: fontPrimary,
-                bold: true,
-                alignment: "right",
-                listType: "none",
-                margin: [0, 5, 5, 0] as types.Margins,
-              },
-              {
-                text: ` Pag. ${atual} de ${total}`,
-                fontSize: fontPrimary,
-                bold: true,
-                alignment: "right",
-                listType: "none",
-                margin: [0, 5, 5, 0] as types.Margins,
-              },
-            ],
-          },
-        ],
-        height: 150
-      },
-    ];
-    return reportTitle;
-  }
-  
   const reportBody = [
     {
       table: {
@@ -120,14 +70,6 @@ const relatorioPDF = (props: any) => {
       fillColor: "#EAEAEA", // Cor de fundo do cabeçalho da tabela
       color: "#101010", // Cor do texto no cabeçalho da tabela
     },
-    totalGeral: {
-     // background: "#1d6bc4",
-    //  fillColor: "#1d6bc4",
-      color:"#303030",
-      border: [false, true, false, false], // [left, top, right, bottom]
-      borderColor: "#414141", // Cor da borda
-      borderWidth: [0, 2, 0, 0], // Espessura da borda
-    }
   };
 
   const pageConfig = {

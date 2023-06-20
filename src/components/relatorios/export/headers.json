@@ -130,5 +130,19 @@
             "POSTO",
             "PROD. POSTO"
         ]
+    },
+    "engenharia" : {
+        "fichatecnica" : [
+            "CD. PRODUTO",
+            "PRODUTO",
+            "FOLHA/RAP",
+            "CAV. ATIVAS",
+            "POSTO",
+            "CIC. PADRÃO",
+            "CD. CLIENTE",
+            "CLIENTE",
+            "P. BRUTO(g)",
+            "P. LÍQUIDO(g)"
+        ]
     }
 }
