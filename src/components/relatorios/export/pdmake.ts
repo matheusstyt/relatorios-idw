@@ -5,10 +5,12 @@ import { Formatar } from "./datetime";
 
 const relatorioPDF = (props: any) => {
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
+  let total: any[] = props.columns;
   // Configurações extras
   const pageOrientation: types.PageOrientation = props.orientation; // ou "landscape"
   const fontPrimary: number = props.fontSize;
+  const marginTop: number = props.marginTop;
+  // fim 
   const reportBody = [
     {
       table: {
@@ -24,9 +26,12 @@ const relatorioPDF = (props: any) => {
       layout: "lightHorizontalLines",
       style: "tableCell",
     },
-    {text: "Totais:", style: "totaisTitle"},
+    // VERIFICA SE HÁ TOTAL
     {
-      marginTop: 15,
+      stack : total.length >0 ? [] : [{text: "Totais:", style: "totaisTitle"},]
+    }
+    ,
+    {
       stack: [
         
         {columns: props.columns}
@@ -53,7 +58,7 @@ const relatorioPDF = (props: any) => {
       margin: [0, 10, 0, 0] as types.Margins,
     },
     tableCell: {
-      margin: [0, 15, 0, 0] as types.Margins,
+      margin: [0, 0, 0, 0] as types.Margins,
       border: [false, true, false, true], // [left, top, right, bottom]
     },
     tableHeaderCell: {
@@ -74,7 +79,7 @@ const relatorioPDF = (props: any) => {
 
   const pageConfig = {
     pageSize: "A4" as types.PredefinedPageSize, // Escolha o tamanho de página desejado
-    pageMargins: [ 10, 100, 10, 10 ] as types.Margins, // left, top, right, bottom (aumente o valor da margem superior)
+    pageMargins: [ 10, marginTop, 10, 10 ] as types.Margins, // left, top, right, bottom (aumente o valor da margem superior)
     pageOrientation: pageOrientation,
     header: (currentpage: any, pageCount: any) => {
       const reportTitle = [
@@ -109,7 +114,7 @@ const relatorioPDF = (props: any) => {
                   margin: [0, 5, 10, 0] as types.Margins,
                 },
                 {
-                  text: new Formatar(new Date()).dataGeralPT,
+                  text: new Formatar(new Date()).dataGeralPT(),
                   fontSize: fontPrimary,
                   bold: true,
                   alignment: "right",
@@ -119,7 +124,6 @@ const relatorioPDF = (props: any) => {
               ],
             },
           ],
-          height: 150
         },
       ];
      
@@ -128,7 +132,7 @@ const relatorioPDF = (props: any) => {
     content: reportBody,
     styles: reportStyle as types.StyleDictionary,
   };
-  pdfMake.createPdf(pageConfig).download(`${props.title} - ${new Formatar(new Date()).dataGeral}`);
+  pdfMake.createPdf(pageConfig).download(`${props.title} - ${new Formatar(new Date()).dataGeral()}.pdf`);
 };
 
 export default relatorioPDF;

@@ -43,7 +43,7 @@ const PlanejadoRealizado = (props : any) => {
                         body={<PlanejadoXRealizadoBody itens={planejadoXRealizadoResponse?.itens} 
                     />}/>}
                 </div>
-                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, props.title, "landscape", 6) }}>GERAR PDF</Button>
+                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, props.title, "landscape", 6, 70) }}>GERAR PDF</Button>
 
             </div>
         )

@@ -47,7 +47,7 @@ export default function AnaliseProducao (props : any) {
                 <div className="table-content">
                     {<TableDinamic headers={headers.producao.analiseProducao} body={<AnaliseProducaoBody listaDTO={analiseProducaoResponse?.listaDTOs} />}/>}
                 </div>
-                    <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, `${props.title}`, "landscape", 5) }}>GERAR PDF</Button>
+                    <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, `${props.title}`, "landscape", 7, 70) }}>GERAR PDF</Button>
             </div>
         </div>
     )   

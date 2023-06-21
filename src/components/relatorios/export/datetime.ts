@@ -32,8 +32,8 @@ export class Formatar {
     }
     dataGeralPT(): string { return `${this.day}/${this.month}/${this.year} ${this.h}:${this.m}:${this.s}`}
     dataAbreviadaPT(): string { return `${this.day}/${this.month}/${this.year}`}
-    dataGeral(): string { return `${this.year}-${this.month}-${this.day}`}
-    dataAbreviada(): string { return `${this.year}-${this.month}-${this.day} ${this.h}:${this.m}:${this.s}`}
+    dataGeral(): string { return `${this.year}-${this.month}-${this.day}  ${this.h}:${this.m}:${this.s}`}
+    dataAbreviada(): string { return `${this.year}-${this.month}-${this.day}`}
     intervalo(): string { return `${this.day}/${this.month}`}
 }
 export function convertSecondsToTime(seconds: any) {

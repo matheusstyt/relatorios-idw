@@ -27,7 +27,7 @@ const Filtros = (props : any) => {
         const payload = {
             dthrIni : periodoChecked? new Formatar(dataInicio).dataAbreviada() : null,
             dthrFim : periodoChecked? new Formatar(dataTermino).dataAbreviada() : null,
-            dtEmissao: new Formatar(new Date),
+            dtEmissao: new Formatar(new Date).dataAbreviada(),
             cdPt : postoFerramentaSelecionado === "Postos" ? postoFerramentaValorSelecionado : null,
             cdGt : postoFerramentaSelecionado === "grupoTrabalho" ? postoFerramentaValorSelecionado : null,
             cdFerramenta : postoFerramentaSelecionado === "ferramentas" ? postoFerramentaValorSelecionado : null,

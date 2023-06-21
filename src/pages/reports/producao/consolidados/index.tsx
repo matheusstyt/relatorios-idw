@@ -22,7 +22,6 @@ export default function Consolidados (props : any) {
         await ConsolidadosServices( value)
         .then( (data) => {
             setConsolidadosResponse(data);
-            
         })
         setExibirPreloader(false);
         setExibirExportar(true);
@@ -47,7 +46,7 @@ export default function Consolidados (props : any) {
                     }
                 </div>
                 <TotalGeralConsolidados totais={consolidadosResponse} />
-                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, `${props.title} - POR ${descricao[4].description}`, "landscape", 5) }}>GERAR PDF</Button>
+                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, `${props.title} - POR ${descricao[4].description}`, "landscape", 5, 100) }}>GERAR PDF</Button>
 
             </div>
         )

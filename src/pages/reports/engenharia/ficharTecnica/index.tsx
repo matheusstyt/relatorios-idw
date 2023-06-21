@@ -38,7 +38,7 @@ const FichaTecnica = (props: any) =>{
                 <div className="table-content">
                     {<TableDinamic headers={headers.engenharia.fichatecnica} body={<FichaTecnicaBody itens={fichaTecnicaResponse?.itens} />}/>}
                 </div>
-                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, `${props.title}`, "portrait", 8) }}>GERAR PDF</Button>
+                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, `${props.title}`, "landscape", 11, 80) }}>GERAR PDF</Button>
 
             </div>
         )

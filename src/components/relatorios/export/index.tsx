@@ -374,7 +374,7 @@ export function IndiceParadaXPostoBody( props : any ){
         props.parada?.subRelatorioIndiceParadas?.map((row : ISubRelatorioIndiceParada, index : number) => {
             return (
                 
-                <tbody className={`t-${props?.className}`}>
+                <tbody className={`t-indiceparadaxposto`}>
                     <tr>
                         <td>{row?.maquina}</td>
                         <td>{ convertSecondsToTime( row?.tempoAtivo ) }</td>

@@ -42,7 +42,7 @@ export default function IndiceParadasXPosto (props : any) {
                 </div>
                 <h2>Total Geral</h2>
                 <TotalGeralIndiceParadaXPosto dados={listaIndiceParadaPosto} />
-                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, props.title, "portrait", 9) }}>GERAR PDF</Button>
+                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, props.title, "portrait", 10, 90) }}>GERAR PDF</Button>
 
             </div>
         )
