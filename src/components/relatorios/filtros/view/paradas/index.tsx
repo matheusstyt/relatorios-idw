@@ -12,8 +12,7 @@ const Paradas = (props : any) => {
     
     const startGetStops = () => {
 
-        getStops("", 1, 10000, false).then((result) => {
-            console.log(result.data)
+        getStops("", 1, 10000, true).then((result) => {
             if(result?.data!=null){
                 let tempList = result.data?.items.map((i: any)=>{
                     return {

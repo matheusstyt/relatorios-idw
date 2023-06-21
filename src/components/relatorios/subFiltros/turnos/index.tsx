@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getAllShifts } from "../../filtros/services";
 import SelectIDW from "../../filtros/customInput/select";
+import { getAllShiftsSemCalativos } from "../../filtros/services";
 
 const Turnos = (props : any) => {
 
@@ -8,12 +8,12 @@ const Turnos = (props : any) => {
     
     const [listaTurnos, setListaTurnos] = useState<any[]>([])
         
-    const startGetAllShifts = () => {
+    const getAllShiftsSemCalA = () => {
 
-        getAllShifts()
+        getAllShiftsSemCalativos()
         .then((response: any)=>{
             if(response?.data!=null){
-                let tempList = response.data.items.map((i: any)=>{
+                let tempList = response.data.map((i: any)=>{
                  return {
                      value: i?.cdTurno,
                      name: i?.dsTurno
@@ -29,7 +29,7 @@ const Turnos = (props : any) => {
     }
 
     useEffect(() => {
-        startGetAllShifts();
+        getAllShiftsSemCalA();
     }, []);
 
     return (

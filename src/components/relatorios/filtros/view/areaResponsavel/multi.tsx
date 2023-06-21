@@ -42,10 +42,10 @@ export default function Mult(props : any) {
   };
 
   const [ListaAreaResponsavel, setListaAreaResponsavel] = useState<any[]>([]);
-    const [listaParadasSelecionadas, setlistaParadasSelecionadas] = useState<any[]>([]);
+  const [listaParadasSelecionadas, setlistaParadasSelecionadas] = useState<any[]>([]);
 
     const startGetAllArea = () => {
-        getAllArea()
+        getAllArea("", 1, 10000, true)
         .then((result : any) => {
             let tempList = result.data?.items.map((i: any)=>{
                 return {
@@ -54,7 +54,6 @@ export default function Mult(props : any) {
                 }
               }); 
               setListaAreaResponsavel(tempList);
-              console.log(tempList);
         })
     }
     useEffect(() => {

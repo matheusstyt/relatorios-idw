@@ -7,6 +7,7 @@ import { useState } from "react";
 import IntervaloContagem from "../../../../components/relatorios/filtros/view/intervaloContagem";
 import PostosTrabalho from "../../../../components/relatorios/filtros/view/postosTrabalho";
 import ProducaoEm from "../../../../components/relatorios/filtros/view/producaoEm";
+import { Formatar } from "../../../../components/relatorios/export/datetime";
 
 const Filtros = (props : any) => {
     // períodos e intervalo
@@ -28,13 +29,11 @@ const Filtros = (props : any) => {
         // carga útil
         const payload = {
 
-            dthrIni : dataInicio? dataInicio : null,
-            dthFim : dataTermino? dataTermino : null,
-            intervaloIni : horaInicio? horaInicio : null,
-            intervaloFim : horaTermino? horaTermino : null,
+            dthrIni : dataInicio ? `${new Formatar(dataInicio).dataAbreviadaPT()} ${horaInicio}` : null,
+            dthFim : dataInicio ? `${new Formatar(dataTermino).dataAbreviadaPT()} ${horaTermino}` : null,
 
-            cdPt : postoTrabalhoSelecionado === "Postos" ? postoTrabalhoValorSelecionado : null,
-            cdGt : postoTrabalhoSelecionado === "grupoTrabalho" ? postoTrabalhoValorSelecionado : null,
+            cdPt : postoTrabalhoSelecionado === "Postos" ? postoTrabalhoValorSelecionado : "",
+            cdGt : postoTrabalhoSelecionado === "grupoTrabalho" ? postoTrabalhoValorSelecionado : "",
 
             isProducaoEmPeca: producaoValorSelecionado=="pecas",
             isProducaoEmPesoBruto: producaoValorSelecionado=="pesoBruto",
@@ -43,21 +42,21 @@ const Filtros = (props : any) => {
             isPesoEmTon: producaoValorSelecionado!="pecas" &&  pesoValorSelecionado=="tonelada" 
         };
 
-        let grupoTrabalho = "";
+        let contagem = "";
+        if(payload.isProducaoEmPeca) contagem = "PEÇAS"
+        if(payload.isProducaoEmPesoBruto) contagem = "PESO BRUTO"
+        if(payload.isProducaoEmPesoLiquido) contagem = "PESO LÍQUIDO"
 
-        if(payload.cdGt!=null)  grupoTrabalho = `GRUPO DE TRABALHO: ${payload.cdGt}`
-        if(payload.cdPt!=null)  grupoTrabalho = `POSTO DE TRABALHO: ${payload.cdPt}`
-
-        const descricao = {
-            grupoTrabalho : grupoTrabalho,
-            periodo: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`,
-        }
+        let descricao : Object[] = [];
+        descricao.push({propery : "GRUPO DE TRABALHO", description : postoTrabalhoSelecionado})
+        descricao.push({propery : "CONTAGEM", description : contagem})
+        descricao.push({propery : "INTERVALO", description : 
+        `${new Formatar(dataInicio).intervalo()} ${horaInicio} - ${new Formatar(dataTermino).intervalo()} ${horaTermino}`})
+        
         console.log(payload);
-        console.log(descricao);
 
         props.getPayload(payload);
         props.getDescricao(descricao);
-
     }
     return (
         <div className="container-filtro">

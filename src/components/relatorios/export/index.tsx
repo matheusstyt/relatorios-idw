@@ -1,6 +1,8 @@
 import { IFichaTecnicaResponse, IProduto as IProdFT } from '../filtros/interface/reports/engenharia/fichaTecnica';
+import { IindiceParadasDTO } from '../filtros/interface/reports/paradas/indiceParadas';
 import { ISubRelatorioIndiceParada } from "../filtros/interface/reports/paradas/indiceParadasXPosto";
 import { IItem } from "../filtros/interface/reports/planejamento/planejadoxrealizado";
+import { IListaAcompanhamentoProducaoDTO } from '../filtros/interface/reports/producao/acompanhamentoProducao';
 import { IAnaliseProducaoResponse, IListaDTO, IOperador, ItemProducaoEficienciaHoraAHora } from '../filtros/interface/reports/producao/analiseProducao';
 import { IFerramenta, IPosto, IProduto } from "../filtros/interface/reports/producao/consolidados";
 import { convertSecondsToTime } from "./datetime";
@@ -346,7 +348,7 @@ export function PlanejadoXRealizadoBody ( props : any ) {
     return (
         <tbody>
             {
-                props?.itens?.map( (item : IItem ,index : number) => {
+                props?.items?.map( (item : IItem ,index : number) => {
                     return <tr key={index}>
                         {/* PRIMEIRA CAMADA */}
                         <td>{item?.op}</td>
@@ -489,4 +491,81 @@ export function AnaliseProducaoBody( props : any){
                 }) 
   
     )
+}
+// PLANEJADO X REALIZADO
+export function AcompanhamentoProducaoBody ( props : any ) {
+    return (
+        <tbody>
+            {
+                props?.lista?.map( (item : IListaAcompanhamentoProducaoDTO ,index : number) => {
+                    return <tr key={index}>
+                        {/* PRIMEIRA CAMADA */}
+                        <td>{item?.maquina}</td>
+                        <td>{item?.projecaofPeriodo}</td>
+                        <td>{item?.qtdProduzida}</td>
+                        <td>{item?.qtdPrevista}</td>
+                        <td>{item?.metaPeriodo}</td>
+                        <td>{item?.eficRelaizacao}</td>
+                        <td>{item?.indiceRef}</td>
+                        <td>{item?.indicePa}</td>
+                        <td>{item?.eficRelaizacao}</td>
+                    </tr>
+                })
+            }   
+        </tbody>
+    )
+}
+
+// ÍNDICE DE PARADAS
+// PARÃO
+export function IndiceParadasPadraoBody ( props : any ) {
+    console.log(props)
+    return <tbody>
+        {
+            props?.paradas?.map( (parada : IindiceParadasDTO ,index : number) => {
+                return <tr key={index}>
+                    {/* PRIMEIRA CAMADA */}
+                    <td>{parada?.parada}</td>
+                    <td>{convertSecondsToTime(parada?.tempo)}</td>
+                    <td>{parada?.indice}</td>
+                </tr>
+            })
+        }   
+    </tbody>
+}
+// PRODUTO
+export function IndiceParadasProdutoBody ( props : any ) {
+    console.log(props)
+    return <tbody>
+        {
+            props?.paradas?.map( (parada : IindiceParadasDTO ,index : number) => {
+                return <tr key={index}>
+                    {/* PRIMEIRA CAMADA */}
+                    <td>{parada?.produto}</td>
+                    <td>{parada?.maquina}</td>
+                    <td>{parada?.parada}</td>
+                    <td>{convertSecondsToTime(parada?.tempo)}</td>
+                    <td>{parada?.indice}</td>
+                </tr>
+            })
+        }   
+    </tbody>
+}
+// FERRAMENTA
+export function IndiceParadasFerramentaBody ( props : any ) {
+    console.log(props)
+    return <tbody>
+        {
+            props?.paradas?.map( (parada : IindiceParadasDTO ,index : number) => {
+                return <tr key={index}>
+                    {/* PRIMEIRA CAMADA */}
+                    <td>{parada?.ferramenta}</td>
+                    <td>{parada?.maquina}</td>
+                    <td>{parada?.parada}</td>
+                    <td>{convertSecondsToTime(parada?.tempo)}</td>
+                    <td>{parada?.indice}</td>
+                </tr>
+            })
+        }   
+    </tbody>
 }

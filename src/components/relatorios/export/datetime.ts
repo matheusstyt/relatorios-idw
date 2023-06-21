@@ -44,5 +44,5 @@ export function convertSecondsToTime(seconds: any) {
     const zeroEsquerda = (value: number) => {
         return value.toString().padStart(2, '0');
       };
-    return `${zeroEsquerda(hours)}:${zeroEsquerda(minutes)}:${zeroEsquerda(remainingSeconds)}:${zeroEsquerda(milliseconds)}`;
+    return `${zeroEsquerda(hours)}:${zeroEsquerda(minutes)}:${zeroEsquerda(remainingSeconds)}`;
   }

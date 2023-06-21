@@ -9,7 +9,7 @@ import { Header, IndiceParadaXPostoBody, TableDinamic, TotalGeralIndiceParadaXPo
 import { IIndiceParadaPostoResponse } from '../../../../components/relatorios/filtros/interface/reports/paradas/indiceParadasXPosto';
 import { Preloader } from "../../../../components/relatorios/preloader";
 import { Button } from "@mui/material";
-import { IndiceParadaPostoServices } from "../../../../components/relatorios/export/services/paradas";
+import { IndiceParadaXPostoServices } from "../../../../components/relatorios/export/services/paradas";
 import getTableDinamicDOM from "../../../../components/relatorios/export/script";
 export default function IndiceParadasXPosto (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
@@ -20,11 +20,9 @@ export default function IndiceParadasXPosto (props : any) {
     const [listaIndiceParadaPosto, setListIndiceParadaPosto] = useState<IIndiceParadaPostoResponse>();
     async function getIndiceRelatorioPosto (value : any) {
         setCargaUtil(value);
-        await IndiceParadaPostoServices( value)
+        await IndiceParadaXPostoServices( value)
         .then( (data) => {
-            setListIndiceParadaPosto(data)
-            console.log(data)
-            
+            setListIndiceParadaPosto(data)            
         })
         setExibirPreloader(false);
         setExibirExportar(true);

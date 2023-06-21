@@ -9,6 +9,7 @@ import { IAnaliseProducaoResponse } from "../../../../components/relatorios/filt
 import { AnaliseProducaoServices } from "../../../../components/relatorios/export/services/produtos";
 import { Button } from "@mui/material";
 import getTableDinamicDOM from "../../../../components/relatorios/export/script";
+import { Preloader } from "../../../../components/relatorios/preloader";
 export default function AnaliseProducao (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);
@@ -25,8 +26,25 @@ export default function AnaliseProducao (props : any) {
         setExibirPreloader(false);
         setExibirExportar(true);
     }
+    const previewPDF = () => {
+        return (
+            <div className="export-content">
+                <Header 
+                    title={props.title}
+                    components={<> {descricao?.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
+                />
+                <div className="table-content">
+                    {<TableDinamic headers={headers.producao.analiseProducao} body={<AnaliseProducaoBody listaDTO={analiseProducaoResponse?.listaDTOs} />}/>}
+                </div>
+                    <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, `${props.title}`, "landscape", 7, 70) }}>GERAR PDF</Button>
+            </div>
+        )
+    }
     return (
         <div className="container-page">
+
+            { exibirPreloader ? <Preloader /> : <></> }
+            
             <h3 className="title-relatorio">{props.title}</h3>
             <AccordionDinamic
                 title="Filtro"
@@ -40,14 +58,7 @@ export default function AnaliseProducao (props : any) {
                 }
             />
             <div className="export-content">
-                <Header 
-                    title={props.title}
-                    components={<> {descricao?.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
-                />
-                <div className="table-content">
-                    {<TableDinamic headers={headers.producao.analiseProducao} body={<AnaliseProducaoBody listaDTO={analiseProducaoResponse?.listaDTOs} />}/>}
-                </div>
-                    <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, `${props.title}`, "landscape", 7, 70) }}>GERAR PDF</Button>
+            { !exibirExportar ? <></> : previewPDF()}
             </div>
         </div>
     )   

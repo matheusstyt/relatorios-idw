@@ -20,10 +20,8 @@ const FichaTecnica = (props: any) =>{
     async function getfichaTecnica (value : any) {
         setCargaUtil(value);
         await FichaTecnicaServices( value)
-        .then( (data) => {
-            console.log(data)
+        .then( (data: any) => {
             setFichaTecnicaResponse(data);
-            
         })
         setExibirPreloader(false);
         setExibirExportar(true);
@@ -57,7 +55,6 @@ const FichaTecnica = (props: any) =>{
                         getPayload={async (value: any ) => {
                             getfichaTecnica(value);
                         }
-
                         }
                         getDescricao={(value: any ) => setDescricao(value)}
                         openPreview={(value: boolean) =>  setExibirPreloader(true) }

@@ -7,6 +7,7 @@ import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
 import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
 import Tipos from "../../../../components/relatorios/subFiltros/tipos";
+import { Formatar } from "../../../../components/relatorios/export/datetime";
 
 const Filtros = (props : any) => {
     // períodos e turnos
@@ -51,47 +52,48 @@ const Filtros = (props : any) => {
 
         // carga útil
         const payload = {
-            OPChecked : OPChecked,
-            OpNumber : OpNumber,
-            periodoChecked : periodoChecked,
-            dthrIni : periodoChecked? dataInicio : null,
-            dthFim : periodoChecked? dataTermino : null,
+            op : OpNumber,
+            dthrIni : periodoChecked? new Formatar(dataInicio).dataAbreviada() : null,
+            dthrFim : periodoChecked? new Formatar(dataTermino).dataAbreviada() : null,
             cdTurno : turnoSelecionado === "todos" ? null : turnoSelecionado,
-
-            tipo : tipoSelecionado,
-
-            cdPt : postoFerramentaSelecionado === "Postos" ? postoFerramentaValorSelecionado : null,
-            cdGt : postoFerramentaSelecionado === "grupoTrabalho" ? postoFerramentaValorSelecionado : null,
-            cdFerramenta : postoFerramentaSelecionado === "ferramentas" ? postoFerramentaValorSelecionado : null,
-            cdGrpFerramenta : postoFerramentaSelecionado === "grupoFerramenta" ? postoFerramentaValorSelecionado : null,
-
+            cdPt : postoFerramentaSelecionado === "Postos" ? postoFerramentaValorSelecionado : "",
+            cdGt : postoFerramentaSelecionado === "grupoTrabalho" ? postoFerramentaValorSelecionado : "",
             isTodasAreas: todasAreaSelecioando,
             isTodasParadas: todasParadasSelecionado,
             listaCdParadas: listaParadaPayload,
             listaCdAreas: listaAreaPayload,
+            isAgrupamentoPadrao: tipoSelecionado === "padrao",
+	        isAgrupadoPorProduto: tipoSelecionado === "porProduto",
+	        isAgrupadoPorFerramenta: tipoSelecionado === "porFerramenta",
         };
 
         let grupoTrabalho = "";
 
         if(payload.cdGt!=null)  grupoTrabalho = `GRUPO DE TRABALHO: ${payload.cdGt}`
         if(payload.cdPt!=null)  grupoTrabalho = `POSTO DE TRABALHO: ${payload.cdPt}`
-        if(payload.cdFerramenta!=null)  grupoTrabalho = `FERRAMENTA: ${payload.cdFerramenta}`
-        if(payload.cdGrpFerramenta!=null)  grupoTrabalho = `GRUPO DE FERRAMENTA: ${payload.cdGrpFerramenta}`
         
-        const descricao = {
-            grupoTrabalho : grupoTrabalho,
-            turno : payload.cdTurno === "todos" || payload.cdTurno === null ? "TODOS OS TURNOS" : payload.cdTurno,
-            periodo: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`,
-        }
+        let modelo = "";
+        tipoSelecionado === "padrao" ? modelo = "PADRÃO" :
+        tipoSelecionado === "porProduto" ? modelo = "POR PRODUTO" :
+        tipoSelecionado === "porFerramenta" ? modelo = "POR FERRAMENTA" : modelo = ""
+
+        let descricao : Object[] = [];
+        descricao.push({propery : "MODELO", description : modelo})
+        descricao.push({propery : "GRUPO DE TRABALHO", description : grupoTrabalho})
+        descricao.push({propery : "TURNOS", description: payload.cdTurno === "todos" || payload.cdTurno === null || payload.cdTurno === ""? "TODOS OS TURNOS" : payload.cdTurno})
+        descricao.push({propery : "PERÍODO", description :`${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`})
+
         console.log(payload);
         console.log(descricao);
 
         props.getPayload(payload);
         props.getDescricao(descricao);
+        props.openPreview(true);
 
     }
     return (
         <div className="container-filtro">
+
             <OpPeriodo 
                 periodoChecked={(value : boolean) => setPeriodoChecked(value)}
                 OPChecked={(value : boolean) => setOPChecked(value)}
