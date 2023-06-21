@@ -30,7 +30,7 @@ const Postos = (props : any) => {
     return (
         <SelectIDW
             id="Posto"
-            label="Postos"
+            label="Posto"
             name="Posto"
             options={listaPostos}
             width="100%"

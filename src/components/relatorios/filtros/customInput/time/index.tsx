@@ -1,6 +1,7 @@
-import { FormControl, MenuItem, Select } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React, { useState } from "react";
 import times from "./times.json";
+import SelectIDW from "../select";
 
 export default function SelectTime(props : any) {
 
@@ -9,18 +10,19 @@ export default function SelectTime(props : any) {
 
     return (
          
-      <FormControl fullWidth>
-          <Select
-              value={intervalSelecionado}
-              id="select-interval-time" 
-              
-              onChange={ (e) => {
-                props.changed(e.target.value);
-                setIntervalSelecionado(e.target.value);
-              }}>
-              { intervalListTime.map( (intevalo, index) => <MenuItem key={index} value={intevalo.hrIni}>{`${intevalo.hrIni} - ${intevalo.hrFim}`}</MenuItem> ) }
-          </Select>
-      </FormControl>
+      <SelectIDW
+        id="Hora"
+        label="Hora"
+        name="Hora"
+        options={intervalListTime}
+        width="100%"
+        value={intervalSelecionado}
+        defaultValue={"todos"} 
+        onChange={(value: any) => {
+          setIntervalSelecionado(value?.target?.value);
+            props.changed(value?.target?.value);
+        } }
+      />  
         
     )
 }

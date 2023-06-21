@@ -1,6 +1,7 @@
 import { IFichaTecnicaResponse, IProduto as IProdFT } from '../filtros/interface/reports/engenharia/fichaTecnica';
 import { ISubRelatorioIndiceParada } from "../filtros/interface/reports/paradas/indiceParadasXPosto";
 import { IItem } from "../filtros/interface/reports/planejamento/planejadoxrealizado";
+import { IAnaliseProducaoResponse, IListaDTO, IOperador, ItemProducaoEficienciaHoraAHora } from '../filtros/interface/reports/producao/analiseProducao';
 import { IFerramenta, IPosto, IProduto } from "../filtros/interface/reports/producao/consolidados";
 import { convertSecondsToTime } from "./datetime";
 import "./export.scss";
@@ -318,7 +319,6 @@ export function ConsolidadosProdutoBody ( props : any ){
 }
 // TOTAL GERAL 
 export function TotalGeralConsolidados ( props : any ) {
-    console.log(props?.totais)
     return (
         <div className="container-totais total-geral" id="totais-totais">
             <p>HRS. TRABALHADAS: { props.totais?.horasTrabalhadasTotal }</p>
@@ -407,7 +407,6 @@ export function IndiceParadaXPostoBody( props : any ){
     )
 }
 // FICHA TÉCNICA 
-
 export function FichaTecnicaBody( props : any){
     console.log(props)
     return (
@@ -430,5 +429,64 @@ export function FichaTecnicaBody( props : any){
                 })
             }   
         </tbody>
+    )
+}
+// ANÁLISE DA PRODUÇÃO E EFICIÊNCIA HORA/HORA 
+export function AnaliseProducaoBody( props : any){
+    return (
+            props?.listaDTO?.map( (item : IListaDTO ,index : number) => {
+                    return <tbody className='t-analiseproducao' key={index} >
+                        <tr className='tr-title'> <th  colSpan={15}>PRODUTO: {item?.descricaoProduto}</th> </tr>      
+                        {item?.itensProducaoEficienciaHoraAHora?.map((producao : ItemProducaoEficienciaHoraAHora, index1: number) => {
+                            return <tr key={index1} className='tr-data'>
+                                <td>{producao?.intervaloHoraInicial} - {producao?.intervaloHoraInicial}</td>
+                                <td>{producao?.producaoPrevista}</td>
+                                <td>{producao?.producaoBruta}</td>
+                                <td>{producao?.producaoLiquida}</td>
+                                <td>{producao?.cicloPadrao}</td>
+                                <td>{producao?.cicloMedio}</td>
+                                <td>{producao?.metaHora}</td>
+                                <td>{producao?.tempoAtivo}</td>
+                                <td>{producao?.tempoTotalParadasCPFormatado}</td>
+                                <td>{item?.totalCavidadesAtivas}</td>
+                                <td>{producao?.indiceEficienciaRealizacao}</td>
+                                <td>{producao?.indiceRefugo}</td>
+                                <td>{producao?.indiceParada}</td>
+                                <td>{producao?.paradaRefugo}</td>
+                                <td>{producao?.tempoParadaOutQtRefugoFormatado}</td>
+                            </tr>
+                        })}
+                        <tr className='tr-total'>
+                            <td  colSpan={15}>
+                                <div className="container-totais total-geral" id="totais-totais">
+                                    <p>TOTAL PREVISTO: { item?.totalProducaoPrevista }</p>
+                                    <p>TOTAL PRODUZIDO: { item?.totalProducaoBruta }</p>
+                                    <p>TOTAL REFUGOS: { item?.totalProducaoRefugada }</p>
+                                    <p>TOTAL BOAS: {item?.totalProducaoLiquida}</p>
+                                    <p>TOTAL TEMPO ATIVO: {item?.totalTempoAtivoFormatado}</p>
+                                    <p>TOTAL TEMPO PARADAS: {item?.totalTempoParadaCPFormatado}</p>
+                                    <p>EFICIÊNCIA REALIZAÇÃO: { item?.totalIndiceEficienciaRealizacao }</p>
+                                    <p>ÍNDICE CAV. ATIVAS: {item?.totalCavidadesAtivas}</p>
+                                    <p>ÍNDICE REFUGOS: {item?.totalIndiceRefugo}</p>
+                                    <p>ÍNDICE PARADAS: {item?.totalIndiceParadas}</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr className='tr-operador-th'>
+                            <th colSpan={5}>OPERADORES</th>
+                            <th colSpan={5}>DT/HR LOGIN</th>
+                            <th colSpan={5}>DT/HR LOGOUT</th>
+                        </tr>
+                        {item?.listaOperadoresDTO.map(((operador : IOperador, index2: number) => {
+                        return <tr className='tr-operador-td' key={index2}>
+                            <td colSpan={5}>{operador.nome}</td>
+                            <td colSpan={5}>{operador.loginFormatado}</td>
+                            <td colSpan={5}>{operador.logoutFormatado}</td>
+                        </tr>
+                        }))}
+
+                    </tbody>
+                }) 
+  
     )
 }

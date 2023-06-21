@@ -113,6 +113,24 @@
             "EFIC. REALIZ.",
             "OEE",
             "OEE CAP"
+        ],
+        "analiseProducao": [
+            "INTERVALO",
+            "QTD. PREV.",
+            "QTD. PROD.",
+            "QTD. BOAS",
+            "CIC. PADRÃO",
+            "CIC. LIDO",
+            "META HORA",
+            "TEMPO ATIVO",
+            "TEMPO PARADA",
+            "%CAV. ATIVAS",
+            "%REA.",
+            "%REF.",
+            "%PAR.",
+            "%PARADAS / REFUGOS.",
+            "TEMPO/QTD. REF"
+
         ]
     },
     "planejamento" : {

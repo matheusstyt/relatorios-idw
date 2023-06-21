@@ -16,12 +16,12 @@ export default function Consolidados (props : any) {
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
 
-    const [consolidadosResponse, setConsoldidadosResponse] = useState<IConsolidadosResponse>();
+    const [consolidadosResponse, setConsolidadosResponse] = useState<IConsolidadosResponse>();
     async function getConsolidados (value : any) {
         setCargaUtil(value);
         await ConsolidadosServices( value)
         .then( (data) => {
-            setConsoldidadosResponse(data);
+            setConsolidadosResponse(data);
             
         })
         setExibirPreloader(false);
@@ -66,7 +66,6 @@ export default function Consolidados (props : any) {
                         getPayload={async (value: any ) => {
                             getConsolidados(value);
                         }
-
                         }
                         getDescricao={(value: any ) => setDescricao(value)}
                         openPreview={(value: boolean) =>  setExibirPreloader(true) }

@@ -5,7 +5,7 @@ import AreaResponsavel from "../../../../components/relatorios/filtros/view/area
 import Paradas from "../../../../components/relatorios/filtros/view/paradas";
 import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
-import { DateFormat } from "../../../../components/relatorios/export/datetime";
+import { Formatar } from "../../../../components/relatorios/export/datetime";
 import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
 import Tipos from "../../../../components/relatorios/subFiltros/tipos";
 
@@ -54,8 +54,8 @@ const Filtros = (props : any) => {
         const payload = {
            // OPChecked : OPChecked,
             op : OpNumber,
-            dthrIni : periodoChecked? DateFormat(dataInicio) : null,
-            dthrFim : periodoChecked? DateFormat(dataTermino) : null,
+            dthrIni : periodoChecked? new Formatar(dataInicio).dataAbreviada() : null,
+            dthrFim : periodoChecked? new Formatar(dataTermino).dataAbreviada() : null,
             cdTurno : turnoSelecionado === "todos" || turnoSelecionado === "" ? null : turnoSelecionado,
 
             cdPt : postoFerramentaSelecionado === "Postos" ? postoFerramentaValorSelecionado : null,

@@ -3,9 +3,9 @@ import "../../filtros.scss";
 import PostosFerramentas from "../../../../components/relatorios/filtros/view/postosFerramentas";
 import { Button, Checkbox, Container, Divider, FormControlLabel } from "@mui/material";
 import { useState } from "react";
-import { DateFormat } from "../../../../components/relatorios/export/datetime";
 import Periodo from "../../../../components/relatorios/subFiltros/periodo";
 import Contagem from "../../../../components/relatorios/subFiltros/contagem";
+import { Formatar } from "../../../../components/relatorios/export/datetime";
 
 const Filtros = (props : any) => {
     // períodos e turnos
@@ -25,9 +25,9 @@ const Filtros = (props : any) => {
 
         // carga útil
         const payload = {
-            dthrIni : periodoChecked? DateFormat(dataInicio) : null,
-            dthrFim : periodoChecked? DateFormat(dataTermino) : null,
-            dtEmissao: DateFormat(new Date),
+            dthrIni : periodoChecked? new Formatar(dataInicio).dataAbreviada() : null,
+            dthrFim : periodoChecked? new Formatar(dataTermino).dataAbreviada() : null,
+            dtEmissao: new Formatar(new Date),
             cdPt : postoFerramentaSelecionado === "Postos" ? postoFerramentaValorSelecionado : null,
             cdGt : postoFerramentaSelecionado === "grupoTrabalho" ? postoFerramentaValorSelecionado : null,
             cdFerramenta : postoFerramentaSelecionado === "ferramentas" ? postoFerramentaValorSelecionado : null,

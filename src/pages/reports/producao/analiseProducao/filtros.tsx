@@ -2,33 +2,30 @@
 import DataTurnoPosto from "../../../../components/relatorios/filtros/view/dataTurnoPosto";
 import ProducaoEm from "../../../../components/relatorios/filtros/view/producaoEm";
 import { Button, Container, Divider } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../filtros.scss";
+import { Formatar } from '../../../../components/relatorios/export/datetime';
 
 const Filtros = (props : any) => {
 
     // períodos e turnos
     const [dataInicio, setDataInicio] = useState<any>(new Date());
     const [dataTermino, setDataTermino] = useState<any>(new Date());
-    const [horaInicio, setHoraInicio] = useState<any>(new Date());
-    const [horaTermino, setHoraTermino] = useState<any>(new Date());
-    const [postoTrabalhoSelecionado, setPostoTrabalhoSelecionado] = useState<any>("");
+    const [horaInicio, setHoraInicio] = useState<any>("00:00:00");
+    const [horaTermino, setHoraTermino] = useState<any>("01:00:00");
+    const [postoTrabalhoSelecionado, setPostoTrabalhoSelecionado] = useState<string>("");
 
     // producao em 
-    const [producaoValorSelecionado, setProducaoValorSelecionado] = useState<string>("");
-    const [pesoValorSelecionado, setPesoValorSelecionado] = useState<string>("");
-
+    const [producaoValorSelecionado, setProducaoValorSelecionado] = useState<string>("pecas");
+    const [pesoValorSelecionado, setPesoValorSelecionado] = useState<string>("kilograma");
     const verFiltros = () => {
-
         // carga útil
         const payload = {
 
-            dthrIni : dataInicio ? dataInicio : null,
-            dthFim : dataInicio ? dataTermino : null,
-            intervaloIni : horaInicio? horaInicio : null,
-            intervaloFim : horaTermino? horaTermino : null,
+            dthrIni : dataInicio ? `${new Formatar(dataInicio).dataAbreviadaPT()} ${horaInicio}` : null,
+            dthFim : dataInicio ? `${new Formatar(dataTermino).dataAbreviadaPT()} ${horaTermino}` : null,
 
-            cdPt : postoTrabalhoSelecionado ? postoTrabalhoSelecionado : null,
+            cdPt : postoTrabalhoSelecionado ? postoTrabalhoSelecionado : "",
             isProducaoEmPeca: producaoValorSelecionado === "pecas",
             isProducaoEmPesoBruto: producaoValorSelecionado === "pesoBruto",
             isProducaoEmPesoLiquido: producaoValorSelecionado === "pesoLiquido",
@@ -37,20 +34,24 @@ const Filtros = (props : any) => {
 
         };
 
-        let grupoTrabalho = "";
+        let producao = "PEÇAS";
 
-        if(payload.cdPt !== null)  grupoTrabalho = `POSTO DE TRABALHO: ${payload.cdPt}`
+        if(producaoValorSelecionado==="pecas") producao = "PEÇAS"
+        if(producaoValorSelecionado==="pesoBruto") producao = `PESO BRUTO - ${pesoValorSelecionado.toUpperCase()}` 
+        if(producaoValorSelecionado==="pesoLiquido") producao =  `PESO LÍQUIDO - ${pesoValorSelecionado.toUpperCase()}` 
+
+        let descricao : Object[] = [];
+        descricao.push({propery : "POSTO", description : postoTrabalhoSelecionado})
+        descricao.push({propery : "PRODUÇÃO EM", description : producao})
+        descricao.push({propery : "INTERVALO", description : 
+        `${new Formatar(dataInicio).intervalo()} ${horaInicio} - ${new Formatar(dataTermino).intervalo()} ${horaTermino}`})
         
-        const descricao = {
-            grupoTrabalho : grupoTrabalho,
-            periodo: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`,
-        }
         console.log(payload);
         console.log(descricao);
 
         props.getPayload(payload);
         props.getDescricao(descricao);
-
+        props.openPreview(true);
     }
     return (
         <div className="container-filtro">
@@ -70,7 +71,7 @@ const Filtros = (props : any) => {
 
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
                 <Button variant="contained">LIMPAR</Button>
-                <Button onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
+                <Button disabled={postoTrabalhoSelecionado === ""} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
             </Container>
         </div>
     )

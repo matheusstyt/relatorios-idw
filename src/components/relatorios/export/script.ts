@@ -55,6 +55,52 @@ const getTableDinamicDOM = (descricao : Object, title: string, orientation: stri
                 body.push([
                     {colSpan: 6, style: "subTotal", margin: [0, 0, 0, 15], columns}
                 ]);   
+        }
+        else if(Tbody?.className === "t-analiseproducao"){
+            let listaTr: HTMLCollectionOf<HTMLTableRowElement> | any = Tbody?.children;
+            
+            const arrayListaTr = Array.from(listaTr) as HTMLTableRowElement[];
+            let listObj: Object[] = []
+            for (const row of arrayListaTr) {
+                let obj:{colSpan?: number, 
+                    style?: string, 
+                    margin?: number[],
+                    columns?: Object[], 
+                    text?: Object | undefined | null | string} = {};
+                    
+                if (row.classList.contains("tr-title")) {
+                    obj.colSpan = 15;
+                    obj.text = row?.firstElementChild?.textContent;
+                }else if (row?.classList?.contains("tr-data")){
+                    let arr = Array.from(row?.children).map((td :any) => {
+                        return {text: td.textContent}
+                    })
+                    obj.columns = arr;
+                    body.push(obj);
+
+                }else if (row?.classList?.contains("tr-total")){
+                    let arrP: HTMLCollectionOf<HTMLParagraphElement> | any = row?.firstElementChild?.firstElementChild?.children;
+                    obj.columns = dividirColunas(Array.from(arrP).map((p :any) => {
+                        return {text: p.textContent}
+                    }));
+                    body.push(obj);
+                }else if (row?.classList?.contains("tr-operador-th")){
+                    let arr = Array.from(row?.children).map((th :any) => {
+                        return {text: th.textContent, colSpan: 5}
+                    })
+                    obj.columns = arr;
+                    body.push(obj);
+
+                }else if (row?.classList?.contains("tr-operador-td")){
+                    let arr = Array.from(row?.children).map((td :any) => {
+                        return {text: td.textContent, colSpan: 5}
+                    })
+                    obj.columns = arr;
+                    body.push(obj);
+                }
+                listObj.push(obj);
+            }
+            console.log(listObj);
         }else{
             const rowsDetails: HTMLCollectionOf<HTMLTableRowElement> | any = tbodies?.[i]?.getElementsByTagName("tr");
             Array.from(rowsDetails).forEach((linha : any ) => {
@@ -92,12 +138,11 @@ const getTableDinamicDOM = (descricao : Object, title: string, orientation: stri
                 })
                 objTextTR = listP;
             }else{
-               // objTextTR obj = new objTextTR;
                 objTextTR.text = td.textContent;
                 objTextTR.fontSize = fontSize;
                 objTextTR.bold = true;
             }
-            row.push(objTextTR);
+           // row.push(objTextTR);
         } 
         return row;
     }
@@ -107,7 +152,6 @@ const getTableDinamicDOM = (descricao : Object, title: string, orientation: stri
     let arrTotais: Object[] = [];
     try {
         const total: HTMLCollectionOf<HTMLParagraphElement> | any = document.getElementsByClassName("total-geral")[0].children;
-        //let listItens: HTMLCollectionOf<HTMLParagraphElement> | any = total[0].children;
         arrTotais = Array.from(total).map( (p : any ) => {
             let objTextTotais: {
                 text?: string, 
@@ -117,7 +161,6 @@ const getTableDinamicDOM = (descricao : Object, title: string, orientation: stri
                 margin?: number[],
                 listType?: string
             } = {};
-            console.log(p)
             objTextTotais.text = p.textContent;
             objTextTotais.fontSize = fontSize;
             objTextTotais.marker = "";
@@ -130,18 +173,16 @@ const getTableDinamicDOM = (descricao : Object, title: string, orientation: stri
     } catch (error) {
         
     }
-    
-    console.log(dividirColunas(arrTotais));
-
-    relatorioPDF({
-        headers, 
-        body, 
-        descricao, 
-        title, 
-        columns: dividirColunas(arrTotais),
-        fontSize,
-        orientation
-    });
+    console.log(body)
+    // relatorioPDF({
+    //     headers, 
+    //     body, 
+    //     descricao, 
+    //     title, 
+    //     columns: dividirColunas(arrTotais),
+    //     fontSize,
+    //     orientation
+    // });
 }
 export default getTableDinamicDOM;
 

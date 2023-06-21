@@ -1,7 +1,7 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import types from "pdfmake/interfaces";
-import { DateTimeFormat } from "./datetime";
+import { Formatar } from "./datetime";
 
 const relatorioPDF = (props: any) => {
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -109,7 +109,7 @@ const relatorioPDF = (props: any) => {
                   margin: [0, 5, 10, 0] as types.Margins,
                 },
                 {
-                  text: DateTimeFormat(new Date()),
+                  text: new Formatar(new Date()).dataGeralPT,
                   fontSize: fontPrimary,
                   bold: true,
                   alignment: "right",
@@ -128,7 +128,7 @@ const relatorioPDF = (props: any) => {
     content: reportBody,
     styles: reportStyle as types.StyleDictionary,
   };
-  pdfMake.createPdf(pageConfig).download(`${props.title} - ${DateTimeFormat(new Date())}`);
+  pdfMake.createPdf(pageConfig).download(`${props.title} - ${new Formatar(new Date()).dataGeral}`);
 };
 
 export default relatorioPDF;

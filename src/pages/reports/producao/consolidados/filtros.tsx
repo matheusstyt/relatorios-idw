@@ -5,7 +5,7 @@ import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
 import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
 import AgrupamentoContagem from "../../../../components/relatorios/filtros/view/agrupamentoContagem";
-import { DateFormat } from "../../../../components/relatorios/export/datetime";
+import { Formatar } from "../../../../components/relatorios/export/datetime";
 
 const Filtros = (props : any) => {
     // períodos e turnos
@@ -33,8 +33,8 @@ const Filtros = (props : any) => {
 
         // carga útil
         const payload = {
-            dthrIni : periodoChecked? DateFormat(dataInicio) : null,
-            dthrFim : periodoChecked? DateFormat(dataTermino) : null,
+            dthrIni : periodoChecked? new Formatar(dataInicio).dataAbreviada() : null,
+            dthrFim : periodoChecked? new Formatar(dataTermino).dataAbreviada() : null,
             cdTurno : turnoSelecionado === "todos" ? null : turnoSelecionado,
 
             cdPt : postoFerramentaSelecionado === "Postos" ? postoFerramentaValorSelecionado : null,

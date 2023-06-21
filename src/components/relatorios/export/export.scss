@@ -28,9 +28,9 @@ h2{
             background-color: #ebebeb;
             color: #585858;
             border-bottom: 2px solid #8a8a8ab6;
+            text-align: left;
         }
-        tr{
-        }
+
         tr:hover{
             background-color: #41414115;
         }
@@ -78,4 +78,10 @@ h2{
 
 #totais-totais{
     background-color: #0f53a1;
+}
+.total-td{
+    padding: 0.5em;
+    box-sizing: border-box;
+    background-color: #07226ef1;
+    color: #ffffff;
 }
