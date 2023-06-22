@@ -1,32 +1,40 @@
-import { Header, IndiceParadaXPostoBody, IndiceParadasFerramentaBody, IndiceParadasPadraoBody, IndiceParadasProdutoBody, TableDinamic, TotalGeralIndiceParadaXPosto } from "../../../../components/relatorios/export";
-import { IIndiceParadaResponse } from "../../../../components/relatorios/filtros/interface/reports/paradas/indiceParadas";
+import { Header, IndiceParadaXPostoBody, IndiceParadasFerramentaBody, IndiceParadasPadraoBody, IndiceParadasProdutoBody, TableDinamic, TotalGeralIndiceParadas } from "../../../../components/relatorios/export";
 import { IndiceParadaServices } from "../../../../components/relatorios/export/services/paradas";
 import getTableDinamicDOM from "../../../../components/relatorios/export/script";
 import headers from "../../../../components/relatorios/export/headers.json";
 import AccordionDinamic from "../../../../components/relatorios/accordion";
-import { useState } from "react";
+import { useState, useEffect } from 'react';
 import Filtros from "./filtros";
 import { FiFilter } from "react-icons/fi";
 import { Button } from "@mui/material";
 import "../../../pages.scss";
+import converterIndiceParadasFerramenta from "../../../../components/relatorios/filtros/interface/reports/paradas/conversorRequisicao";
+import { IRequisicaoOriginal, IRequisicaoTransformada, IParada } from '../../../../components/relatorios/filtros/interface/reports/paradas/indiceParadas';
+import { Preloader } from "../../../../components/relatorios/preloader";
 export default function IndiceParadas (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<Object[]>([]);
 
-    const [listaIndiceParada, setListIndiceParada] = useState<IIndiceParadaResponse>();
+    const [listaIndiceParada, setListIndiceParada] = useState<IRequisicaoTransformada>();
+    useEffect(() => {
+
+    }, cargaUtil)
     async function getIndiceParadas (value : any) {
         setCargaUtil(value);
         await IndiceParadaServices( value)
-        .then( (data) => {
-            setListIndiceParada(data)            
+        .then( async (data) => {
+            await setListIndiceParada(
+                converterIndiceParadasFerramenta(data, 
+                value.isAgrupadoPorFerramenta, 
+                value.isAgrupadoPorProduto, 
+                value.isAgrupamentoPadrao))            
         })
         setExibirPreloader(false);
         setExibirExportar(true);
     }
     const previewPDF = () => {
-        console.log(listaIndiceParada)
         return (
             <div className="export-content">
                 <Header 
@@ -44,7 +52,9 @@ export default function IndiceParadas (props : any) {
                         : <></>
                     }
                 </div>
-                <h2>Total Geral</h2>
+                <TotalGeralIndiceParadas dados={listaIndiceParada} />
+
+
                 <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, props.title, "portrait", 10, 90) }}>GERAR PDF</Button>
 
             </div>
@@ -53,6 +63,9 @@ export default function IndiceParadas (props : any) {
 
     return (
         <div className="container-page">
+
+            { exibirPreloader ? <Preloader /> : <></> }
+
             <h3 className="title-relatorio">{props.title}</h3>
             <AccordionDinamic
                 title="Filtro"
@@ -67,7 +80,7 @@ export default function IndiceParadas (props : any) {
             />
 
             <div className="export-content">
-                { previewPDF()}
+                { !exibirExportar ? <></> : previewPDF() }
             </div>
         </div>
     )   

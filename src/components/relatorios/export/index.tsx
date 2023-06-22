@@ -1,5 +1,5 @@
 import { IFichaTecnicaResponse, IProduto as IProdFT } from '../filtros/interface/reports/engenharia/fichaTecnica';
-import { IindiceParadasDTO } from '../filtros/interface/reports/paradas/indiceParadas';
+import { IIndiceParadasDTO, IIndiceParadasTransformado, IParada, IPostoParada } from '../filtros/interface/reports/paradas/indiceParadas';
 import { ISubRelatorioIndiceParada } from "../filtros/interface/reports/paradas/indiceParadasXPosto";
 import { IItem } from "../filtros/interface/reports/planejamento/planejadoxrealizado";
 import { IListaAcompanhamentoProducaoDTO } from '../filtros/interface/reports/producao/acompanhamentoProducao';
@@ -519,10 +519,9 @@ export function AcompanhamentoProducaoBody ( props : any ) {
 // ÍNDICE DE PARADAS
 // PARÃO
 export function IndiceParadasPadraoBody ( props : any ) {
-    console.log(props)
     return <tbody>
         {
-            props?.paradas?.map( (parada : IindiceParadasDTO ,index : number) => {
+            props?.paradas?.map( (parada : IParada ,index : number) => {
                 return <tr key={index}>
                     {/* PRIMEIRA CAMADA */}
                     <td>{parada?.parada}</td>
@@ -535,17 +534,32 @@ export function IndiceParadasPadraoBody ( props : any ) {
 }
 // PRODUTO
 export function IndiceParadasProdutoBody ( props : any ) {
-    console.log(props)
     return <tbody>
         {
-            props?.paradas?.map( (parada : IindiceParadasDTO ,index : number) => {
+            props?.paradas?.map( (produto : IIndiceParadasTransformado ,index : number) => {
                 return <tr key={index}>
                     {/* PRIMEIRA CAMADA */}
-                    <td>{parada?.produto}</td>
-                    <td>{parada?.maquina}</td>
-                    <td>{parada?.parada}</td>
-                    <td>{convertSecondsToTime(parada?.tempo)}</td>
-                    <td>{parada?.indice}</td>
+                    <td>{produto?.produto}</td>
+                    {/* SEGUNDA CAMADA */}
+                    <td>{produto?.postos?.map((posto: IPostoParada, index: number) => {
+                        return <p key={index}>{posto.posto}</p>
+                    })}</td>
+                    {/* TERCEIRA CAMADA */}
+                    <td>{produto?.postos?.map((posto: IPostoParada, index: number) => {
+                            return posto?.paradas?.map((parada : IParada, index: number) => {
+                                return <p key={index}>{parada.parada}</p>
+                            })
+                    })}</td>
+                    <td>{produto?.postos?.map((posto: IPostoParada, index: number) => {
+                            return posto?.paradas?.map((parada : IParada, index: number) => {
+                                return <p key={index}>{parada.tempo}</p>
+                            })
+                    })}</td>
+                    <td>{produto?.postos?.map((posto: IPostoParada, index: number) => {
+                            return posto?.paradas?.map((parada : IParada, index: number) => {
+                                return <p key={index}>{parada.indice}</p>
+                            })
+                    })}</td>
                 </tr>
             })
         }   
@@ -553,19 +567,48 @@ export function IndiceParadasProdutoBody ( props : any ) {
 }
 // FERRAMENTA
 export function IndiceParadasFerramentaBody ( props : any ) {
-    console.log(props)
-    return <tbody>
+    return <>
         {
-            props?.paradas?.map( (parada : IindiceParadasDTO ,index : number) => {
-                return <tr key={index}>
-                    {/* PRIMEIRA CAMADA */}
-                    <td>{parada?.ferramenta}</td>
-                    <td>{parada?.maquina}</td>
-                    <td>{parada?.parada}</td>
-                    <td>{convertSecondsToTime(parada?.tempo)}</td>
-                    <td>{parada?.indice}</td>
-                </tr>
+            props?.paradas?.map( (ferramenta : IIndiceParadasTransformado ,index : number) => {
+                return <tbody key={index}>
+                    <tr> <th className='th-fer-prod' colSpan={5}>{ferramenta?.ferramenta}</th> </tr>
+                    {ferramenta?.postos?.map(( posto : IPostoParada, index: number) => {
+                        return <> <tr key={index}>
+                                <td className='td-posto' colSpan={2} align='right'>{ posto.posto }</td>
+                                {/* TERCEIRA CAMADA */}
+                                <td> {posto?.paradas?.map((parada : IParada, index: number) => {
+                                    return <p key={index}>{parada.parada}</p>
+                                    })} </td>
+                                <td> {posto?.paradas?.map((parada : IParada, index: number) => {
+                                    return <p key={index}>{parada.tempo}</p>
+                                    })} </td>
+                                <td> {posto?.paradas?.map((parada : IParada, index: number) => {
+                                    return <p key={index}>{parada.indice}</p>
+                                    })} </td>
+                            </tr>
+                            <tr>
+                                <td className='td-sub-total' colSpan={3}>TEMPO DE PARADAS DO POSTO (B): {convertSecondsToTime(posto.tempoParadaPosto)}</td>
+                                <td className='td-sub-total' colSpan={2}>ÍNDICE (B)/(C): {posto.indiceBC}</td>                                
+                            </tr> </>
+                    })} 
+                    <tr>
+                        <td className='td-total' colSpan={3}> TEMPO DE PARADAS DA FERRAMENTA (C): {ferramenta.tempoParadaFerramenta}</td>
+                        <td className='td-total' colSpan={2}>ÍNDICE (C)/(D): {ferramenta.indiceCD}</td>
+                    </tr>
+                </tbody>
+                
+                
             })
         }   
-    </tbody>
+    </>
+}
+// TOTAL 
+export function TotalGeralIndiceParadas ( props : any ) {
+    return (
+        <div className="container-totais total-geral" id="totais-totais">
+            <p>TEMPO PARADAS SEM PESO NA EFICIÊNCIA: { props.dados.tempoTotalParadaSP }</p>
+            <p>TEMPO PARADAS COM PESO NA EFICIÊNCIA: { props.dados.tempoTotalParadaCP }</p>
+            <p>TEMPO TOTAL DE PARADAS (D): { props.dados.tempoTotal }</p>
+        </div>
+    )
 }

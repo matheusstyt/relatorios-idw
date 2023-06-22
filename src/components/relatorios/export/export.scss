@@ -24,7 +24,11 @@ h2{
             position: sticky;  
             
         }
+        tbody{
+            margin-bottom: 1em;
+        }
         th{
+            font-size: 0.8em;
             background-color: #ebebeb;
             color: #585858;
             border-bottom: 2px solid #8a8a8ab6;
@@ -35,11 +39,30 @@ h2{
             background-color: #41414115;
         }
         td{
+            font-size: 0.8em;
             padding: 0 0.5em;
-            background-color: #9db7cf36;
-            border-bottom: 2px solid #41414146;
+            background-color: #ffffff36;
+            border-bottom: 2px solid #4141418a;
         }
-    
+        // índice de parada de "por produto" e "por ferramenta"
+        .th-fer-prod{
+            padding-top: 1.5em;
+        }
+        .td-posto{
+            background-color: #619cd436;
+            border-right: 2px solid #a0a0a046;
+            color: #0b305a;
+            font-weight: 500;
+        }
+        .td-sub-total, .td-total{
+            color: #242424;
+            font-weight: 600;
+        }
+        .td-total{
+            background-color: #00000017;
+            font-weight: 600;
+            
+        }
     }
 }
 

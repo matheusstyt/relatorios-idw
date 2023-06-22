@@ -62,7 +62,7 @@ const Filtros = (props : any) => {
             isTodasParadas: todasParadasSelecionado,
             listaCdParadas: listaParadaPayload,
             listaCdAreas: listaAreaPayload,
-            isAgrupamentoPadrao: tipoSelecionado === "padrao",
+            isAgrupamentoPadrao: tipoSelecionado === "padrao" ,
 	        isAgrupadoPorProduto: tipoSelecionado === "porProduto",
 	        isAgrupadoPorFerramenta: tipoSelecionado === "porFerramenta",
         };
@@ -84,7 +84,7 @@ const Filtros = (props : any) => {
         descricao.push({propery : "PERÍODO", description :`${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`})
 
         console.log(payload);
-        console.log(descricao);
+       // console.log(descricao);
 
         props.getPayload(payload);
         props.getDescricao(descricao);
