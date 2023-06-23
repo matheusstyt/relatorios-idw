@@ -1,28 +1,51 @@
-export interface IListaAcompanhamentoProducaoDTO {
-    eficRelaizacao: number | string;
-    eficiCiclo: number | string;
-    indicePa: number | string;
-    indiceRef: number | string;
-    indicecavAtiva: number | string;
-    intervalo: string;
-    maquina: string;
-    metaPeriodo: number | string;
-    qtdPrevista: number | string;
-    qtdProduzida: number | string;
-    projecaofPeriodo: number | string;
-    eficRelaizacaoDec: number | string;
-    eficiCicloDec: number | string;
-    indicePaDec: number | string;
-    indiceRefDec: number | string;
-    indicecavAtivaDec: number | string;
-    metaPeriodoDec: number | string;
-    qtdPrevistaDec: number | string;
-    qtdProduzidaDec: number | string;
-    projecaofPeriodoDec: number | string;
-  }
-  
 export interface IAcompanhamentoPrroducaoResponse {
-listaAcompanhamentoProducaoDTO: IListaAcompanhamentoProducaoDTO[];
-listaCompletaParadas: any[];
+intervalos: IIntervalo[];
+totalGeral: ITotalGeralAcompanhamentoProducao;
+paradasAbertas: IParadaAberta[];
 }
   
+export interface IIntervalo {
+    intervalo: string;
+    postos: IPostoIntervalo;
+    totais: ITotaisIntervalo;
+  }
+export interface IPostoIntervalo{
+  maquina: string;
+  projecaofPeriodo: number;
+  qtdProduzida: number;
+  qtdPrevista: number;
+  metaPeriodo: number;
+  eficRealizacao:number;
+  indRefugo: number;
+  indParada: number;
+  eficCiclo: number;
+}
+export interface ITotaisIntervalo{
+  projecaofPeriodo: number;
+  qtdProduzida: number;
+  qtdPrevista: number;
+  metaPeriodo: number;
+  eficRealizacao: number;
+  indRefugo: number;
+  indParada: number;
+  eficCiclo: number;
+}
+export interface ITotalGeralAcompanhamentoProducao{
+  projecaofPeriodo: number;
+  qtdProduzida: number;
+  qtdPrevista: number;
+  metaPeriodo: number;
+  eficRealizacao: number;
+  indRefugo: number;
+  indParada: number;
+  eficCiclo: number;
+}
+export interface IParadaAberta{
+  maquina: string;
+  dsMaquinaCurta: string;
+  parada: string;
+  areaResp: string;
+  dthrInicio: string;
+  dthrFim: string;
+  duracao: string;
+}

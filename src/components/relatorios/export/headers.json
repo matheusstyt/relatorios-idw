@@ -131,6 +131,17 @@
             "%PARADAS / REFUGOS.",
             "TEMPO/QTD. REF"
 
+        ],
+        "acompanhamentoProducao" : [
+            "POSTO",
+            "PROJEÇÃO FIM PERÍODO",
+            "QUANTIDADE PRODUZIDA",
+            "QUANTIDADE PREVISTA",
+            "META PERÍODO",
+            "EFICIÊNCIA REALIZ. (%)",
+            "ÍNDICE REFULGO (%)",
+            "ÍNDICE PARADA (%)",
+            "EFICIÊNCIA CICLO (%)"
         ]
     },
     "planejamento" : {

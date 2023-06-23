@@ -61,3 +61,18 @@ export function dividirColuna(arr : Object[]){
     ];
     return columns
 }
+// FUNÇÃO CONVERTE NUMERO DECIMAL PARA REAL
+export function DecimalParaReal(numero : number) {
+    // Verifica se o número possui casas decimais
+    if (numero % 1 === 0) {
+      // Se não possui casas decimais, retorna o número sem formatação
+      return numero.toString();
+    } else {
+      // Formata o número com separadores de milhares e casas decimais
+      if(numero > 0) {
+        return numero.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 10 });
+      }
+      return 0
+    }
+  }
+  

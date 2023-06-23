@@ -21,7 +21,7 @@ const Filtros = (props : any) => {
     const [postoTrabalhoValorSelecionado, setPostoTrabalhoValorSelecionado] = useState<string>("");
 
     // producao em 
-    const [producaoValorSelecionado, setProducaoValorSelecionado] = useState<string>("");
+    const [producaoValorSelecionado, setProducaoValorSelecionado] = useState<string>("pecas");
     const [pesoValorSelecionado, setPesoValorSelecionado] = useState<string>("");
 
     const verFiltros = () => {
@@ -30,7 +30,7 @@ const Filtros = (props : any) => {
         const payload = {
 
             dthrIni : dataInicio ? `${new Formatar(dataInicio).dataAbreviadaPT()} ${horaInicio}` : null,
-            dthFim : dataInicio ? `${new Formatar(dataTermino).dataAbreviadaPT()} ${horaTermino}` : null,
+            dthrFim : dataInicio ? `${new Formatar(dataTermino).dataAbreviadaPT()} ${horaTermino}` : null,
 
             cdPt : postoTrabalhoSelecionado === "Postos" ? postoTrabalhoValorSelecionado : "",
             cdGt : postoTrabalhoSelecionado === "grupoTrabalho" ? postoTrabalhoValorSelecionado : "",

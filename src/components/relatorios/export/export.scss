@@ -64,8 +64,36 @@ h2{
             
         }
     }
+    // scss de acompanhamento de produção
+    #table-acompanhamento{
+        tr{
+            &:hover{
+                background-color: #41414115;
+            }
+            &:nth-last-child(2){
+                background-color: #ebebeb;
+                color: #2c2c2c;
+            }
+        }
+        td{
+            border-top: 2px solid #2424247c;
+            &:first-child{
+                color: #363636;
+                font-weight: 600;
+                background-color: #ebebeb;
+            }
+        }
+        #td-espaco{
+            background-color: transparent;
+        }
+    }
 }
-
+#table-total-acompanhamento{
+    td{
+        background-color: #0d427e;
+    color: #fff;
+    }
+}
 .span-nv2{
     background-color: #00000021;
 

@@ -1,10 +1,11 @@
-import { IFichaTecnicaResponse, IProduto as IProdFT } from '../filtros/interface/reports/engenharia/fichaTecnica';
-import { IIndiceParadasDTO, IIndiceParadasTransformado, IParada, IPostoParada } from '../filtros/interface/reports/paradas/indiceParadas';
+import { IProduto as IProdFT } from '../filtros/interface/reports/engenharia/fichaTecnica';
+import { IIndiceParadasTransformado, IParada, IPostoParada } from '../filtros/interface/reports/paradas/indiceParadas';
 import { ISubRelatorioIndiceParada } from "../filtros/interface/reports/paradas/indiceParadasXPosto";
 import { IItem } from "../filtros/interface/reports/planejamento/planejadoxrealizado";
-import { IListaAcompanhamentoProducaoDTO } from '../filtros/interface/reports/producao/acompanhamentoProducao';
-import { IAnaliseProducaoResponse, IListaDTO, IOperador, ItemProducaoEficienciaHoraAHora } from '../filtros/interface/reports/producao/analiseProducao';
+import { IPostoIntervalo } from '../filtros/interface/reports/producao/acompanhamentoProducao';
+import {  IListaDTO, IOperador, ItemProducaoEficienciaHoraAHora } from '../filtros/interface/reports/producao/analiseProducao';
 import { IFerramenta, IPosto, IProduto } from "../filtros/interface/reports/producao/consolidados";
+import { DecimalParaReal } from './DOM/functions';
 import { convertSecondsToTime } from "./datetime";
 import "./export.scss";
 
@@ -497,24 +498,61 @@ export function AcompanhamentoProducaoBody ( props : any ) {
     return (
         <tbody>
             {
-                props?.lista?.map( (item : IListaAcompanhamentoProducaoDTO ,index : number) => {
-                    return <tr key={index}>
-                        {/* PRIMEIRA CAMADA */}
-                        <td>{item?.maquina}</td>
-                        <td>{item?.projecaofPeriodo}</td>
-                        <td>{item?.qtdProduzida}</td>
-                        <td>{item?.qtdPrevista}</td>
-                        <td>{item?.metaPeriodo}</td>
-                        <td>{item?.eficRelaizacao}</td>
-                        <td>{item?.indiceRef}</td>
-                        <td>{item?.indicePa}</td>
-                        <td>{item?.eficRelaizacao}</td>
-                    </tr>
+                props?.postos?.map( (item : IPostoIntervalo ,index : number) => {
+                    return <>
+                        <tr key={index}>
+                            {/* PRIMEIRA CAMADA */}
+                            <td>{item.maquina}</td>
+                            <td>{DecimalParaReal(item.projecaofPeriodo)}</td>
+                            <td>{DecimalParaReal(item.qtdProduzida)}</td>
+                            <td>{DecimalParaReal(item.qtdPrevista)}</td>
+                            <td>{DecimalParaReal(item.metaPeriodo)}</td>
+                            <td>{DecimalParaReal(item.eficRealizacao)}</td>
+                            <td>{DecimalParaReal(item.indRefugo)}</td>
+                            <td>{DecimalParaReal(item.indParada)}</td>
+                            <td>{DecimalParaReal(item.eficCiclo)}</td>
+                        </tr>
+                        
+                    </> 
                 })
             }   
+            <tr>
+                <td>TOTAL</td>
+                <td id='total-intervalo'>{DecimalParaReal(props?.totais.projecaofPeriodo)}</td>
+                <td id='total-intervalo'>{DecimalParaReal(props?.totais.qtdProduzida)}</td>
+                <td id='total-intervalo'>{DecimalParaReal(props?.totais.qtdPrevista)}</td>
+                <td id='total-intervalo'>{DecimalParaReal(props?.totais.metaPeriodo)}</td>
+                <td id='total-intervalo'>{DecimalParaReal(props?.totais.eficRealizacao)}</td>
+                <td id='total-intervalo'>{DecimalParaReal(props?.totais.indRefugo)}</td>
+                <td id='total-intervalo'>{DecimalParaReal(props?.totais.indParada)}</td>
+                <td id='total-intervalo'>{DecimalParaReal(props?.totais.eficCiclo)}</td>
+            </tr>
+            <tr><td id='td-espaco' colSpan={15}></td></tr>
         </tbody>
     )
 }
+// TOTAL GERAL 
+export function TotalGeralAcompanhamentoProducao ( props : any ) {
+    return (
+        <table id='table-total-acompanhamento'>
+            <tbody >
+                <tr>
+                    <td >TOTAL</td>
+                    <td >{ DecimalParaReal(props?.total?.projecaofPeriodo) }</td>
+                    <td >{ DecimalParaReal(props?.total?.qtdProduzida) }</td>
+                    <td >{ DecimalParaReal(props?.total?.qtdPrevista) }</td>
+                    <td >{ DecimalParaReal(props?.total?.metaPeriodo) }</td>
+                    <td >{ DecimalParaReal(props?.total?.eficRealizacao) }</td>
+                    <td >{ DecimalParaReal(props?.total?.indRefugo) }</td>
+                    <td >{ DecimalParaReal(props?.total?.indParada) }</td>
+                    <td >{ DecimalParaReal(props?.total?.eficCiclo) }</td>
+                </tr>
+            </tbody>
+        </table>
+    )
+}
+
+
 
 // ÍNDICE DE PARADAS
 // PARÃO
