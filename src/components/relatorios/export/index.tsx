@@ -519,14 +519,14 @@ export function AcompanhamentoProducaoBody ( props : any ) {
 // ÍNDICE DE PARADAS
 // PARÃO
 export function IndiceParadasPadraoBody ( props : any ) {
-    return <tbody>
+    return <tbody className='t-indiceparadapadrao'>
         {
             props?.paradas?.map( (parada : IParada ,index : number) => {
                 return <tr key={index}>
                     {/* PRIMEIRA CAMADA */}
-                    <td>{parada?.parada}</td>
-                    <td>{convertSecondsToTime(parada?.tempo)}</td>
-                    <td>{parada?.indice}</td>
+                    <td className='td-indiceparada'>{parada?.parada}</td>
+                    <td className='td-indiceparada'>{convertSecondsToTime(parada?.tempo)}</td>
+                    <td className='td-indiceparada'>{parada?.indice}</td>
                 </tr>
             })
         }   
@@ -534,65 +534,76 @@ export function IndiceParadasPadraoBody ( props : any ) {
 }
 // PRODUTO
 export function IndiceParadasProdutoBody ( props : any ) {
-    return <tbody>
+    return <>
         {
             props?.paradas?.map( (produto : IIndiceParadasTransformado ,index : number) => {
-                return <tr key={index}>
-                    {/* PRIMEIRA CAMADA */}
-                    <td>{produto?.produto}</td>
-                    {/* SEGUNDA CAMADA */}
-                    <td>{produto?.postos?.map((posto: IPostoParada, index: number) => {
-                        return <p key={index}>{posto.posto}</p>
-                    })}</td>
-                    {/* TERCEIRA CAMADA */}
-                    <td>{produto?.postos?.map((posto: IPostoParada, index: number) => {
-                            return posto?.paradas?.map((parada : IParada, index: number) => {
-                                return <p key={index}>{parada.parada}</p>
-                            })
-                    })}</td>
-                    <td>{produto?.postos?.map((posto: IPostoParada, index: number) => {
-                            return posto?.paradas?.map((parada : IParada, index: number) => {
-                                return <p key={index}>{parada.tempo}</p>
-                            })
-                    })}</td>
-                    <td>{produto?.postos?.map((posto: IPostoParada, index: number) => {
-                            return posto?.paradas?.map((parada : IParada, index: number) => {
-                                return <p key={index}>{parada.indice}</p>
-                            })
-                    })}</td>
-                </tr>
+                return <tbody className='t-indiceparada' key={index}>
+                    {/* <tr> <th className='th-fer-prod' colSpan={5}>{ferramenta?.produto}</th> </tr> */}
+                    {produto?.postos?.map(( posto : IPostoParada, index: number) => {
+                        return <> <tr key={index}>
+                                <td>{produto.produto}</td>
+                                {/* PRIMEIRA CAMADA */}
+                                <td className='td-posto' align='right'>{ posto.posto }</td>
+                                {/* TERCEIRA CAMADA */}
+                                <td> {posto?.paradas?.map((parada : IParada, index: number) => {
+                                    return <p key={index}>{parada.parada}</p>
+                                    })} </td>
+                                <td> {posto?.paradas?.map((parada : IParada, index: number) => {
+                                    return <p key={index}>{convertSecondsToTime(parada.tempo)}</p>
+                                    })} </td>
+                                <td> {posto?.paradas?.map((parada : IParada, index: number) => {
+                                    return <p key={index}>{parada.indice}</p>
+                                    })} </td>
+                            </tr>
+                            {/* SUB TOTAL DE POSTOS */}
+                            <tr>
+                                <td className='td-sub-total' colSpan={3}>TEMPO DE PARADAS DO POSTO (B): {convertSecondsToTime(posto.tempoParadaPosto)}</td>
+                                <td className='td-sub-total' colSpan={2}>ÍNDICE (B)/(C): {posto.indiceBC}</td>                                
+                            </tr> </>
+                    })} 
+                    {/* SUB TOTAL DE FERRAMENTAS / PRODUTOS */}
+                    <tr>
+                        <td className='td-total' colSpan={2}>TEMPO DE PARADAS DA FERRAMENTA (C):</td>
+                        <td className='td-total' colSpan={1}>{convertSecondsToTime(produto.tempoFerProd)}</td>
+                        <td className='td-total' colSpan={2}>ÍNDICE (C)/(D): {produto.indiceCD}</td>
+                    </tr>
+                </tbody>
             })
         }   
-    </tbody>
+    </>
 }
 // FERRAMENTA
 export function IndiceParadasFerramentaBody ( props : any ) {
     return <>
         {
             props?.paradas?.map( (ferramenta : IIndiceParadasTransformado ,index : number) => {
-                return <tbody key={index}>
-                    <tr> <th className='th-fer-prod' colSpan={5}>{ferramenta?.ferramenta}</th> </tr>
+                return <tbody className='t-indiceparada' key={index}>
                     {ferramenta?.postos?.map(( posto : IPostoParada, index: number) => {
                         return <> <tr key={index}>
-                                <td className='td-posto' colSpan={2} align='right'>{ posto.posto }</td>
-                                {/* TERCEIRA CAMADA */}
+                                {/* PRIMEIRA CAMADA */}
+                                <td>{ferramenta.ferramenta}</td>
+                                <td className='td-posto' align='right'>{ posto.posto }</td>
+                                {/* SEGUNDA CAMADA */}
                                 <td> {posto?.paradas?.map((parada : IParada, index: number) => {
                                     return <p key={index}>{parada.parada}</p>
                                     })} </td>
                                 <td> {posto?.paradas?.map((parada : IParada, index: number) => {
-                                    return <p key={index}>{parada.tempo}</p>
+                                    return <p key={index}>{convertSecondsToTime(parada.tempo)}</p>
                                     })} </td>
                                 <td> {posto?.paradas?.map((parada : IParada, index: number) => {
                                     return <p key={index}>{parada.indice}</p>
                                     })} </td>
                             </tr>
+                            {/* SUB TOTAL DE POSTOS */}
                             <tr>
-                                <td className='td-sub-total' colSpan={3}>TEMPO DE PARADAS DO POSTO (B): {convertSecondsToTime(posto.tempoParadaPosto)}</td>
+                                <td className='td-sub-total' colSpan={3}>TEMPO DE PARADAS DO POSTO (B):</td>
                                 <td className='td-sub-total' colSpan={2}>ÍNDICE (B)/(C): {posto.indiceBC}</td>                                
                             </tr> </>
                     })} 
+                     {/* SUB TOTAL DE FERRAMENTAS / PRODUTOS */}
                     <tr>
-                        <td className='td-total' colSpan={3}> TEMPO DE PARADAS DA FERRAMENTA (C): {ferramenta.tempoParadaFerramenta}</td>
+                        <td className='td-total' colSpan={2}>TEMPO DE PARADAS DA FERRAMENTA (C):</td>
+                        <td className='td-total' colSpan={1}>{convertSecondsToTime(ferramenta.tempoFerProd)}</td>
                         <td className='td-total' colSpan={2}>ÍNDICE (C)/(D): {ferramenta.indiceCD}</td>
                     </tr>
                 </tbody>

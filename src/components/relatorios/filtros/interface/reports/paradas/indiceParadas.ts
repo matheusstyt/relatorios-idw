@@ -26,7 +26,7 @@ export interface IRequisicaoOriginal {
       ferramenta?: string;
       produto?: string;
       indiceCD?: string;
-      tempoParadaFerramenta?: string;
+      tempoFerProd?: number;
       postos?: IPostoParada[];
   
     }
@@ -34,7 +34,6 @@ export interface IRequisicaoOriginal {
       posto: string;
       paradas: IParada[];
       tempoParadaPosto: number;
-      tempoFerProd: number;
       indiceBC: string;
     }
     export interface IParada {

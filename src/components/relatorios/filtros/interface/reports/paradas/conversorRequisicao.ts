@@ -10,6 +10,7 @@ import { IIndiceParadasTransformado, IParada, IRequisicaoOriginal, IRequisicaoTr
 
     let requisicaoTransformada: IRequisicaoTransformada;
     
+    
     req?.indiceParadasDTO?.forEach((item) => {
       tempoParadaCP += item.tempoParadaCP;
       tempoParadaSP += item.tempoParadaSP;
@@ -23,8 +24,9 @@ import { IIndiceParadasTransformado, IParada, IRequisicaoOriginal, IRequisicaoTr
         if(isFerramenta){
           ferramentaExistente = indiceParadasDTOTransformado.find((obj) => obj.ferramenta === ferramenta);
           if (!ferramentaExistente) {
-            ferramentaExistente = {
+            ferramentaExistente  = {
               ferramenta,
+              tempoFerProd: item.tempoFerProd,
               postos: [],
             };
             indiceParadasDTOTransformado.push(ferramentaExistente);
@@ -35,21 +37,20 @@ import { IIndiceParadasTransformado, IParada, IRequisicaoOriginal, IRequisicaoTr
           if (!produtoExistente) {
             produtoExistente = {
               produto,
+              tempoFerProd: item.tempoFerProd,
               postos: [],
             };
             indiceParadasDTOTransformado.push(produtoExistente);
           }
           postoExistente = produtoExistente?.postos?.find((obj) => obj.posto === maquina);
         }
-        let indiceCD: number = 0;
-        let tempoParadaFerramenta: number = 0;
+
         if (!postoExistente) {
 
           postoExistente = {
             posto: maquina,
             paradas: [],
             tempoParadaPosto: 0,
-            tempoFerProd: item.tempoFerProd,
             indiceBC: '',
           };
 
@@ -59,38 +60,33 @@ import { IIndiceParadasTransformado, IParada, IRequisicaoOriginal, IRequisicaoTr
             produtoExistente?.postos?.push(postoExistente);
           }
         }
-    
         const parada: IParada = {
           parada: item.parada,
           tempo: item.tempo,
           indice: item.indice,
         };
-    
         postoExistente.paradas.push(parada);
         postoExistente.tempoParadaPosto += item.tempo;
         indiceParadasDTOTransformado.forEach((ferramenta) => {
           let indiceCD: number = 0;
           ferramenta?.postos?.forEach((posto) => {
-            posto.indiceBC = ((posto.tempoParadaPosto / posto.tempoFerProd) * 100).toFixed(2) + '%';
+            
+            posto.indiceBC = ((posto.tempoParadaPosto / item.tempoFerProd) * 100).toFixed(2) + '%';
             let temp = 0;
             posto.paradas.forEach((parada: IParada) => {temp += parada.tempo});
             posto.tempoParadaPosto = temp;
           });
           ferramenta.indiceCD = `${indiceCD.toFixed(2)}%`;
-          ferramenta.tempoParadaFerramenta = convertSecondsToTime(item.tempoFerProd) ;
         });
-   
       }else{
         const parada: IParada = {
           parada: item.parada,
           tempo: item.tempo,
           indice: item.indice,
         };
-        
         indiceParadasAbreviada.push(parada);
       }
     });
-
     requisicaoTransformada = {
       indiceParadasDTO: isPadrao? indiceParadasAbreviada : indiceParadasDTOTransformado,
       tempoTotalParadaCP: convertSecondsToTime(tempoParadaCP),

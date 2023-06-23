@@ -10,22 +10,7 @@ const tbodyIndiceParadaXPosto = (Tbody: HTMLTableSectionElement | undefined, fon
     let totais: HTMLCollectionOf<HTMLParagraphElement> | any = Tbody?.lastElementChild?.firstElementChild?.firstElementChild?.getElementsByTagName("p");
 
     let arrSubTotais: Object[] = Array.from(totais).map((p : any) => {
-        let objTextTotais: {
-            text?: string, 
-            fontSize?: number, 
-            bold?: boolean, 
-            marker?: string,
-            margin?: number[],
-            listType?: string
-        } = {};
-        
-        objTextTotais.text = p?.textContent;
-        objTextTotais.fontSize = fontSize;
-        objTextTotais.marker = "";
-        objTextTotais.margin = [0, 0, 0, 5];
-        objTextTotais.listType = "none";
-
-        return objTextTotais;
+        return {text: p?.textContent, fontSize: fontSize, maker: "", listType: "none", margin: [0, 0, 0, 5]};
     });
     // RENDERIZAÇÃO PERSONALIZADA DA LISTA
     let columns = dividirColuna(arrSubTotais);

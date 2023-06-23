@@ -55,7 +55,7 @@ export default function IndiceParadas (props : any) {
                 <TotalGeralIndiceParadas dados={listaIndiceParada} />
 
 
-                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, props.title, "portrait", 10, 90) }}>GERAR PDF</Button>
+                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, props.title, "portrait", 8, 90) }}>GERAR PDF</Button>
 
             </div>
         )

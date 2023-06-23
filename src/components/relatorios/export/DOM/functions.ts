@@ -8,29 +8,28 @@ export function CollectionToArray(cell : HTMLCollectionOf<HTMLTableCellElement>,
             text?: string | Object | null,
             fontSize?: number | null,
             bold?: boolean | null,
+            width?: any,
+            margin?: any[],
         } | Object[] = {};
     
-        let td = cell[j];
+        let td: HTMLTableCellElement = cell[j];
 
         if(td.children.length > 0) {
             let listP: Object[] = []; 
             Array.from(td.children).forEach((tdP : any) =>{
-                let objTextP: {
-                    text?: string | null ,
-                    fontSize?: number | null ,
-                    bold?: boolean  | null ,
-                } = {};
-                objTextP.text = tdP.textContent;
-                objTextP.fontSize = fontSize;
-                objTextP.bold = false;
-                listP.push(objTextP);
+                listP.push({text: tdP.textContent, fontSize: fontSize});
             })
             objTextTR = listP;
         }else{
+            if(td.classList.contains("td-indiceparada")){
+                objTextTR.margin = [0, 0, 100, 5]
+            }
             objTextTR.text = td.textContent;
             objTextTR.fontSize = fontSize;
             objTextTR.bold = true;
-        }
+            objTextTR.width = 100
+            
+        }   
         row.push(objTextTR);
     } 
     return row;

@@ -18,31 +18,32 @@ const relatorioPDF = (props: any) => {
           props?.headers,
           ...props?.body.map((row: any) => row),
         ],
-        width:['auto','*','*'],
-        alignment: "center",
+        width: ["auto"],
+      //  alignment: "center",
 
       },
       
       layout: "lightHorizontalLines",
+      width: ["500"],
       style: "tableCell",
     },
     // VERIFICA SE HÁ TOTAL
     {
-      stack : total.length >0 ? [] : [{text: "Totais:", style: "totaisTitle"},]
+      stack : props.columns.length >0 ? [{text: "Totais:", style: "totaisTitle"},] : []
     }
     ,
     {
       stack: [
-        
         {columns: props.columns}
       ],
-      style: "totalGeral"
+      style: "totalGeral",
+      marginTop: 20
     }
   ];
 
   const reportStyle = {
     tableStyle: {
-      widths: ["100%"],
+    //  widths: [100],
     },
     headerStyle: {
       fontSize: fontPrimary + 3,
@@ -52,13 +53,15 @@ const relatorioPDF = (props: any) => {
       marginBottom: 15,
     },
     totaisTitle: {
+      color: "#414141",
       alignment: "left",
-      fontSize: fontPrimary + 3,
+      fontSize: fontPrimary + 2,
       bold: true,
       margin: [0, 10, 0, 0] as types.Margins,
     },
     tableCell: {
       margin: [0, 0, 0, 0] as types.Margins,
+      borderColor: "#414141",
       border: [false, true, false, true], // [left, top, right, bottom]
     },
     tableHeaderCell: {
@@ -68,7 +71,7 @@ const relatorioPDF = (props: any) => {
       borderBottomColor: "#414141", // Cor da borda inferior do cabeçalho da tabela
       borderBottomWidth: 1, // Largura da borda inferior do cabeçalho da tabela
       bold: true, // Texto em negrito no cabeçalho da tabela
-      alignment: "left", // Alinhamento do texto no cabeçalho da tabela
+     // alignment: "left", // Alinhamento do texto no cabeçalho da tabela
       margin: [0, 5, 0, 5] as types.Margins, // Margem superior e inferior do cabeçalho da tabela
     },
     subTotal: {
