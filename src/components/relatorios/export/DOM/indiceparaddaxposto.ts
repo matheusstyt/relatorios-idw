@@ -1,11 +1,11 @@
-import { CollectionToArray, dividirColuna } from "./functions";
+import { ColecaoHTMLParaArrayBodyPadrao, dividirColuna } from "./functions";
 
 const tbodyIndiceParadaXPosto = (Tbody: HTMLTableSectionElement | undefined, fontSize: number) => {
     // COM UM LOOP, CONSEGUE TODAS AS TAG TD QUE REPRESENTA OS DADOS
     let listTr : HTMLCollectionOf<HTMLTableCellElement> | any = Tbody?.firstElementChild?.getElementsByTagName("td");
     const body: Object[] = [];
 
-    body.push(CollectionToArray(listTr, fontSize));
+    body.push(ColecaoHTMLParaArrayBodyPadrao(listTr, fontSize));
     // COM UM LOOP, CONSEGUE TODAS AS TAG P QUE REPRESENTA OS TOTAIS DE UMA LINHA
     let totais: HTMLCollectionOf<HTMLParagraphElement> | any = Tbody?.lastElementChild?.firstElementChild?.firstElementChild?.getElementsByTagName("p");
 

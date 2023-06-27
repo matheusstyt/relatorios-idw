@@ -1,14 +1,14 @@
 import AccordionDinamic from "../../../../components/relatorios/accordion";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
-import { AcompanhamentoProducaoBody, Header, TotalGeralAcompanhamentoProducao } from "../../../../components/relatorios/export";
 import headers from "../../../../components/relatorios/export/headers.json";
 import Filtros from "./filtros";
 import "../../../pages.scss";
 import { AcompanhamentoProducaoServices } from "../../../../components/relatorios/export/services/produtos";
 import { IAcompanhamentoPrroducaoResponse, IIntervalo } from "../../../../components/relatorios/filtros/interface/reports/producao/acompanhamentoProducao";
 import { Button } from "@mui/material";
-import { getTableAcompanhamentoDOM } from "../../../../components/relatorios/export/script";
+import { AcompanhamentoProducaoBody, Header, TotalGeralAcompanhamentoProducao } from "../../../../components/relatorios/export";
+import { getTableAcompanhamentoDOM } from "../../../../components/relatorios/export/DOM/acompanhamentoproducao";
 export default function AcompanhamentoProducao (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);

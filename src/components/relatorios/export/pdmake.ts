@@ -42,9 +42,6 @@ const relatorioPDF = (props: any) => {
   ];
 
   const reportStyle = {
-    tableStyle: {
-    //  widths: [100],
-    },
     headerStyle: {
       fontSize: fontPrimary + 3,
       bold: true,
@@ -82,7 +79,7 @@ const relatorioPDF = (props: any) => {
 
   const pageConfig = {
     pageSize: "A4" as types.PredefinedPageSize, // Escolha o tamanho de página desejado
-    pageMargins: [ 10, marginTop, 10, 10 ] as types.Margins, // left, top, right, bottom (aumente o valor da margem superior)
+    pageMargins: [ 10, marginTop, 10, 20 ] as types.Margins, // left, top, right, bottom (aumente o valor da margem superior)
     pageOrientation: pageOrientation,
     header: (currentpage: any, pageCount: any) => {
       const reportTitle = [

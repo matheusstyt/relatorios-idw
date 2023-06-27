@@ -8,8 +8,8 @@ import headers from "../../../../components/relatorios/export/headers.json";
 import { IAnaliseProducaoResponse } from "../../../../components/relatorios/filtros/interface/reports/producao/analiseProducao";
 import { AnaliseProducaoServices } from "../../../../components/relatorios/export/services/produtos";
 import { Button } from "@mui/material";
-import {getTableDinamicDOM} from "../../../../components/relatorios/export/script";
 import { Preloader } from "../../../../components/relatorios/preloader";
+import { getTableDinamicDOM } from "../../../../components/relatorios/export/DOM";
 export default function AnaliseProducao (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);

@@ -67,65 +67,65 @@ export function ConsolidadosPostoBody ( props : any ){
 
                         {/* SEGUNDA CAMADA */}
                         <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                                return <span className="span nv2" key={index}>{ferramenta.ferramenta}</span>}
+                                return <p className="span nv2" key={index}>{ferramenta.ferramenta}</p>}
                         )}</td>
                         <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                                return <span className="span nv2" key={index}>{ferramenta.cicloPadrao}</span>}
+                                return <p className="span nv2" key={index}>{ferramenta.cicloPadrao}</p>}
                         )}</td>
                         <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                                return <span className="span nv2" key={index}>{ferramenta.cicloLido}</span>}
+                                return <p className="span nv2" key={index}>{ferramenta.cicloLido}</p>}
                         )}</td>
                         <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                                return <span className="span nv2" key={index}>{ferramenta.eficienciaCiclo}</span>}
+                                return <p className="span nv2" key={index}>{ferramenta.eficienciaCiclo}</p>}
                         )}</td>
                         {/* TERCEIRA CAMADA */}
                         <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.produto}</span>
+                                return <p className="span nv3" key={index}>{produto.produto}</p>
                                 })
                             }
                         )}</td>
                         {/* SEGUNDA CAMADA */}
                         <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                                return <span className="span nv2" key={index}>{ferramenta.cavidadesTotais === "0" ? "" : `${ferramenta.cavidadesAtivas}/${ferramenta.cavidadesTotais}`}</span>}
+                                return <p className="span nv2" key={index}>{ferramenta.cavidadesTotais === "0" ? "" : `${ferramenta.cavidadesAtivas}/${ferramenta.cavidadesTotais}`}</p>}
                         )}</td>
                         <td >{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                                return <span className="span nv2" key={index}>{ferramenta.indiceCavidades}</span>}
+                                return <p className="span nv2" key={index}>{ferramenta.indiceCavidades}</p>}
                         )}</td>
                         {/* TERCEIRA CAMADA */}
                         <td>{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.pecasPrevistas}</span>
+                                return <p className="span nv3" key={index}>{produto.pecasPrevistas}</p>
                                 })
                             }
                         )}</td>
                         <td>{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.pecasProduzidas}</span>
+                                return <p className="span nv3" key={index}>{produto.pecasProduzidas}</p>
                                 })
                             }
                         )}</td>
                         <td>{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.pecasRefugadas}</span>
+                                return <p className="span nv3" key={index}>{produto.pecasRefugadas}</p>
                                 })
                             }
                         )}</td>
                         <td>{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.pecasBoas}</span>
+                                return <p className="span nv3" key={index}>{produto.pecasBoas}</p>
                                 })
                             }
                         )}</td>
                         <td>{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.indiceRefugo}</span>
+                                return <p className="span nv3" key={index}>{produto.indiceRefugo}</p>
                                 })
                             }
                         )}</td>
                         <td>{posto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.eficienciaRealizacao}</span>
+                                return <p className="span nv3" key={index}>{produto.eficienciaRealizacao}</p>
                                 })
                             }
                         )}</td>
@@ -151,7 +151,7 @@ export function ConsolidadosFerramentaBody ( props : any ){
 
                         {/* SEGUNDA CAMADA */}
                         <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                            return <span className="span nv2" key={index}>{posto.posto}</span>}
+                            return <p className="span nv2" key={index}>{posto.posto}</p>}
                         )}</td>
                         {/* PRIMEIRA CAMADA */}
                         <td>{ferramenta?.cicloPadrao}</td>
@@ -159,21 +159,21 @@ export function ConsolidadosFerramentaBody ( props : any ){
                         <td>{ferramenta?.eficienciaCiclo}</td>
                         {/* SEGUNDA CAMADA */}
                         <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                                return <span className="span nv2" key={index}>{posto.horasTrabalhadas}</span>}
+                                return <p className="span nv2" key={index}>{posto.horasTrabalhadas}</p>}
                         )}</td>
                         <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                                return <span className="span nv2" key={index}>{posto.horasParadas}</span>}
+                                return <p className="span nv2" key={index}>{posto.horasParadas}</p>}
                         )}</td>
                         <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                                return <span className="span nv2" key={index}>{posto.tempoAtivo}</span>}
+                                return <p className="span nv2" key={index}>{posto.tempoAtivo}</p>}
                         )}</td>
                         <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                                return <span className="span nv2" key={index}>{posto.indiceParadas}</span>}
+                                return <p className="span nv2" key={index}>{posto.indiceParadas}</p>}
                         )}</td>
                         {/* TERCEIRA CAMADA */}
                         <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
                             return posto?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.produto}</span>
+                                return <p className="span nv3" key={index}>{produto.produto}</p>
                                 })
                             }
                         )}</td>
@@ -183,46 +183,46 @@ export function ConsolidadosFerramentaBody ( props : any ){
                        {/* TERCEIRA CAMADA */}
                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
                             return posto?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.pecasPrevistas}</span>
+                                return <p className="span nv3" key={index}>{produto.pecasPrevistas}</p>
                                 })
                             }
                         )}</td>
                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
                             return posto?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.pecasProduzidas}</span>
+                                return <p className="span nv3" key={index}>{produto.pecasProduzidas}</p>
                                 })
                             }
                         )}</td>
                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
                             return posto?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.pecasRefugadas}</span>
+                                return <p className="span nv3" key={index}>{produto.pecasRefugadas}</p>
                                 })
                             }
                         )}</td>
                        <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
                             return posto?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.pecasBoas}</span>
+                                return <p className="span nv3" key={index}>{produto.pecasBoas}</p>
                                 })
                             }
                         )}</td>
                         <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
                             return posto?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.indiceRefugo}</span>
+                                return <p className="span nv3" key={index}>{produto.indiceRefugo}</p>
                                 })
                             }
                         )}</td>
                         <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
                             return posto?.produtos?.map((produto : IProduto, index : number) => {
-                                return <span className="span nv3" key={index}>{produto.eficienciaRealizacao}</span>
+                                return <p className="span nv3" key={index}>{produto.eficienciaRealizacao}</p>
                                 })
                             }
                         )}</td>
                         {/* SEGUNDA CAMADA */}
                         <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                                return <span className="span nv2" key={index}>{posto.oee}</span>}
+                                return <p className="span nv2" key={index}>{posto.oee}</p>}
                         )}</td>
                         <td >{ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                                return <span className="span nv2" key={index}>{posto.oeeCap}</span>}
+                                return <p className="span nv2" key={index}>{posto.oeeCap}</p>}
                         )}</td>
 
                     </tr>
@@ -244,53 +244,53 @@ export function ConsolidadosProdutoBody ( props : any ){
 
                         {/* SEGUNDA CAMADA */}
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                            return <span className="span nv2" key={index}>{ferramenta.ferramenta}</span>}
+                            return <p className="span nv2" key={index}>{ferramenta.ferramenta}</p>}
                         )}</td>
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                            return <span className="span nv2" key={index}>{ferramenta.cavidadesTotais === "0" ? "" : `${ferramenta.cavidadesAtivas}/${ferramenta.cavidadesTotais}`}</span>}
+                            return <p className="span nv2" key={index}>{ferramenta.cavidadesTotais === "0" ? "" : `${ferramenta.cavidadesAtivas}/${ferramenta.cavidadesTotais}`}</p>}
                         )}</td>
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                            return <span className="span nv2" key={index}>{ferramenta.indiceCavidades}</span>}
+                            return <p className="span nv2" key={index}>{ferramenta.indiceCavidades}</p>}
                         )}</td>
                         {/* TERCEIRA CAMADA */}
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                                return <span className="span nv3" key={index}>{posto.posto}</span>
+                                return <p className="span nv3" key={index}>{posto.posto}</p>
                                 })
                             }
                         )}</td>
                         {/* SEGUNDA CAMADA */}
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                            return <span className="span nv2" key={index}>{ferramenta.cicloPadrao}</span>}
+                            return <p className="span nv2" key={index}>{ferramenta.cicloPadrao}</p>}
                         )}</td>
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                            return <span className="span nv2" key={index}>{ferramenta.cicloLido}</span>}
+                            return <p className="span nv2" key={index}>{ferramenta.cicloLido}</p>}
                         )}</td>
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
-                            return <span className="span nv2" key={index}>{ferramenta.eficienciaCiclo}</span>}
+                            return <p className="span nv2" key={index}>{ferramenta.eficienciaCiclo}</p>}
                         )}</td>
                         {/* TERCEIRA CAMADA */}
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                                return <span className="span nv3" key={index}>{posto.horasTrabalhadas}</span>
+                                return <p className="span nv3" key={index}>{posto.horasTrabalhadas}</p>
                                 })
                             }
                         )}</td>
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                                return <span className="span nv3" key={index}>{posto.horasParadas}</span>
+                                return <p className="span nv3" key={index}>{posto.horasParadas}</p>
                                 })
                             }
                         )}</td>
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                                return <span className="span nv3" key={index}>{posto.tempoAtivo}</span>
+                                return <p className="span nv3" key={index}>{posto.tempoAtivo}</p>
                                 })
                             }
                         )}</td>
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                                return <span className="span nv3" key={index}>{posto.indiceParadas}</span>
+                                return <p className="span nv3" key={index}>{posto.indiceParadas}</p>
                                 })
                             }
                         )}</td>
@@ -304,13 +304,13 @@ export function ConsolidadosProdutoBody ( props : any ){
                         {/* TERCEIRA CAMADA */}
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                                return <span className="span nv3" key={index}>{posto.oee}</span>
+                                return <p className="span nv3" key={index}>{posto.oee}</p>
                                 })
                             }
                         )}</td>
                         <td >{produto?.ferramentas?.map((ferramenta : IFerramenta, index : number) => {
                             return ferramenta?.postos?.map((posto : IPosto, index : number) => {
-                                return <span className="span nv3" key={index}>{posto.oeeCap}</span>
+                                return <p className="span nv3" key={index}>{posto.oeeCap}</p>
                                 })
                             }
                         )}</td>

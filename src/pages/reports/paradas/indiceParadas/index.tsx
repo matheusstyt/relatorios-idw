@@ -1,6 +1,6 @@
 import { Header, IndiceParadaXPostoBody, IndiceParadasFerramentaBody, IndiceParadasPadraoBody, IndiceParadasProdutoBody, TableDinamic, TotalGeralIndiceParadas } from "../../../../components/relatorios/export";
 import { IndiceParadaServices } from "../../../../components/relatorios/export/services/paradas";
-import {getTableDinamicDOM} from "../../../../components/relatorios/export/script";
+import {getTableDinamicDOM} from "../../../../components/relatorios/export/DOM";
 import headers from "../../../../components/relatorios/export/headers.json";
 import AccordionDinamic from "../../../../components/relatorios/accordion";
 import { useState, useEffect } from 'react';

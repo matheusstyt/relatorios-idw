@@ -1,38 +1,41 @@
-// VARRER CÉLULAS DE LINHA
-export function CollectionToArray(cell : HTMLCollectionOf<HTMLTableCellElement>, fontSize: number){
-    let row : Object[] = [];
-
-    for ( let j = 0; j < cell.length; j++) {
-        let objTextTR: {
-            list?: Object[],
-            text?: string | Object | null,
-            fontSize?: number | null,
-            bold?: boolean | null,
-            width?: any,
-            margin?: any[],
-        } | Object[] = {};
+export function ColecaoHTMLParaArrayBodyPadrao(Tbody: HTMLTableSectionElement | undefined, fontSize: number){
     
-        let td: HTMLTableCellElement = cell[j];
+    const listTr: HTMLCollectionOf<HTMLTableRowElement> | any = Tbody?.children;
+    const body: Object[] = [];
 
-        if(td.children.length > 0) {
-            let listP: Object[] = []; 
-            Array.from(td.children).forEach((tdP : any) =>{
-                listP.push({text: tdP.textContent, fontSize: fontSize});
-            })
-            objTextTR = listP;
-        }else{
-            if(td.classList.contains("td-indiceparada")){
-                objTextTR.margin = [0, 0, 100, 5]
-            }
-            objTextTR.text = td.textContent;
-            objTextTR.fontSize = fontSize;
-            objTextTR.bold = true;
-            objTextTR.width = 100
+    Array.from(listTr).forEach((tr : any ) => {
+                
+        let arrRow: any[] = [];
+        Array.from(tr.children).forEach((td: any) => {
+            let cell: any[] | Object = [];
             
-        }   
-        row.push(objTextTR);
-    } 
-    return row;
+            if(td.children.length > 0){
+                
+                // caso tenha tag P dentro da tag TD, irá criar uma lista com esses filhos
+                cell = Array.from(td.children).map(( p : any) => { 
+                    console.log(p)
+                    return {text: p.textContent, fontSize}; 
+                });
+            }else{
+                // criará um objeto da célula
+                let margin: any[] = [0, 0, 0 , 0];
+                if(td.classList.contains("td-indiceparada")) margin = [10, 5, 100, 5];
+
+                cell = {
+                    margin,
+                    text: td.textContent, 
+                    width: ["*"], 
+                    _minWidth: 0, 
+                    fontSize, 
+                    _maxWidth: 0
+                };
+            }
+            arrRow.push(cell);
+        });
+        body.push(arrRow);
+
+    });
+    return body;
 }
 // FIM  
 

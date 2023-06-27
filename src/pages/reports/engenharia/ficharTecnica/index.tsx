@@ -8,7 +8,7 @@ import Filtros from "./filtros";
 import headers from "../../../../components/relatorios/export/headers.json";
 import { FichaTecnicaBody, Header, TableDinamic } from "../../../../components/relatorios/export";
 import { Button } from "@mui/material";
-import {getTableDinamicDOM} from "../../../../components/relatorios/export/script";
+import {getTableDinamicDOM} from "../../../../components/relatorios/export/DOM";
 
 const FichaTecnica = (props: any) =>{
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);

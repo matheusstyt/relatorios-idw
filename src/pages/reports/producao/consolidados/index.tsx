@@ -7,7 +7,7 @@ import "../../../pages.scss";
 import headers from "../../../../components/relatorios/export/headers.json";
 import { Preloader } from "../../../../components/relatorios/preloader";
 import { Button } from "@mui/material";
-import {getTableDinamicDOM} from "../../../../components/relatorios/export/script";
+import {getTableDinamicDOM} from "../../../../components/relatorios/export/DOM";
 import { IConsolidadosResponse } from "../../../../components/relatorios/filtros/interface/reports/producao/consolidados";
 import { ConsolidadosServices } from "../../../../components/relatorios/export/services/produtos";
 export default function Consolidados (props : any) {
