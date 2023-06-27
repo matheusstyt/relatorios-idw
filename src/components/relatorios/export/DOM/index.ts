@@ -4,7 +4,7 @@ import tbodyIndiceParada from "./indiceparada";
 import tbodyIndiceParadaXPosto from "./indiceparaddaxposto";
 import relatorioPDF from "../pdmake";
 
-export function getTableDinamicDOM (descricao : Object, title: string, orientation: string, fontSize: number, marginTop: number) {
+export function getTableDinamicDOM (descricao : Object, title: string, orientation: string, fontSize: number, marginTop: number, isDownload: boolean) {
     const tabela: HTMLElement | null = document.getElementById("table-main");
 
     // TRECHO QUE BUSCA O CABEÇALHO DA TABELA      
@@ -16,7 +16,7 @@ export function getTableDinamicDOM (descricao : Object, title: string, orientati
         const primeiroThead: HTMLTableSectionElement | any = thead?.[i];
         let columns : HTMLCollectionOf<HTMLTableCellElement> = primeiroThead.getElementsByTagName("tr");
         Array.from(columns).forEach((coluna: HTMLTableCellElement) => {
-            Array.from(coluna.getElementsByTagName("th")).forEach((i : any) => {headers.push({text : i.textContent, fontSize : fontSize, bold : true, style: "tableHeaderCell"})});
+            Array.from(coluna.getElementsByTagName("th")).forEach((i : any) => {headers.push({text : i.textContent, fontSize : fontSize, bold : true, margin: [5, 0, 0, 0], style: "tableHeaderCell"})});
         });
     }  
     // TRECHO QUE BUSCA O CORPO DA TABELA
@@ -27,21 +27,22 @@ export function getTableDinamicDOM (descricao : Object, title: string, orientati
         if(Tbody?.className === "t-indiceparadaxposto"){
             
             body = body.concat(tbodyIndiceParadaXPosto(Tbody, fontSize));
-
+            
         }else if(Tbody?.className === "t-analiseproducao"){
-
+            
             body = body.concat(tbodyAnaliseProducao(Tbody, fontSize));
-
+            
         }else if(Tbody?.className === "t-indiceparada"){
-
+            
             body = body.concat(tbodyIndiceParada(Tbody, fontSize));
             
         }else{
-
+            
             body = body.concat(ColecaoHTMLParaArrayBodyPadrao(Tbody, fontSize));
-
+            
         }
     }
+ //   console.log(body)
     // CASO TENHA TOTAL GERAL 
     let arrTotais: Object[] = [];
     try {
@@ -62,6 +63,7 @@ export function getTableDinamicDOM (descricao : Object, title: string, orientati
         columns: dividirColuna(arrTotais),
         fontSize,
         marginTop,
-        orientation
+        orientation,
+        isDownload
     });
 }

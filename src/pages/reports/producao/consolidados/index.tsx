@@ -32,7 +32,19 @@ export default function Consolidados (props : any) {
             <div className="export-content">
                 <Header 
                     title={`${props.title} - POR ${descricao[4].description}`}
+
+                    getTableDOM={(isDownload: boolean) =>{
+                        getTableDinamicDOM(
+                            descricao, // lista de descrição dinâmica
+                            `${props.title}`, // título da página
+                            "landscape", // orientação da página
+                            5, // tamanho da fonte
+                            100, // margem de baixo da página
+                            isDownload
+                        ) }
+                    }
                     components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
+                
                 />
                 <div className="table-content">
                     {
@@ -46,8 +58,6 @@ export default function Consolidados (props : any) {
                     }
                 </div>
                 <TotalGeralConsolidados totais={consolidadosResponse} />
-                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, `${props.title} - POR ${descricao[4].description}`, "landscape", 5, 100) }}>GERAR PDF</Button>
-
             </div>
         )
     }

@@ -102,11 +102,22 @@ h2{
     background-color: #00000021;
 
 }
+// SCSS DO HEADER DE TODOS OS FILTROS
 .export-header{
     border-bottom: 2px solid #414141b0;
     padding: 1em;
     p{
         font-weight: 500;
+    }
+    .flex-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .btn-pdf{
+            display: flex;
+            flex-flow: column;
+            gap: 1em;
+        }
     }
 }
 .container-totais{

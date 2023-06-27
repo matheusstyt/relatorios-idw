@@ -33,6 +33,16 @@ export default function IndiceParadasXPosto (props : any) {
             <div className="export-content">
                 <Header 
                     title={props.title}
+                    getTableDOM={(isDownload: boolean) =>{
+                        getTableDinamicDOM(
+                            descricao, // lista de descrição dinâmica
+                            `${props.title}`, // título da página
+                            "portrait", // orientação da página
+                            10, // tamanho da fonte
+                            90, // margem de baixo da página
+                            isDownload
+                        ) }
+                    }
                     components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
                 <div className="table-content">
@@ -40,8 +50,6 @@ export default function IndiceParadasXPosto (props : any) {
                 </div>
                 <h2>Total Geral</h2>
                 <TotalGeralIndiceParadaXPosto dados={listaIndiceParadaPosto} />
-                <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, props.title, "portrait", 10, 90) }}>GERAR PDF</Button>
-
             </div>
         )
     }

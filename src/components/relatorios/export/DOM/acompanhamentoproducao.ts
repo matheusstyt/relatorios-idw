@@ -1,6 +1,6 @@
 import relatorioPDF from "../pdmake";
 
-export function getTableAcompanhamentoDOM (descricao : Object, title: string, orientation: string, fontSize: number, marginTop: number) {
+export function getTableAcompanhamentoDOM (descricao : Object, title: string, orientation: string, fontSize: number, marginTop: number, isDownload: boolean) {
     const tabela: HTMLElement | null = document.getElementById("table-acompanhamento");
     const children: HTMLCollectionOf<HTMLTableSectionElement> | any = tabela?.children;
 
@@ -86,6 +86,7 @@ export function getTableAcompanhamentoDOM (descricao : Object, title: string, or
         fontSize,
         marginTop,
         orientation,
+        isDownload,
         layout: {
         hLineWidth: (i: number, node: any) => (i === 1 ? 1 : 1),
         vLineWidth: () => 1,

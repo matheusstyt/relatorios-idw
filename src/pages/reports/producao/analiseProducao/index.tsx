@@ -7,7 +7,6 @@ import "../../../pages.scss";
 import headers from "../../../../components/relatorios/export/headers.json";
 import { IAnaliseProducaoResponse } from "../../../../components/relatorios/filtros/interface/reports/producao/analiseProducao";
 import { AnaliseProducaoServices } from "../../../../components/relatorios/export/services/produtos";
-import { Button } from "@mui/material";
 import { Preloader } from "../../../../components/relatorios/preloader";
 import { getTableDinamicDOM } from "../../../../components/relatorios/export/DOM";
 export default function AnaliseProducao (props : any) {
@@ -31,12 +30,21 @@ export default function AnaliseProducao (props : any) {
             <div className="export-content">
                 <Header 
                     title={props.title}
+                    getTableDOM={(isDownload: boolean) =>{
+                        getTableDinamicDOM(
+                            descricao, // lista de descrição dinâmica
+                            `${props.title}`, // título da página
+                            "landscape", // orientação da página
+                            7, // tamanho da fonte
+                            70, // margem de baixo da página
+                            isDownload
+                        ) }
+                    }
                     components={<> {descricao?.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
                 <div className="table-content">
                     {<TableDinamic headers={headers.producao.analiseProducao} body={<AnaliseProducaoBody listaDTO={analiseProducaoResponse?.listaDTOs} />}/>}
                 </div>
-                    <Button variant="contained" onClick={() => { getTableDinamicDOM(descricao, `${props.title}`, "landscape", 7, 70) }}>GERAR PDF</Button>
             </div>
         )
     }

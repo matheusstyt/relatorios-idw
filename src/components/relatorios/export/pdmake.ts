@@ -132,8 +132,14 @@ const relatorioPDF = (props: any) => {
     content: reportBody,
     styles: reportStyle as types.StyleDictionary,
   };
-  //pdfMake.createPdf(pageConfig).download(`${props.title} - ${new Formatar(new Date()).dataGeral()}.pdf`);
-  pdfMake.createPdf(pageConfig).open();
+
+  // se isDownload for true baixar
+  if(props.isDownload){
+    pdfMake.createPdf(pageConfig).download(`${props.title} - ${new Formatar(new Date()).dataGeral()}.pdf`);
+  }else{
+    // se não, abrir no navegador
+    pdfMake.createPdf(pageConfig).open();
+  }
 
 };
 

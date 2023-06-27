@@ -43,6 +43,20 @@ export default function AcompanhamentoProducao (props : any) {
             <div className="export-content">
                 <Header 
                     title={props.title}
+                    getTableDOM={(isDownload: boolean) =>{
+                        getTableAcompanhamentoDOM(
+                            descricao, // lista de descrição dinâmica
+                            `${props.title}`, // título da página
+                            "portrait", // orientação da página
+                            7, // tamanho da fonte
+                            70, // margem de baixo da página
+                            isDownload
+                        ) }
+                    }
+                    descricao={descricao}
+                    orientation="portrait"
+                    fontSize={7}
+                    marginBottom={70}
                     components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
                 <div className="table-content">
@@ -63,7 +77,6 @@ export default function AcompanhamentoProducao (props : any) {
                 <TotalGeralAcompanhamentoProducao total={analiseProducaoResponse?.totalGeral}/>
 
             </div>
-            <Button variant="contained" onClick={() => { getTableAcompanhamentoDOM(descricao, `${props.title}`, "portrait", 7, 70) }}>GERAR PDF</Button>
 
         </div>
     )   

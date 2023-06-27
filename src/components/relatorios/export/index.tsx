@@ -1,3 +1,6 @@
+import { Button } from '@mui/material';
+import { BsEyeFill } from "react-icons/bs"
+import { FiDownload } from "react-icons/fi"
 import { IProduto as IProdFT } from '../filtros/interface/reports/engenharia/fichaTecnica';
 import { IIndiceParadasTransformado, IParada, IPostoParada } from '../filtros/interface/reports/paradas/indiceParadas';
 import { ISubRelatorioIndiceParada } from "../filtros/interface/reports/paradas/indiceParadasXPosto";
@@ -8,12 +11,25 @@ import { IFerramenta, IPosto, IProduto } from "../filtros/interface/reports/prod
 import { DecimalParaReal } from './DOM/functions';
 import { convertSecondsToTime } from "./datetime";
 import "./export.scss";
-
 export function Header(props : any) {
     return (
         <div className="export-header">
             <h2>{props.title}</h2>
-            { props.components}
+            <div className="flex-header">
+                <div className='descricao-list'>
+                    { props.components}
+                </div>
+                <div className="btn-pdf">
+                    <Button color="secondary" 
+                    variant="contained" 
+                    startIcon={<BsEyeFill className='header-btn-ico' size={20}/>} 
+                    onClick={(e) => { props.getTableDOM(false) }}>Visualizar</Button>
+
+                    <Button variant="contained" 
+                    startIcon={<FiDownload className='header-btn-ico' size={20}/>} 
+                    onClick={(e) => {  props.getTableDOM(true) }}>Baixar</Button>
+                </div>
+            </div>
         </div>
     )
 }

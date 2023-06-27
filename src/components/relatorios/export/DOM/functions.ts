@@ -2,7 +2,7 @@ export function ColecaoHTMLParaArrayBodyPadrao(Tbody: HTMLTableSectionElement | 
     
     const listTr: HTMLCollectionOf<HTMLTableRowElement> | any = Tbody?.children;
     const body: Object[] = [];
-
+    console.log(Tbody)  
     Array.from(listTr).forEach((tr : any ) => {
                 
         let arrRow: any[] = [];
