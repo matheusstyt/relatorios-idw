@@ -19,12 +19,12 @@ const relatorioPDF = (props: any) => {
           ...props?.body.map((row: any) => row),
         ],
         width: ["auto"],
-      //  alignment: "center",
+        alignment: "center",
 
       },
       
-      layout: "lightHorizontalLines",
-      width: ["500"],
+      layout: props.layout || "lightHorizontalLines",
+    //  width: ["500"],
       style: "tableCell",
     },
     // VERIFICA SE HÁ TOTAL
@@ -135,7 +135,9 @@ const relatorioPDF = (props: any) => {
     content: reportBody,
     styles: reportStyle as types.StyleDictionary,
   };
-  pdfMake.createPdf(pageConfig).download(`${props.title} - ${new Formatar(new Date()).dataGeral()}.pdf`);
+  //pdfMake.createPdf(pageConfig).download(`${props.title} - ${new Formatar(new Date()).dataGeral()}.pdf`);
+  pdfMake.createPdf(pageConfig).open();
+
 };
 
 export default relatorioPDF;

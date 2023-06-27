@@ -502,7 +502,7 @@ export function AcompanhamentoProducaoBody ( props : any ) {
                     return <>
                         <tr key={index}>
                             {/* PRIMEIRA CAMADA */}
-                            <td>{item.maquina}</td>
+                            <td className='cor-personalizada'>{item.maquina}</td>
                             <td>{DecimalParaReal(item.projecaofPeriodo)}</td>
                             <td>{DecimalParaReal(item.qtdProduzida)}</td>
                             <td>{DecimalParaReal(item.qtdPrevista)}</td>
@@ -517,17 +517,17 @@ export function AcompanhamentoProducaoBody ( props : any ) {
                 })
             }   
             <tr>
-                <td>TOTAL</td>
-                <td id='total-intervalo'>{DecimalParaReal(props?.totais.projecaofPeriodo)}</td>
-                <td id='total-intervalo'>{DecimalParaReal(props?.totais.qtdProduzida)}</td>
-                <td id='total-intervalo'>{DecimalParaReal(props?.totais.qtdPrevista)}</td>
-                <td id='total-intervalo'>{DecimalParaReal(props?.totais.metaPeriodo)}</td>
-                <td id='total-intervalo'>{DecimalParaReal(props?.totais.eficRealizacao)}</td>
-                <td id='total-intervalo'>{DecimalParaReal(props?.totais.indRefugo)}</td>
-                <td id='total-intervalo'>{DecimalParaReal(props?.totais.indParada)}</td>
-                <td id='total-intervalo'>{DecimalParaReal(props?.totais.eficCiclo)}</td>
+                <td className='cor-personalizada'>TOTAL</td>
+                <td className='cor-personalizada'>{DecimalParaReal(props?.totais.projecaofPeriodo)}</td>
+                <td className='cor-personalizada'>{DecimalParaReal(props?.totais.qtdProduzclassNamea)}</td>
+                <td className='cor-personalizada'>{DecimalParaReal(props?.totais.qtdPrevista)}</td>
+                <td className='cor-personalizada'>{DecimalParaReal(props?.totais.metaPeriodo)}</td>
+                <td className='cor-personalizada'>{DecimalParaReal(props?.totais.eficRealizacao)}</td>
+                <td className='cor-personalizada'>{DecimalParaReal(props?.totais.indRefugo)}</td>
+                <td className='cor-personalizada'>{DecimalParaReal(props?.totais.indParada)}</td>
+                <td className='cor-personalizada'>{DecimalParaReal(props?.totais.eficCiclo)}</td>
             </tr>
-            <tr><td id='td-espaco' colSpan={15}></td></tr>
+            <tr><td id='td-espaco' colSpan={9}></td></tr>
         </tbody>
     )
 }

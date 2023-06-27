@@ -1,12 +1,14 @@
 import AccordionDinamic from "../../../../components/relatorios/accordion";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
-import { AcompanhamentoProducaoBody, Header, TableDinamic, TotalGeralAcompanhamentoProducao } from "../../../../components/relatorios/export";
+import { AcompanhamentoProducaoBody, Header, TotalGeralAcompanhamentoProducao } from "../../../../components/relatorios/export";
 import headers from "../../../../components/relatorios/export/headers.json";
 import Filtros from "./filtros";
 import "../../../pages.scss";
 import { AcompanhamentoProducaoServices } from "../../../../components/relatorios/export/services/produtos";
 import { IAcompanhamentoPrroducaoResponse, IIntervalo } from "../../../../components/relatorios/filtros/interface/reports/producao/acompanhamentoProducao";
+import { Button } from "@mui/material";
+import { getTableAcompanhamentoDOM } from "../../../../components/relatorios/export/script";
 export default function AcompanhamentoProducao (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);
@@ -48,8 +50,8 @@ export default function AcompanhamentoProducao (props : any) {
                     <table id="table-acompanhamento" >
                         {analiseProducaoResponse?.intervalos.map((intervalo: IIntervalo, index: number) => {
                             return <>
-                                <thead>
-                                    <tr><th align="left" colSpan={15}>PERÍODO: {intervalo.intervalo}</th></tr>
+                                <thead id="thead-acompanhamento">
+                                    <tr><th align="left" colSpan={9}>PERÍODO: {intervalo.intervalo}</th></tr>
                                     <tr> { headers.producao.acompanhamentoProducao.map( (item : string) => <th key={item}>{item}</th>) } </tr>
                                 </thead>
                                 <AcompanhamentoProducaoBody postos={intervalo?.postos} totais={intervalo.totais}/>
@@ -61,6 +63,8 @@ export default function AcompanhamentoProducao (props : any) {
                 <TotalGeralAcompanhamentoProducao total={analiseProducaoResponse?.totalGeral}/>
 
             </div>
+            <Button variant="contained" onClick={() => { getTableAcompanhamentoDOM(descricao, `${props.title}`, "portrait", 7, 70) }}>GERAR PDF</Button>
+
         </div>
     )   
 }

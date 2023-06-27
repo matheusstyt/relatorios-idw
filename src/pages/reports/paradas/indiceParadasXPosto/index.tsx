@@ -10,7 +10,7 @@ import { IIndiceParadaPostoResponse } from '../../../../components/relatorios/fi
 import { Preloader } from "../../../../components/relatorios/preloader";
 import { Button } from "@mui/material";
 import { IndiceParadaXPostoServices } from "../../../../components/relatorios/export/services/paradas";
-import getTableDinamicDOM from "../../../../components/relatorios/export/script";
+import {getTableDinamicDOM} from "../../../../components/relatorios/export/script";
 export default function IndiceParadasXPosto (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);

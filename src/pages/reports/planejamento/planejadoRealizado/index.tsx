@@ -7,7 +7,7 @@ import { Button } from "@mui/material";
 import { Preloader } from "../../../../components/relatorios/preloader";
 import { PlanejadoXRealizadoServices } from "../../../../components/relatorios/export/services/planejamentos";
 import { Header, PlanejadoXRealizadoBody, TableDinamic } from "../../../../components/relatorios/export";
-import getTableDinamicDOM from "../../../../components/relatorios/export/script";
+import {getTableDinamicDOM} from "../../../../components/relatorios/export/script";
 import { IPlanejadoXRealizadoResponse } from "../../../../components/relatorios/filtros/interface/reports/planejamento/planejadoxrealizado";
 
 const PlanejadoRealizado = (props : any) => {
@@ -63,7 +63,6 @@ const PlanejadoRealizado = (props : any) => {
                         getPayload={async (value: any ) => {
                             getPlanejadoXRealizado(value);
                         }
-
                         }
                         getDescricao={(value: any ) => setDescricao(value)}
                         openPreview={(value: boolean) =>  setExibirPreloader(true) }
