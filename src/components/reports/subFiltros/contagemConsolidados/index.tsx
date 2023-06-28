@@ -1,7 +1,7 @@
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import { useState } from "react";
 
-const Contagem = (props : any) => {
+const ContagemConsolidados = (props : any) => {
     const [exibirProducaoSelecionado, setExibirProducaoSelecionado]= useState<any>("pecas")
     const [exibirPesoSelecionado, setExibirPesoSelecionado]= useState<any>("kilograma")
     return (
@@ -31,13 +31,19 @@ const Contagem = (props : any) => {
                         control={ <Radio />}
                     />
                     <FormControlLabel 
-                        value="peso"
-                        label="Peso"
-                        name="peso"
+                        value="pesoLiquido"
+                        label="Peso Líquido"
+                        name="pesoLiquido"
                         className="form"
                         control={ <Radio />}
                     />
-
+                    <FormControlLabel 
+                        value="pesoBruto"
+                        label="Peso Bruto"
+                        name="pesoBruto"
+                        className="form"
+                        control={ <Radio />}
+                    />
                 </RadioGroup>
             </div>
 
@@ -80,4 +86,4 @@ const Contagem = (props : any) => {
         </>
     )
 }
-export default Contagem;
+export default ContagemConsolidados;

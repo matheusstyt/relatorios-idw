@@ -3,6 +3,7 @@ import { IAnaliseProducaoResponse } from "../../interface/reports/producao/anali
 import { IConsolidadosResponse } from "../../interface/reports/producao/consolidados";
 import api from "../../../../config/api";
 import { AxiosResponse } from "axios";
+import { IProducaoRegulagemResponse } from "../../interface/reports/producao/producaoRegulagem";
 
 const APP_API = "http://170.10.0.206:8080";
 
@@ -27,6 +28,24 @@ export async function AnaliseProducaoServices (body: any) {
 export async function AcompanhamentoProducaoServices (body: any) {
     return await api.post(`${APP_API}/idw/rest/v2/relatorios/acompanhamentoproducao`, body)
         .then( (res : AxiosResponse<IAcompanhamentoProducaoResponse>) => {
+            return res.data
+        })
+        .catch( error => {
+            return error
+        })
+}
+export async function ProducaoRegulagemServices (body: any) {
+    return await api.post(`${APP_API}/idw/rest/v2/relatorios/producaoemregulagem`, body)
+        .then( (res : AxiosResponse<IProducaoRegulagemResponse>) => {
+            return res.data
+        })
+        .catch( error => {
+            return error
+        })
+}
+export async function OcorrenciasParadaServices (body: any) {
+    return await api.post(`${APP_API}/idw/rest/v2/relatorios/ocorrenciasparadasregulagem`, body)
+        .then( (res : AxiosResponse<IProducaoRegulagemResponse>) => {
             return res.data
         })
         .catch( error => {

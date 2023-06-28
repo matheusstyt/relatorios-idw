@@ -8,6 +8,7 @@ import PlanejadoRealizado from "../pages/reports/planejamento/planejadoRealizado
 import AcompanhamentoProducao from "../pages/reports/producao/acompanhamentoProducao";
 import AnaliseProducao from "../pages/reports/producao/analiseProducao";
 import Consolidados from "../pages/reports/producao/consolidados";
+import ProducaoRegulagem from "../pages/reports/producao/producaoRegulagem";
 
 export const APP_ROUTES = {
     REPORT: [
@@ -58,6 +59,12 @@ export const APP_ROUTES = {
         title : "Acompanhamento de Produção (R015)",
         path : "acompanhamentoproducao",
         element: <AcompanhamentoProducao title="Acompanhamento de Produção (R015)" />
+      },
+      {
+        category : "product",
+        title : "Produção em Regulagem (R025)",
+        path : "producaoregulagem",
+        element: <ProducaoRegulagem title="Produção em Regulagem (R025)" />
       },
       {
         category : "planejamento",
