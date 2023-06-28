@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import "../../filtros.scss";
-import PostosFerramentas from "../../../../components/relatorios/filtros/view/postosFerramentas";
 import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
-import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
-import AgrupamentoContagem from "../../../../components/relatorios/filtros/view/agrupamentoContagem";
-import { Formatar } from "../../../../components/relatorios/export/datetime";
+import { Formatar } from "../../../../components/reports/pdf/datetime";
+import OpPeriodo from "../../../../components/reports/filtros/opPeriodo";
+import AgrupamentoContagem from "../../../../components/reports/filtros/agrupamentoContagem";
+import PostosFerramentas from "../../../../components/reports/filtros/postosFerramentas";
+
 
 const Filtros = (props : any) => {
     // períodos e turnos
@@ -33,6 +34,7 @@ const Filtros = (props : any) => {
 
         // carga útil
         const payload = {
+            op: OpNumber,
             dthrIni : periodoChecked? new Formatar(dataInicio).dataAbreviada() : null,
             dthrFim : periodoChecked? new Formatar(dataTermino).dataAbreviada() : null,
             cdTurno : turnoSelecionado === "todos" ? null : turnoSelecionado,
@@ -54,10 +56,10 @@ const Filtros = (props : any) => {
         
         let grupoTrabalho = "TODOS OS POSTOS";
 
-        if(payload.cdGt!=null)  grupoTrabalho = `GRUPO DE TRABALHO: ${payload.cdGt}`
-        if(payload.cdPt!=null)  grupoTrabalho = `POSTO DE TRABALHO: ${payload.cdPt}`
-        if(payload.cdFerramenta!=null)  grupoTrabalho = `FERRAMENTA: ${payload.cdFerramenta}`
-        if(payload.cdGrpFerramenta!=null)  grupoTrabalho = `GRUPO DE FERRAMENTA: ${payload.cdGrpFerramenta}`
+        if(payload.cdGt!==null)  grupoTrabalho = `GRUPO DE TRABALHO: ${payload.cdGt}`
+        if(payload.cdPt!==null)  grupoTrabalho = `POSTO DE TRABALHO: ${payload.cdPt}`
+        if(payload.cdFerramenta!==null)  grupoTrabalho = `FERRAMENTA: ${payload.cdFerramenta}`
+        if(payload.cdGrpFerramenta!==null)  grupoTrabalho = `GRUPO DE FERRAMENTA: ${payload.cdGrpFerramenta}`
 
         let producao = "PEÇAS";
 

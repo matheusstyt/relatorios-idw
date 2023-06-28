@@ -1,14 +1,13 @@
+import { IPlanejadoXRealizadoResponse } from "../../../../components/reports/interface/reports/planejamento/planejadoxrealizado";
+import { PlanejadoXRealizadoServices } from "../../../../components/reports/services/reports/planejamentos";
+import { Header, PlanejadoXRealizadoBody, TableDinamic } from "../../../../components/reports/pdf";
+import headers from "../../../../components/reports/pdf/headers.json";
+import { Preloader } from "../../../../components/reports/preloader";
+import AccordionDinamic from "../../../../components/accordion";
 import { FiFilter } from "react-icons/fi";
-import AccordionDinamic from "../../../../components/relatorios/accordion";
-import Filtros from "./filtro";
 import { useState } from "react";
-import headers from "../../../../components/relatorios/export/headers.json";
-import { Button } from "@mui/material";
-import { Preloader } from "../../../../components/relatorios/preloader";
-import { PlanejadoXRealizadoServices } from "../../../../components/relatorios/export/services/planejamentos";
-import { Header, PlanejadoXRealizadoBody, TableDinamic } from "../../../../components/relatorios/export";
-import {getTableDinamicDOM} from "../../../../components/relatorios/export/DOM";
-import { IPlanejadoXRealizadoResponse } from "../../../../components/relatorios/filtros/interface/reports/planejamento/planejadoxrealizado";
+import Filtros from "./filtro";
+import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 
 const PlanejadoRealizado = (props : any) => {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
@@ -24,8 +23,7 @@ const PlanejadoRealizado = (props : any) => {
         .then( (data) => {
             console.log(data)
             setPlanejadoXRealizadoResponse(data);
-            
-        })
+        });
         setExibirPreloader(false);
         setExibirExportar(true);
     }
@@ -35,7 +33,17 @@ const PlanejadoRealizado = (props : any) => {
             <div className="export-content">
                 <Header 
                     title={props.title}
-                 //   components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
+                    getTableDOM={(isDownload: boolean) =>{
+                        getTableDinamicDOM(
+                            descricao, // lista de descrição dinâmica
+                            `${props.title}`, // título da página
+                            "landscape", // orientação da página
+                            6, // tamanho da fonte
+                            70, // margem de baixo da página
+                            isDownload
+                        ) }
+                    }
+                    components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
                 <div className="table-content">
                     {<TableDinamic 

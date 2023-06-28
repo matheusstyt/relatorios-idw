@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import "../../filtros.scss";
-import PostosFerramentas from "../../../../components/relatorios/filtros/view/postosFerramentas";
-import Paradas from "../../../../components/relatorios/filtros/view/paradas";
-import AreaResponsavel from "../../../../components/relatorios/filtros/view/areaResponsavel";
+import PostosFerramentas from "../../../../components/reports/filtros/postosFerramentas";
+import AreaResponsavel from "../../../../components/reports/filtros/areaResponsavel";
+import OpPeriodo from "../../../../components/reports/filtros/opPeriodo";
+import Paradas from "../../../../components/reports/filtros/paradas";
 import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
-import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
+import "../../filtros.scss";
 
 const Filtros = (props : any) => {
     // períodos e turnos

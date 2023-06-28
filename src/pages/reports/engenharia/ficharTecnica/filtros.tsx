@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import "../../filtros.scss";
-import { Button, Container, Divider } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import { useState } from "react";
-import Produtos from "../../../../components/relatorios/subFiltros/produtos";
+import Produtos from "../../../../components/reports/subFiltros/produtos";
 
 const Filtros = (props : any) => {
     const [produtoSelecionado, setProdutoSelecionado] = useState<string>("");
@@ -16,6 +16,7 @@ const Filtros = (props : any) => {
 
         let descricao : Object[] = [];
         descricao.push({propery : "PRODUTO", description: produtoSelecionado})
+        
         console.log(payload)
         props.getPayload(payload);
         props.getDescricao(descricao);

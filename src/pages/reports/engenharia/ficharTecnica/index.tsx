@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { IFichaTecnicaResponse } from "../../../../components/relatorios/filtros/interface/reports/engenharia/fichaTecnica";
-import { FichaTecnicaServices } from "../../../../components/relatorios/export/services/engenharia";
-import { Preloader } from "../../../../components/relatorios/preloader";
-import AccordionDinamic from "../../../../components/relatorios/accordion";
+import { IFichaTecnicaResponse } from "../../../../components/reports/interface/reports/engenharia/fichaTecnica";
+import { FichaTecnicaServices } from "../../../../components/reports/services/reports/engenharia";
+import { FichaTecnicaBody, Header, TableDinamic } from "../../../../components/reports/pdf";
+import headers from "../../../../components/reports/pdf/headers.json";
+import { Preloader } from "../../../../components/reports/preloader";
+import AccordionDinamic from "../../../../components/accordion";
 import { FiFilter } from "react-icons/fi";
+import { useState } from "react";
 import Filtros from "./filtros";
-import headers from "../../../../components/relatorios/export/headers.json";
-import { FichaTecnicaBody, Header, TableDinamic } from "../../../../components/relatorios/export";
-import { Button } from "@mui/material";
-import {getTableDinamicDOM} from "../../../../components/relatorios/export/DOM";
+import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
+
 
 const FichaTecnica = (props: any) =>{
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
@@ -31,6 +31,16 @@ const FichaTecnica = (props: any) =>{
             <div className="export-content">
                 <Header 
                     title={`${props.title}`}
+                    getTableDOM={(isDownload: boolean) =>{
+                        getTableDinamicDOM(
+                            descricao, // lista de descrição dinâmica
+                            `${props.title}`, // título da página
+                            "portrait", // orientação da página
+                            7, // tamanho da fonte
+                            70, // margem de baixo da página
+                            isDownload
+                        ) }
+                    }
                     components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
                 <div className="table-content">

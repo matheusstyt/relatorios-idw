@@ -1,14 +1,15 @@
-import AccordionDinamic from "../../../../components/relatorios/accordion";
+import { IAnaliseProducaoResponse } from "../../../../components/reports/interface/reports/producao/analiseProducao";
+import { AnaliseProducaoServices } from "../../../../components/reports/services/reports/produtos";
+import { AnaliseProducaoBody, Header, TableDinamic } from "../../../../components/reports/pdf";
+import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
+import headers from "../../../../components/reports/pdf/headers.json";
+import { Preloader } from "../../../../components/reports/preloader";
+import AccordionDinamic from "../../../../components/accordion";
 import { FiFilter } from "react-icons/fi";
-import { AnaliseProducaoBody, Header, TableDinamic } from "../../../../components/relatorios/export";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import headers from "../../../../components/relatorios/export/headers.json";
-import { IAnaliseProducaoResponse } from "../../../../components/relatorios/filtros/interface/reports/producao/analiseProducao";
-import { AnaliseProducaoServices } from "../../../../components/relatorios/export/services/produtos";
-import { Preloader } from "../../../../components/relatorios/preloader";
-import { getTableDinamicDOM } from "../../../../components/relatorios/export/DOM";
+
 export default function AnaliseProducao (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);

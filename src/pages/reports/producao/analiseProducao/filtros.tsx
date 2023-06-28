@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-import DataTurnoPosto from "../../../../components/relatorios/filtros/view/dataTurnoPosto";
-import ProducaoEm from "../../../../components/relatorios/filtros/view/producaoEm";
 import { Button, Container, Divider } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../../filtros.scss";
-import { Formatar } from '../../../../components/relatorios/export/datetime';
+import { Formatar } from "../../../../components/reports/pdf/datetime";
+import DataTurnoPosto from "../../../../components/reports/filtros/dataTurnoPosto";
+import ProducaoEm from "../../../../components/reports/filtros/producaoEm";
 
 const Filtros = (props : any) => {
 
@@ -47,8 +46,7 @@ const Filtros = (props : any) => {
         `${new Formatar(dataInicio).intervalo()} ${horaInicio} - ${new Formatar(dataTermino).intervalo()} ${horaTermino}`})
         
         console.log(payload);
-        console.log(descricao);
-
+        
         props.getPayload(payload);
         props.getDescricao(descricao);
         props.openPreview(true);

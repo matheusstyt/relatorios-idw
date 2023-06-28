@@ -1,46 +1,35 @@
-import AccordionDinamic from "../../../../components/relatorios/accordion";
+import { IAcompanhamentoProducaoResponse, IIntervalo } from "../../../../components/reports/interface/reports/producao/acompanhamentoProducao";
+import { AcompanhamentoProducaoBody, Header, TotalGeralAcompanhamentoProducao } from "../../../../components/reports/pdf";
+import { AcompanhamentoProducaoServices } from "../../../../components/reports/services/reports/produtos";
+import { getTableAcompanhamentoDOM } from "../../../../components/reports/pdf/DOM/acompanhamentoproducao";
+import headers from "../../../../components/reports/pdf/headers.json"
+import { Preloader } from "../../../../components/reports/preloader";
+import AccordionDinamic from "../../../../components/accordion";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
-import headers from "../../../../components/relatorios/export/headers.json";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import { AcompanhamentoProducaoServices } from "../../../../components/relatorios/export/services/produtos";
-import { IAcompanhamentoPrroducaoResponse, IIntervalo } from "../../../../components/relatorios/filtros/interface/reports/producao/acompanhamentoProducao";
-import { Button } from "@mui/material";
-import { AcompanhamentoProducaoBody, Header, TotalGeralAcompanhamentoProducao } from "../../../../components/relatorios/export";
-import { getTableAcompanhamentoDOM } from "../../../../components/relatorios/export/DOM/acompanhamentoproducao";
+
 export default function AcompanhamentoProducao (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<Object[]>([]);
 
-    const [analiseProducaoResponse, setAnaliseProducaoResponse] = useState<IAcompanhamentoPrroducaoResponse>();
+    const [analiseProducaoResponse, setAnaliseProducaoResponse] = useState<IAcompanhamentoProducaoResponse>();
     async function getAcompanhamentoProducao (value : any) {
         setCargaUtil(value);
         await AcompanhamentoProducaoServices( value)
         .then((data) => {
             setAnaliseProducaoResponse(data);  
-            console.log(data)
         })
         setExibirPreloader(false);
         setExibirExportar(true);
     }
-    return (
-        <div className="container-page">
-            <h3 className="title-relatorio">{props.title}</h3>
-            <AccordionDinamic
-                title="Filtro"
-                img={<FiFilter size={25}/>}
-                component={
-                    <Filtros 
-                        getPayload={(value: any ) => getAcompanhamentoProducao(value)}
-                        getDescricao={(value: any ) => setDescricao(value)}
-                    />
-                }
-            />
 
-            <div className="export-content">
+    const previewPDF = () => {
+        return (
+            <>
                 <Header 
                     title={props.title}
                     getTableDOM={(isDownload: boolean) =>{
@@ -53,20 +42,16 @@ export default function AcompanhamentoProducao (props : any) {
                             isDownload
                         ) }
                     }
-                    descricao={descricao}
-                    orientation="portrait"
-                    fontSize={7}
-                    marginBottom={70}
                     components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
                 <div className="table-content">
                     
                     <table id="table-acompanhamento" >
-                        {analiseProducaoResponse?.intervalos.map((intervalo: IIntervalo, index: number) => {
+                        {analiseProducaoResponse?.intervalos?.map((intervalo: IIntervalo, index: number) => {
                             return <>
                                 <thead id="thead-acompanhamento">
                                     <tr><th align="left" colSpan={9}>PERÍODO: {intervalo.intervalo}</th></tr>
-                                    <tr> { headers.producao.acompanhamentoProducao.map( (item : string) => <th key={item}>{item}</th>) } </tr>
+                                    <tr> { headers?.producao?.acompanhamentoProducao?.map( (item : string) => <th key={item}>{item}</th>) } </tr>
                                 </thead>
                                 <AcompanhamentoProducaoBody postos={intervalo?.postos} totais={intervalo.totais}/>
                             </>
@@ -76,6 +61,28 @@ export default function AcompanhamentoProducao (props : any) {
                 </div>
                 <TotalGeralAcompanhamentoProducao total={analiseProducaoResponse?.totalGeral}/>
 
+            </>
+        )
+    }
+    return (
+        <div className="container-page">
+
+            { exibirPreloader ? <Preloader /> : <></> }
+
+            <h3 className="title-relatorio">{props.title}</h3>
+            <AccordionDinamic
+                title="Filtro"
+                img={<FiFilter size={25}/>}
+                component={
+                    <Filtros 
+                        getPayload={(value: any ) => getAcompanhamentoProducao(value)}
+                        getDescricao={(value: any ) => setDescricao(value)}
+                        openPreview={(value: boolean) =>  setExibirPreloader(true) }
+                    />
+                }
+            />
+            <div className="export-content">
+                { !exibirExportar ? <></> : previewPDF()}
             </div>
 
         </div>

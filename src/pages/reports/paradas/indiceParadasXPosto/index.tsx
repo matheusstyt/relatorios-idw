@@ -1,16 +1,16 @@
-import AccordionDinamic from "../../../../components/relatorios/accordion";
+import { Header, IndiceParadaXPostoBody, TableDinamic, TotalGeralIndiceParadaXPosto } from "../../../../components/reports/pdf";
+import { IIndiceParadaPostoResponse } from "../../../../components/reports/interface/reports/paradas/indiceParadasXPosto";
+import { IndiceParadaXPostoServices } from "../../../../components/reports/services/reports/paradas";
+import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
+import headers from "../../../../components/reports/pdf/headers.json";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import headers from "../../../../components/relatorios/export/headers.json";
+import { Preloader } from "../../../../components/reports/preloader";
+import AccordionDinamic from "../../../../components/accordion";
 
-import { Header, IndiceParadaXPostoBody, TableDinamic, TotalGeralIndiceParadaXPosto } from "../../../../components/relatorios/export";
-import { IIndiceParadaPostoResponse } from '../../../../components/relatorios/filtros/interface/reports/paradas/indiceParadasXPosto';
-import { Preloader } from "../../../../components/relatorios/preloader";
-import { Button } from "@mui/material";
-import { IndiceParadaXPostoServices } from "../../../../components/relatorios/export/services/paradas";
-import {getTableDinamicDOM} from "../../../../components/relatorios/export/DOM";
+
 export default function IndiceParadasXPosto (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);

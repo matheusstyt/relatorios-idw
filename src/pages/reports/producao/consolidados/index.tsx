@@ -1,15 +1,15 @@
-import AccordionDinamic from "../../../../components/relatorios/accordion";
+import { ConsolidadosFerramentaBody, ConsolidadosPostoBody, ConsolidadosProdutoBody, Header, TableDinamic, TotalGeralConsolidados } from "../../../../components/reports/pdf";
+import { IConsolidadosResponse } from "../../../../components/reports/interface/reports/producao/consolidados";
+import { ConsolidadosServices } from "../../../../components/reports/services/reports/produtos";
+import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
+import headers from "../../../../components/reports/pdf/headers.json";
+import { Preloader } from "../../../../components/reports/preloader";
+import AccordionDinamic from "../../../../components/accordion";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
-import { ConsolidadosFerramentaBody, ConsolidadosPostoBody, ConsolidadosProdutoBody, Header, TableDinamic, TotalGeralConsolidados } from "../../../../components/relatorios/export";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import headers from "../../../../components/relatorios/export/headers.json";
-import { Preloader } from "../../../../components/relatorios/preloader";
-import { Button } from "@mui/material";
-import {getTableDinamicDOM} from "../../../../components/relatorios/export/DOM";
-import { IConsolidadosResponse } from "../../../../components/relatorios/filtros/interface/reports/producao/consolidados";
-import { ConsolidadosServices } from "../../../../components/relatorios/export/services/produtos";
+
 export default function Consolidados (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);
@@ -36,10 +36,10 @@ export default function Consolidados (props : any) {
                     getTableDOM={(isDownload: boolean) =>{
                         getTableDinamicDOM(
                             descricao, // lista de descrição dinâmica
-                            `${props.title}`, // título da página
+                            `${props.title} - POR ${descricao[4].description}`, // título da página
                             "landscape", // orientação da página
                             5, // tamanho da fonte
-                            100, // margem de baixo da página
+                            90, // margem de baixo da página
                             isDownload
                         ) }
                     }
@@ -50,9 +50,9 @@ export default function Consolidados (props : any) {
                     {
                         cargaUtil.isAgrupadoPorPt === true ? 
                         <TableDinamic headers={headers.producao.consolidadoPosto} body={<ConsolidadosPostoBody postos={consolidadosResponse?.postos} />}/>
-                        : cargaUtil.isAgrupadoPorFerramenta == true ?
+                        : cargaUtil.isAgrupadoPorFerramenta === true ?
                         <TableDinamic headers={headers.producao.consolidadoFerramenta} body={<ConsolidadosFerramentaBody ferramentas={consolidadosResponse?.ferramentas} />}/>
-                        : cargaUtil.isAgrupadoPorProduto == true ?
+                        : cargaUtil.isAgrupadoPorProduto === true ?
                         <TableDinamic headers={headers.producao.consolidadoProduto} body={<ConsolidadosProdutoBody produtos={consolidadosResponse?.produtos} />}/>
                         : <></>
                     }

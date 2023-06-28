@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import "../../filtros.scss";
-import PostosFerramentas from "../../../../components/relatorios/filtros/view/postosFerramentas";
+import PostosFerramentas from "../../../../components/reports/filtros/postosFerramentas";
 import { Button, Checkbox, Container, Divider, FormControlLabel } from "@mui/material";
+import Contagem from "../../../../components/reports/subFiltros/contagem";
+import Periodo from "../../../../components/reports/subFiltros/periodo";
+import { Formatar } from "../../../../components/reports/pdf/datetime";
 import { useState } from "react";
-import Periodo from "../../../../components/relatorios/subFiltros/periodo";
-import Contagem from "../../../../components/relatorios/subFiltros/contagem";
-import { Formatar } from "../../../../components/relatorios/export/datetime";
+import "../../filtros.scss";
+
 
 const Filtros = (props : any) => {
     // períodos e turnos
@@ -59,7 +60,6 @@ const Filtros = (props : any) => {
         descricao.push({propery : "PRODUÇÃO", description: producao})
         
         console.log(payload);
-        console.log(descricao);
 
         props.getPayload(payload);
         props.getDescricao(descricao);
@@ -68,8 +68,8 @@ const Filtros = (props : any) => {
     return (
         <div className="container-filtro">
             <div className="container periodo">
-                <h3>Periodo</h3>
-                <table>
+                <h3>Período</h3>
+                <table className="table-filtro">
                     <tbody>
                         <tr>
                             <td>

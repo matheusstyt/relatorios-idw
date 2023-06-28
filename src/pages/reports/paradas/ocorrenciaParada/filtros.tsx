@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-import "../../filtros.scss";
-import PostosFerramentas from "../../../../components/relatorios/filtros/view/postosFerramentas";
-import AreaResponsavel from "../../../../components/relatorios/filtros/view/areaResponsavel";
-import Paradas from "../../../../components/relatorios/filtros/view/paradas";
+import AreaResponsavel from "../../../../components/reports/filtros/areaResponsavel";
+import PostosFerramentas from "../../../../components/reports/filtros/postosFerramentas";
+import OpPeriodo from "../../../../components/reports/filtros/opPeriodo";
+import Tipos from "../../../../components/reports/subFiltros/tipos";
+import Paradas from "../../../../components/reports/filtros/paradas";
 import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
-import OpPeriodo from "../../../../components/relatorios/filtros/view/opPeriodo";
-import Tipos from "../../../../components/relatorios/subFiltros/tipos";
+import "../../filtros.scss";
+
 
 const Filtros = (props : any) => {
     // períodos e turnos
@@ -31,22 +31,26 @@ const Filtros = (props : any) => {
     const [listaAreaSelecionadas, setListaAreaSelecionadas] = useState<any[]>([]);
     const [todasAreaSelecioando, setTodasAreaSelecioando] = useState<boolean>(true);
 
+    
+
     const verFiltros = () => {
         // cortar apenas o cdParada e cdArea
         var listaParadaPayload : string[] = [], listaAreaPayload : string[] = [];
-        console.log(listaAreaSelecionadas);
-        listaParadasSelecionadas.length > 0 ? listaParadaPayload = listaParadasSelecionadas.map(
+
+        if(listaParadasSelecionadas.length > 0){
+            listaParadaPayload = listaParadasSelecionadas.map(
             (parada : string) => {
                 const cdParada = parada.split('-');
                 return cdParada[0].trim();
-            })
-        : null
-        listaAreaSelecionadas.length > 0 ? listaAreaPayload = listaAreaSelecionadas.map(
+            });
+        }
+        if(listaAreaSelecionadas.length > 0){
+            listaAreaPayload = listaAreaSelecionadas.map(
             (area : string) => {
                 const cdArea = area.split('-');
                 return cdArea[0].trim();
-            })
-        : null
+            });
+        }
         // fim da lógica
 
         // carga útil
@@ -81,7 +85,6 @@ const Filtros = (props : any) => {
             periodo: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`,
         }
         console.log(payload);
-        console.log(descricao);
 
         props.getPayload(payload);
         props.getDescricao(descricao);

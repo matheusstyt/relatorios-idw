@@ -1,0 +1,35 @@
+*{
+    font: 400 "Poppins", sans-serif !important;
+}
+h3, p{
+    color: rgb(46, 59, 65);
+    
+}
+.container{
+    width: 100%;
+    margin: 1em auto;
+    box-sizing: border-box;
+    padding: 0 1em;
+
+    text-align: left;
+
+    .radio{
+        display:flex;
+        flex-flow: row wrap;
+    }
+}
+td{
+    padding: 1em;
+}
+th{
+    padding: 0.5em;
+}
+// scss das grades dos filtros
+.table-filtro{
+    width: 90%;
+    margin: 0 auto;
+    .calendar{
+        display: flex;
+        justify-content: space-evenly;
+    }
+}

@@ -1,16 +1,16 @@
-import { Header, IndiceParadaXPostoBody, IndiceParadasFerramentaBody, IndiceParadasPadraoBody, IndiceParadasProdutoBody, TableDinamic, TotalGeralIndiceParadas } from "../../../../components/relatorios/export";
-import { IndiceParadaServices } from "../../../../components/relatorios/export/services/paradas";
-import {getTableDinamicDOM} from "../../../../components/relatorios/export/DOM";
-import headers from "../../../../components/relatorios/export/headers.json";
-import AccordionDinamic from "../../../../components/relatorios/accordion";
+import { Header, IndiceParadasFerramentaBody, IndiceParadasPadraoBody, IndiceParadasProdutoBody, TableDinamic, TotalGeralIndiceParadas } from '../../../../components/reports/pdf';
+import converterIndiceParadasFerramenta from '../../../../components/reports/interface/reports/paradas/conversorRequisicao';
+import { IRequisicaoTransformada } from '../../../../components/reports/interface/reports/paradas/indiceParadas';
+import { IndiceParadaServices } from '../../../../components/reports/services/reports/paradas';
+import { getTableDinamicDOM } from '../../../../components/reports/pdf/DOM';
+import headers from "../../../../components/reports/pdf/headers.json";
+import { Preloader } from '../../../../components/reports/preloader';
+import AccordionDinamic from '../../../../components/accordion';
 import { useState, useEffect } from 'react';
-import Filtros from "./filtros";
 import { FiFilter } from "react-icons/fi";
-import { Button } from "@mui/material";
+import Filtros from "./filtros";
 import "../../../pages.scss";
-import converterIndiceParadasFerramenta from "../../../../components/relatorios/filtros/interface/reports/paradas/conversorRequisicao";
-import { IRequisicaoOriginal, IRequisicaoTransformada, IParada } from '../../../../components/relatorios/filtros/interface/reports/paradas/indiceParadas';
-import { Preloader } from "../../../../components/relatorios/preloader";
+
 export default function IndiceParadas (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);

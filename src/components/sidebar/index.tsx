@@ -1,13 +1,12 @@
-import "./sidebar.scss"
-import { NavLink } from "react-router-dom";
-import { IoIosPaper} from "react-icons/io";
+import { APP_ROUTES } from "../../router/config";
 import { CgFileDocument} from "react-icons/cg";
 import { AiOutlineHome } from "react-icons/ai";
-import { APP_ROUTES } from "../../router/config";
-import { useState } from "react";
-import AccordionDinamic from '../relatorios/accordion/index';
+import AccordionDinamic from "../accordion";
+import { NavLink } from "react-router-dom";
+import { IoIosPaper} from "react-icons/io";
+import "./sidebar.scss"
+
 export default function SideBar () {
-    const [expanded, setExpanded] = useState<boolean>(true);
     return (
         <nav>
             <NavLink to="/" end>
@@ -60,7 +59,7 @@ export default function SideBar () {
                             img={<IoIosPaper size={20} />} 
                             component={
                                 APP_ROUTES.REPORT.map( (route, index) => {
-                                    return route.category === "engineering'" ?<NavLink key={index} to={`/${route.path}`} end>
+                                    return route.category === "engineering" ?<NavLink key={index} to={`/${route.path}`} end>
                                         <CgFileDocument className="ico-nav" />
                                         <h4>{route.title}</h4>
                                     </NavLink>  : <></>

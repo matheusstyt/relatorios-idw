@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import "../../filtros.scss";
-
+import IntervaloContagem from "../../../../components/reports/filtros/intervaloContagem";
+import PostosTrabalho from "../../../../components/reports/filtros/postosTrabalho";
+import ProducaoEm from "../../../../components/reports/filtros/producaoEm";
+import { Formatar } from "../../../../components/reports/pdf/datetime";
 import { Button, Container, Divider } from "@mui/material";
 import { useState } from "react";
-
-import IntervaloContagem from "../../../../components/relatorios/filtros/view/intervaloContagem";
-import PostosTrabalho from "../../../../components/relatorios/filtros/view/postosTrabalho";
-import ProducaoEm from "../../../../components/relatorios/filtros/view/producaoEm";
-import { Formatar } from "../../../../components/relatorios/export/datetime";
+import "../../filtros.scss";
 
 const Filtros = (props : any) => {
     // períodos e intervalo
@@ -57,6 +55,8 @@ const Filtros = (props : any) => {
 
         props.getPayload(payload);
         props.getDescricao(descricao);
+        props.openPreview(true);
+
     }
     return (
         <div className="container-filtro">
@@ -84,5 +84,4 @@ const Filtros = (props : any) => {
         </div>
     )
 }
-
 export default Filtros;
