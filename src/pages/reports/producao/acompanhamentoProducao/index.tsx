@@ -29,7 +29,7 @@ export default function AcompanhamentoProducao (props : any) {
 
     const previewPDF = () => {
         return (
-            <>
+            <div className="export-content">
                 <Header 
                     title={props.title}
                     getTableDOM={(isDownload: boolean) =>{
@@ -60,8 +60,7 @@ export default function AcompanhamentoProducao (props : any) {
                     </table>
                 </div>
                 <TotalGeralAcompanhamentoProducao total={analiseProducaoResponse?.totalGeral}/>
-
-            </>
+            </div>
         )
     }
     return (
@@ -81,10 +80,9 @@ export default function AcompanhamentoProducao (props : any) {
                     />
                 }
             />
-            <div className="export-content">
+           
                 { !exibirExportar ? <></> : previewPDF()}
-            </div>
-
+=
         </div>
     )   
 }

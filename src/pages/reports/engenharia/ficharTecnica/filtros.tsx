@@ -32,7 +32,7 @@ const Filtros = (props : any) => {
             </div>
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
                 <Button variant="contained">LIMPAR</Button>
-                <Button disabled={produtoSelecionado === "0"? false: true} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
+                <Button disabled={ produtoSelecionado === ""? true: false } onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
             </Container>
         </div>
     )

@@ -75,9 +75,7 @@ const PlanejadoRealizado = (props : any) => {
                     />
                 }
             />
-            <div className="export-content">
-                { !exibirExportar ? <></> : previewPDF()}
-            </div>
+            { !exibirExportar ? <></> : previewPDF()}
         </div>
     )
 }

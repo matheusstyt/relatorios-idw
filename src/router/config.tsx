@@ -18,7 +18,7 @@ export const APP_ROUTES = {
         element: <IndiceParadas title="Índice de Paradas (R027)" />
       },
       {
-        category : "stops",
+        category : "any",
         title : "Índices de Paradas Por Área Responsável (R028)",
         path : "indiceparadaxarea",
         element: <IndiceParadasXAreResponsavel title="Índices de Paradas Por Área Responsável (R028)"/>
@@ -30,13 +30,13 @@ export const APP_ROUTES = {
         element: <IndiceParadasXPosto title="Índice de Parada por Posto (R029)" />
       },
       {
-        category : "stops",
+        category : "any",
         title : "Ocorrências de Paradas (R031)",
         path : "ocorrenciaparada",
         element: <OcorrenciaParada title="Ocorrências de Paradas (R031)" />
       },
       {
-        category : "stops",
+        category : "any",
         title : "Quantidade de Paradas (R033)",
         path : "quantidadeparada",
         element: <QuantidadeParadas title="Quantidade de Paradas (R033)" />

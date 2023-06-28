@@ -81,9 +81,7 @@ export default function Consolidados (props : any) {
                     />
                 }
             />
-            <div className="export-content">
-                { !exibirExportar ? <></> : previewPDF()}
-            </div>
+            { !exibirExportar ? <></> : previewPDF()}
         </div>
     )   
 }

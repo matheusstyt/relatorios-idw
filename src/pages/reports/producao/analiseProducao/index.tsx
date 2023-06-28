@@ -66,9 +66,7 @@ export default function AnaliseProducao (props : any) {
                     />
                 }
             />
-            <div className="export-content">
             { !exibirExportar ? <></> : previewPDF()}
-            </div>
         </div>
     )   
 }
