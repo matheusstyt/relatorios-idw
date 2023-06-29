@@ -142,6 +142,105 @@
             "ÍNDICE REFULGO (%)",
             "ÍNDICE PARADA (%)",
             "EFICIÊNCIA CICLO (%)"
+        ],
+        "producaoRegulagem" : {
+            "header" : {
+                "comParada" :[
+                    "",
+                    "",
+                    "TEMPO PARADAS",
+                    "TEMPO DE PARADAS REGULAGEM",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                "semParada" :[
+                    "",
+                    "",
+                    "TEMPO PARADAS",
+                    "TEMPO DE PARADAS REGULAGEM",
+                    "",
+                    ""
+
+                ]
+            },
+            "comParada" : {
+                "porPosto" : [
+                    "POSTO",
+                    "FERRAMENTA",
+                    "C/ PESO NA EFIC.",
+                    "S/ PESO NA EFIC.",
+                    "C/ PESO NA EFIC.",
+                    "S/ PESO NA EFIC.",
+                    "PRODUTO",
+                    "PARADA",
+                    "TEMPO PARADA",
+                    "PRODUÇÃO EM REGULAGEM"
+                ],
+                "porFerramenta" : [
+                    "FERRAMENTA",
+                    "POSTO",
+                    "C/ PESO NA EFIC.",
+                    "S/ PESO NA EFIC.",
+                    "C/ PESO NA EFIC.",
+                    "S/ PESO NA EFIC.",
+                    "PRODUTO",
+                    "PARADA",
+                    "TEMPO PARADA",
+                    "PRODUÇÃO EM REGULAGEM"
+                ],
+                "porProduto" : [
+                    "PRODUTO",
+                    "POSTO",
+                    "C/ PESO NA EFIC.",
+                    "S/ PESO NA EFIC.",
+                    "C/ PESO NA EFIC.",
+                    "S/ PESO NA EFIC.",
+                    "FERRAMENTA",
+                    "PARADA",
+                    "TEMPO PARADA",
+                    "PRODUÇÃO EM REGULAGEM"
+                ]
+            },
+            "semParada" : {
+                "porPosto" : [
+                    "POSTO",
+                    "FERRAMENTA",
+                    "C/ PESO NA EFIC.",
+                    "S/ PESO NA EFIC.",
+                    "C/ PESO NA EFIC.",
+                    "S/ PESO NA EFIC.",
+                    "PRODUTO",
+                    "PRODUÇÃO EM REGULAGEM"
+                ],
+                "porFerramenta" : [
+                    "FERRAMENTA",
+                    "POSTO",
+                    "C/ PESO NA EFIC.",
+                    "S/ PESO NA EFIC.",
+                    "C/ PESO NA EFIC.",
+                    "S/ PESO NA EFIC.",
+                    "PRODUTO",
+                    "PRODUÇÃO EM REGULAGEM"
+                ],
+                "porProduto" : [
+                    "PRODUTO",
+                    "POSTO",
+                    "C/ PESO NA EFIC.",
+                    "S/ PESO NA EFIC.",
+                    "C/ PESO NA EFIC.",
+                    "S/ PESO NA EFIC.",
+                    "FERRAMENTA",
+                    "PRODUÇÃO EM REGULAGEM"
+                ]
+            }
+        },
+        "ocorrenciaParadaRegulagem" : [
+            "POSTO",
+            "PARADA",
+            "FOLHA / RAP's",
+            "TEMPO"
         ]
     },
     "planejamento" : {

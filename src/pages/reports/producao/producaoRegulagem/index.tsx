@@ -1,4 +1,4 @@
-import { ConsolidadosFerramentaBody, ConsolidadosPostoBody, ConsolidadosProdutoBody, Header, TableDinamic, TotalGeralConsolidados } from "../../../../components/reports/pdf";
+import { ConsolidadosFerramentaBody, ConsolidadosPostoBody, ConsolidadosProdutoBody, Header, OcorrenciaParadaRegulagemBody, ProducaoEmRegulagemBody, TableDinamic, TotalGeralConsolidados, TotalGeralProducaoRegulagem } from "../../../../components/reports/pdf";
 import { IConsolidadosResponse } from "../../../../components/reports/interface/reports/producao/consolidados";
 import { OcorrenciasParadaServices, ProducaoRegulagemServices } from "../../../../components/reports/services/reports/produtos";
 import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
@@ -19,9 +19,11 @@ export default function ProducaoRegulagem (props : any) {
 
     const [producaoRegulagemResponse, setProducaoRegulagemResponse] = useState<IProducaoRegulagemResponse>();
     const [ocorrenciasParadaResponse, setOcorrenciasParadaResponse] = useState<IOcorrenciasParadaResponse>();
-
+    const [isProducaoRegulagem, setIsProducaoRegulagem] = useState<boolean>(true);
+    const [exibirParadas, setExibirParadas] = useState<boolean>(false);
     async function getProducaoRegulagem (value : any) {
-        setCargaUtil(value);
+       setCargaUtil(value);
+       console.log(value)
         await ProducaoRegulagemServices( value)
         .then( (data) => {
             console.log(data)
@@ -32,6 +34,7 @@ export default function ProducaoRegulagem (props : any) {
     }
     async function getOcorrenciasParada (value : any) {
         setCargaUtil(value);
+        console.log(value)
         await OcorrenciasParadaServices( value)
         .then( (data) => {
             console.log(data)
@@ -60,18 +63,52 @@ export default function ProducaoRegulagem (props : any) {
                     components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 
                 />
-                {/* <div className="table-content">
-                    {
-                        cargaUtil.isAgrupadoPorPt === true ? 
-                        <TableDinamic headers={headers.producao.consolidadoPosto} body={<ConsolidadosPostoBody postos={consolidadosResponse?.postos} />}/>
-                        : cargaUtil.isAgrupadoPorFerramenta === true ?
-                        <TableDinamic headers={headers.producao.consolidadoFerramenta} body={<ConsolidadosFerramentaBody ferramentas={consolidadosResponse?.ferramentas} />}/>
-                        : cargaUtil.isAgrupadoPorProduto === true ?
-                        <TableDinamic headers={headers.producao.consolidadoProduto} body={<ConsolidadosProdutoBody produtos={consolidadosResponse?.produtos} />}/>
-                        : <></>
-                    }
+                <div className="table-content">
+                    { isProducaoRegulagem ? <TableDinamic 
+                        aux={
+                            // verificar se é pra exibir paradas
+                            exibirParadas ? 
+                            headers.producao.producaoRegulagem.header.comParada
+                            : headers.producao.producaoRegulagem.header.semParada
+                        } 
+                        headers={
+                            // verificar se é pra exibir paradas
+                            exibirParadas ? 
+                            // com parada
+                            cargaUtil?.isAgrupadoPorPt ?
+                                headers.producao.producaoRegulagem.comParada.porPosto :
+                            cargaUtil?.isAgrupadoPorFerramenta ?
+                                headers.producao.producaoRegulagem.comParada.porFerramenta :
+                            headers.producao.producaoRegulagem.comParada.porProduto
+                            :
+                            // sem parada
+                            cargaUtil?.isAgrupadoPorPt ?
+                                headers.producao.producaoRegulagem.semParada.porPosto :
+                            cargaUtil?.isAgrupadoPorFerramenta ?
+                                headers.producao.producaoRegulagem.semParada.porFerramenta :
+                            headers.producao.producaoRegulagem.semParada.porProduto
+                        } 
+                        body={
+                            <ProducaoEmRegulagemBody 
+                                postos={producaoRegulagemResponse?.postosPeriodo}
+                                isPosto={cargaUtil?.isAgrupadoPorPt}
+                                isFerramenta={cargaUtil?.isAgrupadoPorFerramenta}
+                                isProduto={cargaUtil?.isAgrupadoPorProduto}
+                                exibirParadas={exibirParadas}
+                            />}
+                    /> : 
+                    <TableDinamic 
+                        headers={headers.producao.ocorrenciaParadaRegulagem}
+                        body={<OcorrenciaParadaRegulagemBody paradas={ocorrenciasParadaResponse?.paradas} />}
+                    /> }
+
                 </div>
-                <TotalGeralConsolidados totais={producaoRegulagemResponse} /> */}
+                {
+                    isProducaoRegulagem ?
+                    <TotalGeralProducaoRegulagem totais={producaoRegulagemResponse} /> :
+                    <></>
+                }
+
             </div>
         )
     }
@@ -86,17 +123,16 @@ export default function ProducaoRegulagem (props : any) {
                 img={<FiFilter size={25}/>}
                 component={
                     <Filtros 
-                        getPayload={async (value: any ) => {
-                            setCargaUtil(value);
-                        }
-                        }
                         getDescricao={(value: any ) => setDescricao(value)}
                         openPreview={(value: boolean) =>  setExibirPreloader(true) }
-                        isProducaoRegulagem={(value: boolean) => {
+                        isProducaoRegulagem={(value: boolean, payload: Object, exibirParadas: boolean) => {
+                            setExibirParadas(exibirParadas);
+                            setExibirExportar(false);
+                            setIsProducaoRegulagem(value);
                             if(value){
-                                getProducaoRegulagem(value)
+                                getProducaoRegulagem(payload)
                             }else{
-                                getOcorrenciasParada(value)
+                                getOcorrenciasParada(payload)
                             }
                         }}
                     />

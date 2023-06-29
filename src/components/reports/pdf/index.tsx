@@ -11,6 +11,7 @@ import { FiDownload } from "react-icons/fi";
 import { BsEyeFill } from "react-icons/bs";
 import { Button } from '@mui/material';
 import "./export.scss";
+import { IParadaOcorrenciasParada, IParadaProducaoRegulagem, IPostoPeriodo } from '../interface/reports/producao/producaoRegulagem';
 
 export function Header(props : any) {
     return (
@@ -55,13 +56,17 @@ export function TableDinamic ( props : any ){
     return (
         <table id="table-main">
             <thead>
-                <tr>
-                    {
-                        props.headers.map( (item : string) => {
-                            return <th key={item}>{item}</th>
-                        })
+                {/* header auxiliar para "produção e regulagem" */}
+                {props?.aux ? <tr>{props?.aux?.map( ( item : string, index : number) => {
+                    if(index === 2 || index === 3){
+                        return <th style={{backgroundColor  : "#d9d9d9"}} colSpan={2} key={item}>{item}</th>
+                    }else{
+                        return <th colSpan={1} key={item}>{item}</th>
                     }
-                </tr>
+                })}</tr> : <></>}
+                
+                {/* header padrão dinâmico */}
+                <tr> {props.headers.map( (item : string, index: number) => <th key={`${index} -  ${item}`}>{item}</th> ) } </tr>
             </thead>
             {props.body}
         </table>
@@ -675,5 +680,129 @@ export function TotalGeralIndiceParadas ( props : any ) {
             <p>TEMPO PARADAS COM PESO NA EFICIÊNCIA: { props.dados.tempoTotalParadaCP }</p>
             <p>TEMPO TOTAL DE PARADAS (D): { props.dados.tempoTotal }</p>
         </div>
+    )
+}
+
+// PRODUÇÃO EM REGULAGEM
+export function ProducaoEmRegulagemBody ( props : any ) {
+    return <tbody>
+        {
+            props?.postos?.map( (posto : IPostoPeriodo ,index : number) => {
+                return <>
+                    <tr className='t-producao-regulagem' key={index}>
+                        {/* verifica se é por posto, ferramenta ou produto */}
+                        {
+                        props?.isPosto ? 
+                            <>
+                                <td>{posto?.cdPosto}</td> 
+                                <td>{posto?.ferramenta}</td> 
+                            </> : 
+                        props?.isFerramenta ?
+                            <>
+                                <td>{posto?.cdPosto}</td> 
+                                <td>{posto?.ferramenta}</td> 
+                            </>
+                        : props?.isProduto ?
+                            <>
+                                <td>{posto?.produto}</td> 
+                                <td>{posto?.cdPosto}</td> 
+                            </> : <></>
+                        }
+                        {/* fim */}
+                        <td>{posto?.totalTempoParadaComPesoNaEficienciaHora}</td> 
+                        <td>{posto?.totalTempoParadaSemPesoNaEficienciaHora}</td> 
+                        <td>{posto?.totalTempoParadaRegulagemComPesoNaEficienciaHora}</td> 
+                        <td>{posto?.totalTempoParadaRegulagemSemPesoNaEficienciaHora}</td> 
+                        {/* verifica se é por posto, ferramenta ou produto */}
+                        { 
+                        props?.isPosto ? <td>{posto?.produto}</td> :  
+                        props?.isFerramenta ? <td>{posto?.produto}</td> : 
+                        props?.isProduto ? <td>{posto?.produto}</td> : <></>}
+
+                        {
+                            props?.exibirParadas ? <>
+                                <td>{posto?.paradas?.map((parada : IParadaProducaoRegulagem) => <p>{parada.parada}</p> )} </td>
+                                <td>{posto?.paradas?.map((parada : IParadaProducaoRegulagem) => <p>{parada.tempoParadaHora}</p> )} </td>
+                            </> : <></>
+                        }
+                        <td>{posto?.totalProducaoEmRegulagem}</td> 
+                    </tr>
+                    <tr className='t-producao-regulagem' key={index}>
+                        {/* verifica se é por posto, ferramenta ou produto */}
+                        <td className='td-total-posto'>{ 
+                        props?.isPosto ? "Totais do Posto" :  
+                        props?.isFerramenta ? "Totais da Ferramenta" : 
+                        props?.isProduto ? "Totais do Produto": <></>}</td> 
+
+                        <td className='td-total-posto'></td> 
+                        <td className='td-total-posto'>{posto?.totalTempoParadaComPesoNaEficienciaHora}</td> 
+                        <td className='td-total-posto'>{posto?.totalTempoParadaSemPesoNaEficienciaHora}</td> 
+                        <td className='td-total-posto'>{posto?.totalTempoParadaRegulagemComPesoNaEficienciaHora}</td> 
+                        <td className='td-total-posto'>{posto?.totalTempoParadaRegulagemSemPesoNaEficienciaHora}</td> 
+                        <td className='td-total-posto'></td> 
+                        {
+                            props?.exibirParadas ? <>
+                                <td className='td-total-posto'></td>
+                                <td className='td-total-posto'>{convertSecondsToTime(posto?.totalTempoParadaComPesoNaEficiencia+posto?.totalTempoParadaSemPesoNaEficiencia)}</td>
+                            </> : <></>
+                        }
+                        <td className='td-total-posto'>{posto?.totalProducaoEmRegulagem}</td> 
+                    </tr>
+                </>
+            })
+        }   
+    </tbody>
+}
+// TOTAL 
+export function TotalGeralProducaoRegulagem ( props : any ) {
+    return (
+        <table id='table-total-geral'>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th colSpan={2}>TEMPO PARADAS</th>
+                    <th colSpan={2}>TEMPO PARADAS REGULAGEM</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>*</th>
+                    <th>C/ PESO NA EFIC.</th>
+                    <th>S/ PESO NA EFIC.</th>
+                    <th>C/ PESO NA EFIC.</th>
+                    <th>S/ PESO NA EFIC.</th>
+                    <th>TEMPO DA PARADA</th>
+                    <th>PRODUÇÃO EM REGULAGEM</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>TOTAIS DO PERÍODO</td>
+                    <td>{props?.totais?.periodoTempoParadaComPesoNaEficienciaHora}</td>
+                    <td>{props?.totais?.periodoTempoParadaSemPesoNaEficienciaHora}</td>
+                    <td>{props?.totais?.periodoTempoParadaRegulagemComPesoNaEficienciaHora}</td>
+                    <td>{props?.totais?.periodoTempoParadaRegulagemSemPesoNaEficienciaHora}</td>
+                    <td>{props?.totais?.periodoTempoParadaHora}</td>
+                    <td>{props?.totais?.periodoProducaoEmRegulagemHora}</td>
+                </tr>
+            </tbody>
+        </table>
+    )
+}
+// OCORRÊNCIA DE PARADA DE REGULAGEM
+export function OcorrenciaParadaRegulagemBody ( props : any ) {
+    return (
+        <tbody>
+            {
+                props?.paradas?.map( (parada : IParadaOcorrenciasParada ,index : number) => {
+                    return <tr key={index}>
+                        <td>{parada.maquina}</td>
+                        <td>{parada.parada}</td>
+                        <td>{parada.raps}</td>
+                        <td>{parada.tempoParMaq}</td>
+                    </tr>
+                })
+            }   
+        </tbody>
     )
 }

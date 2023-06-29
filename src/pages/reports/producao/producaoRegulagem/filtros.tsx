@@ -26,7 +26,7 @@ const Filtros = (props : any) => {
     const [exibirAgrupamentoSelecionado, setExibirAgrupamentoSelecionado]= useState<any>("agrupamentoPosto");
 
     // regulagem
-    const [exibirProducaoOcorrencia, setExibirProducaoOcorrencia]= useState<any>("agrupamentoPosto");
+    const [exibirProducaoOcorrencia, setExibirProducaoOcorrencia]= useState<any>("");
     const [isFiltrarApenasPostosComRegulagem, setIsFiltrarApenasPostosComRegulagem] = useState<boolean>(false);
     const [isExibirParadas, setIsExibirParadas] = useState<boolean>(true);
 
@@ -72,18 +72,17 @@ const Filtros = (props : any) => {
         exibirAgrupamentoSelecionado==="agrupamentoProduto" ? agrupamento = "PRODUTO" : agrupamento = ""
 
         let descricao : Object[] = [];
-        descricao.push({propery : "GRUPO DE TRABALHO", description: grupoTrabalho})
-        descricao.push({propery : "TURNOS", description: payload.cdTurno === "todos" || payload.cdTurno === null || payload.cdTurno === ""? "TODOS OS TURNOS" : payload.cdTurno})
-        descricao.push({propery : "PERÍODO", description: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`})
-        descricao.push({propery : "PRODUÇÃO EM", description: producao})
-        descricao.push({propery : "AGRUPAR POR", description: agrupamento})
-        descricao.push({propery : "OP", description: OpNumber})
+        descricao.push({propery : "GRUPO DE TRABALHO", description: grupoTrabalho});
+        descricao.push({propery : "TURNOS", description: payload.cdTurno === "todos" || payload.cdTurno === null || payload.cdTurno === ""? "TODOS OS TURNOS" : payload.cdTurno});
+        descricao.push({propery : "PERÍODO", description: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`});
+        descricao.push({propery : "PRODUÇÃO EM", description: producao});
+        descricao.push({propery : "AGRUPAR POR", description: agrupamento});
+        descricao.push({propery : "OP", description: OpNumber});
         
-        props.getPayload(payload);
         props.getDescricao(descricao);
         props.openPreview(true);
-        props.isProducaoRegulagem(exibirProducaoOcorrencia !== "ocorrenciaRegulagem")
-       console.log(payload)
+        props.isProducaoRegulagem(exibirProducaoOcorrencia !== "ocorrenciaRegulagem", payload, isExibirParadas);
+       console.log(payload);
     }
     return (
         <div className="container-filtro">
@@ -120,6 +119,7 @@ const Filtros = (props : any) => {
 
             <Divider/>
             <div className="container-filtro">
+                <h3>Produção e Paradas</h3>
                 <RadioGroup 
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue={exibirAgrupamentoSelecionado}
@@ -163,7 +163,7 @@ const Filtros = (props : any) => {
             </div>
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
                 <Button variant="contained">LIMPAR</Button>
-                <Button disabled={!periodoChecked!} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
+                <Button disabled={periodoChecked && exibirProducaoOcorrencia !== "" ? false : true} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
             </Container>
         </div>
     )

@@ -20,9 +20,11 @@ h3, p{
 }
 td{
     padding: 1em;
+    white-space: nowrap;
 }
 th{
     padding: 0.5em;
+    white-space: nowrap;
 }
 // scss das grades dos filtros
 .table-filtro{
