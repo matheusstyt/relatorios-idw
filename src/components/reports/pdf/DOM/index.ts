@@ -14,9 +14,22 @@ export function getTableDinamicDOM (descricao : Object, title: string, orientati
     const thead: HTMLCollectionOf<HTMLTableSectionElement> | any = tabela?.getElementsByTagName("thead");
     for ( let i = 0; i < thead?.length; i++) {
         const primeiroThead: HTMLTableSectionElement | any = thead?.[i];
-        let columns : HTMLCollectionOf<HTMLTableCellElement> = primeiroThead.getElementsByTagName("tr");
-        Array.from(columns).forEach((coluna: HTMLTableCellElement) => {
-            Array.from(coluna.getElementsByTagName("th")).forEach((i : any) => {headers.push({text : i.textContent, fontSize : fontSize, bold : true, margin: [5, 0, 0, 0], style: "tableHeaderCell"})});
+        let listTr : HTMLCollectionOf<HTMLTableCellElement> = primeiroThead.getElementsByTagName("tr");
+        Array.from(listTr).forEach((tr: HTMLTableCellElement) => {
+            let row: any[] = [];
+            Array.from(tr.getElementsByTagName("th")).forEach((th : HTMLElement) => {
+                const colSpan = parseInt(th.getAttribute("colspan") || "1");
+                if(colSpan > 1){
+                    row.push({text : th.textContent,fillColor : "#bbb", color: "#000", alignment: "center", colSpan: colSpan,  fontSize : fontSize, bold : true, margin: [5, 0, 0, 0], style: "tableHeaderCell"});
+                    for(let i = 1; i  < colSpan; i++){
+                        row.push({_span: true, fillColor : "#404040", _minWidth: 0, _maxWidth: 0, rowSpan: undefined});
+                    }
+                }else{
+                    row.push({text : th.textContent, fontSize : fontSize, bold : true, margin: [5, 0, 0, 0], style: "tableHeaderCell"});
+                }
+            
+            });
+            headers.push(row);
         });
     }  
     // TRECHO QUE BUSCA O CORPO DA TABELA
@@ -42,7 +55,29 @@ export function getTableDinamicDOM (descricao : Object, title: string, orientati
             
         }
     }
- //   console.log(body)
+    // TOTAL GERAL PRODUÇÃO EM REGULAGEM 
+    const tableTotaisProducaoEmRegulagem: HTMLElement | null = document.getElementById("table-total-geral");
+    const trTotais: any = tableTotaisProducaoEmRegulagem?.lastElementChild?.firstElementChild?.children;
+    // adiciona o total do período
+    if(tableTotaisProducaoEmRegulagem){
+        let row: any[] = [];
+        for (let i = 0; i < trTotais.length; i++){
+            row.push({
+                fillColor : "#aaa",
+                text: trTotais[i]?.textContent, 
+                width: ["*"], 
+                _minWidth: 0, 
+                fontSize, 
+                _maxWidth: 0
+            });
+            if(i === 0 || i === 4 || i === 5){
+                row.push(
+                    {_span: true, _minWidth: 0, _maxWidth: 0, fillColor : "#aaa", rowSpan: undefined});
+            }
+        }
+        body.push(row);
+    }
+    
     // CASO TENHA TOTAL GERAL 
     let arrTotais: Object[] = [];
     try {
@@ -54,6 +89,7 @@ export function getTableDinamicDOM (descricao : Object, title: string, orientati
     } catch (error) {
         
     }
+    console.log(headers);
     console.log(body);
     relatorioPDF({
         headers, 

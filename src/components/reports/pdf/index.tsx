@@ -796,10 +796,10 @@ export function OcorrenciaParadaRegulagemBody ( props : any ) {
             {
                 props?.paradas?.map( (parada : IParadaOcorrenciasParada ,index : number) => {
                     return <tr key={index}>
-                        <td>{parada.maquina}</td>
-                        <td>{parada.parada}</td>
-                        <td>{parada.raps}</td>
-                        <td>{parada.tempoParMaq}</td>
+                        <td className='td-parada-ocorrencia-regulagem'>{parada.maquina}</td>
+                        <td className='td-parada-ocorrencia-regulagem'>{parada.parada}</td>
+                        <td className='td-parada-ocorrencia-regulagem'>{parada.raps}</td>
+                        <td className='td-parada-ocorrencia-regulagem'>{parada.tempoParMaq}</td>
                     </tr>
                 })
             }   

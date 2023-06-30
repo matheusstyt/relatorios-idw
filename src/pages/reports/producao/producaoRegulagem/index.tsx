@@ -50,15 +50,27 @@ export default function ProducaoRegulagem (props : any) {
                 <Header 
                     title={`${props.title} - POR ${descricao[4].description}`}
 
-                    getTableDOM={(isDownload: boolean) =>{
+                    getTableDOM={(isDownload: boolean) =>
+                        {
+                            isProducaoRegulagem ?
                         getTableDinamicDOM(
                             descricao, // lista de descrição dinâmica
                             `${props.title} - POR ${descricao[4].description}`, // título da página
                             "landscape", // orientação da página
-                            5, // tamanho da fonte
+                            6, // tamanho da fonte
                             90, // margem de baixo da página
                             isDownload
-                        ) }
+                        ) :
+                        getTableDinamicDOM(
+                            descricao, // lista de descrição dinâmica
+                            `${props.title} - POR ${descricao[4].description}`, // título da página
+                            "portrait", // orientação da página
+                            7, // tamanho da fonte
+                            90, // margem de baixo da página
+                            isDownload
+                        )
+                    
+                    }
                     }
                     components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 

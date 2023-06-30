@@ -65,7 +65,7 @@ const relatorioPDF = (props: any) => {
     {
       table: {
         body: [
-          props?.headers,
+          ...props?.headers.map((th : any) => th),
           ...props?.body.map((row: any) => row),
         ],
         width: ["auto"],

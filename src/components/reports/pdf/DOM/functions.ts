@@ -10,19 +10,24 @@ export function ColecaoHTMLParaArrayBodyPadrao(Tbody: HTMLTableSectionElement | 
             let cell: any[] | Object = [];
             
             if(td.children.length > 0){
-                
                 // caso tenha tag P dentro da tag TD, irá criar uma lista com esses filhos
                 cell = Array.from(td.children).map(( p : any) => { 
-                    console.log(p)
                     return {text: p.textContent, fontSize}; 
                 });
             }else{
                 // criará um objeto da célula
                 let margin: any[] = [0, 0, 0 , 0];
+                let fillColor: string = "#fff";
+
+                // indice de paradas
                 if(td.classList.contains("td-indiceparada")) margin = [10, 5, 100, 5];
 
+                // produção em regulagem e/ ou ocorrencia de paradas em regulagem
+                if(td.classList.contains("td-parada-ocorrencia-regulagem")) margin = [10, 5, 150, 5];
+       
                 cell = {
                     margin,
+                    fillColor,
                     text: td.textContent, 
                     width: ["*"], 
                     _minWidth: 0, 
