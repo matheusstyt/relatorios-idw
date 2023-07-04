@@ -5,7 +5,7 @@ import SelectIDW from "../select";
 export default function SelectTime(props : any) {
 
     const [intervalListTime, setIntervalListTime] = useState<any[]>(times.intervals);
-    const [intervalSelecionado, setIntervalSelecionado] = useState("00:00:00 - 01:00:00");
+    const [intervalSelecionado, setIntervalSelecionado] = useState("");
 
     return (
          

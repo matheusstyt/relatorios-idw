@@ -1,5 +1,5 @@
 import relatorioPDF from "../pdmake";
-
+import types from "pdfmake/interfaces";
 export function getTableAcompanhamentoDOM (descricao : Object, title: string, orientation: string, fontSize: number, marginTop: number, isDownload: boolean) {
     const tabela: HTMLElement | null = document.getElementById("table-acompanhamento");
     const children: HTMLCollectionOf<HTMLTableSectionElement> | any = tabela?.children;
@@ -18,9 +18,9 @@ export function getTableAcompanhamentoDOM (descricao : Object, title: string, or
                     // aproveitando o else, verifica a class para alterar a cor de fundo.
                     const colspan = parseInt(th.getAttribute("colspan") || "1");
                     if(colspan == 9){
-                        arrRow.push({text: th?.textContent, fontSize: fontSize, colSpan: 9})
+                        arrRow.push({text: th?.textContent, fontSize: fontSize, colSpan: 9}  as types.TableCellProperties)
                      }else{
-                        arrRow.push({text: th?.textContent, fontSize: fontSize,fillColor: '#C9E1F2', border: [true, true, true, true]})
+                        arrRow.push({text: th?.textContent, fontSize: fontSize,fillColor: '#C9E1F2', border: [true, true, true, true]} as types.TableCellProperties)
                     }
                 });
                 body.push(arrRow);
@@ -36,12 +36,12 @@ export function getTableAcompanhamentoDOM (descricao : Object, title: string, or
                     // aproveitando o else, verifica a class para alterar a cor de fundo.
                     const colspan = parseInt(td.getAttribute("colspan") || "1");
                     if(colspan == 9){
-                        arrRow.push({text: td?.textContent, fontSize: fontSize, colSpan: 9, marginBottom: 10, border: [false, false, false, false]})
+                        arrRow.push({text: td?.textContent, fontSize: fontSize, colSpan: 9, marginBottom: 10, border: [false, false, false, false]}  as types.TableCellProperties)
                     }else{
                         if(td.classList.contains("cor-personalizada")){
-                            arrRow.push({text: td?.textContent, fontSize: fontSize, fillColor: '#C9E1F2', border: [true, true, true, true]})
+                            arrRow.push({text: td?.textContent, fontSize: fontSize, fillColor: '#C9E1F2', border: [true, true, true, true]}  as types.TableCellProperties)
                         }else{
-                            arrRow.push({text: td?.textContent, fontSize: fontSize, border: [true, true, true, true]})
+                            arrRow.push({text: td?.textContent, fontSize: fontSize, border: [true, true, true, true]}  as types.TableCellProperties)
                         }
                     }
                 })
@@ -59,26 +59,37 @@ export function getTableAcompanhamentoDOM (descricao : Object, title: string, or
                 _maxWidth: 0, 
                 rowSpan: undefined, 
                 border: [false, false, false, false]
-            }
+            } as types.TableCellProperties
         );
     }
 
-    // total geral
+    // linha de espaçamento entre dois conjuntos
+    const divisor : any[] = [];
+    for (let i = 0; i < 9; i++) {
+        divisor.push(
+            {
+                _span: true, 
+                _minWidth: 0,
+                _maxWidth: 0, 
+                rowSpan: undefined, 
+                border: [false, false, false, false]
+            } as types.TableCellProperties
+            );
+        }
+    body.push(divisor);
 
-    // linha de espaçamento
-    body.push([{text: "", fontSize: fontSize, colSpan: 9, marginBottom: 10, border: [false, false, false, false]}]);
+    body.push([{text: "", fontSize: fontSize, colSpan: 9, marginBottom: 10}  as types.TableCellProperties]);
     // dados de total geral
     // table > tbody > tr > all td's
     const total: HTMLCollection | any = document.getElementById("table-total-acompanhamento")?.firstElementChild?.firstElementChild?.children
     // map das td's para criar o array de objetos
     let rowTotalGeral = Array.from(total).map((td : any) => {
-        return {text: td.textContent, fontSize: fontSize, fillColor: "#0d427e", color: "#FFFFFF", margin: [0, 0, 35, 0] }
+        return {text: td.textContent, fontSize: fontSize, fillColor: "#0d427e", color: "#FFFFFF", margin: [0, 0, 35, 0] }  as types.TableCellProperties
     })
     body.push(rowTotalGeral);
-
     // chamada do gerador de relatório
     relatorioPDF({
-        headers, 
+        headers : [headers], 
         body, 
         descricao, 
         title, 

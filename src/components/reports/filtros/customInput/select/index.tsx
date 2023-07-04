@@ -67,7 +67,7 @@ function SelectIDW({
                 value={value}
                 onChange={onChange}
                 color_mode={colorMode}
-                notched={true}
+                notched={"true"}
                 size={size}
                 name={name}
                 error={error}

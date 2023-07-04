@@ -35,13 +35,13 @@ const FichaTecnica = (props: any) =>{
                         getTableDinamicDOM(
                             descricao, // lista de descrição dinâmica
                             `${props.title}`, // título da página
-                            "portrait", // orientação da página
-                            7, // tamanho da fonte
+                            "landscape", // orientação da página
+                            9, // tamanho da fonte
                             70, // margem de baixo da página
                             isDownload
                         ) }
                     }
-                    components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
+                    components={<> {descricao.map((i : any, index: number) => <p key={index}><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
                 <div className="table-content">
                     {<TableDinamic headers={headers.engenharia.fichatecnica} body={<FichaTecnicaBody itens={fichaTecnicaResponse?.itens} />}/>}
@@ -61,8 +61,8 @@ const FichaTecnica = (props: any) =>{
                 component={
                     <Filtros 
                         getPayload={async (value: any ) => {
-                            getfichaTecnica(value);
-                        }
+                                getfichaTecnica(value);
+                            }
                         }
                         getDescricao={(value: any ) => setDescricao(value)}
                         openPreview={(value: boolean) =>  setExibirPreloader(true) }

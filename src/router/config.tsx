@@ -8,6 +8,7 @@ import PlanejadoRealizado from "../pages/reports/planejamento/planejadoRealizado
 import AcompanhamentoProducao from "../pages/reports/producao/acompanhamentoProducao";
 import AnaliseProducao from "../pages/reports/producao/analiseProducao";
 import Consolidados from "../pages/reports/producao/consolidados";
+import IndiceRefugos from "../pages/reports/producao/indiceRefugos";
 import ProducaoRegulagem from "../pages/reports/producao/producaoRegulagem";
 
 export const APP_ROUTES = {
@@ -62,6 +63,12 @@ export const APP_ROUTES = {
       },
       {
         category : "product",
+        title : "Índice de Refugos (R020)",
+        path : "refugo",
+        element: <IndiceRefugos title="Índice de Refugos (R020)" />
+      },
+      {
+        category : "product",
         title : "Produção em Regulagem (R025)",
         path : "producaoregulagem",
         element: <ProducaoRegulagem title="Produção em Regulagem (R025)" />
@@ -71,12 +78,6 @@ export const APP_ROUTES = {
         title : "Planejado x Realizado (R036)",
         path : "planejadoxrealizado",
         element: <PlanejadoRealizado title="Planejado x Realizado (R036)" />
-      },
-      {
-        category : "any",
-        title : "Refugos (R020)",
-        path : "refugo",
-        element: <IndiceParadasXAreResponsavel title="Refugos (R020)" />
       },
       {
         category : "any",

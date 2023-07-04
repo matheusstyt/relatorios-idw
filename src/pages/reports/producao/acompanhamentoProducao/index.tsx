@@ -42,20 +42,20 @@ export default function AcompanhamentoProducao (props : any) {
                             isDownload
                         ) }
                     }
-                    components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
+                    components={<> {descricao.map((i : any, index: number) => <p key={index}><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
                 <div className="table-content">
                     
                     <table id="table-acompanhamento" >
                         {analiseProducaoResponse?.intervalos?.map((intervalo: IIntervalo, index: number) => {
                             return <>
-                                <thead id="thead-acompanhamento">
+                                <thead key={index} id="thead-acompanhamento">
                                     <tr><th align="left" colSpan={9}>PERÍODO: {intervalo.intervalo}</th></tr>
-                                    <tr> { headers?.producao?.acompanhamentoProducao?.map( (item : string) => <th key={item}>{item}</th>) } </tr>
+                                    <tr> { headers?.producao?.acompanhamentoProducao?.map( (item : string, index1:number) => <th key={`${index1} - ${item}`}>{item}</th>) } </tr>
                                 </thead>
                                 <AcompanhamentoProducaoBody postos={intervalo?.postos} totais={intervalo.totais}/>
                             </>
-                        }
+                            }
                         )}
                     </table>
                 </div>
@@ -76,13 +76,11 @@ export default function AcompanhamentoProducao (props : any) {
                     <Filtros 
                         getPayload={(value: any ) => getAcompanhamentoProducao(value)}
                         getDescricao={(value: any ) => setDescricao(value)}
-                        openPreview={(value: boolean) =>  setExibirPreloader(true) }
+                        openPreview={() =>  setExibirPreloader(true) }
                     />
                 }
             />
-           
-                { !exibirExportar ? <></> : previewPDF()}
-=
+            { !exibirExportar ? <></> : previewPDF()}
         </div>
     )   
 }

@@ -41,7 +41,7 @@ export default function AnaliseProducao (props : any) {
                             isDownload
                         ) }
                     }
-                    components={<> {descricao?.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
+                    components={<> {descricao?.map((i : any, index: number) => <p key={index}><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
                 <div className="table-content">
                     {<TableDinamic headers={headers.producao.analiseProducao} body={<AnaliseProducaoBody listaDTO={analiseProducaoResponse?.listaDTOs} />}/>}

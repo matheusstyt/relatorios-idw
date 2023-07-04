@@ -1,6 +1,6 @@
 import { IParadaIndiceParadaXPosto, ISubRelatorioIndiceParada } from '../interface/reports/paradas/indiceParadasXPosto';
 import { IListaDTO, IOperador, ItemProducaoEficienciaHoraAHora } from '../interface/reports/producao/analiseProducao';
-import { IIndiceParadasTransformado, IParada, IPostoParada } from '../interface/reports/paradas/indiceParadas';
+import { IIndiceParadasResponse, IItemIndiceParada, IParada, IPostoParada } from '../interface/reports/paradas/indiceParadas';
 import { IItemPlanejaxRealizado } from '../interface/reports/planejamento/planejadoxrealizado';
 import { IFerramenta, IPosto, IProduto } from '../interface/reports/producao/consolidados';
 import { IPostoIntervalo } from '../interface/reports/producao/acompanhamentoProducao';
@@ -12,6 +12,7 @@ import { BsEyeFill } from "react-icons/bs";
 import { Button } from '@mui/material';
 import "./export.scss";
 import { IParadaOcorrenciasParada, IParadaProducaoRegulagem, IPostoPeriodo } from '../interface/reports/producao/producaoRegulagem';
+import { IItemIndiceRefugo } from '../interface/reports/producao/indiceRefugos';
 
 export function Header(props : any) {
     return (
@@ -515,27 +516,24 @@ export function AnaliseProducaoBody( props : any){
   
     )
 }
-// PLANEJADO X REALIZADO
+// ACOMPANHAMENTO DE PRODUÇÃO
 export function AcompanhamentoProducaoBody ( props : any ) {
     return (
         <tbody>
             {
                 props?.postos?.map( (item : IPostoIntervalo ,index : number) => {
-                    return <>
-                        <tr key={index}>
-                            {/* PRIMEIRA CAMADA */}
-                            <td className='cor-personalizada'>{item.maquina}</td>
-                            <td>{DecimalParaReal(item.projecaofPeriodo)}</td>
-                            <td>{DecimalParaReal(item.qtdProduzida)}</td>
-                            <td>{DecimalParaReal(item.qtdPrevista)}</td>
-                            <td>{DecimalParaReal(item.metaPeriodo)}</td>
-                            <td>{DecimalParaReal(item.eficRealizacao)}</td>
-                            <td>{DecimalParaReal(item.indRefugo)}</td>
-                            <td>{DecimalParaReal(item.indParada)}</td>
-                            <td>{DecimalParaReal(item.eficCiclo)}</td>
-                        </tr>
-                        
-                    </> 
+                    return <tr key={index}>
+                        {/* PRIMEIRA CAMADA */}
+                        <td className='cor-personalizada'>{item.maquina}</td>
+                        <td>{DecimalParaReal(item.projecaofPeriodo)}</td>
+                        <td>{DecimalParaReal(item.qtdProduzida)}</td>
+                        <td>{DecimalParaReal(item.qtdPrevista)}</td>
+                        <td>{DecimalParaReal(item.metaPeriodo)}</td>
+                        <td>{DecimalParaReal(item.eficRealizacao)}</td>
+                        <td>{DecimalParaReal(item.indRefugo)}</td>
+                        <td>{DecimalParaReal(item.indParada)}</td>
+                        <td>{DecimalParaReal(item.eficCiclo)}</td>
+                    </tr>
                 })
             }   
             <tr>
@@ -579,13 +577,14 @@ export function TotalGeralAcompanhamentoProducao ( props : any ) {
 // ÍNDICE DE PARADAS
 // PARÃO
 export function IndiceParadasPadraoBody ( props : any ) {
+    console.log(props)
     return <tbody className='t-indiceparadapadrao'>
         {
             props?.paradas?.map( (parada : IParada ,index : number) => {
                 return <tr key={index}>
                     {/* PRIMEIRA CAMADA */}
                     <td className='td-indiceparada'>{parada?.parada}</td>
-                    <td className='td-indiceparada'>{convertSecondsToTime(parada?.tempo)}</td>
+                    <td className='td-indiceparada'>{parada?.tempo}</td>
                     <td className='td-indiceparada'>{parada?.indice}</td>
                 </tr>
             })
@@ -596,7 +595,7 @@ export function IndiceParadasPadraoBody ( props : any ) {
 export function IndiceParadasProdutoBody ( props : any ) {
     return <>
         {
-            props?.paradas?.map( (produto : IIndiceParadasTransformado ,index : number) => {
+            props?.paradas?.map( (produto : IItemIndiceParada ,index : number) => {
                 return <tbody className='t-indiceparada' key={index}>
                     {produto?.postos?.map(( posto : IPostoParada, index: number) => {
                         return <> <tr key={index}>
@@ -608,23 +607,23 @@ export function IndiceParadasProdutoBody ( props : any ) {
                                     return <p key={index}>{parada.parada}</p>
                                     })} </td>
                                 <td> {posto?.paradas?.map((parada : IParada, index: number) => {
-                                    return <p key={index}>{convertSecondsToTime(parada.tempo)}</p>
+                                    return <p key={index}>{parada.tempo}</p>
                                     })} </td>
                                 <td> {posto?.paradas?.map((parada : IParada, index: number) => {
-                                    return <p key={index}>{parada.indice}</p>
+                                    return <p key={index}>{parada?.indice}</p>
                                     })} </td>
                             </tr>
                             {/* SUB TOTAL DE POSTOS */}
                             <tr>
-                                <td className='td-sub-total' colSpan={3}>TEMPO DE PARADAS DO POSTO (B): {convertSecondsToTime(posto.tempoParadaPosto)}</td>
-                                <td className='td-sub-total' colSpan={2}>ÍNDICE (B)/(C): {posto.indiceBC}</td>                                
+                                <td className='td-sub-total' colSpan={3}>TEMPO DE PARADAS DO POSTO (B): {posto.tempoParadasPosto}</td>
+                                <td className='td-sub-total' colSpan={2}>ÍNDICE (B)/(C): {posto?.indice}</td>                                
                             </tr> </>
                     })} 
                     {/* SUB TOTAL DE FERRAMENTAS / PRODUTOS */}
                     <tr>
-                        <td className='td-total' colSpan={2}>TEMPO DE PARADAS DA FERRAMENTA (C):</td>
-                        <td className='td-total' colSpan={1}>{convertSecondsToTime(produto.tempoFerProd)}</td>
-                        <td className='td-total' colSpan={2}>ÍNDICE (C)/(D): {produto.indiceCD}</td>
+                        <td className='td-total' colSpan={2}>TEMPO DE PARADAS DO PRODUTO (C):</td>
+                        <td className='td-total' colSpan={1}>{produto.tempoParadasProduto}</td>
+                        <td className='td-total' colSpan={2}>ÍNDICE (C)/(D): {produto?.indice}</td>
                     </tr>
                 </tbody>
             })
@@ -635,7 +634,7 @@ export function IndiceParadasProdutoBody ( props : any ) {
 export function IndiceParadasFerramentaBody ( props : any ) {
     return <>
         {
-            props?.paradas?.map( (ferramenta : IIndiceParadasTransformado ,index : number) => {
+            props?.paradas?.map( (ferramenta : IItemIndiceParada ,index : number) => {
                 return <tbody className='t-indiceparada' key={index}>
                     {ferramenta?.postos?.map(( posto : IPostoParada, index: number) => {
                         return <> <tr key={index}>
@@ -647,7 +646,7 @@ export function IndiceParadasFerramentaBody ( props : any ) {
                                     return <p key={index}>{parada.parada}</p>
                                     })} </td>
                                 <td> {posto?.paradas?.map((parada : IParada, index: number) => {
-                                    return <p key={index}>{convertSecondsToTime(parada.tempo)}</p>
+                                    return <p key={index}>{parada.tempo}</p>
                                     })} </td>
                                 <td> {posto?.paradas?.map((parada : IParada, index: number) => {
                                     return <p key={index}>{parada.indice}</p>
@@ -656,14 +655,14 @@ export function IndiceParadasFerramentaBody ( props : any ) {
                             {/* SUB TOTAL DE POSTOS */}
                             <tr>
                                 <td className='td-sub-total' colSpan={3}>TEMPO DE PARADAS DO POSTO (B):</td>
-                                <td className='td-sub-total' colSpan={2}>ÍNDICE (B)/(C): {posto.indiceBC}</td>                                
+                                <td className='td-sub-total' colSpan={2}>ÍNDICE (B)/(C): {posto?.indice}</td>                                
                             </tr> </>
                     })} 
                      {/* SUB TOTAL DE FERRAMENTAS / PRODUTOS */}
                     <tr>
                         <td className='td-total' colSpan={2}>TEMPO DE PARADAS DA FERRAMENTA (C):</td>
-                        <td className='td-total' colSpan={1}>{convertSecondsToTime(ferramenta.tempoFerProd)}</td>
-                        <td className='td-total' colSpan={2}>ÍNDICE (C)/(D): {ferramenta.indiceCD}</td>
+                        <td className='td-total' colSpan={1}>{ferramenta?.tempoParadasFerramenta}</td>
+                        <td className='td-total' colSpan={2}>ÍNDICE (C)/(D): {ferramenta?.indice}</td>
                     </tr>
                 </tbody>
                 
@@ -676,9 +675,9 @@ export function IndiceParadasFerramentaBody ( props : any ) {
 export function TotalGeralIndiceParadas ( props : any ) {
     return (
         <div className="container-totais total-geral" id="totais-totais">
-            <p>TEMPO PARADAS SEM PESO NA EFICIÊNCIA: { props.dados.tempoTotalParadaSP }</p>
-            <p>TEMPO PARADAS COM PESO NA EFICIÊNCIA: { props.dados.tempoTotalParadaCP }</p>
-            <p>TEMPO TOTAL DE PARADAS (D): { props.dados.tempoTotal }</p>
+            <p>TEMPO PARADAS SEM PESO NA EFICIÊNCIA: { props.dados?.tempoParadasSP }</p>
+            <p>TEMPO PARADAS COM PESO NA EFICIÊNCIA: { props.dados.tempoParadasCP }</p>
+            <p>TEMPO TOTAL DE PARADAS (D): { props.dados.tempoParadasTotal }</p>
         </div>
     )
 }
@@ -801,6 +800,42 @@ export function OcorrenciaParadaRegulagemBody ( props : any ) {
                         <td className='td-parada-ocorrencia-regulagem'>{parada.raps}</td>
                         <td className='td-parada-ocorrencia-regulagem'>{parada.tempoParMaq}</td>
                     </tr>
+                })
+            }   
+        </tbody>
+    )
+}
+
+// ÍNDICE DE REFUGO
+export function IndiceRefugoBody ( props : any ) {
+    return (
+        <tbody>
+            {
+                props?.paradas?.map( (item : IItemIndiceRefugo,index : number) => {
+                    return <>
+                        <tr key={index}>
+                            <td className='td-parada-ocorrencia-regulagem'>{item.maquina}</td>
+                            <td className='td-parada-ocorrencia-regulagem'>{item.produto}</td>
+                            <td className='td-parada-ocorrencia-regulagem'>{item.refugo}</td>
+                            <td className='td-parada-ocorrencia-regulagem'>{item.qtdRefugada}</td>
+                        </tr>
+                        <tr>
+                            <td colSpan={5}>TOTAIS DO PRODUTO</td>
+                        </tr>
+                        <tr>
+                            <td> QTD. BOAS : {item?.totalqtdProduzidoProd - item?.qtdRefugada}</td>
+                            <td>
+                                <p>QTD. PRODUZIDA (A) : {item?.totalqtdProduzidoProd}</p>
+                                <p>QTD. REFUGADA : {item?.qtdRefugada}</p>
+                            </td>
+                            <td>
+                                <td>
+                                    <p>ÍNDICE COM BASE EM (A) : 0.00%</p>
+                                    <p>ÍNDICE COM BASE EM (B) : 0.00%</p>
+                                </td>
+                            </td>
+                        </tr>
+                    </>
                 })
             }   
         </tbody>

@@ -5,7 +5,7 @@ import { Formatar } from "./datetime";
 
 const relatorioPDF = (props: any) => {
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
+  console.log(props)
   // Configurações extras
   const pageOrientation: types.PageOrientation = props.orientation; // ou "landscape"
   const fontPrimary: number = props.fontSize;
@@ -65,8 +65,8 @@ const relatorioPDF = (props: any) => {
     {
       table: {
         body: [
-          ...props?.headers.map((th : any) => th),
-          ...props?.body.map((row: any) => row),
+          ...props?.headers?.map((th : any) => th),
+          ...props?.body?.map((row: any) => row),
         ],
         width: ["auto"],
         alignment: "center",
@@ -74,12 +74,13 @@ const relatorioPDF = (props: any) => {
       },
       
       layout: props.layout || "lightHorizontalLines",
+
     //  width: ["500"],
       style: "tableCell",
     },
     // VERIFICA SE HÁ TOTAL
     {
-      stack : props.columns[0].ul.length >0 && props.columns[1].ul.length ? [{text: "Totais:", style: "totaisTitle"},] : []
+      stack : props?.columns[0]?.ul.length >0 && props.columns[1]?.ul.length ? [{text: "Totais:", style: "totaisTitle"},] : []
     }
     ,
     {
@@ -134,7 +135,7 @@ const relatorioPDF = (props: any) => {
     header: (currentpage: any, pageCount: any) => {
       return reportHeader(currentpage, pageCount);
     },
-    content: reportBody,
+    content: reportBody ,
     styles: reportStyle as types.StyleDictionary,
   };
 

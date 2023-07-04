@@ -5,6 +5,7 @@ import AccordionDinamic from "../accordion";
 import { NavLink } from "react-router-dom";
 import { IoIosPaper} from "react-icons/io";
 import "./sidebar.scss"
+import { Fragment } from "react";
 
 export default function SideBar () {
     return (
@@ -23,10 +24,11 @@ export default function SideBar () {
                             img={<IoIosPaper size={20} />} 
                             component={
                                 APP_ROUTES.REPORT.map( (route, index) => {
-                                    return route.category === "stops" ?<NavLink key={index} to={`/${route.path}`} end>
+                                    return route.category === "stops" ?(
+                                    <NavLink key={index} to={`/${route.path}`} end>
                                         <CgFileDocument className="ico-nav" />
                                         <h4>{route.title}</h4>
-                                    </NavLink>  : <></>
+                                    </NavLink>)  : <Fragment key={index} />
                                 })
                             }
                         />
@@ -38,7 +40,7 @@ export default function SideBar () {
                                     return route.category === "product" ?<NavLink key={index} to={`/${route.path}`} end>
                                         <CgFileDocument className="ico-nav" />
                                         <h4>{route.title}</h4>
-                                    </NavLink>  : <></>
+                                    </NavLink>  : <Fragment key={index} />
                                 })
                             }
                         />
@@ -50,7 +52,7 @@ export default function SideBar () {
                                     return route.category === "planejamento" ?<NavLink key={index} to={`/${route.path}`} end>
                                         <CgFileDocument className="ico-nav" />
                                         <h4>{route.title}</h4>
-                                    </NavLink>  : <></>
+                                    </NavLink>  : <Fragment key={index} />
                                 })
                             }
                         />
@@ -62,7 +64,7 @@ export default function SideBar () {
                                     return route.category === "engineering" ?<NavLink key={index} to={`/${route.path}`} end>
                                         <CgFileDocument className="ico-nav" />
                                         <h4>{route.title}</h4>
-                                    </NavLink>  : <></>
+                                    </NavLink>  : <Fragment key={index} />
                                 })
                             }
                         />
@@ -71,7 +73,6 @@ export default function SideBar () {
                     
                 }
             />
- 
-        </nav>
+         </nav>
      )
 }

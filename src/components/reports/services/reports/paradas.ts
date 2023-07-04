@@ -1,5 +1,5 @@
 import { IIndiceParadaPostoResponse } from "../../interface/reports/paradas/indiceParadasXPosto";
-import { IRequisicaoOriginal } from "../../interface/reports/paradas/indiceParadas";
+import { IIndiceParadasResponse } from "../../interface/reports/paradas/indiceParadas";
 import api from "../../../../config/api";
 import { AxiosResponse } from "axios";
 
@@ -16,7 +16,7 @@ export async function IndiceParadaXPostoServices (body: any) {
 }
 export async function IndiceParadaServices (body: any) {
     return await api.post(`${APP_API}/idw/rest/v2/relatorios/indiceparadas`, body)
-        .then( (res : AxiosResponse<IRequisicaoOriginal>) => {
+        .then( (res : AxiosResponse<IIndiceParadasResponse>) => {
             return res.data
         })
         .catch( error => {

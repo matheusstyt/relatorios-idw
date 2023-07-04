@@ -72,7 +72,7 @@ export default function ProducaoRegulagem (props : any) {
                     
                     }
                     }
-                    components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
+                    components={<> {descricao.map((i : any, index: number) => <p key={index}><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 
                 />
                 <div className="table-content">

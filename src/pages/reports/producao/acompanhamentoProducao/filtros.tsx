@@ -11,8 +11,8 @@ const Filtros = (props : any) => {
     // períodos e intervalo
     const [dataInicio, setDataInicio] = useState<any>(new Date());
     const [dataTermino, setDataTermino] = useState<any>(new Date());
-    const [horaInicio, setHoraInicio] = useState<string>("");
-    const [horaTermino, setHoraTermino] = useState<string>("");
+    const [horaInicio, setHoraInicio] = useState<string>("00:00:00");
+    const [horaTermino, setHoraTermino] = useState<string>("01:00:00");
 
     // postos e ferramentas
     const [postoTrabalhoSelecionado, setPostoTrabalhoSelecionado] = useState<string>("Postos");
@@ -55,7 +55,7 @@ const Filtros = (props : any) => {
 
         props.getPayload(payload);
         props.getDescricao(descricao);
-        props.openPreview(true);
+        props.openPreview();
 
     }
     return (

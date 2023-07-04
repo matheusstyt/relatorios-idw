@@ -1,6 +1,6 @@
-import { ConsolidadosFerramentaBody, ConsolidadosPostoBody, ConsolidadosProdutoBody, Header, TableDinamic, TotalGeralConsolidados } from "../../../../components/reports/pdf";
-import { IConsolidadosResponse } from "../../../../components/reports/interface/reports/producao/consolidados";
-import { ConsolidadosServices } from "../../../../components/reports/services/reports/produtos";
+import { IIndiceRefugoResponse } from "../../../../components/reports/interface/reports/producao/indiceRefugos";
+import { Header, ProducaoEmRegulagemBody, TableDinamic } from "../../../../components/reports/pdf";
+import { IndiceRefugosServices } from "../../../../components/reports/services/reports/produtos";
 import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 import headers from "../../../../components/reports/pdf/headers.json";
 import { Preloader } from "../../../../components/reports/preloader";
@@ -10,54 +10,64 @@ import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
 
-export default function Consolidados (props : any) {
+export default function IndiceRefugos (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [exibirExportar, setExibirExportar] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
 
-    const [consolidadosResponse, setConsolidadosResponse] = useState<IConsolidadosResponse>();
-    async function getConsolidados (value : any) {
-        setCargaUtil(value);
-        await ConsolidadosServices( value)
+    const [indiceRefugosResponse, setIndiceRefugosResponse] = useState<IIndiceRefugoResponse>();
+    const [isProducaoRegulagem, setIsProducaoRegulagem] = useState<boolean>(true);
+    const [exibirParadas, setExibirParadas] = useState<boolean>(false);
+
+    async function getIndiceRefugo (value : any) {
+       setCargaUtil(value);
+       console.log(value)
+        await IndiceRefugosServices( value)
         .then( (data) => {
-            setConsolidadosResponse(data);
+            console.log(data)
+            setIndiceRefugosResponse(data);
         })
         setExibirPreloader(false);
         setExibirExportar(true);
     }
-
     const previewPDF = () => {
         return (
             <div className="export-content">
                 <Header 
                     title={`${props.title} - POR ${descricao[4].description}`}
 
-                    getTableDOM={(isDownload: boolean) =>{
+                    getTableDOM={(isDownload: boolean) =>
+                        {
                         getTableDinamicDOM(
                             descricao, // lista de descrição dinâmica
                             `${props.title} - POR ${descricao[4].description}`, // título da página
                             "landscape", // orientação da página
-                            5, // tamanho da fonte
+                            6, // tamanho da fonte
                             90, // margem de baixo da página
                             isDownload
-                        ) }
+                        ) 
+                    
+                    }
                     }
                     components={<> {descricao.map((i : any, index: number) => <p key={index}><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 
                 />
                 <div className="table-content">
                     {
-                        cargaUtil.isAgrupadoPorPt === true ? 
-                        <TableDinamic headers={headers.producao.consolidadoPosto} body={<ConsolidadosPostoBody postos={consolidadosResponse?.postos} />}/>
-                        : cargaUtil.isAgrupadoPorFerramenta === true ?
-                        <TableDinamic headers={headers.producao.consolidadoFerramenta} body={<ConsolidadosFerramentaBody ferramentas={consolidadosResponse?.ferramentas} />}/>
-                        : cargaUtil.isAgrupadoPorProduto === true ?
-                        <TableDinamic headers={headers.producao.consolidadoProduto} body={<ConsolidadosProdutoBody produtos={consolidadosResponse?.produtos} />}/>
-                        : <></>
-                    }
+                    <TableDinamic 
+                        headers={ headers.producao } 
+                        body={ <ProducaoEmRegulagemBody postos={indiceRefugosResponse?.listaRelatorioIndiceRefugo} /> }
+                    /> 
+                    // <TableDinamic 
+                    //     headers={headers.producao.ocorrenciaParadaRegulagem}
+                    //     body={<OcorrenciaParadaRegulagemBody paradas={ocorrenciasParadaResponse?.paradas} />}
+                    // /> 
+                }
+
                 </div>
-                <TotalGeralConsolidados totais={consolidadosResponse} />
+              
+
             </div>
         )
     }
@@ -72,12 +82,16 @@ export default function Consolidados (props : any) {
                 img={<FiFilter size={25}/>}
                 component={
                     <Filtros 
-                        getPayload={async (value: any ) => {
-                            getConsolidados(value);
-                        }
-                        }
                         getDescricao={(value: any ) => setDescricao(value)}
                         openPreview={(value: boolean) =>  setExibirPreloader(true) }
+                        isProducaoRegulagem={(value: boolean, payload: Object, exibirParadas: boolean) => {
+                            setExibirParadas(exibirParadas);
+                            setExibirExportar(false);
+                            setIsProducaoRegulagem(value);
+                            if(value){
+                                getIndiceRefugo(payload)
+                            }
+                        }}
                     />
                 }
             />

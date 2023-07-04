@@ -1,12 +1,11 @@
 import { Header, IndiceParadasFerramentaBody, IndiceParadasPadraoBody, IndiceParadasProdutoBody, TableDinamic, TotalGeralIndiceParadas } from '../../../../components/reports/pdf';
-import converterIndiceParadasFerramenta from '../../../../components/reports/interface/reports/paradas/conversorRequisicao';
-import { IRequisicaoTransformada } from '../../../../components/reports/interface/reports/paradas/indiceParadas';
+import { IIndiceParadasResponse } from '../../../../components/reports/interface/reports/paradas/indiceParadas';
 import { IndiceParadaServices } from '../../../../components/reports/services/reports/paradas';
 import { getTableDinamicDOM } from '../../../../components/reports/pdf/DOM';
 import headers from "../../../../components/reports/pdf/headers.json";
 import { Preloader } from '../../../../components/reports/preloader';
 import AccordionDinamic from '../../../../components/accordion';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FiFilter } from "react-icons/fi";
 import Filtros from "./filtros";
 import "../../../pages.scss";
@@ -17,20 +16,15 @@ export default function IndiceParadas (props : any) {
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<Object[]>([]);
 
-    const [listaIndiceParada, setListIndiceParada] = useState<IRequisicaoTransformada>();
-    useEffect(() => {
+    const [listaIndiceParada, setListIndiceParada] = useState<IIndiceParadasResponse>();
 
-    }, cargaUtil)
     async function getIndiceParadas (value : any) {
         setCargaUtil(value);
-        await IndiceParadaServices( value)
-        .then( async (data) => {
-            await setListIndiceParada(
-                converterIndiceParadasFerramenta(data, 
-                value.isAgrupadoPorFerramenta, 
-                value.isAgrupadoPorProduto, 
-                value.isAgrupamentoPadrao))            
-        })
+        await IndiceParadaServices(value)
+            .then( async (data) => {
+                await setListIndiceParada(data);
+                console.log(data)
+            })
         setExibirPreloader(false);
         setExibirExportar(true);
     }
@@ -49,16 +43,17 @@ export default function IndiceParadas (props : any) {
                             isDownload
                         ) }
                     }
-                    components={<> {descricao.map((i : any) => <p><strong>{i.propery}:</strong> {i.description}</p> )} </>}
+                    components={<> {descricao.map((i : any, index: number) => <p key={index}><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
                 <div className="table-content">
                     {
                         cargaUtil.isAgrupamentoPadrao ?
-                        <TableDinamic headers={headers.paradas.indiceParadasPadrao} body={<IndiceParadasPadraoBody className="indiceparadaxposto" paradas={listaIndiceParada?.indiceParadasDTO} />} />
+                                                                                                                                                        // tem um array dentro do array kkk, enfim
+                        <TableDinamic headers={headers.paradas.indiceParadasPadrao} body={<IndiceParadasPadraoBody className="indiceparadaxposto" paradas={listaIndiceParada?.itens[0]?.paradas} />} />
                         :cargaUtil.isAgrupadoPorProduto ?
-                        <TableDinamic headers={headers.paradas.indiceParadasProduto} body={<IndiceParadasProdutoBody className="indiceparadaxposto" paradas={listaIndiceParada?.indiceParadasDTO} />} />
+                        <TableDinamic headers={headers.paradas.indiceParadasProduto} body={<IndiceParadasProdutoBody className="indiceparadaxposto" paradas={listaIndiceParada?.itens} />} />
                         :cargaUtil.isAgrupadoPorFerramenta ?
-                        <TableDinamic headers={headers.paradas.indiceParadasFerramenta} body={<IndiceParadasFerramentaBody className="indiceparadaxposto" paradas={listaIndiceParada?.indiceParadasDTO} />} />
+                        <TableDinamic headers={headers.paradas.indiceParadasFerramenta} body={<IndiceParadasFerramentaBody className="indiceparadaxposto" paradas={listaIndiceParada?.itens} />} />
                         : <></>
                     }
                 </div>
@@ -67,7 +62,6 @@ export default function IndiceParadas (props : any) {
             </div>
         )
     }
-
     return (
         <div className="container-page">
 
@@ -81,7 +75,7 @@ export default function IndiceParadas (props : any) {
                     <Filtros 
                         getPayload={(value: any ) => getIndiceParadas(value)}
                         getDescricao={(value: any ) => setDescricao(value)}
-                        openPreview={(value: boolean) =>  setExibirPreloader(true) }
+                        openPreview={() =>  setExibirPreloader(true) }
                     />
                 }
             />

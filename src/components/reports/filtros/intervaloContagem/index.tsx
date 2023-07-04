@@ -12,8 +12,10 @@ const IntervaloContagem = (props : any) => {
             <h3>Intervalo e Contagem de Produção</h3>
             <table>
                 <thead>
-                    <th>Início</th>
-                    <th>Fim</th>
+                    <tr>
+                        <th>Início</th>
+                        <th>Fim</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>

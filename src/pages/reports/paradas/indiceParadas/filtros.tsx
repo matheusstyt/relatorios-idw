@@ -89,7 +89,7 @@ const Filtros = (props : any) => {
 
         props.getPayload(payload);
         props.getDescricao(descricao);
-        props.openPreview(true);
+        props.openPreview();
 
     }
     return (
