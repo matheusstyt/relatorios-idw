@@ -7,7 +7,7 @@ export interface IIndiceParadasResponse {
 export interface IItemIndiceParada {
   ferramenta?: string;
   produto?: string;
-  paradas?: IParada[];
+  paradas?: IParada[]; // por padrão
   indice?: string;  // faltando
   tempoParadasProduto?: string;
   tempoParadasFerramenta?: string;
@@ -22,7 +22,7 @@ export interface IPostoParada {
 }
 export interface IParada {
   parada: string;
-  tempo: number;
+  tempo: string;
   indice: string;
   tempoDec: number;
 }

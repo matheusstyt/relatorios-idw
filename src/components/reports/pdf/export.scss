@@ -68,25 +68,45 @@ h2{
     }
     // scss de acompanhamento de produção
     #table-acompanhamento{
-        tr{
-            &:hover{
-                background-color: #41414115;
-            }
-            &:nth-last-child(2){
-                background-color: #ebebeb;
+        #thead-acompanhamento{
+            tr{
+                background-color: #d5dcfa;
                 color: #2c2c2c;
+            }
+        }
+        tbody{
+
+            tr{
+                &:hover{
+                    background-color: #41414115;
+                }
+                &:nth-last-child(2){
+                    background-color: #d5dcfa;
+                    color: #2c2c2c;
+                }
             }
         }
         td{
             border-top: 2px solid #2424247c;
-            &:first-child{
+            &:first-child {
                 color: #363636;
                 font-weight: 600;
-                background-color: #ebebeb;
+                background-color: #d5dcfa;
             }
         }
         #td-espaco{
             background-color: transparent;
+        }
+    }
+    // scss de indice de refugo
+    .container-subtotais-indice-refugo{
+        max-height: 50px;
+        display: flex;
+        justify-content: center;
+        flex-flow: column wrap;
+      //  background-color: #225496;
+        p{
+            color: #000;
         }
     }
 }
@@ -142,11 +162,11 @@ h2{
 .container-totais{
     background-color: #1d6bc4;
     padding: 1em;
-
+    box-sizing: border-box;
     margin: 0 auto;
     display: flex;
     flex-flow: column wrap;
-    height: 120px;
+    max-height: 120px;
     h3{
         width: 100%;
         color: #fff;

@@ -241,6 +241,13 @@
             "PARADA",
             "FOLHA / RAP's",
             "TEMPO"
+        ],
+        "indiceRefugo" : [
+            "POSTO",
+            "PRODUTO",
+            "REFUGO",
+            "QUANTIDADE",
+            "ÍNDICE COM BASE EM (A)"
         ]
     },
     "planejamento" : {

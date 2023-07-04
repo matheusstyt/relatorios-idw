@@ -67,7 +67,7 @@ export function TableDinamic ( props : any ){
                 })}</tr> : <></>}
                 
                 {/* header padrão dinâmico */}
-                <tr> {props.headers.map( (item : string, index: number) => <th key={`${index} -  ${item}`}>{item}</th> ) } </tr>
+                <tr> {props?.headers?.map( (item : string, index: number) => <th key={`${index} -  ${item}`}>{item}</th> ) } </tr>
             </thead>
             {props.body}
         </table>
@@ -805,34 +805,42 @@ export function OcorrenciaParadaRegulagemBody ( props : any ) {
         </tbody>
     )
 }
-
 // ÍNDICE DE REFUGO
 export function IndiceRefugoBody ( props : any ) {
+    var isExistsPosto: string = " ";
+    var totaisBoas: number = 0;
     return (
         <tbody>
             {
-                props?.paradas?.map( (item : IItemIndiceRefugo,index : number) => {
+                
+                props?.postos?.map( (item : IItemIndiceRefugo,index : number) => {
+                    
+                    if(isExistsPosto !== item.maquina){
+                        isExistsPosto = item.maquina;
+                        totaisBoas += 10; 
+                    }else{
+                        totaisBoas += 3; 
+                    }
                     return <>
                         <tr key={index}>
-                            <td className='td-parada-ocorrencia-regulagem'>{item.maquina}</td>
-                            <td className='td-parada-ocorrencia-regulagem'>{item.produto}</td>
-                            <td className='td-parada-ocorrencia-regulagem'>{item.refugo}</td>
-                            <td className='td-parada-ocorrencia-regulagem'>{item.qtdRefugada}</td>
+                            <td>{item.maquina}</td>
+                            <td>{item.produto}</td>
+                            <td>{item.refugo}</td>
+                            <td>{item.qtdRefugada}</td>
+                            <td>0</td>
                         </tr>
                         <tr>
-                            <td colSpan={5}>TOTAIS DO PRODUTO</td>
+                            <td colSpan={5} style={{backgroundColor : "#D0D9ED"}}>TOTAIS DO PRODUTO</td>
                         </tr>
                         <tr>
-                            <td> QTD. BOAS : {item?.totalqtdProduzidoProd - item?.qtdRefugada}</td>
-                            <td>
-                                <p>QTD. PRODUZIDA (A) : {item?.totalqtdProduzidoProd}</p>
-                                <p>QTD. REFUGADA : {item?.qtdRefugada}</p>
-                            </td>
-                            <td>
-                                <td>
+                            <td colSpan={5} style={{backgroundColor : "#B1C2EA"}}>
+                                <div className='container-subtotais-indice-refugo'>
+                                    <p>QTD. BOAS : {item?.totalqtdProduzidoProd - item?.qtdRefugada}</p>
+                                    <p>QTD. PRODUZIDA (A) : {item?.totalqtdProduzidoProd}</p>
+                                    <p>QTD. REFUGADA : {item?.qtdRefugada}</p>
                                     <p>ÍNDICE COM BASE EM (A) : 0.00%</p>
                                     <p>ÍNDICE COM BASE EM (B) : 0.00%</p>
-                                </td>
+                                </div>
                             </td>
                         </tr>
                     </>

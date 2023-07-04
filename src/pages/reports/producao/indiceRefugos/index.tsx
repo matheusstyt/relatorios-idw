@@ -1,5 +1,5 @@
 import { IIndiceRefugoResponse } from "../../../../components/reports/interface/reports/producao/indiceRefugos";
-import { Header, ProducaoEmRegulagemBody, TableDinamic } from "../../../../components/reports/pdf";
+import { Header, IndiceRefugoBody, ProducaoEmRegulagemBody, TableDinamic } from "../../../../components/reports/pdf";
 import { IndiceRefugosServices } from "../../../../components/reports/services/reports/produtos";
 import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 import headers from "../../../../components/reports/pdf/headers.json";
@@ -56,8 +56,8 @@ export default function IndiceRefugos (props : any) {
                 <div className="table-content">
                     {
                     <TableDinamic 
-                        headers={ headers.producao } 
-                        body={ <ProducaoEmRegulagemBody postos={indiceRefugosResponse?.listaRelatorioIndiceRefugo} /> }
+                        headers={ headers.producao.indiceRefugo } 
+                        body={ <IndiceRefugoBody postos={indiceRefugosResponse?.listaRelatorioIndiceRefugo} /> }
                     /> 
                     // <TableDinamic 
                     //     headers={headers.producao.ocorrenciaParadaRegulagem}
