@@ -12,7 +12,8 @@ import { BsEyeFill } from "react-icons/bs";
 import { Button } from '@mui/material';
 import "./export.scss";
 import { IParadaOcorrenciasParada, IParadaProducaoRegulagem, IPostoPeriodo } from '../interface/reports/producao/producaoRegulagem';
-import { IItemIndiceRefugo } from '../interface/reports/producao/indiceRefugos';
+import { IItemIndiceRefugo, IPostoIndiceRefugo, IProdutosIndiceRefugo, IRefugoIndiceRefugo } from '../interface/reports/producao/indiceRefugos';
+import { Fragment } from 'react';
 
 export function Header(props : any) {
     return (
@@ -806,46 +807,125 @@ export function OcorrenciaParadaRegulagemBody ( props : any ) {
     )
 }
 // ÍNDICE DE REFUGO
-export function IndiceRefugoBody ( props : any ) {
-    var isExistsPosto: string = " ";
-    var totaisBoas: number = 0;
+// POR POSTO
+export function IndiceRefugoPostoBody ( props : any ) {
     return (
         <tbody>
             {
-                
-                props?.postos?.map( (item : IItemIndiceRefugo,index : number) => {
-                    
-                    if(isExistsPosto !== item.maquina){
-                        isExistsPosto = item.maquina;
-                        totaisBoas += 10; 
-                    }else{
-                        totaisBoas += 3; 
-                    }
+                props?.postos?.map( (item : IPostoIndiceRefugo,index : number) => {
+                    var isExists: boolean = true;
                     return <>
-                        <tr key={index}>
-                            <td>{item.maquina}</td>
-                            <td>{item.produto}</td>
-                            <td>{item.refugo}</td>
-                            <td>{item.qtdRefugada}</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td colSpan={5} style={{backgroundColor : "#D0D9ED"}}>TOTAIS DO PRODUTO</td>
-                        </tr>
-                        <tr>
-                            <td colSpan={5} style={{backgroundColor : "#B1C2EA"}}>
-                                <div className='container-subtotais-indice-refugo'>
-                                    <p>QTD. BOAS : {item?.totalqtdProduzidoProd - item?.qtdRefugada}</p>
-                                    <p>QTD. PRODUZIDA (A) : {item?.totalqtdProduzidoProd}</p>
-                                    <p>QTD. REFUGADA : {item?.qtdRefugada}</p>
-                                    <p>ÍNDICE COM BASE EM (A) : 0.00%</p>
-                                    <p>ÍNDICE COM BASE EM (B) : 0.00%</p>
-                                </div>
-                            </td>
-                        </tr>
+                        {
+                            item?.produtos?.map((produto: IProdutosIndiceRefugo, index1) => {
+
+                                return <Fragment key={index1}> 
+                                    <tr>
+                                        <td>{isExists ? item.posto : ""}</td>
+                                        <td>{produto.produto}</td>
+                                        <td> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.refugo}</p> ) } </td>
+                                        <td> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.qtdRefugada}</p> ) } </td>
+                                        <td> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.indice}</p> ) } </td>
+                                    </tr>
+                                    <tr>
+                                        <td colSpan={5} style={{backgroundColor : "#F0F4FA"}}>TOTAIS DO PRODUTO</td>
+                                    </tr>
+                                    <tr>
+                                        <td colSpan={5} style={{backgroundColor : "#E7EEF8", borderBottom: "2px dashed #414141"}}>
+                                            <div className='container-subtotais-indice-refugo'>
+                                                <p>QTD. BOAS : {produto?.totalBoas}</p>
+                                                <p>QTD. PRODUZIDA (A) : {produto?.totalProduzido}</p>
+                                                <p>QTD. REFUGADA : {produto?.totalRefugado}</p>
+                                                <p>ÍNDICE COM BASE EM (A) : {produto?.indiceA}</p>
+                                                <p>ÍNDICE COM BASE EM (B) : {produto?.indiceB}</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {isExists = false}
+                                </Fragment>
+                            })
+                        }
+                        <Fragment key={index}>
+                            <tr>
+                                <td colSpan={5} style={{backgroundColor : "#D0D9ED", fontWeight: 500}}>TOTAIS DO POSTO</td>
+                            </tr>
+                            <tr>
+                                <td colSpan={5} style={{backgroundColor : "#D0D9ED", fontWeight: 500}}>
+                                    <div className='container-subtotais-indice-refugo'>
+                                        <p>QTD. BOAS : {item?.totalBoas}</p>
+                                        <p>QTD. PRODUZIDA (A) : {item?.totalProduzido}</p>
+                                        <p>QTD. REFUGADA : {item?.totalRefugado}</p>
+                                        <p>ÍNDICE COM BASE EM (B) : {item?.indiceB}</p>
+                                        <p>ÍNDICE COM BASE EM (C) : {item?.indiceC}</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </Fragment>
                     </>
                 })
             }   
         </tbody>
+    )
+}
+// POR PRODUTOS
+export function IndiceRefugoProdutoBody ( props : any ) {
+    return (
+        <tbody>
+            {
+                props?.produtos?.map((produto: IProdutosIndiceRefugo, index : number) => {
+
+                    return <Fragment key={index}> 
+                        <tr>
+                            <td>{produto.produto}</td>
+                            <td> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.refugo}</p> ) } </td>
+                            <td> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.qtdRefugada}</p> ) } </td>
+                            <td> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.indice}</p> ) } </td>
+                        </tr>
+                        <tr>
+                            <td colSpan={4} style={{backgroundColor : "#F0F4FA", fontWeight: 500}}>TOTAIS DO PRODUTO</td>
+                        </tr>
+                        <tr>
+                            <td colSpan={4} style={{backgroundColor : "#E7EEF8", borderBottom: "2px dashed #414141", fontWeight: 500}}>
+                                <div className='container-subtotais-indice-refugo'>
+                                    <p>QTD. BOAS : {produto?.totalBoas}</p>
+                                    <p>QTD. PRODUZIDA (A) : {produto?.totalProduzido}</p>
+                                    <p>QTD. REFUGADA : {produto?.totalRefugado}</p>
+                                    <p>ÍNDICE COM BASE EM (A) : {produto?.indiceA}</p>
+                                    <p>ÍNDICE COM BASE EM (B) : {produto?.indiceB}</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </Fragment>
+                })
+            }
+        </tbody>
+    )
+}
+// POR PRODUTOS
+export function IndiceRefugoRefugoBody ( props : any ) {
+    return (
+        <tbody>
+            {
+                props?.refugos?.map((refugo: IRefugoIndiceRefugo, index : number) => {
+                    return <tr key={index}>
+                        <td>{refugo.refugo}</td>
+                        <td>{refugo.qtdRefugada}</td>
+                        <td>{refugo.indice}</td>
+                    </tr>
+                })
+            }
+        </tbody>
+    )
+}
+// TOTAL GERAL ÍNDICE PARADAS
+export function TotalGeralIndiceRefugo ( props : any ) {
+    return (
+        <> 
+            <div className="container-totais total-geral" id="totais-totais" style={{maxHeight: "70px"}}>
+                {props.totais.totalProduzido ? <p>QTD. PRODUZIDA: { props?.totais?.totalProduzido }</p> : <></>}
+                {props.totais.totalRefugado ? <p>QTD. REFUGADA: { props?.totais?.totalRefugado }</p> : <></>}
+                {props.totais.totalBoas ? <p>QTD. BOAS: { props?.totais?.totalBoas }</p> : <></>}
+                {props.totais.indice ? <p>ÍNDICE COM BASE EM (C): { props?.totais?.indice }</p> : <></>}
+            </div>
+        </> 
     )
 }

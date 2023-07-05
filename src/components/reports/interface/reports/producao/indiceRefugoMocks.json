@@ -1,0 +1,182 @@
+{
+    "posto" : {
+        "totalProduzido" : "1.003,00",
+        "totalRefugado" : "3,00",
+        "totalBoas" : "1.000,00",
+        "indice" : "50%",
+
+        "itens" : [
+            {
+                "posto" : "MONT_14",
+                "totalProduzido" : "500",
+                "totalRefugado" : "470",
+                "totalBoas" : "30",
+                "indiceC" : "20%",
+                "indiceB" : "5%",
+                "produtos" : [
+                    {
+                        "produto" : "PROD01",
+                        "totalProduzido" : "500",
+                        "totalRefugado" : "470",
+                        "totalBoas" : "30",
+                        "indiceA" : "20%",
+                        "indiceB" : "5%",
+                        "refugos" : [
+                            {
+                                "refugo" : "Teste refugo",
+                                "qtdRefugada" : "10",
+                                "indice": "0,25%"
+                            },
+                            {
+                                "refugo" : "Teste refugo 1",
+                                "qtdRefugada" : "20",
+                                "indice": "0,50%"
+                            }
+                        ]
+                    },
+                    {
+                        "produto" : "PROD05",
+                        "totalProduzido" : "3450",
+                        "totalRefugado" : "10",
+                        "totalBoas" : "3440",
+                        "indiceA" : "2%",
+                        "indiceB" : "1%",
+                        "refugos" : [
+                            {
+                                "refugo" : "Teste refugo 3",
+                                "qtdRefugada" : "7",
+                                "indice": "0,25%"
+                            },
+                            {
+                                "refugo" : "Teste refugo 4",
+                                "qtdRefugada" : "3",
+                                "indice": "0,50%"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "posto" : "MONT_18",
+                "totalProduzido" : "7000",
+                "totalRefugado" : "300",
+                "totalBoas" : "6700",
+                "indiceC" : "4%",
+                "indiceB" : "5%",
+                "produtos" : [
+                    {
+                        "produto" : "PROD02",
+                        "totalProduzido" : "500",
+                        "totalRefugado" : "470",
+                        "totalBoas" : "30",
+                        "indiceA" : "20%",
+                        "indiceB" : "5%",
+                        "refugos" : [
+                            {
+                                "refugo" : "Teste refugo 6",
+                                "qtdRefugada" : "10",
+                                "indice": "0,25%"
+                            },
+                            {
+                                "refugo" : "Teste refugo 7",
+                                "qtdRefugada" : "20",
+                                "indice": "0,50%"
+                            }
+                        ]
+                    },
+                    {
+                        "produto" : "PROD03",
+                        "totalProduzido" : "3450",
+                        "totalRefugado" : "10",
+                        "totalBoas" : "3440",
+                        "indiceA" : "2%",
+                        "indiceB" : "1%",
+                        "refugos" : [
+                            {
+                                "refugo" : "Teste refugo 8",
+                                "qtdRefugada" : "7",
+                                "indice": "0,25%"
+                            },
+                            {
+                                "refugo" : "Teste refugo 9",
+                                "qtdRefugada" : "3",
+                                "indice": "0,50%"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "produto" : {
+        "totalProduzido" : "1000",
+        "totalRefugado" : "110",
+        "totalBoas" : "890",
+        "indice" : "10%",
+
+        "itens" : [
+            {
+                "produto" : "PROD01",
+                "totalProduzido" : "500",
+                "totalRefugado" : "470",
+                "totalBoas" : "30",
+                "indiceA" : "20%",
+                "indiceB" : "5%",
+                "refugos" : [
+                    {
+                        "refugo" : "Teste refugo 10",
+                        "qtdRefugada" : "10",
+                        "indice": "0,25%"
+                    },
+                    {
+                        "refugo" : "Teste refugo 11",
+                        "qtdRefugada" : "20",
+                        "indice": "0,50%"
+                    }
+                ]
+            },
+            {
+                "produto" : "PROD02",
+                "totalProduzido" : "700",
+                "totalRefugado" : "2",
+                "totalBoas" : "698",
+                "indiceA" : "11%",
+                "indiceB" : "5%",
+                "refugos" : [
+                    {
+                        "refugo" : "Teste refugo 9",
+                        "qtdRefugada" : "10",
+                        "indice": "0,25%"
+                    }
+      
+                ]
+            }
+        ]
+    },
+    "refugo" : {
+        "totalRefugado" : "24",
+        "itens" : [
+            {
+                "refugo" : "Teste refugo 8",
+                "qtdRefugada" : "5",
+                "indice": "0,25%"
+            },
+            {
+                "refugo" : "Teste refugo 9",
+                "qtdRefugada" : "20",
+                "indice": "0,50%"
+            },
+            {
+                "refugo" : "Teste refugo 10",
+                "qtdRefugada" : "15",
+                "indice": "0,25%"
+            },
+            {
+                "refugo" : "Teste refugo 11",
+                "qtdRefugada" : "4",
+                "indice": "0,50%"
+            }
+        ]
+    }
+
+}

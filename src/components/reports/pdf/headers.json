@@ -242,13 +242,26 @@
             "FOLHA / RAP's",
             "TEMPO"
         ],
-        "indiceRefugo" : [
-            "POSTO",
-            "PRODUTO",
-            "REFUGO",
-            "QUANTIDADE",
-            "ÍNDICE COM BASE EM (A)"
-        ]
+        "indiceRefugo" : {
+            "posto" : [
+                "POSTO",
+                "PRODUTO",
+                "REFUGO",
+                "QUANTIDADE",
+                "ÍNDICE COM BASE EM (A)"
+            ],
+            "produto" : [
+                "PRODUTO",
+                "REFUGO",
+                "QUANTIDADE",
+                "ÍNDICE COM BASE EM (A)"
+            ],
+            "refugo" : [
+                "REFUGO",
+                "QUANTIDADE",
+                "ÍNDICE COM BASE EM (A)"
+            ]
+        }
     },
     "planejamento" : {
         "planejadoxrealizado" : [

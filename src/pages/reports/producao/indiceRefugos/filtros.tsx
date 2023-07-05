@@ -6,6 +6,7 @@ import { Formatar } from "../../../../components/reports/pdf/datetime";
 import OpPeriodo from "../../../../components/reports/filtros/opPeriodo";
 import AgrupamentoContagem from "../../../../components/reports/filtros/agrupamentoContagem";
 import PostosFerramentas from "../../../../components/reports/filtros/postosFerramentas";
+import Contagem from "../../../../components/reports/subFiltros/contagem";
 
 
 const Filtros = (props : any) => {
@@ -45,12 +46,11 @@ const Filtros = (props : any) => {
             cdGrpFerramenta : postoFerramentaSelecionado === "grupoFerramenta" ? postoFerramentaValorSelecionado : null,
 
             isAgrupadoPorPt: exibirAgrupamentoSelecionado==="agrupamentoPosto",
-            isAgrupadoPorFerramenta: exibirAgrupamentoSelecionado==="agrupamentoFerramenta",
+            isAgrupadoPorRefugo: exibirAgrupamentoSelecionado==="agrupamentoRefugo",
             isAgrupadoPorProduto: exibirAgrupamentoSelecionado==="agrupamentoProduto",
             isProducaoEmPeca: exibirProducaoSelecionado==="pecas",
             isPesoEmKg: exibirProducaoSelecionado!="pecas" && exibirPesoSelecionado=="kilograma",
             isPesoEmTon: exibirProducaoSelecionado!="pecas" &&  exibirPesoSelecionado=="tonelada",
-            isFiltrarApenasPostosComRegulagem: isFiltrarApenasPostosComRegulagem
         };
         
         let grupoTrabalho = "TODOS OS POSTOS";
@@ -68,7 +68,7 @@ const Filtros = (props : any) => {
 
         let agrupamento = "POSTO";
         exibirAgrupamentoSelecionado==="agrupamentoPosto" ? agrupamento = "POSTO" :
-        exibirAgrupamentoSelecionado==="agrupamentoFerramenta" ? agrupamento = "FERRAMENTA" :
+        exibirAgrupamentoSelecionado==="agrupamentoRefugo" ? agrupamento = "REFUGO" :
         exibirAgrupamentoSelecionado==="agrupamentoProduto" ? agrupamento = "PRODUTO" : agrupamento = ""
 
         let descricao : Object[] = [];
@@ -99,71 +99,59 @@ const Filtros = (props : any) => {
                 postoFerramentaSelecionado={(value : any) => setPostoFerramentaSelecionado(value)}
                 changed={(value : any) => setPostoFerramentaValorSelecionado(value)}
             />
-            <FormControlLabel
-                value="FiltrarPostosComParadas"
-                label="Filtrar somente postos com paradas de regulagem"
-                data-label="Filtrar somente postos com paradas de regulagems"
-                name="FiltrarPostosComParadas"
-                className="form"
-                control={ <Checkbox 
-                    value={isFiltrarApenasPostosComRegulagem}
-                    onChange={() => {setIsFiltrarApenasPostosComRegulagem(!isFiltrarApenasPostosComRegulagem)}}
-                />}
-            />
             <Divider />
-            <AgrupamentoContagem
-                producaoValorSelecionado={(value : any) => setExibirProducaoSelecionado(value)}
-                pesoValorSelecionado={(value : any) => setExibirPesoSelecionado(value)}
-                agrupamentoValorSelecionado={(value : any) => setExibirAgrupamentoSelecionado(value)}
-            />
-
-            <Divider/>
             <div className="container-filtro">
-                <h3>Produção e Paradas</h3>
+                <h3>Agrup. e Contagem de Produção</h3>
+            
                 <RadioGroup 
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue={exibirAgrupamentoSelecionado}
                     name="radio-buttons-group"
                     className="radio"
+
                     onChange={(e) => {
-                        setExibirProducaoOcorrencia(e.target.value);
+                        setExibirAgrupamentoSelecionado(e.target.value);
                     }} >
-                    <div>
-                        <FormControlLabel
-                            value="producaoRegulagem"
-                            control={<Radio />}
-                            label="Relatório de produção em regulagem"
-                            name="producaoRegulagem"
-                            className="form"
-                        />
-                        <FormControlLabel
-                            value="grupoFerramenta"
-                            label="Exibir paradas"
-                            disabled={exibirProducaoOcorrencia !== "producaoRegulagem"}
-                            data-label="Exibir paradas"
-                            name="grupoFerramenta"
-                            className="form"
-                            control={ <Checkbox 
-                                defaultChecked={true}
-                                value={isExibirParadas}
-                                onChange={() => {
-                                    setIsExibirParadas(!isExibirParadas);
-                                }}
-                            />}
-                        />
-                    </div>
                     <FormControlLabel
-                        value="ocorrenciaRegulagem"
+                        control={<h4>Agrupar dados por: </h4>}
+                        label=""
+                        className="form"
+                    />
+                    <FormControlLabel
+                        value="agrupamentoPosto"
                         control={<Radio />}
-                        label="Relatório de ocorrência de parada de regulagem"
-                        name="ocorrenciaRegulagem"
+                        label="Posto"
+                        name="agrupamentoPosto"
+                        className="form"
+                    />
+                    <FormControlLabel
+                        value="agrupamentoProduto"
+                        control={<Radio />}
+                        label="Produto"
+                        name="agrupamentoProduto"
+                        className="form"
+                    />
+                    <FormControlLabel
+                        value="agrupamentoRefugo"
+                        control={<Radio />}
+                        label="Refugo"
+                        name="agrupamentoRefugo"
                         className="form"
                     />
                 </RadioGroup>
+            
+            <Divider/>
+            <Contagem 
+                producaoValorSelecionado={(value : any) => setExibirProducaoSelecionado(value)}
+                pesoValorSelecionado={(value : any) => setExibirPesoSelecionado(value)}
+            />
             </div>
+
+            <Divider/>
+
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
                 <Button variant="contained">LIMPAR</Button>
-                <Button disabled={periodoChecked && exibirProducaoOcorrencia !== "" ? false : true} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
+                <Button disabled={!periodoChecked} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
             </Container>
         </div>
     )
