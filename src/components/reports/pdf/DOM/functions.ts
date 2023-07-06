@@ -2,44 +2,76 @@ export function ColecaoHTMLParaArrayBodyPadrao(Tbody: HTMLTableSectionElement | 
     
     const listTr: HTMLCollectionOf<HTMLTableRowElement> | any = Tbody?.children;
     const body: Object[] = [];
-    console.log(Tbody)  
     Array.from(listTr).forEach((tr : any ) => {
-                
+        
         let arrRow: any[] = [];
         Array.from(tr.children).forEach((td: any) => {
             let cell: any[] | Object = [];
-            
-            if(td.children.length > 0){
-                // caso tenha tag P dentro da tag TD, irá criar uma lista com esses filhos
-                cell = Array.from(td.children).map(( p : any) => { 
-                    return {text: p.textContent, fontSize}; 
-                });
-            }else{
-                // criará um objeto da célula
-                let margin: any[] = [0, 0, 0 , 0];
-                let fillColor: string = "#fff";
+            const colspan = parseInt(td.getAttribute("colspan")) | 1;
+            // primeiro, ele verifica o colspan
+            if(colspan > 1){
+          
+                if(td?.classList.contains("td-subtotais")){
+                    
+                    let subTotaisArr:any[] = [];
+                    
+                    subTotaisArr = Array.from(td?.firstElementChild?.children).map((p: any) => {
+                        return {text: p?.textContent, fontSize: fontSize, maker: "", listType: "none"}
+                    }) 
+                    // por algum motivo, ele ñ reconhece o colspan 4, pula para 5 e buga o por produtos
+                    arrRow.push(
+                        {colSpan: td.classList.contains('por-produtos') ? 4 : colspan, fillColor: "#d9e1f0", columns: dividirColuna(subTotaisArr)}
+                    )
+                }else{
+                    arrRow.push({text : td.textContent, fillColor: "#c7d2ee", fontSize: fontSize, colSpan: td.classList.contains('por-produtos') ? 4 : colspan})
+                }
+               // console.log(arrRow)
+            }else{  
 
-                // indice de paradas
-                if(td.classList.contains("td-indiceparada")) margin = [10, 5, 100, 5];
+                if(td.children.length > 0){
+                    // caso tenha tag P dentro da tag TD, irá criar uma lista com esses filhos
+                    cell = Array.from(td.children).map(( p : any) => { 
+                        return {text: p.textContent, fontSize}; 
+                    });
 
-                // produção em regulagem e/ ou ocorrencia de paradas em regulagem
-                if(td.classList.contains("td-parada-ocorrencia-regulagem")) margin = [10, 5, 150, 5];
-       
-                cell = {
-                    margin,
-                    fillColor,
-                    text: td.textContent, 
-                    width: ["*"], 
-                    _minWidth: 0, 
-                    fontSize, 
-                    _maxWidth: 0
-                };
+                }else{
+                    // criará um objeto da célula
+                    let margin: any[] = [0, 0, 0 , 0];
+                    let fillColor: string = "#fff";
+    
+                    // indice de paradas
+                //    if(td.classList.contains("td-indiceparada")) margin = [10, 5, 100, 5];
+                    
+                    // indice de refugo
+                 //   if(td.classList.contains("td-indicerefugo")) margin = [10, 5, 200, 5];
+                    
+                    // indice de refugo por produto
+                  //  if(td.classList.contains("td-indicerefugo-produto")) margin = [10, 5, 460, 5];
+
+                    // indice de refugo por refugo
+                    //if(td.classList.contains("td-indicerefugo-refugo")) margin = [10, 5, 220, 5];
+
+                    // produção em regulagem e/ ou ocorrencia de paradas em regulagem
+                  //  if(td.classList.contains("td-parada-ocorrencia-regulagem")) margin = [10, 5, 150, 5];
+           
+                    cell = {
+                        margin,
+                        fillColor,
+                        text: td.textContent, 
+                        width: ["auto"], 
+                        _minWidth: 100, 
+                        fontSize, 
+                        _maxWidth: 0
+                    };
+                }
+                arrRow.push(cell);
             }
-            arrRow.push(cell);
+            
         });
         body.push(arrRow);
 
     });
+    console.log(body)
     return body;
 }
 // FIM  

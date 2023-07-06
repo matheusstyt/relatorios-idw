@@ -1,6 +1,6 @@
 import { IParadaIndiceParadaXPosto, ISubRelatorioIndiceParada } from '../interface/reports/paradas/indiceParadasXPosto';
 import { IListaDTO, IOperador, ItemProducaoEficienciaHoraAHora } from '../interface/reports/producao/analiseProducao';
-import { IIndiceParadasResponse, IItemIndiceParada, IParada, IPostoParada } from '../interface/reports/paradas/indiceParadas';
+import { IItemIndiceParada, IParada, IPostoParada } from '../interface/reports/paradas/indiceParadas';
 import { IItemPlanejaxRealizado } from '../interface/reports/planejamento/planejadoxrealizado';
 import { IFerramenta, IPosto, IProduto } from '../interface/reports/producao/consolidados';
 import { IPostoIntervalo } from '../interface/reports/producao/acompanhamentoProducao';
@@ -12,7 +12,7 @@ import { BsEyeFill } from "react-icons/bs";
 import { Button } from '@mui/material';
 import "./export.scss";
 import { IParadaOcorrenciasParada, IParadaProducaoRegulagem, IPostoPeriodo } from '../interface/reports/producao/producaoRegulagem';
-import { IItemIndiceRefugo, IPostoIndiceRefugo, IProdutosIndiceRefugo, IRefugoIndiceRefugo } from '../interface/reports/producao/indiceRefugos';
+import {  IPostoIndiceRefugo, IProdutosIndiceRefugo, IRefugoIndiceRefugo } from '../interface/reports/producao/indiceRefugos';
 import { Fragment } from 'react';
 
 export function Header(props : any) {
@@ -37,23 +37,7 @@ export function Header(props : any) {
         </div>
     )
 }
-export function TotalGeralIndiceParadaXPosto (props : any) {
-    return (
-        <div className="container-totais total-geral" id="totais-totais">
-            <p>TEMPO ATIVO TOTAL (D): { convertSecondsToTime(props.dados?.tempoAtivo)}</p>
-            <p>TEMPO PARADAS SEM PESO NA EFICIENCIA: { convertSecondsToTime(props.dados?.tempoParadasSP) }</p>
-            <p>TEMPO PARADAS COM PESO NA EFICIENCIA (E): { convertSecondsToTime(props.dados?.tempoParadasCP) }</p>
-            <p>HORAS PRODUTIVAS: { convertSecondsToTime(props.dados?.horasProdutivas)}</p>
-            <p>ÍNDICE (E)/(D): {props.dados?.indiceED}</p>
-            <p>QTDE OCORR. PPE: {props.dados?.qtdOcorrenciasPPE}</p>
-            <p>QTDE OCORR. MTBF/MTTR: {props.dados?.qtdMTTR_MTBF}</p>
-            <p>TEMPO PARADAS MTBF/MTTR: { convertSecondsToTime(props.dados?.tempoMTTR_MTBF) }</p>
-            <p>% DISP.: {props.dados?.disponibilidade?.toFixed(2)}</p>
-            <p>MTTR (min): {props.dados?.segMTTR}</p>
-            <p>MTBF (min): {props.dados?.segMTBF?.toFixed(2)}</p>
-        </div>
-    )
-}
+
 export function TableDinamic ( props : any ){
     return (
         <table id="table-main">
@@ -78,7 +62,7 @@ export function TableDinamic ( props : any ){
 // POR POSTO
 export function ConsolidadosPostoBody ( props : any ){
     return  (
-        <tbody>
+        <tbody className='t-consolidados'>
             {
                 props?.postos?.map( (posto : IPosto ,index : number) => {
                     return <tr key={index}>
@@ -164,9 +148,8 @@ export function ConsolidadosPostoBody ( props : any ){
 }
 // POR FERRAMENTA
 export function ConsolidadosFerramentaBody ( props : any ){
-    console.log(props.ferramentas)
     return  (
-        <tbody>
+        <tbody className='t-consolidados'>
             {
                 props?.ferramentas?.map( (ferramenta : IFerramenta ,index : number) => {
                     return <tr key={index}>
@@ -257,9 +240,8 @@ export function ConsolidadosFerramentaBody ( props : any ){
 }
 // POR PRODUTO
 export function ConsolidadosProdutoBody ( props : any ){
-    console.log(props.produtos)
     return  (
-        <tbody>
+        <tbody className='t-consolidados'>
             {
                 props?.produtos?.map( (produto : IProduto ,index : number) => {
                     return <tr key={index}>
@@ -371,7 +353,7 @@ export function TotalGeralConsolidados ( props : any ) {
 // PLANEJADO X REALIZADO
 export function PlanejadoXRealizadoBody ( props : any ) {
     return (
-        <tbody>
+        <tbody className='t-planejaxrealizado'>
             {
                 props?.itens?.map( (item : IItemPlanejaxRealizado ,index : number) => {
                     return <tr key={index}>
@@ -396,12 +378,11 @@ export function PlanejadoXRealizadoBody ( props : any ) {
 }
 // ÍNDICE PARADA POR POSTO
 export function IndiceParadaXPostoBody( props : any ){
-    console.log(props.parada);
     return ( 
         props.parada?.subRelatorioIndiceParadas?.map((row : ISubRelatorioIndiceParada, index : number) => {
             return (
                 
-                <tbody className={`t-indiceparadaxposto`}>
+                <tbody className="t-indiceparadaxposto">
                     <tr>
                         <td>{row?.maquina}</td>
                         <td>{ convertSecondsToTime( row?.tempoAtivo ) }</td>
@@ -412,7 +393,7 @@ export function IndiceParadaXPostoBody( props : any ){
                     
                     </tr>
                     <tr>
-                        <td colSpan={6}>
+                        <td colSpan={6} style={{backgroundColor : "#1d6bc4"}}>
                             <div className="container-totais sub-totais">
                                 <p>TEMPO DE PARADAS DO POSTO (C): { props.parada?.itensRelatorio[index]?.tempoParada }</p>
                                 <p>HORAS PRODUTIVAS: {props.parada?.itensRelatorio[index]?.horasProdutivas }</p>
@@ -433,11 +414,28 @@ export function IndiceParadaXPostoBody( props : any ){
         })     
     )
 }
+// TOTAL GERAL
+export function TotalGeralIndiceParadaXPosto (props : any) {
+    return (
+        <div className="container-totais total-geral" id="totais-totais">
+            <p>TEMPO ATIVO TOTAL (D): { convertSecondsToTime(props.dados?.tempoAtivo)}</p>
+            <p>TEMPO PARADAS SEM PESO NA EFICIENCIA: { convertSecondsToTime(props.dados?.tempoParadasSP) }</p>
+            <p>TEMPO PARADAS COM PESO NA EFICIENCIA (E): { convertSecondsToTime(props.dados?.tempoParadasCP) }</p>
+            <p>HORAS PRODUTIVAS: { convertSecondsToTime(props.dados?.horasProdutivas)}</p>
+            <p>ÍNDICE (E)/(D): {props.dados?.indiceED}</p>
+            <p>QTDE OCORR. PPE: {props.dados?.qtdOcorrenciasPPE}</p>
+            <p>QTDE OCORR. MTBF/MTTR: {props.dados?.qtdMTTR_MTBF}</p>
+            <p>TEMPO PARADAS MTBF/MTTR: { convertSecondsToTime(props.dados?.tempoMTTR_MTBF) }</p>
+            <p>% DISP.: {props.dados?.disponibilidade?.toFixed(2)}</p>
+            <p>MTTR (min): {props.dados?.segMTTR}</p>
+            <p>MTBF (min): {props.dados?.segMTBF?.toFixed(2)}</p>
+        </div>
+    )
+}
 // FICHA TÉCNICA 
 export function FichaTecnicaBody( props : any){
-    console.log(props)
     return (
-        <tbody>
+        <tbody className='t-fichatecnica'>
             {
                 props?.itens?.map( (item : IProdutoFichaTecnica ,index : number) => {
                     return <tr key={index}>
@@ -520,7 +518,7 @@ export function AnaliseProducaoBody( props : any){
 // ACOMPANHAMENTO DE PRODUÇÃO
 export function AcompanhamentoProducaoBody ( props : any ) {
     return (
-        <tbody>
+        <tbody className='t-acompanhamento'>
             {
                 props?.postos?.map( (item : IPostoIntervalo ,index : number) => {
                     return <tr key={index}>
@@ -572,13 +570,9 @@ export function TotalGeralAcompanhamentoProducao ( props : any ) {
         </table>
     )
 }
-
-
-
 // ÍNDICE DE PARADAS
 // PARÃO
 export function IndiceParadasPadraoBody ( props : any ) {
-    console.log(props)
     return <tbody className='t-indiceparadapadrao'>
         {
             props?.paradas?.map( (parada : IParada ,index : number) => {
@@ -682,10 +676,9 @@ export function TotalGeralIndiceParadas ( props : any ) {
         </div>
     )
 }
-
 // PRODUÇÃO EM REGULAGEM
 export function ProducaoEmRegulagemBody ( props : any ) {
-    return <tbody>
+    return <tbody className='t-producaoregulagem'>
         {
             props?.postos?.map( (posto : IPostoPeriodo ,index : number) => {
                 return <>
@@ -792,7 +785,7 @@ export function TotalGeralProducaoRegulagem ( props : any ) {
 // OCORRÊNCIA DE PARADA DE REGULAGEM
 export function OcorrenciaParadaRegulagemBody ( props : any ) {
     return (
-        <tbody>
+        <tbody className='t-ocorrenciaregulagem'>
             {
                 props?.paradas?.map( (parada : IParadaOcorrenciasParada ,index : number) => {
                     return <tr key={index}>
@@ -810,7 +803,7 @@ export function OcorrenciaParadaRegulagemBody ( props : any ) {
 // POR POSTO
 export function IndiceRefugoPostoBody ( props : any ) {
     return (
-        <tbody>
+        <tbody className='t-indicerefugo'>
             {
                 props?.postos?.map( (item : IPostoIndiceRefugo,index : number) => {
                     var isExists: boolean = true;
@@ -820,17 +813,17 @@ export function IndiceRefugoPostoBody ( props : any ) {
 
                                 return <Fragment key={index1}> 
                                     <tr>
-                                        <td>{isExists ? item.posto : ""}</td>
-                                        <td>{produto.produto}</td>
-                                        <td> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.refugo}</p> ) } </td>
-                                        <td> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.qtdRefugada}</p> ) } </td>
-                                        <td> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.indice}</p> ) } </td>
+                                        <td className='td-indicerefugo'>{isExists ? item.posto : ""}</td>
+                                        <td className='td-indicerefugo'>{produto.produto}</td>
+                                        <td className='td-indicerefugo'> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.refugo}</p> ) } </td>
+                                        <td className='td-indicerefugo'> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.qtdRefugada}</p> ) } </td>
+                                        <td className='td-indicerefugo'> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.indice}</p> ) } </td>
                                     </tr>
                                     <tr>
                                         <td colSpan={5} style={{backgroundColor : "#F0F4FA"}}>TOTAIS DO PRODUTO</td>
                                     </tr>
                                     <tr>
-                                        <td colSpan={5} style={{backgroundColor : "#E7EEF8", borderBottom: "2px dashed #414141"}}>
+                                        <td className='td-subtotais' colSpan={5} style={{backgroundColor : "#E7EEF8", borderBottom: "2px dashed #414141"}}>
                                             <div className='container-subtotais-indice-refugo'>
                                                 <p>QTD. BOAS : {produto?.totalBoas}</p>
                                                 <p>QTD. PRODUZIDA (A) : {produto?.totalProduzido}</p>
@@ -849,7 +842,7 @@ export function IndiceRefugoPostoBody ( props : any ) {
                                 <td colSpan={5} style={{backgroundColor : "#D0D9ED", fontWeight: 500}}>TOTAIS DO POSTO</td>
                             </tr>
                             <tr>
-                                <td colSpan={5} style={{backgroundColor : "#D0D9ED", fontWeight: 500}}>
+                                <td className='td-subtotais' colSpan={5} style={{backgroundColor : "#D0D9ED", fontWeight: 500}}>
                                     <div className='container-subtotais-indice-refugo'>
                                         <p>QTD. BOAS : {item?.totalBoas}</p>
                                         <p>QTD. PRODUZIDA (A) : {item?.totalProduzido}</p>
@@ -869,22 +862,22 @@ export function IndiceRefugoPostoBody ( props : any ) {
 // POR PRODUTOS
 export function IndiceRefugoProdutoBody ( props : any ) {
     return (
-        <tbody>
+        <tbody className='t-indicerefugo'>
             {
                 props?.produtos?.map((produto: IProdutosIndiceRefugo, index : number) => {
 
                     return <Fragment key={index}> 
                         <tr>
-                            <td>{produto.produto}</td>
-                            <td> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.refugo}</p> ) } </td>
-                            <td> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.qtdRefugada}</p> ) } </td>
-                            <td> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.indice}</p> ) } </td>
+                            <td className='td-indicerefugo-produto'>{produto.produto}</td>
+                            <td className='td-indicerefugo-produto'> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.refugo}</p> ) } </td>
+                            <td className='td-indicerefugo-produto'> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.qtdRefugada}</p> ) } </td>
+                            <td className='td-indicerefugo-produto'> { produto.refugos?.map((refugo : IRefugoIndiceRefugo) => <p>{refugo.indice}</p> ) } </td>
                         </tr>
                         <tr>
-                            <td colSpan={4} style={{backgroundColor : "#F0F4FA", fontWeight: 500}}>TOTAIS DO PRODUTO</td>
+                            <td className='por-produtos' colSpan={4} style={{backgroundColor : "#F0F4FA", fontWeight: 500}}>TOTAIS DO PRODUTO</td>
                         </tr>
                         <tr>
-                            <td colSpan={4} style={{backgroundColor : "#E7EEF8", borderBottom: "2px dashed #414141", fontWeight: 500}}>
+                            <td className='td-subtotais por-produtos' colSpan={4} style={{backgroundColor : "#E7EEF8", borderBottom: "2px dashed #414141", fontWeight: 500}}>
                                 <div className='container-subtotais-indice-refugo'>
                                     <p>QTD. BOAS : {produto?.totalBoas}</p>
                                     <p>QTD. PRODUZIDA (A) : {produto?.totalProduzido}</p>
@@ -903,13 +896,13 @@ export function IndiceRefugoProdutoBody ( props : any ) {
 // POR PRODUTOS
 export function IndiceRefugoRefugoBody ( props : any ) {
     return (
-        <tbody>
+        <tbody className='t-indicerefugo'>
             {
                 props?.refugos?.map((refugo: IRefugoIndiceRefugo, index : number) => {
                     return <tr key={index}>
-                        <td>{refugo.refugo}</td>
-                        <td>{refugo.qtdRefugada}</td>
-                        <td>{refugo.indice}</td>
+                        <td className='td-indicerefugo-refugo'>{refugo.refugo}</td>
+                        <td className='td-indicerefugo-refugo'>{refugo.qtdRefugada}</td>
+                        <td className='td-indicerefugo-refugo'>{refugo.indice}</td>
                     </tr>
                 })
             }

@@ -68,14 +68,11 @@ const relatorioPDF = (props: any) => {
           ...props?.headers?.map((th : any) => th),
           ...props?.body?.map((row: any) => row),
         ],
-        width: ["auto"],
+        widths: props?.widths,
         alignment: "center",
 
       },
-      
       layout: props.layout || "lightHorizontalLines",
-
-    //  width: ["500"],
       style: "tableCell",
     },
     // VERIFICA SE HÁ TOTAL

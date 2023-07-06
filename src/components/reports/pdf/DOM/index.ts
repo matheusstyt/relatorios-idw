@@ -10,7 +10,7 @@ export function getTableDinamicDOM (descricao : Object, title: string, orientati
     // TRECHO QUE BUSCA O CABEÇALHO DA TABELA      
     const headers: any[] = [];
     let body: Object[] = [];
-
+    let tableAutoWidth = false;
     const thead: HTMLCollectionOf<HTMLTableSectionElement> | any = tabela?.getElementsByTagName("thead");
     for ( let i = 0; i < thead?.length; i++) {
         const primeiroThead: HTMLTableSectionElement | any = thead?.[i];
@@ -52,7 +52,12 @@ export function getTableDinamicDOM (descricao : Object, title: string, orientati
         }else{
             
             body = body.concat(ColecaoHTMLParaArrayBodyPadrao(Tbody, fontSize));
-            
+        }
+        // atualmente todas as tableas então com a largura ocupando tudo (*), e consolidados por exemplo,
+        // buga. Essa lógica serve pra mudar o widths para "auto" e ñ "*".
+        // nesse trecho vou comparar a class pra usar o "auto" ao invés do "*" lá embaixo
+        if(Tbody?.className === "t-consolidados" || Tbody?.className === "t-planejaxrealizado" || Tbody?.className === "t-fichatecnica"){
+            tableAutoWidth = true;
         }
     }
     // TOTAL GERAL PRODUÇÃO EM REGULAGEM 
@@ -89,8 +94,14 @@ export function getTableDinamicDOM (descricao : Object, title: string, orientati
     } catch (error) {
         
     }
-    console.log(headers);
-    console.log(body);
+    // cria um array com as larguras das células e deixar sempre tamanho máximo
+    const widths: string[] = [];
+    headers[0].forEach((cell : {colSpan: number}) => {
+        tableAutoWidth ? widths.push("auto") : widths.push("*");
+    });
+  // content
+  //  console.log(headers);
+   // console.log(body);
     relatorioPDF({
         headers, 
         body, 
@@ -100,6 +111,7 @@ export function getTableDinamicDOM (descricao : Object, title: string, orientati
         fontSize,
         marginTop,
         orientation,
-        isDownload
+        isDownload,
+        widths
     });
 }

@@ -37,8 +37,8 @@ export default function IndiceParadasXPosto (props : any) {
                         getTableDinamicDOM(
                             descricao, // lista de descrição dinâmica
                             `${props.title}`, // título da página
-                            "portrait", // orientação da página
-                            10, // tamanho da fonte
+                            "landscape", // orientação da página
+                            8, // tamanho da fonte
                             90, // margem de baixo da página
                             isDownload
                         ) }

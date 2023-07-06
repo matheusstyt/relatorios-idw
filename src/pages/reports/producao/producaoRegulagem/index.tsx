@@ -48,7 +48,11 @@ export default function ProducaoRegulagem (props : any) {
         return (
             <div className="export-content">
                 <Header 
-                    title={`${props.title} - POR ${descricao[4].description}`}
+                    title={
+                        isProducaoRegulagem ?
+                        `${props.title} - POR ${descricao[4].description}` : 
+                        "Ocorrências de paradas de regulagem (R025)"
+                }
 
                     getTableDOM={(isDownload: boolean) =>
                         {
@@ -63,7 +67,7 @@ export default function ProducaoRegulagem (props : any) {
                         ) :
                         getTableDinamicDOM(
                             descricao, // lista de descrição dinâmica
-                            `${props.title} - POR ${descricao[4].description}`, // título da página
+                            "Ocorrências de paradas de regulagem (R025)", // título da página
                             "portrait", // orientação da página
                             7, // tamanho da fonte
                             90, // margem de baixo da página

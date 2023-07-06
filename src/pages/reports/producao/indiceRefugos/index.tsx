@@ -51,7 +51,7 @@ export default function IndiceRefugos (props : any) {
                             descricao, // lista de descrição dinâmica
                             `${props.title} - POR ${descricao[4].description}`, // título da página
                             "landscape", // orientação da página
-                            6, // tamanho da fonte
+                            10, // tamanho da fonte
                             90, // margem de baixo da página
                             isDownload
                         ) 

@@ -85,6 +85,7 @@ const Filtros = (props : any) => {
         props.getPayload(payload);
         props.getDescricao(descricao);
         props.openPreview(true);
+        console.log(payload)
 
     }
     return (
@@ -97,7 +98,7 @@ const Filtros = (props : any) => {
                 dataInicio={(value : any) => setDataInicio(value)}
                 dataTermino={(value : any) => setDataTermino(value)}
             />
-            <Tipos changed={(value : string) => setTipoSelecionado(value)} />
+            {/* <Tipos changed={(value : string) => setTipoSelecionado(value)} /> */}
             <Divider />
             <PostosFerramentas
                 postoFerramentaSelecionado={(value : any) => setPostoFerramentaSelecionado(value)}

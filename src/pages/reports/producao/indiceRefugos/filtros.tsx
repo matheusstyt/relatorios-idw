@@ -6,7 +6,7 @@ import { Formatar } from "../../../../components/reports/pdf/datetime";
 import OpPeriodo from "../../../../components/reports/filtros/opPeriodo";
 import AgrupamentoContagem from "../../../../components/reports/filtros/agrupamentoContagem";
 import PostosFerramentas from "../../../../components/reports/filtros/postosFerramentas";
-import Contagem from "../../../../components/reports/subFiltros/contagem";
+    import Contagem from "../../../../components/reports/subFiltros/contagem";
 
 
 const Filtros = (props : any) => {
