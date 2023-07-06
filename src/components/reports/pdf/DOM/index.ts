@@ -99,9 +99,7 @@ export function getTableDinamicDOM (descricao : Object, title: string, orientati
     headers[0].forEach((cell : {colSpan: number}) => {
         tableAutoWidth ? widths.push("auto") : widths.push("*");
     });
-  // content
-  //  console.log(headers);
-   // console.log(body);
+  // método para gerar o pdf
     relatorioPDF({
         headers, 
         body, 

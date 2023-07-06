@@ -13,7 +13,6 @@ const Produtos = (props : any) => {
 
         getAllProducts()
         .then((result : any) => {
-            console.log(result)
             let lista = result.data.items.map((i: any)=>{
                 return {
                     value: `${i?.cdProduto} - ${i?.dsProduto}`,

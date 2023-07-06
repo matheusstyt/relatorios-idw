@@ -154,13 +154,13 @@ h2{
         align-items: center;
         .btn-pdf{
             display: flex;
-            flex-flow: column;
+            flex-flow: row;
             gap: 1em;
         }
     }
 }
 .container-totais{
-    background-color: #1d6bc4;
+    background-color: #c6dbfa;
     padding: 1em;
     box-sizing: border-box;
     margin: 0 auto;
@@ -172,13 +172,13 @@ h2{
         color: #fff;
     }
     p{
-        color: #fff;
+        color: #1a1a1a;
         font-weight: 500;
     }
 }
 
 #totais-totais{
-    background-color: #0f53a1;
+    background-color: #85affc;
 }
 .total-td{
     padding: 0.5em;

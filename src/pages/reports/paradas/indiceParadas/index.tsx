@@ -23,7 +23,6 @@ export default function IndiceParadas (props : any) {
         await IndiceParadaServices(value)
             .then( async (data) => {
                 await setListIndiceParada(data);
-                console.log(data)
             })
         setExibirPreloader(false);
         setExibirExportar(true);

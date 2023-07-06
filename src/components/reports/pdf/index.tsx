@@ -7,7 +7,7 @@ import { IPostoIntervalo } from '../interface/reports/producao/acompanhamentoPro
 import { IProdutoFichaTecnica } from '../interface/reports/engenharia/fichaTecnica';
 import { convertSecondsToTime } from './datetime';
 import { DecimalParaReal } from './DOM/functions';
-import { FiDownload } from "react-icons/fi";
+import { FiDownload, FiPrinter } from "react-icons/fi";
 import { BsEyeFill } from "react-icons/bs";
 import { Button } from '@mui/material';
 import "./export.scss";
@@ -24,14 +24,14 @@ export function Header(props : any) {
                     { props.components}
                 </div>
                 <div className="btn-pdf">
-                    <Button color="secondary" 
-                    variant="contained" 
-                    startIcon={<BsEyeFill className='header-btn-ico' size={20}/>} 
-                    onClick={(e) => { props.getTableDOM(false) }}>Visualizar</Button>
-
                     <Button variant="contained" 
                     startIcon={<FiDownload className='header-btn-ico' size={20}/>} 
                     onClick={(e) => {  props.getTableDOM(true) }}>Baixar</Button>
+                    <Button  
+                    variant="contained" 
+                    startIcon={<FiPrinter className='header-btn-ico' size={20}/>} 
+                    onClick={(e) => { props.getTableDOM(false) }}>Imprimir</Button>
+
                 </div>
             </div>
         </div>
@@ -380,8 +380,7 @@ export function PlanejadoXRealizadoBody ( props : any ) {
 export function IndiceParadaXPostoBody( props : any ){
     return ( 
         props.parada?.subRelatorioIndiceParadas?.map((row : ISubRelatorioIndiceParada, index : number) => {
-            return (
-                
+            return ( 
                 <tbody className="t-indiceparadaxposto">
                     <tr>
                         <td>{row?.maquina}</td>
@@ -393,7 +392,7 @@ export function IndiceParadaXPostoBody( props : any ){
                     
                     </tr>
                     <tr>
-                        <td colSpan={6} style={{backgroundColor : "#1d6bc4"}}>
+                        <td colSpan={6} style={{backgroundColor : "#c6dbfa"}}>
                             <div className="container-totais sub-totais">
                                 <p>TEMPO DE PARADAS DO POSTO (C): { props.parada?.itensRelatorio[index]?.tempoParada }</p>
                                 <p>HORAS PRODUTIVAS: {props.parada?.itensRelatorio[index]?.horasProdutivas }</p>

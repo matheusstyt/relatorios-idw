@@ -31,9 +31,7 @@ const Paradas = (props : any) => {
     
     function handleParada (value : any) {
         setlistaParadasSelecionadas(value);
-        props.changed(value);
-        console.log(value)
-        
+        props.changed(value);        
     }
     return (
         <div className="container paradas">

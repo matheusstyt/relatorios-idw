@@ -25,7 +25,6 @@ export function ColecaoHTMLParaArrayBodyPadrao(Tbody: HTMLTableSectionElement | 
                 }else{
                     arrRow.push({text : td.textContent, fillColor: "#c7d2ee", fontSize: fontSize, colSpan: td.classList.contains('por-produtos') ? 4 : colspan})
                 }
-               // console.log(arrRow)
             }else{  
 
                 if(td.children.length > 0){
@@ -39,21 +38,6 @@ export function ColecaoHTMLParaArrayBodyPadrao(Tbody: HTMLTableSectionElement | 
                     let margin: any[] = [0, 0, 0 , 0];
                     let fillColor: string = "#fff";
     
-                    // indice de paradas
-                //    if(td.classList.contains("td-indiceparada")) margin = [10, 5, 100, 5];
-                    
-                    // indice de refugo
-                 //   if(td.classList.contains("td-indicerefugo")) margin = [10, 5, 200, 5];
-                    
-                    // indice de refugo por produto
-                  //  if(td.classList.contains("td-indicerefugo-produto")) margin = [10, 5, 460, 5];
-
-                    // indice de refugo por refugo
-                    //if(td.classList.contains("td-indicerefugo-refugo")) margin = [10, 5, 220, 5];
-
-                    // produção em regulagem e/ ou ocorrencia de paradas em regulagem
-                  //  if(td.classList.contains("td-parada-ocorrencia-regulagem")) margin = [10, 5, 150, 5];
-           
                     cell = {
                         margin,
                         fillColor,
@@ -71,7 +55,6 @@ export function ColecaoHTMLParaArrayBodyPadrao(Tbody: HTMLTableSectionElement | 
         body.push(arrRow);
 
     });
-    console.log(body)
     return body;
 }
 // FIM  

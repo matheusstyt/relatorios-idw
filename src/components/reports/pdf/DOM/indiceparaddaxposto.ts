@@ -31,7 +31,6 @@ const tbodyIndiceParadaXPosto = (Tbody: HTMLTableSectionElement | undefined, fon
     });
     // RENDERIZAÇÃO PERSONALIZADA DA LISTA
     let columns = dividirColuna(arrSubTotais);
-    console.log(columns)
     body.push([ {colSpan: 6, style: "subTotal", margin: [0, 0, 0, 15], columns} ]);   
     return body;
 }

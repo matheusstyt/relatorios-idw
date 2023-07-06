@@ -36,7 +36,6 @@ const Filtros = (props : any) => {
     const verFiltros = () => {
         // cortar apenas o cdParada e cdArea
         var listaParadaPayload : string[] = [], listaAreaPayload : string[] = [];
-        console.log(listaAreaSelecionadas);
         listaParadasSelecionadas.length > 0 ? listaParadaPayload = listaParadasSelecionadas.map(
             (parada : string) => {
                 const cdParada = parada.split('-');
@@ -85,8 +84,6 @@ const Filtros = (props : any) => {
         descricao.push({propery : "PERÍODO", description :`${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`})
 
         console.log(payload);
-       // console.log(descricao);
-
         props.getPayload(payload);
         props.getDescricao(descricao);
         props.openPreview();

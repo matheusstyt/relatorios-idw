@@ -5,7 +5,7 @@ import { Formatar } from "./datetime";
 
 const relatorioPDF = (props: any) => {
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
-  console.log(props)
+  console.log(props);
   // Configurações extras
   const pageOrientation: types.PageOrientation = props.orientation; // ou "landscape"
   const fontPrimary: number = props.fontSize;

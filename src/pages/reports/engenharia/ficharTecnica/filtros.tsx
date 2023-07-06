@@ -11,8 +11,6 @@ const Filtros = (props : any) => {
     const verFiltros = () => {
         // cortar apenas o cdProduto
         const produto = produtoSelecionado.split(" - ");
-        console.log(produto)
-        console.log(isTodosOSProdutos)
         // carga útil
         const payload = {
             cdProduto : isTodosOSProdutos ? "" : produto[0] ? produto[0] : "",
