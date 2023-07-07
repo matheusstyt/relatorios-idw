@@ -16,13 +16,24 @@ const Filtros = (props : any) => {
 
     // postos e ferramentas
     const [postoTrabalhoSelecionado, setPostoTrabalhoSelecionado] = useState<string>("Postos");
-    const [postoTrabalhoValorSelecionado, setPostoTrabalhoValorSelecionado] = useState<string>("");
+    const [postoTrabalhoValorSelecionado, setPostoTrabalhoValorSelecionado] = useState<any>();
 
     // producao em 
     const [producaoValorSelecionado, setProducaoValorSelecionado] = useState<string>("pecas");
-    const [pesoValorSelecionado, setPesoValorSelecionado] = useState<string>("");
+    const [pesoValorSelecionado, setPesoValorSelecionado] = useState<string>("kilograma");
+const LimparFiltro = () => {
+        setDataInicio(new Date());
+        setDataTermino(new Date());
+        setHoraInicio("00:00:00");
+        setHoraTermino("01:00:00");
+        setPostoTrabalhoSelecionado("Postos");
+        setPostoTrabalhoValorSelecionado("");
+        setProducaoValorSelecionado("pecas");
+        setPesoValorSelecionado("kilograma");
+        props.closeReport(false);
+    }
 
-    const verFiltros = () => {
+    const AplicarFiltro = () => {
 
         // carga útil
         const payload = {
@@ -30,29 +41,30 @@ const Filtros = (props : any) => {
             dthrIni : dataInicio ? `${new Formatar(dataInicio).dataAbreviadaPT()} ${horaInicio}` : null,
             dthrFim : dataInicio ? `${new Formatar(dataTermino).dataAbreviadaPT()} ${horaTermino}` : null,
 
-            cdPt : postoTrabalhoSelecionado === "Postos" ? postoTrabalhoValorSelecionado : "",
-            cdGt : postoTrabalhoSelecionado === "grupoTrabalho" ? postoTrabalhoValorSelecionado : "",
+            cdPt : postoTrabalhoSelecionado === "Postos" ? postoTrabalhoValorSelecionado : null,
+            cdGt : postoTrabalhoSelecionado === "grupoTrabalho" ? postoTrabalhoValorSelecionado : null,
 
             isProducaoEmPeca: producaoValorSelecionado=="pecas",
-            isProducaoEmPesoBruto: producaoValorSelecionado=="pesoBruto",
-            isProducaoEmPesoLiquido: producaoValorSelecionado=="pesoLiquido",
             isPesoEmKg: producaoValorSelecionado!="pecas" && pesoValorSelecionado=="kilograma",
             isPesoEmTon: producaoValorSelecionado!="pecas" &&  pesoValorSelecionado=="tonelada" 
         };
 
         let contagem = "";
         if(payload.isProducaoEmPeca) contagem = "PEÇAS"
-        if(payload.isProducaoEmPesoBruto) contagem = "PESO BRUTO"
-        if(payload.isProducaoEmPesoLiquido) contagem = "PESO LÍQUIDO"
+
+        let propriedade = "POSTO";
+        postoTrabalhoSelecionado === "Postos" ? propriedade = "POSTO" :
+        postoTrabalhoSelecionado === "grupoTrabalho" ? propriedade = "GRUPO DE TRABALHO" : propriedade = "POSTO"
+ 
 
         let descricao : Object[] = [];
-        descricao.push({propery : "GRUPO DE TRABALHO", description : postoTrabalhoSelecionado})
+        descricao.push({propery : propriedade, description : postoTrabalhoValorSelecionado ? postoTrabalhoValorSelecionado : "TODOS"})
         descricao.push({propery : "CONTAGEM", description : contagem})
         descricao.push({propery : "INTERVALO", description : 
         `${new Formatar(dataInicio).intervalo()} ${horaInicio} - ${new Formatar(dataTermino).intervalo()} ${horaTermino}`})
         
         console.log(payload);
-
+        props.closeReport(false);
         props.getPayload(payload);
         props.getDescricao(descricao);
         props.openPreview();
@@ -62,24 +74,30 @@ const Filtros = (props : any) => {
         <div className="container-filtro">
             
             <IntervaloContagem
-                dataInicio={(value : any) => setDataInicio(value)}
-                dataTermino={(value : any) => setDataTermino(value)}
+                dataInicio={dataInicio}
+                changeDataInicio={(value : any) => setDataInicio(value)}
+                dataTermino={dataTermino}
+                changeDataTermino={(value : any) => setDataTermino(value)}
                 horaInicio={(value : any) => setHoraInicio(value)}
                 horaTermino={(value : any) => setHoraTermino(value)}
             />
-            <ProducaoEm 
-                pesoValorSelecionado={(value : string) => setPesoValorSelecionado(value)}
-                producaoValorSelecionado={(value : string) => setProducaoValorSelecionado(value)}
+            <ProducaoEm
+                exibirPesoSelecionado={pesoValorSelecionado}
+                changePesoValorSelecionado={(value : string) => setPesoValorSelecionado(value)}
+                exibirProducaoSelecionado={producaoValorSelecionado}
+                changeProducaoValorSelecionado={(value : string) => setProducaoValorSelecionado(value)}
             />
             <Divider />
             <PostosTrabalho 
-                postoTrabalhoSelecionado={(value : any) => setPostoTrabalhoSelecionado(value)}
-                postoTrabalhoValorSelecionado={(value : any) => setPostoTrabalhoValorSelecionado(value)}
+                postoTrabalhoSelecionado={postoTrabalhoSelecionado}
+                changePostoTrabalhoSelecionado={(value : any) => setPostoTrabalhoSelecionado(value)}
+                postoTrabalhoValorSelecionado={postoTrabalhoValorSelecionado}
+                changePostoTrabalhoValorSelecionado={(value : any) => setPostoTrabalhoValorSelecionado(value)}
             />
 
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
-                <Button variant="contained">LIMPAR</Button>
-                <Button onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
+                <Button onClick={LimparFiltro} variant="contained">LIMPAR</Button>
+                <Button onClick={AplicarFiltro} variant="contained">APLICAR FILTRO</Button>
             </Container>
         </div>
     )

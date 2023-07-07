@@ -1,23 +1,16 @@
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import "./tipos.scss";
-import { useState } from "react";
 
 const Tipos = (props : any) => {
-
-    const [exibirTipoSelecionado, setExibirTipoSelecionado]= useState<any>("padrao")
-
-    const handleChangeExibirTipo = (value: string) => {
-        props.changed(value);
-        setExibirTipoSelecionado(value);
-    };
-
     return (
         <div className="container tipo">
-            <h3>Tipo</h3>
+            <h3>Agrupamento</h3>
             <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue={exibirTipoSelecionado}
-                   onChange={e => handleChangeExibirTipo(e.target.value)}
+                defaultValue={props.value}
+                
+                value={props.value}
+                   onChange={e => props.changed(e.target.value)}
                 name="radio-buttons-group"
                 className="radio" >
                 <FormControlLabel

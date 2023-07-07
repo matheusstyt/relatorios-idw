@@ -5,7 +5,6 @@ import  { useEffect, useState } from "react";
 
 const GrupoFerramentas = (props : any) => {
 
-    const [grupoFerramentasValorSelecionado, setGrupoFerramentasValorSelecionado] = useState("");
     
     const [listaGrupoFerramentas, setListaGrupoFerramentas] = useState<any[]>([]);
         
@@ -34,10 +33,9 @@ const GrupoFerramentas = (props : any) => {
             name="grupoFerramentas"
             options={listaGrupoFerramentas}
             width="100%"
-            value={grupoFerramentasValorSelecionado}
+            value={props.value}
             defaultValue={"todos"} 
             onChange={(value: any) => {
-                setGrupoFerramentasValorSelecionado(value?.target?.value);
                 props.changed(value?.target?.value);
             } }
         />  

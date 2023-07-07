@@ -64,7 +64,7 @@ function SelectIDW({
                 readOnly={readOnly ? readOnly : false}
                 id={id}
                 labelId={id}
-                value={value}
+                value={value !== null ? value : ""}
                 onChange={onChange}
                 color_mode={colorMode}
                 notched={"true"}
@@ -74,12 +74,12 @@ function SelectIDW({
                 
                 {...rest}
                 MenuProps={MenuProps}
-                displayEmpty
+                
             >
-                {options?.map((option: any) => (
+                {options?.map((option: any, index: number) => (
                     <Option
-                        displayEmpty
-                        key={option?.value}
+                        
+                        key={`${index} - ${option?.value}`}
                         value={option?.value}
                         _value={option?.value}
                         color_mode={colorMode}

@@ -1,17 +1,20 @@
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import GrupoTrabalho from "../../subFiltros/grupoTrabalho";
 import Postos from "../../subFiltros/postos";
-import { useState } from "react";
 
 const PostosTrabalho = (props : any) => {
-    const [postoSelecionado, setPostoSelecionado] = useState("Postos");
-
     const SelectPostoFerramenta = ()=>{
-        if(postoSelecionado === "Postos"){
-            return <Postos changed={(value : any) => props.postoTrabalhoValorSelecionado(value) }/>
+        if(props.postoTrabalhoSelecionado === "Postos"){
+            return <Postos
+                value={props.postoTrabalhoValorSelecionado}
+                changed={(value : any) => props.changePostoTrabalhoValorSelecionado(value) 
+            }/>
         }
-        else if(postoSelecionado === "grupoTrabalho"){
-            return <GrupoTrabalho changed={(value : any) => props.postoTrabalhoValorSelecionado(value) }/>
+        else if(props.postoTrabalhoSelecionado === "grupoTrabalho"){
+            return <GrupoTrabalho 
+                value={props.postoTrabalhoValorSelecionado}
+                changed={(value : any) => props.changePostoTrabalhoValorSelecionado(value) }
+            />
         }
     } 
     return (
@@ -19,14 +22,10 @@ const PostosTrabalho = (props : any) => {
             <h3>Postos</h3>
             <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue={postoSelecionado}
+                defaultValue={props.postoTrabalhoSelecionado}
                 name="radio-buttons-group"
                 className="radio"
-                onChange={(e) => { 
-                    setPostoSelecionado(e.target.value);
-                    props.postoTrabalhoSelecionado( e.target.value )
-
-                }}
+                onChange={(e) => props.changePostoTrabalhoSelecionado( e.target.value ) }
             >
                 <FormControlLabel
                     value="Postos"

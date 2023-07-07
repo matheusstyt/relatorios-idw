@@ -146,22 +146,22 @@
         "producaoRegulagem" : {
             "header" : {
                 "comParada" :[
-                    "",
-                    "",
+                    " ",
+                    " ",
                     "TEMPO PARADAS",
                     "TEMPO DE PARADAS REGULAGEM",
-                    "",
-                    "",
-                    "",
-                    ""
+                    " ",
+                    " ",
+                    " ",
+                    " "
                 ],
                 "semParada" :[
-                    "",
-                    "",
+                    " ",
+                    " ",
                     "TEMPO PARADAS",
                     "TEMPO DE PARADAS REGULAGEM",
-                    "",
-                    ""
+                    " ",
+                    " "
 
                 ]
             },

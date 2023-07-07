@@ -2,17 +2,7 @@ import { Checkbox, FormControlLabel, FormLabel, TextField } from "@mui/material"
 import Periodo from "../../subFiltros/periodo";
 import Turnos from "../../subFiltros/turnos";
 import "../../styles/index.scss";
-import { useState } from "react";
 const OpPeriodo = (props : any) => {
-    
-    const [opChecked, setOpChecked] = useState<boolean>(false);
-    const [opNumber, setOpNumber] = useState<string>("");
-
-    const [periodoChecked, setPeriodoChecked] = useState<boolean>(false);
-
-    const [dataInicio, setDataInicio] = useState<any>(new Date());
-    const [dataTermino, setDataTermino] = useState<any>(new Date());
-
     return (
         <div className="container op-periodo">
             <h3>OP e Período</h3>       
@@ -27,10 +17,9 @@ const OpPeriodo = (props : any) => {
                             className="form"
                             control={
                                 <Checkbox 
-                                    value={opChecked}
+                                    checked={props.OPChecked}
                                     onChange={() => {
-                                        setOpChecked(!opChecked);
-                                        props.OPChecked(!opChecked);
+                                        props.changeOPChecked(!props.OPChecked);
                                     }}
                                 />
                             }
@@ -38,12 +27,11 @@ const OpPeriodo = (props : any) => {
                         </td>
                         <td>
                             <TextField 
-                                disabled={!opChecked} 
+                                disabled={!props.OPChecked} 
                                 style={{ width : "100%" }} 
-                                value={opNumber} 
+                                value={props.OPNumber} 
                                 onChange={e => {
-                                    setOpNumber(e.target.value);
-                                    props.OpNumber(e.target.value);
+                                    props.changeOPNumber(e.target.value);
                                 }} 
                             />
                         </td>
@@ -57,10 +45,9 @@ const OpPeriodo = (props : any) => {
                                 className="form"
                                 control={
                                     <Checkbox 
-                                        value={periodoChecked}
+                                        checked={props.periodoChecked}
                                         onChange={() => {
-                                            setPeriodoChecked(!periodoChecked);
-                                            props.periodoChecked(!periodoChecked);
+                                            props.changePeriodoChecked(!props.periodoChecked);
                                         }}
                                     />
                                 }
@@ -68,19 +55,12 @@ const OpPeriodo = (props : any) => {
                         </td>
                         <td>
                             <Periodo 
-                                changeDataInicio={(value: any) => {
-                                    props.dataInicio(value);
-                                    setDataInicio(value);
-                                }}
-                                changeDataTermino={(value: any) => {
-                                    props.dataTermino(value);
-                                    setDataTermino(value);
-                                }}
-                                dataInicio={dataInicio}
-                                dataTermino={dataTermino}
-                                disabled={periodoChecked}
+                                dataInicio={props.dataInicio}
+                                changeDataInicio={(value: any) => props.changeDataInicio(value)}
+                                dataTermino={props.dataTermino}
+                                changeDataTermino={(value: any) => props.changeDataTermino(value)}
+                                disabled={props.periodoChecked}
                             />
-                           
                         </td>
                     </tr>
                     <tr>
@@ -88,9 +68,10 @@ const OpPeriodo = (props : any) => {
                             <FormLabel>Turno</FormLabel>
                         </td>
                         <td>
-                            <Turnos changed={(value: any) => { 
-                                props.turno(value);
-                            }} />
+                            <Turnos 
+                                turno={props.turno}
+                                changeTurno={(value: any) => props.changeTurno(value)} 
+                            />
                         </td>
                     </tr>
                 </tbody>

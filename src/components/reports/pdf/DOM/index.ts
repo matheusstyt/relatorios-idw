@@ -56,7 +56,8 @@ export function getTableDinamicDOM (descricao : Object, title: string, orientati
         // atualmente todas as tableas então com a largura ocupando tudo (*), e consolidados por exemplo,
         // buga. Essa lógica serve pra mudar o widths para "auto" e ñ "*".
         // nesse trecho vou comparar a class pra usar o "auto" ao invés do "*" lá embaixo
-        if(Tbody?.className === "t-consolidados" || Tbody?.className === "t-planejaxrealizado" || Tbody?.className === "t-fichatecnica"){
+        if(Tbody?.className === "t-consolidados" || Tbody?.className === "t-planejaxrealizado" || 
+        Tbody?.className === "t-fichatecnica" || Tbody?.className === "t-analiseproducao"){
             tableAutoWidth = true;
         }
     }
@@ -75,9 +76,17 @@ export function getTableDinamicDOM (descricao : Object, title: string, orientati
                 fontSize, 
                 _maxWidth: 0
             });
-            if(i === 0 || i === 4 || i === 5){
-                row.push(
-                    {_span: true, _minWidth: 0, _maxWidth: 0, fillColor : "#aaa", rowSpan: undefined});
+
+            // já que o tamanho das colunas são diferentes com e sem paradas, então foi a forma para verificar
+            // e adicionar os objetos extras para o pdf make. 8 sem paradas e 10 com paradas (colunas)
+            if(headers[0].length === 8){
+                if(i === 0 || i === 4) row.push( {_span: true, _minWidth: 0, _maxWidth: 0, fillColor : "#aaa", rowSpan: undefined} );
+            }else{
+                if(i === 0 ) row.push( {_span: true, _minWidth: 0, _maxWidth: 0, fillColor : "#aaa", rowSpan: undefined} );
+                else if( i === 4) {
+                    row.push( {_span: true, _minWidth: 0, _maxWidth: 0, fillColor : "#aaa", rowSpan: undefined} );
+                    row.push( {_span: true, _minWidth: 0, _maxWidth: 0, fillColor : "#aaa", rowSpan: undefined} );
+                }
             }
         }
         body.push(row);

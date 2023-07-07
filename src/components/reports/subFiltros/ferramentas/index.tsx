@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 const Ferramentas = (props : any) => {
 
-    const [FerramentasValorSelecionado, setFerramentasValorSelecionado] = useState("");
     
     const [listaFerramentas, setListaFerramentas] = useState<any[]>([]);
         
@@ -34,10 +33,9 @@ const Ferramentas = (props : any) => {
             name="Ferramentas"
             options={listaFerramentas}
             width="100%"
-            value={FerramentasValorSelecionado}
+            value={props.value}
             defaultValue={"todos"} 
             onChange={(value: any) => {
-                setFerramentasValorSelecionado(value?.target?.value);
                 props.changed(value?.target?.value);
             } }
         />  

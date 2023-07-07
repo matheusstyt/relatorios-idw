@@ -13,7 +13,7 @@ import AccordionDinamic from "../../../../components/accordion";
 
 export default function IndiceParadasXPosto (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
-    const [exibirExportar, setExibirExportar] = useState<boolean>(false);
+    const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<any>({});
     
@@ -25,7 +25,7 @@ export default function IndiceParadasXPosto (props : any) {
             setListIndiceParadaPosto(data)            
         })
         setExibirPreloader(false);
-        setExibirExportar(true);
+        setOpenReport(true);
     }
     
     const previewPDF = () => {
@@ -65,15 +65,14 @@ export default function IndiceParadasXPosto (props : any) {
                 img={<FiFilter size={25}/>}
                 component={
                     <Filtros 
-                        getPayload={async (value: any ) => {
-                            getIndiceRelatorioPosto(value);
-                        }}
+                        getPayload={async (value: any ) => getIndiceRelatorioPosto(value) }
                         getDescricao={async (value: any ) => await setDescricao(value) }
                         openPreview={(value: boolean) =>  setExibirPreloader(true) }
+                        closeReport={(value: boolean) => setOpenReport(value) }
                     />
                 }
             />
-            { !exibirExportar ? <></> : previewPDF() }
+            { !openReport ? <></> : previewPDF() }
         </div>       
     )   
 }

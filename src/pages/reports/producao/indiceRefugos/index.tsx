@@ -13,7 +13,7 @@ import mocks from "../../../../components/reports/interface/reports/producao/ind
 
 export default function IndiceRefugos (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
-    const [exibirExportar, setExibirExportar] = useState<boolean>(false);
+    const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
 
@@ -23,12 +23,13 @@ export default function IndiceRefugos (props : any) {
 
     async function getIndiceRefugo (value : any) {
        setCargaUtil(value);
-      // console.log(value)
+        // console.log(value)
         // await IndiceRefugosServices( value)
         // .then( (data) => {
         //     console.log(data)
         //     setIndiceRefugosResponse(data);
         // })
+
         if(value?.isAgrupadoPorPt){
             setIndiceRefugosResponse(mocks.posto)
         }else if( value?.isAgrupadoPorProduto){
@@ -36,8 +37,12 @@ export default function IndiceRefugos (props : any) {
         }else if( value?.isAgrupadoPorRefugo){
             setIndiceRefugosResponse(mocks.refugo)
         }
+        
+        setOpenReport(true);
         setExibirPreloader(false);
-        setExibirExportar(true);
+    }
+    const limpar = () => {
+        
     }
     const previewPDF = () => {
         return (
@@ -94,21 +99,15 @@ export default function IndiceRefugos (props : any) {
                 title="Filtro"
                 img={<FiFilter size={25}/>}
                 component={
-                    <Filtros 
+                    <Filtros
+                        getPayload={(value: any ) => getIndiceRefugo(value) }
                         getDescricao={(value: any ) => setDescricao(value)}
-                        openPreview={(value: boolean) =>  setExibirPreloader(true) }
-                        isProducaoRegulagem={(value: boolean, payload: Object, exibirParadas: boolean) => {
-                            setExibirParadas(exibirParadas);
-                            setExibirExportar(false);
-                            setIsProducaoRegulagem(value);
-                            if(value){
-                                getIndiceRefugo(payload)
-                            }
-                        }}
+                        openPreview={(value: boolean) =>  setExibirPreloader(false) }
+                        closeReport={(value: boolean) => setOpenReport(value) }
                     />
                 }
             />
-            { !exibirExportar ? <></> : previewPDF()}
+            { !openReport ? <></> : previewPDF()}
         </div>
     )   
 }

@@ -12,7 +12,7 @@ import "../../../pages.scss";
 
 export default function Consolidados (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
-    const [exibirExportar, setExibirExportar] = useState<boolean>(false);
+    const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
 
@@ -24,7 +24,7 @@ export default function Consolidados (props : any) {
             setConsolidadosResponse(data);
         })
         setExibirPreloader(false);
-        setExibirExportar(true);
+        setOpenReport(true);
     }
 
     const previewPDF = () => {
@@ -72,16 +72,14 @@ export default function Consolidados (props : any) {
                 img={<FiFilter size={25}/>}
                 component={
                     <Filtros 
-                        getPayload={async (value: any ) => {
-                            getConsolidados(value);
-                        }
-                        }
-                        getDescricao={(value: any ) => setDescricao(value)}
+                        getPayload={async (value: any ) => getConsolidados(value) }
+                        getDescricao={(value: any ) => setDescricao(value) }
                         openPreview={(value: boolean) =>  setExibirPreloader(true) }
+                        closeReport={(value: boolean) => setOpenReport(value) }
                     />
                 }
             />
-            { !exibirExportar ? <></> : previewPDF()}
+            { !openReport ? <></> : previewPDF()}
         </div>
     )   
 }

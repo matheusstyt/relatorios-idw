@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 
 const Postos = (props : any) => {
 
-    const [postoValorSelecionado, setPostoValorSelecionado] = useState("");
-    
     const [listaPostos, setListaPostos] = useState<any[]>([])
         
     const startGetAllWorkstation = () => {
@@ -34,10 +32,9 @@ const Postos = (props : any) => {
             name="Posto"
             options={listaPostos}
             width="100%"
-            value={postoValorSelecionado}
+            value={props.value}
             defaultValue={"todos"} 
             onChange={(value: any) => {
-                setPostoValorSelecionado(value?.target?.value);
                 props.changed(value?.target?.value);
             } }
             />  

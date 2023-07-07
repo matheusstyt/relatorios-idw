@@ -15,14 +15,25 @@ const Filtros = (props : any) => {
     const [dataTermino, setDataTermino] = useState<any>(new Date());
 
     // postos e ferramentas
-    const [postoFerramentaSelecionado, setPostoFerramentaSelecionado] = useState<string>("");
+    const [postoFerramentaSelecionado, setPostoFerramentaSelecionado] = useState<string>("Postos");
     const [postoFerramentaValorSelecionado, setPostoFerramentaValorSelecionado] = useState<string>("");
 
     // agrupamentos
     const [exibirProducaoSelecionado, setExibirProducaoSelecionado]= useState<any>("pecas");
     const [exibirPesoSelecionado, setExibirPesoSelecionado]= useState<any>("kilograma");
     
-    const verFiltros = () => {
+    const LimparFiltro = () => {
+        setPeriodoChecked(false);
+        setDataInicio(new Date());
+        setDataTermino(new Date());
+        setExibirPesoSelecionado("kilograma");
+        setExibirProducaoSelecionado("pecas");
+        setPostoFerramentaSelecionado("Postos");
+        setPostoFerramentaValorSelecionado("");
+        props.closeReport(false);
+    }
+
+    const AplicarFiltro = () => {
 
         // carga útil
         const payload = {
@@ -35,12 +46,16 @@ const Filtros = (props : any) => {
             cdGrpFerramenta : postoFerramentaSelecionado === "grupoFerramenta" ? postoFerramentaValorSelecionado : null,
 
             isProducaoEmPeca: exibirProducaoSelecionado==="pecas",
-            isProducaoEmPesoBruto: exibirProducaoSelecionado==="pesoBruto",
-            isProducaoEmPesoLiquido: exibirProducaoSelecionado==="pesoLiquido",
             isPesoEmKg: exibirProducaoSelecionado!="pecas" && exibirPesoSelecionado=="kilograma",
             isPesoEmTon: exibirProducaoSelecionado!="pecas" &&  exibirPesoSelecionado=="tonelada" 
         };
-        
+
+        let propriedade = "POSTO";
+        postoFerramentaSelecionado==="Postos" ? propriedade = "POSTO" :
+        postoFerramentaSelecionado==="grupoTrabalho" ? propriedade = "GRUPO DE TRABALHO" :
+        postoFerramentaSelecionado==="ferramentas" ? propriedade = "FERRAMENTA" : 
+        postoFerramentaSelecionado==="grupoFerramenta" ? propriedade = "GRUPO DE FERRAMENTA" : propriedade = "POSTO"
+
         let grupoTrabalho = "TODOS OS POSTOS";
 
         if(payload.cdGt!=null)  grupoTrabalho = `GRUPO DE TRABALHO: ${payload.cdGt}`
@@ -55,12 +70,12 @@ const Filtros = (props : any) => {
         if(exibirProducaoSelecionado==="pesoLiquido") producao =  `PESO LÍQUIDO - ${exibirPesoSelecionado.toUpperCase()}` 
 
         let descricao : Object[] = [];
-        descricao.push({propery : "GRUPO DE TRABALHO", description: grupoTrabalho})
+        descricao.push({propery : propriedade, description: grupoTrabalho})
         descricao.push({propery : "PERÍODO", description: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`})
         descricao.push({propery : "PRODUÇÃO", description: producao})
         
         console.log(payload);
-
+        props.closeReport(false);
         props.getPayload(payload);
         props.getDescricao(descricao);
         props.openPreview(true);
@@ -108,21 +123,26 @@ const Filtros = (props : any) => {
             </div>
             
             <Divider />
-            <PostosFerramentas
-                postoFerramentaSelecionado={(value : any) => setPostoFerramentaSelecionado(value)}
+           <PostosFerramentas
+                postoFerramentaSelecionado={postoFerramentaSelecionado}
+                changePostoFerramentaSelecionado={(value : any) => setPostoFerramentaSelecionado(value)}
+                
+                value={postoFerramentaValorSelecionado}
                 changed={(value : any) => setPostoFerramentaValorSelecionado(value)}
             />
             <Divider />
             <div className="container contagem">
                 <h3>Contagem de Produção</h3>
                 <Contagem 
-                    producaoValorSelecionado={(value: string) => setExibirProducaoSelecionado(value)}
-                    pesoValorSelecionado={(value: string) => setExibirPesoSelecionado(value)}
+                    exibirProducaoSelecionado={exibirProducaoSelecionado}
+                    changeProducaoValorSelecionado={(value: string) => setExibirProducaoSelecionado(value)}
+                    exibirPesoSelecionado={exibirPesoSelecionado}               
+                    changePesoValorSelecionado={(value: string) => setExibirPesoSelecionado(value)}
                 />
             </div>
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
-                <Button variant="contained">LIMPAR</Button>
-                <Button disabled={!periodoChecked} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
+                <Button onClick={LimparFiltro} variant="contained">LIMPAR</Button>
+                <Button disabled={!periodoChecked} onClick={AplicarFiltro} variant="contained">APLICAR FILTRO</Button>
             </Container>
         </div>
     )

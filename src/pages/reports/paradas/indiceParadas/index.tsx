@@ -12,7 +12,7 @@ import "../../../pages.scss";
 
 export default function IndiceParadas (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
-    const [exibirExportar, setExibirExportar] = useState<boolean>(false);
+    const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<Object[]>([]);
 
@@ -25,7 +25,7 @@ export default function IndiceParadas (props : any) {
                 await setListIndiceParada(data);
             })
         setExibirPreloader(false);
-        setExibirExportar(true);
+        setOpenReport(true);
     }
     const previewPDF = () => {
         return (
@@ -72,13 +72,14 @@ export default function IndiceParadas (props : any) {
                 img={<FiFilter size={25}/>}
                 component={
                     <Filtros 
-                        getPayload={(value: any ) => getIndiceParadas(value)}
-                        getDescricao={(value: any ) => setDescricao(value)}
+                        getPayload={(value: any ) => getIndiceParadas(value) }
+                        getDescricao={(value: any ) => setDescricao(value) }
                         openPreview={() =>  setExibirPreloader(true) }
+                        closeReport={(value: boolean) => setOpenReport(value) }
                     />
                 }
             />
-            { !exibirExportar ? <></> : previewPDF() }
+            { !openReport ? <></> : previewPDF() }
         </div>
     )   
 }

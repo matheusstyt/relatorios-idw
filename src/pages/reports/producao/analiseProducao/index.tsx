@@ -12,7 +12,7 @@ import "../../../pages.scss";
 
 export default function AnaliseProducao (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
-    const [exibirExportar, setExibirExportar] = useState<boolean>(false);
+    const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
 
@@ -24,7 +24,7 @@ export default function AnaliseProducao (props : any) {
             setAnaliseProducaoResponse(data);  
         })
         setExibirPreloader(false);
-        setExibirExportar(true);
+        setOpenReport(true);
     }
     const previewPDF = () => {
         return (
@@ -63,10 +63,11 @@ export default function AnaliseProducao (props : any) {
                         getPayload={(value: any ) => { getAnaliseProducao(value) }}
                         getDescricao={(value: any ) => setDescricao(value)}
                         openPreview={(value: boolean) =>  setExibirPreloader(true) }
+                        closeReport={(value: boolean) => setOpenReport(value) }
                     />
                 }
             />
-            { !exibirExportar ? <></> : previewPDF()}
+            { !openReport ? <></> : previewPDF()}
         </div>
     )   
 }

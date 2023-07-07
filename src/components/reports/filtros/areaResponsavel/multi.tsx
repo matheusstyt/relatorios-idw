@@ -5,9 +5,8 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
-import list_areas from "./areas.json";
 import { getAllArea } from "../../services";
 import { useEffect, useState } from "react";
 
@@ -21,7 +20,6 @@ const MenuProps = {
     },
   },
 };
-const areas = list_areas.teste;
 
 function getStyles(name: string, areaResponsavel: readonly string[], theme: Theme) {
   return {
@@ -34,15 +32,8 @@ function getStyles(name: string, areaResponsavel: readonly string[], theme: Them
 
 export default function Mult(props : any) {
   const theme = useTheme();
-  const [areaResponsavel, setAreaResponsavel] = React.useState<string[]>([]);
-
-  const handleChange = (e : any) => {
-    setAreaResponsavel( e );
-    props.changed(e);
-  };
 
   const [ListaAreaResponsavel, setListaAreaResponsavel] = useState<any[]>([]);
-  const [listaParadasSelecionadas, setlistaParadasSelecionadas] = useState<any[]>([]);
 
     const startGetAllArea = () => {
         getAllArea("", 1, 10000, true)
@@ -68,15 +59,13 @@ export default function Mult(props : any) {
             id="multi-area"
             multiple
             disabled={props.disabled}
-            value={areaResponsavel}
-            onChange={ (e) => { handleChange(e.target.value) }}
+            value={props.value}
+            onChange={ (e) => { props.changed(e.target.value) }}
             input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
             renderValue={(selected) => (
 
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
+              {selected.map((value : any) => <Chip key={value} label={value} /> )}
             </Box>
           )}
           MenuProps={MenuProps}
@@ -85,7 +74,7 @@ export default function Mult(props : any) {
             <MenuItem
               key={index}
               value={`${area?.value} - ${area?.name}`}
-              style={getStyles(area.name, areaResponsavel, theme)} >
+              style={getStyles(area.name, props.value, theme)} >
               {area?.value} - {area?.name}
             </MenuItem>
           ))}

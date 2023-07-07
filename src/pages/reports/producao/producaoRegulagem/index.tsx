@@ -1,5 +1,4 @@
-import { ConsolidadosFerramentaBody, ConsolidadosPostoBody, ConsolidadosProdutoBody, Header, OcorrenciaParadaRegulagemBody, ProducaoEmRegulagemBody, TableDinamic, TotalGeralConsolidados, TotalGeralProducaoRegulagem } from "../../../../components/reports/pdf";
-import { IConsolidadosResponse } from "../../../../components/reports/interface/reports/producao/consolidados";
+import { Header, OcorrenciaParadaRegulagemBody, ProducaoEmRegulagemBody, TableDinamic, TotalGeralProducaoRegulagem } from "../../../../components/reports/pdf";
 import { OcorrenciasParadaServices, ProducaoRegulagemServices } from "../../../../components/reports/services/reports/produtos";
 import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 import headers from "../../../../components/reports/pdf/headers.json";
@@ -13,7 +12,7 @@ import { IOcorrenciasParadaResponse, IProducaoRegulagemResponse } from "../../..
 
 export default function ProducaoRegulagem (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
-    const [exibirExportar, setExibirExportar] = useState<boolean>(false);
+    const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
 
@@ -26,22 +25,20 @@ export default function ProducaoRegulagem (props : any) {
        console.log(value)
         await ProducaoRegulagemServices( value)
         .then( (data) => {
-            console.log(data)
             setProducaoRegulagemResponse(data);
         })
         setExibirPreloader(false);
-        setExibirExportar(true);
+        setOpenReport(true);
     }
     async function getOcorrenciasParada (value : any) {
         setCargaUtil(value);
-        console.log(value)
         await OcorrenciasParadaServices( value)
         .then( (data) => {
             console.log(data)
             setOcorrenciasParadaResponse(data);
         })
         setExibirPreloader(false);
-        setExibirExportar(true);
+        setOpenReport(true);
     }
 
     const previewPDF = () => {
@@ -121,7 +118,7 @@ export default function ProducaoRegulagem (props : any) {
                 </div>
                 {
                     isProducaoRegulagem ?
-                    <TotalGeralProducaoRegulagem totais={producaoRegulagemResponse} /> :
+                    <TotalGeralProducaoRegulagem totais={producaoRegulagemResponse} exibirParadas={exibirParadas}/> :
                     <></>
                 }
 
@@ -143,7 +140,7 @@ export default function ProducaoRegulagem (props : any) {
                         openPreview={(value: boolean) =>  setExibirPreloader(true) }
                         isProducaoRegulagem={(value: boolean, payload: Object, exibirParadas: boolean) => {
                             setExibirParadas(exibirParadas);
-                            setExibirExportar(false);
+                            setOpenReport(false);
                             setIsProducaoRegulagem(value);
                             if(value){
                                 getProducaoRegulagem(payload)
@@ -151,10 +148,11 @@ export default function ProducaoRegulagem (props : any) {
                                 getOcorrenciasParada(payload)
                             }
                         }}
+                        closeReport={(value: boolean) => setOpenReport(value) }
                     />
                 }
             />
-            { !exibirExportar ? <></> : previewPDF()}
+            { !openReport ? <></> : previewPDF()}
         </div>
     )   
 }

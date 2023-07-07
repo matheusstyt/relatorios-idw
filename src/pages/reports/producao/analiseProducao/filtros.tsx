@@ -17,7 +17,19 @@ const Filtros = (props : any) => {
     // producao em 
     const [producaoValorSelecionado, setProducaoValorSelecionado] = useState<string>("pecas");
     const [pesoValorSelecionado, setPesoValorSelecionado] = useState<string>("kilograma");
-    const verFiltros = () => {
+    
+    const LimparFiltro = () => {
+        setDataInicio(new Date());
+        setDataTermino(new Date());
+        setHoraInicio("00:00:00");
+        setDataTermino("01:00:00");
+        setPostoTrabalhoSelecionado("");
+        setProducaoValorSelecionado("pecas");
+        setPesoValorSelecionado("kilograma");
+        props.closeReport(false);
+    }
+
+    const AplicarFiltro = () => {
         // carga útil
         const payload = {
 
@@ -55,21 +67,29 @@ const Filtros = (props : any) => {
         <div className="container-filtro">
             
             <DataTurnoPosto 
-                dataInicio={(value : any) => setDataInicio(value)}
-                dataTermino={(value : any) => setDataTermino(value)}
+                dataInicio={dataInicio}
+                changeDataInicio={(value : any) => setDataInicio(value)}
+                
+                dataTermino={dataTermino}
+                changeDataTermino={(value : any) => setDataTermino(value)}
+                
                 horaInicio={(value : any) => setHoraInicio(value)}
                 horaTermino={(value : any) => setHoraTermino(value)}
-                posto={(value : any) => setPostoTrabalhoSelecionado(value)}
+
+                postoValor={postoTrabalhoSelecionado}
+                changePostoValor={(value : any) => setPostoTrabalhoSelecionado(value)}
             />
             <Divider />
             <ProducaoEm 
-                pesoValorSelecionado={(value : string) => setPesoValorSelecionado(value)}
-                producaoValorSelecionado={(value : string) => setProducaoValorSelecionado(value)}
+                pesoValorSelecionado={pesoValorSelecionado}
+                changePesoValorSelecionado={(value : string) => setPesoValorSelecionado(value)}
+                producaoValorSelecionado={producaoValorSelecionado}
+                changeProducaoValorSelecionado={(value : string) => setProducaoValorSelecionado(value)}
             />
 
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
-                <Button variant="contained">LIMPAR</Button>
-                <Button disabled={postoTrabalhoSelecionado === ""} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
+                <Button onClick={LimparFiltro} variant="contained">LIMPAR</Button>
+                <Button disabled={postoTrabalhoSelecionado === ""} onClick={AplicarFiltro} variant="contained">APLICAR FILTRO</Button>
             </Container>
         </div>
     )

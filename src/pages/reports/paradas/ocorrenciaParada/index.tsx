@@ -5,7 +5,8 @@ import Filtros from "./filtros";
 import "../../../pages.scss";
 import { Header } from "../../../../components/reports/pdf";
 export default function OcorrenciaParada (props : any) {
-
+    const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
+    const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<any>({});
 
@@ -16,9 +17,11 @@ export default function OcorrenciaParada (props : any) {
                 title="Filtro"
                 img={<FiFilter size={25}/>}
                 component={
-                    <Filtros 
+                    <Filtros
                         getPayload={(value: any ) => setCargaUtil(value)}
                         getDescricao={(value: any ) => setDescricao(value)}
+                        openPreview={() =>  setExibirPreloader(true) }
+                        closeReport={(value: boolean) => setOpenReport(value) }
                     />
                 }
             />

@@ -10,6 +10,7 @@ import { DecimalParaReal } from './DOM/functions';
 import { FiDownload, FiPrinter } from "react-icons/fi";
 import { BsEyeFill } from "react-icons/bs";
 import { Button } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
 import "./export.scss";
 import { IParadaOcorrenciasParada, IParadaProducaoRegulagem, IPostoPeriodo } from '../interface/reports/producao/producaoRegulagem';
 import {  IPostoIndiceRefugo, IProdutosIndiceRefugo, IRefugoIndiceRefugo } from '../interface/reports/producao/indiceRefugos';
@@ -42,18 +43,33 @@ export function TableDinamic ( props : any ){
     return (
         <table id="table-main">
             <thead>
-                {/* header auxiliar para "produção e regulagem" */}
-                {props?.aux ? <tr>{props?.aux?.map( ( item : string, index : number) => {
-                    if(index === 2 || index === 3){
-                        return <th style={{backgroundColor  : "#d9d9d9"}} colSpan={2} key={item}>{item}</th>
-                    }else{
-                        return <th colSpan={1} key={item}>{item}</th>
+            {/* header auxiliar para "produção e regulagem" */}
+            {props?.aux ? (
+                <tr>
+                {props?.aux?.map((item: string, index: number) => {
+                    if (index === 2 || index === 3) {
+                    return (
+                        <th style={{ backgroundColor: "#d9d9d9" }} colSpan={2} key={`${index}-${item}`}>
+                        {item}
+                        </th>
+                    );
+                    } else {
+                    return <th colSpan={1} key={`${index}-${item}`}>{item}</th>;
                     }
-                })}</tr> : <></>}
-                
-                {/* header padrão dinâmico */}
-                <tr> {props?.headers?.map( (item : string, index: number) => <th key={`${index} -  ${item}`}>{item}</th> ) } </tr>
+                })}
+                </tr>
+            ) : (
+                <></>
+            )}
+
+            {/* header padrão dinâmico */}
+            <tr>
+                {props?.headers?.map((item: string, index: number) => (
+                <th key={`${index} -  ${item}`}>{item}</th>
+                ))}
+            </tr>
             </thead>
+
             {props.body}
         </table>
     )
@@ -329,7 +345,7 @@ export function ConsolidadosProdutoBody ( props : any ){
 // TOTAL GERAL 
 export function TotalGeralConsolidados ( props : any ) {
     return (
-        <div className="container-totais total-geral" id="totais-totais">
+        <div className="container-totais total-geral" id="totais-totais" style={{height : "160px"}}>
             <p>HRS. TRABALHADAS: { props.totais?.horasTrabalhadasTotal }</p>
             <p>HRS. PARADAS: { props.totais?.horasParadasTotal }</p>
             <p>TEMPO ATIVO: { props.totais?.tempoAtivoTotal }</p>
@@ -520,7 +536,7 @@ export function AcompanhamentoProducaoBody ( props : any ) {
         <tbody className='t-acompanhamento'>
             {
                 props?.postos?.map( (item : IPostoIntervalo ,index : number) => {
-                    return <tr key={index}>
+                    return <tr key={uuidv4()}>
                         {/* PRIMEIRA CAMADA */}
                         <td className='cor-personalizada'>{item.maquina}</td>
                         <td>{DecimalParaReal(item.projecaofPeriodo)}</td>
@@ -680,8 +696,8 @@ export function ProducaoEmRegulagemBody ( props : any ) {
     return <tbody className='t-producaoregulagem'>
         {
             props?.postos?.map( (posto : IPostoPeriodo ,index : number) => {
-                return <>
-                    <tr className='t-producao-regulagem' key={index}>
+                    return <Fragment key={`${uuidv4()}-${index}`}>
+                    <tr className='t-producao-regulagem'>
                         {/* verifica se é por posto, ferramenta ou produto */}
                         {
                         props?.isPosto ? 
@@ -719,7 +735,7 @@ export function ProducaoEmRegulagemBody ( props : any ) {
                         }
                         <td>{posto?.totalProducaoEmRegulagem}</td> 
                     </tr>
-                    <tr className='t-producao-regulagem' key={index}>
+                    <tr className='t-producao-regulagem'>
                         {/* verifica se é por posto, ferramenta ou produto */}
                         <td className='td-total-posto'>{ 
                         props?.isPosto ? "Totais do Posto" :  
@@ -740,7 +756,7 @@ export function ProducaoEmRegulagemBody ( props : any ) {
                         }
                         <td className='td-total-posto'>{posto?.totalProducaoEmRegulagem}</td> 
                     </tr>
-                </>
+                </Fragment>
             })
         }   
     </tbody>
@@ -754,7 +770,7 @@ export function TotalGeralProducaoRegulagem ( props : any ) {
                     <th></th>
                     <th colSpan={2}>TEMPO PARADAS</th>
                     <th colSpan={2}>TEMPO PARADAS REGULAGEM</th>
-                    <th></th>
+                    {props.exibirParadas ? <th></th> : <></>}
                     <th></th>
                 </tr>
                 <tr>
@@ -763,7 +779,7 @@ export function TotalGeralProducaoRegulagem ( props : any ) {
                     <th>S/ PESO NA EFIC.</th>
                     <th>C/ PESO NA EFIC.</th>
                     <th>S/ PESO NA EFIC.</th>
-                    <th>TEMPO DA PARADA</th>
+                    {props.exibirParadas ? <th>TEMPO DA PARADA</th> : <></>}
                     <th>PRODUÇÃO EM REGULAGEM</th>
                 </tr>
             </thead>
@@ -774,7 +790,7 @@ export function TotalGeralProducaoRegulagem ( props : any ) {
                     <td>{props?.totais?.periodoTempoParadaSemPesoNaEficienciaHora}</td>
                     <td>{props?.totais?.periodoTempoParadaRegulagemComPesoNaEficienciaHora}</td>
                     <td>{props?.totais?.periodoTempoParadaRegulagemSemPesoNaEficienciaHora}</td>
-                    <td>{props?.totais?.periodoTempoParadaHora}</td>
+                    {props.exibirParadas? <td>{props?.totais?.periodoTempoParadaHora}</td> : <></>}
                     <td>{props?.totais?.periodoProducaoEmRegulagemHora}</td>
                 </tr>
             </tbody>

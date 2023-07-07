@@ -3,9 +3,7 @@ import SelectIDW from "../../filtros/customInput/select";
 import { useEffect, useState } from "react";
 
 const Turnos = (props : any) => {
-
-    const [turnoValorSelecionado, setTurnoValorSelecionado] = useState("");
-    
+   
     const [listaTurnos, setListaTurnos] = useState<any[]>([])
         
     const getAllShiftsSemCalA = () => {
@@ -39,12 +37,9 @@ const Turnos = (props : any) => {
             name="Turno"
             options={listaTurnos}
             width="100%"
-            value={turnoValorSelecionado}
+            value={props.turno}
             defaultValue={"todos"} 
-            onChange={(value: any) => {
-                setTurnoValorSelecionado(value?.target?.value);
-                props.changed(value?.target.value);
-            } }
+            onChange={(value: any) => props.changeTurno(value?.target.value)}
             />  
     )
 }

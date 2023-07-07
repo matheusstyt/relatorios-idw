@@ -3,8 +3,6 @@ import { getAllJobGroupActive } from "../../services";
 import { useEffect, useState } from "react";
 
 const GrupoTrabalho = (props : any) => {
-
-    const [grupoTrabalhoValorSelecionado, setGrupoTrabalhoValorSelecionado] = useState("");
     
     const [listaGrupoTrabalho, setListaGrupoTrabalho] = useState<any[]>([]);
         
@@ -34,10 +32,9 @@ const GrupoTrabalho = (props : any) => {
             name="grupoTrabalho"
             options={listaGrupoTrabalho}
             width="100%"
-            value={grupoTrabalhoValorSelecionado}
+            value={props.value}
             defaultValue={"todos"} 
             onChange={(value: any) => {
-                setGrupoTrabalhoValorSelecionado(value?.target?.value);
                 props.changed(value?.target?.value);
             } }
         />  

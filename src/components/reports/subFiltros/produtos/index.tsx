@@ -4,9 +4,6 @@ import { useEffect, useState } from "react";
 import { Checkbox, Divider, FormControlLabel } from "@mui/material";
 
 const Produtos = (props : any) => {
-
-    const [produtoValorSelecionado, setProdutoValorSelecionado] = useState("");
-    const [isTodosOSProdutos, setIsTodosOSProdutos] = useState<boolean>(true);
     const [listaProdutos, setListaProdutos] = useState<any[]>([]);
         
     const startGetAllProduct = () => {
@@ -36,12 +33,9 @@ const Produtos = (props : any) => {
                 name="Produto"
                 options={listaProdutos}
                 width="100%"
-                value={produtoValorSelecionado}
+                value={props.value}
                 defaultValue={"todos"} 
-                onChange={(value: any) => {
-                    setProdutoValorSelecionado(value?.target?.value);
-                    props.changed(value?.target?.value);
-                } }
+                onChange={(value: any) => props.changed(value?.target?.value) }
             />
     )
 }

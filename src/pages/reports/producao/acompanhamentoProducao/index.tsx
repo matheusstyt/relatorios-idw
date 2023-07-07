@@ -12,19 +12,26 @@ import "../../../pages.scss";
 
 export default function AcompanhamentoProducao (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
-    const [exibirExportar, setExibirExportar] = useState<boolean>(false);
+    const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<Object[]>([]);
 
     const [analiseProducaoResponse, setAnaliseProducaoResponse] = useState<IAcompanhamentoProducaoResponse>();
     async function getAcompanhamentoProducao (value : any) {
         setCargaUtil(value);
+     
         await AcompanhamentoProducaoServices( value)
         .then((data) => {
-            setAnaliseProducaoResponse(data);  
+            if(data?.request?.status && data?.request?.status === 500){
+                setAnaliseProducaoResponse(undefined);  
+                setOpenReport(false);
+                // aqui deve ficar o toast de aviso!
+            }else{
+                setAnaliseProducaoResponse(data);
+                setOpenReport(true);
+            }
         })
         setExibirPreloader(false);
-        setExibirExportar(true);
     }
 
     const previewPDF = () => {
@@ -59,7 +66,7 @@ export default function AcompanhamentoProducao (props : any) {
                         )}
                     </table>
                 </div>
-                <TotalGeralAcompanhamentoProducao total={analiseProducaoResponse?.totalGeral}/>
+                {analiseProducaoResponse?.totalGeral ? <TotalGeralAcompanhamentoProducao total={analiseProducaoResponse?.totalGeral}/> : <></>}
             </div>
         )
     }
@@ -77,10 +84,11 @@ export default function AcompanhamentoProducao (props : any) {
                         getPayload={(value: any ) => getAcompanhamentoProducao(value)}
                         getDescricao={(value: any ) => setDescricao(value)}
                         openPreview={() =>  setExibirPreloader(true) }
+                        closeReport={(value: boolean) => setOpenReport(value) }
                     />
                 }
             />
-            { !exibirExportar ? <></> : previewPDF()}
+            { !openReport ? <></> : previewPDF()}
         </div>
     )   
 }

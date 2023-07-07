@@ -8,7 +8,13 @@ const Filtros = (props : any) => {
     const [produtoSelecionado, setProdutoSelecionado] = useState<string>("");
     const [isTodosOSProdutos, setIsTodosOSProdutos] = useState<boolean>(false);
 
-    const verFiltros = () => {
+    const LimparFiltro = () => {
+        setProdutoSelecionado("");
+        setIsTodosOSProdutos(false);
+        props.closeReport(false);
+    }
+
+    const AplicarFiltro = () => {
         // cortar apenas o cdProduto
         const produto = produtoSelecionado.split(" - ");
         // carga útil
@@ -29,6 +35,7 @@ const Filtros = (props : any) => {
             <div className="container ficha-tecnica">
                 <h3>Produtos</h3>
                 <Produtos 
+                    value={produtoSelecionado}
                     changed={(value : any) => setProdutoSelecionado(value) }
                     disabled={!isTodosOSProdutos}
                 />
@@ -48,8 +55,8 @@ const Filtros = (props : any) => {
                 />
             </div>
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
-                <Button variant="contained">LIMPAR</Button>
-                <Button disabled={ !isTodosOSProdutos && produtoSelecionado === "" } onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
+                <Button onClick={LimparFiltro} variant="contained">LIMPAR</Button>
+                <Button disabled={ !isTodosOSProdutos && produtoSelecionado === "" } onClick={AplicarFiltro} variant="contained">APLICAR FILTRO</Button>
             </Container>
         </div>
     )

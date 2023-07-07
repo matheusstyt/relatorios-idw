@@ -11,7 +11,7 @@ import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 
 const PlanejadoRealizado = (props : any) => {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
-    const [exibirExportar, setExibirExportar] = useState<boolean>(false);
+    const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<any>({});
     
@@ -21,11 +21,10 @@ const PlanejadoRealizado = (props : any) => {
         setCargaUtil(value);
         await PlanejadoXRealizadoServices( value)
         .then( (data) => {
-            console.log(data)
             setPlanejadoXRealizadoResponse(data);
         });
         setExibirPreloader(false);
-        setExibirExportar(true);
+        setOpenReport(true);
     }
 
     const previewPDF = () => {
@@ -66,16 +65,14 @@ const PlanejadoRealizado = (props : any) => {
                 img={<FiFilter size={25}/>}
                 component={
                     <Filtros 
-                        getPayload={async (value: any ) => {
-                            getPlanejadoXRealizado(value);
-                        }
-                        }
-                        getDescricao={(value: any ) => setDescricao(value)}
+                        getPayload={async (value: any ) => getPlanejadoXRealizado(value) }
+                        getDescricao={(value: any ) => setDescricao(value) }
                         openPreview={(value: boolean) =>  setExibirPreloader(true) }
+                        closeReport={(value: boolean) => setOpenReport(value) }
                     />
                 }
             />
-            { !exibirExportar ? <></> : previewPDF()}
+            { !openReport ? <></> : previewPDF()}
         </div>
     )
 }

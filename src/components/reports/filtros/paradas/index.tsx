@@ -4,7 +4,6 @@ import { getStops } from "../../services";
 
 const Paradas = (props : any) => {
 
-    const [todasSelecionado, setTodasSelecionado] = useState<boolean>(true);
     
     const [listParadas, setListParadas] = useState<any[]>([]);
     const [listaParadasSelecionadas, setlistaParadasSelecionadas] = useState<any[]>([]);
@@ -29,20 +28,15 @@ const Paradas = (props : any) => {
         startGetStops();
     }, []);
     
-    function handleParada (value : any) {
-        setlistaParadasSelecionadas(value);
-        props.changed(value);        
-    }
     return (
+
         <div className="container paradas">
             <h3>Paradas</h3>
             <FormControlLabel 
                 label="Todas as Paradas"
-                checked={todasSelecionado}
-                value={todasSelecionado}
+                checked={props.todasParadasSelecionado}
                 control={ <Checkbox onChange={() => { 
-                    setTodasSelecionado(!todasSelecionado);
-                    props.todasSelecionado(!todasSelecionado);
+                    props.changeTodasParadasSelecionado(!props.todasParadasSelecionado);
                  }} />}
             />
             <FormControl fullWidth>
@@ -52,10 +46,10 @@ const Paradas = (props : any) => {
                     labelId="multi-paradas-label"
                     id="multi-paradas"
                     multiple
-                
-                    disabled={todasSelecionado}
-                    value={listaParadasSelecionadas}
-                    onChange={(e) => { handleParada(e.target.value) }}
+                    disabled={props.todasParadasSelecionado}
+                    value={props.value}
+                    onChange={(e) => { props.changed(e.target.value) }}
+
                     input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                     renderValue={(listaParadasSelecionadas: any) => (
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -63,17 +57,12 @@ const Paradas = (props : any) => {
                             <Chip key={value} label={value} />
                         ))}
                         </Box>
-                    )}
-                    // MenuProps={MenuProps}
-                    >
-                  {listParadas.map((parada: any, index: number) => (
-                    <MenuItem
-                      key={index}
-                      value={`${parada?.value} - ${parada?.name}`}
-                    >
-                      {`${parada?.value} - ${parada?.name}`}
-                    </MenuItem>
-                  ))}
+                    )} >
+                    {listParadas.map((parada: any, index: number) => (
+                        <MenuItem key={index} value={`${parada?.value} - ${parada?.name}`} >
+                        {`${parada?.value} - ${parada?.name}`}
+                        </MenuItem>
+                    ))}
                 </Select>
             </FormControl>
         </div>

@@ -1,27 +1,20 @@
 import { Checkbox, FormControlLabel} from "@mui/material";
-import { useState } from "react";
 import Mult from "./multi";
-const AreaResponsavel = (props: any) => {
-
-    const [todasSelecionado, setTodasSelecionado] = useState<boolean>(true);
-    
+const AreaResponsavel = (props: any) => {    
     return(
         <div className="container area-responsavel">
             <h3>Área Responsável</h3>
             <FormControlLabel 
-                checked={todasSelecionado}
+                checked={props.todasAreaSelecioando}
                 label="Todas as Áreas Responsáveis"
-                value={todasSelecionado}
                 control={ <Checkbox onChange={(e) => { 
-                    setTodasSelecionado(!todasSelecionado); 
-                    props.todasSelecionado(!todasSelecionado);
+                    props.changeTodasSelecionado(!props.todasAreaSelecioando);
                 }} />}
             />
 
-            <Mult disabled={todasSelecionado} changed={(novaLista : any) => { 
-                props.changed(novaLista);
-                } }/>
-
+            <Mult disabled={props.todasAreaSelecioando} 
+            value={props.value}
+            changed={(novaLista : any) => props.changed(novaLista) }/>
         </div>
     )
 }

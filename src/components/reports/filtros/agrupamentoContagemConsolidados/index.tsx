@@ -4,28 +4,25 @@ import "./agrupamentoContagem.scss";
 import { useState } from "react";
 
 const AgrupamentoContagemConsolidados = (props : any) => {
-    
-    const [exibirAgrupamentoSelecionado, setExibirAgrupamentoSelecionado]= useState<any>("agrupamentoPosto")
-
     return (
         <div className="container agrupamento-contagem">
             <h3>Agrup. e Contagem de Produção</h3>
             <ContagemConsolidados
-                producaoValorSelecionado={(value: string) => props.producaoValorSelecionado(value)}
-                pesoValorSelecionado={(value: string) => props.pesoValorSelecionado(value)}
+                exibirProducaoSelecionado={props.exibirProducaoSelecionado}
+                changeProducaoValorSelecionado={(value: string) => props.changeProducaoValorSelecionado(value)}
+
+                exibirPesoSelecionado={props.exibirPesoSelecionado}
+                changePesoValorSelecionado={(value: string) => props.changePesoValorSelecionado(value)}
             />
 
             <div className="group-radio">
                 <RadioGroup 
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue={exibirAgrupamentoSelecionado}
-                    name="radio-buttons-group"
                     className="radio"
-
-                    onChange={(e) => {
-                        setExibirAgrupamentoSelecionado(e.target.value);
-                        props.agrupamentoValorSelecionado(e.target.value);
-                    }} >
+                    name="radio-buttons-group"
+                    value={props.exibirAgrupamentoSelecionado}
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue={props.exibirAgrupamentoSelecionado}
+                    onChange={(e) => props.changeAgrupamentoValorSelecionado(e.target.value) } >
                     <FormControlLabel
                         control={<h4>Agrupar dados por: </h4>}
                         label=""

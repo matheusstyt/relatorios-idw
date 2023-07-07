@@ -5,7 +5,8 @@ import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
 export default function QuantidadeParadas (props : any) {
-
+    const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
+    const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<any>({});
 
@@ -19,6 +20,8 @@ export default function QuantidadeParadas (props : any) {
                     <Filtros 
                         getPayload={(value: any ) => setCargaUtil(value)}
                         getDescricao={(value: any ) => setDescricao(value)}
+                        openPreview={() =>  setExibirPreloader(true) }
+                        closeReport={(value: boolean) => setOpenReport(value) }
                     />
                 }
             />

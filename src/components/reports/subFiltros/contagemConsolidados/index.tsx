@@ -1,22 +1,15 @@
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import { useState } from "react";
-
 const ContagemConsolidados = (props : any) => {
-    const [exibirProducaoSelecionado, setExibirProducaoSelecionado]= useState<any>("pecas")
-    const [exibirPesoSelecionado, setExibirPesoSelecionado]= useState<any>("kilograma")
     return (
         <>
             <div className="group-radio">
                 <RadioGroup 
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue={exibirProducaoSelecionado}
-                    name="radio-buttons-setExibirProducaoSelecionado"
                     className="radio"
-
-                    onChange={(e) => {
-                        setExibirProducaoSelecionado(e.target.value);
-                        props.producaoValorSelecionado(e.target.value);
-                    } } >
+                    defaultValue={props.exibirProducaoSelecionado}
+                    value={props.exibirProducaoSelecionado}
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    name="radio-buttons-setExibirProducaoSelecionado"
+                    onChange={(e) => props.changeProducaoValorSelecionado(e.target.value) } >
                     <FormControlLabel           
                         control={<h4>Mostrar produção em: </h4>}
                         label=""
@@ -48,18 +41,15 @@ const ContagemConsolidados = (props : any) => {
             </div>
 
             {
-                exibirProducaoSelecionado !== "pecas" 
+                props.exibirProducaoSelecionado !== "pecas" 
                 ? <div className="group-radio">
                     <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue={exibirPesoSelecionado}
-                        name="radio-buttons-group"
                         className="radio" 
-
-                        onChange={(e) => {
-                            setExibirPesoSelecionado(e.target.value);
-                            props.pesoValorSelecionado(e.target.value);
-                        }} >
+                        name="radio-buttons-group"
+                        aria-labelledby="demo-radio-buttons-group-label"
+                        defaultValue={props.exibirPesoSelecionado}
+                        value={props.exibirPesoSelecionado}
+                        onChange={(e) => props.changePesoValorSelecionado(e.target.value) } >
                         <FormControlLabel   
                             control={<h4>Mostrar peso em: </h4>}
                             label=""

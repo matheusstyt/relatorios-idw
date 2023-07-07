@@ -3,10 +3,6 @@ import DateInput from "../customInput/date";
 import SelectTime from "../customInput/time";
 
 const IntervaloContagem = (props : any) => {
-
-    const [dataInicio, setDataInicio] = useState<any>(new Date());
-    const [dataTermino, setDataTermino] = useState<any>(new Date());
-
     return (
         <div className="container intervalo-contagem">
             <h3>Intervalo e Contagem de Produção</h3>
@@ -21,22 +17,16 @@ const IntervaloContagem = (props : any) => {
                     <tr>
                         <td>
                             <DateInput
-                                value={dataInicio}
-                                onChangeValue={ ( value : any) => {
-                                    setDataInicio(value);
-                                    props.dataInicio(value);
-                                } }
+                                value={props.dataInicio}
+                                onChangeValue={ ( value : any) => props.changeDataInicio(value) }
                                 label = "Dia de Início"
                                 helperText={"Campo obrigatório"}
                             />
                         </td>
                         <td>
                             <DateInput
-                                value={dataTermino}
-                                onChangeValue={ ( value : any) => {
-                                    setDataTermino(value);
-                                    props.dataTermino(value);
-                                } }
+                                value={props.dataTermino}
+                                onChangeValue={ ( value : any) => props.changeDataTermino(value) }
                                 label = "Dia de Fim"
                                 helperText={"Campo obrigatório"}
                             />
@@ -44,7 +34,7 @@ const IntervaloContagem = (props : any) => {
                     </tr>
                     <tr>
                         <td>
-                            <SelectTime 
+                            <SelectTime
                                 changed={ (value : string) => {
                                     props.horaInicio(value);
                                 }} />

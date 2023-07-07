@@ -12,30 +12,41 @@ import AgrupamentoContagemConsolidados from "../../../../components/reports/filt
 const Filtros = (props : any) => {
     // períodos e turnos
     const [OPChecked, setOPChecked] = useState<boolean>(false);
-    const [OpNumber, setOpNumber] = useState<string>("");
+    const [OPNumber, setOPNumber] = useState<string>("");
     const [periodoChecked, setPeriodoChecked] = useState<boolean>(false);
     const [dataInicio, setDataInicio] = useState<any>(new Date());
     const [dataTermino, setDataTermino] = useState<any>(new Date());
     const [turnoSelecionado, setTurnoSelecionado] = useState<any>(null);
 
-    // tipo
-    const [tipoSelecionado, setTipoSelecionado]= useState<any>("padrao")
-
     // postos e ferramentas
-    const [postoFerramentaSelecionado, setPostoFerramentaSelecionado] = useState<string>("");
-    const [postoFerramentaValorSelecionado, setPostoFerramentaValorSelecionado] = useState<string>("");
+    const [postoFerramentaSelecionado, setPostoFerramentaSelecionado] = useState<string>("Postos");
+    const [postoFerramentaValorSelecionado, setPostoFerramentaValorSelecionado] = useState<any>(null);
 
     // agrupamentos
     const [exibirProducaoSelecionado, setExibirProducaoSelecionado]= useState<any>("pecas");
     const [exibirPesoSelecionado, setExibirPesoSelecionado]= useState<any>("kilograma");
     const [exibirAgrupamentoSelecionado, setExibirAgrupamentoSelecionado]= useState<any>("agrupamentoPosto");
 
-    
-    const verFiltros = () => {
+    const LimparFiltro = () => {
+        setOPChecked(false);
+        setPeriodoChecked(false);
+        setOPNumber("");
+        setDataInicio(new Date());
+        setDataTermino(new Date());
+        setTurnoSelecionado("");
+        setPostoFerramentaSelecionado("Postos");
+        setPostoFerramentaValorSelecionado("");
+        setExibirProducaoSelecionado("pecas");
+        setExibirPesoSelecionado("kilograma");
+        setExibirAgrupamentoSelecionado("agrupamentoPosto")
+        props.closeReport(false);
+    }
+
+    const AplicarFiltro = () => {
 
         // carga útil
         const payload = {
-            op: OpNumber,
+            op: OPNumber,
             dthrIni : periodoChecked? new Formatar(dataInicio).dataAbreviada() : null,
             dthrFim : periodoChecked? new Formatar(dataTermino).dataAbreviada() : null,
             cdTurno : turnoSelecionado === "todos" ? null : turnoSelecionado,
@@ -54,13 +65,18 @@ const Filtros = (props : any) => {
             isPesoEmKg: exibirProducaoSelecionado!="pecas" && exibirPesoSelecionado=="kilograma",
             isPesoEmTon: exibirProducaoSelecionado!="pecas" &&  exibirPesoSelecionado=="tonelada" 
         };
-        
-        let grupoTrabalho = "TODOS OS POSTOS";
+        let propriedade = "POSTO";
+        postoFerramentaSelecionado==="Postos" ? propriedade = "POSTO" :
+        postoFerramentaSelecionado==="grupoTrabalho" ? propriedade = "GRUPO DE TRABALHO" :
+        postoFerramentaSelecionado==="ferramentas" ? propriedade = "FERRAMENTA" : 
+        postoFerramentaSelecionado==="grupoFerramenta" ? propriedade = "GRUPO DE FERRAMENTA" : propriedade = "POSTO"
 
-        if(payload.cdGt!==null)  grupoTrabalho = `GRUPO DE TRABALHO: ${payload.cdGt}`
-        if(payload.cdPt!==null)  grupoTrabalho = `POSTO DE TRABALHO: ${payload.cdPt}`
-        if(payload.cdFerramenta!==null)  grupoTrabalho = `FERRAMENTA: ${payload.cdFerramenta}`
-        if(payload.cdGrpFerramenta!==null)  grupoTrabalho = `GRUPO DE FERRAMENTA: ${payload.cdGrpFerramenta}`
+        let grupoTrabalho = "TODOS";
+
+        if(payload.cdGt!==null)  grupoTrabalho = `${payload.cdGt}`
+        if(payload.cdPt!==null)  grupoTrabalho = `${payload.cdPt}`
+        if(payload.cdFerramenta!==null)  grupoTrabalho = `${payload.cdFerramenta}`
+        if(payload.cdGrpFerramenta!==null)  grupoTrabalho = `${payload.cdGrpFerramenta}`
 
         let producao = "PEÇAS";
 
@@ -74,13 +90,15 @@ const Filtros = (props : any) => {
         exibirAgrupamentoSelecionado==="agrupamentoProduto" ? agrupamento = "PRODUTO" : agrupamento = ""
 
         let descricao : Object[] = [];
-        descricao.push({propery : "GRUPO DE TRABALHO", description: grupoTrabalho})
+        descricao.push({propery : propriedade, description: grupoTrabalho})
         descricao.push({propery : "TURNOS", description: payload.cdTurno === "todos" || payload.cdTurno === null || payload.cdTurno === ""? "TODOS OS TURNOS" : payload.cdTurno})
         descricao.push({propery : "PERÍODO", description: `${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`})
         descricao.push({propery : "PRODUÇÃO EM", description: producao})
         descricao.push({propery : "AGRUPAR POR", description: agrupamento})
-        descricao.push({propery : "OP", description: OpNumber})
+        descricao.push({propery : "OP", description: OPNumber})
         
+        console.log(payload);
+        props.closeReport(false);
         props.getPayload(payload);
         props.getDescricao(descricao);
         props.openPreview(true);
@@ -88,27 +106,48 @@ const Filtros = (props : any) => {
     return (
         <div className="container-filtro">
             <OpPeriodo 
-                periodoChecked={(value : boolean) => setPeriodoChecked(value)}
-                OPChecked={(value : boolean) => setOPChecked(value)}
-                OpNumber={(value : string) => setOpNumber(value)}
-                turno={(value : any) => setTurnoSelecionado(value)}
-                dataInicio={(value : any) => setDataInicio(value)}
-                dataTermino={(value : any) => setDataTermino(value)}
+                periodoChecked={periodoChecked}
+                changePeriodoChecked={(value : boolean) => setPeriodoChecked(value)}
+
+                OPChecked={OPChecked}
+                changeOPChecked={(value : boolean) => setOPChecked(value)}
+                
+                OPNumber={OPNumber}
+                changeOPNumber={(value : string) => setOPNumber(value)}
+
+                
+                dataInicio={dataInicio}
+                changeDataInicio={(value : any) => setDataInicio(value)}
+                
+                dataTermino={dataTermino}
+                changeDataTermino={(value : any) => setDataTermino(value)}
+
+                turno={turnoSelecionado}
+                changeTurno={(value : any) => setTurnoSelecionado(value)}
             />
             <Divider />
-            <PostosFerramentas
-                postoFerramentaSelecionado={(value : any) => setPostoFerramentaSelecionado(value)}
+           <PostosFerramentas
+                postoFerramentaSelecionado={postoFerramentaSelecionado}
+                changePostoFerramentaSelecionado={(value : any) => setPostoFerramentaSelecionado(value)}
+                
+                value={postoFerramentaValorSelecionado}
                 changed={(value : any) => setPostoFerramentaValorSelecionado(value)}
             />
             <Divider />
             <AgrupamentoContagemConsolidados
-                producaoValorSelecionado={(value : any) => setExibirProducaoSelecionado(value)}
-                pesoValorSelecionado={(value : any) => setExibirPesoSelecionado(value)}
-                agrupamentoValorSelecionado={(value : any) => setExibirAgrupamentoSelecionado(value)}
+                exibirProducaoSelecionado={exibirProducaoSelecionado}
+                changeProducaoValorSelecionado={(value: string) => setExibirProducaoSelecionado(value)}
+                
+                exibirPesoSelecionado={exibirPesoSelecionado}               
+                changePesoValorSelecionado={(value: string) => setExibirPesoSelecionado(value)}
+
+                exibirAgrupamentoSelecionado={exibirAgrupamentoSelecionado}
+                changeAgrupamentoValorSelecionado={(value : any) => setExibirAgrupamentoSelecionado(value)}
+
             />
             <Container style={{ display : "flex", justifyContent : "flex-end", gap : "1em"}} >
-                <Button variant="contained">LIMPAR</Button>
-                <Button disabled={!periodoChecked} onClick={verFiltros} variant="contained">APLICAR FILTRO</Button>
+                <Button onClick={LimparFiltro} variant="contained">LIMPAR</Button>
+                <Button disabled={!periodoChecked} onClick={AplicarFiltro} variant="contained">APLICAR FILTRO</Button>
             </Container>
         </div>
     )
