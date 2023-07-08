@@ -18,7 +18,7 @@ const Filtros = (props : any) => {
     const [turnoSelecionado, setTurnoSelecionado] = useState<any>(null);
     // postos e ferramentas
     const [postoFerramentaSelecionado, setPostoFerramentaSelecionado] = useState<string>("Postos");
-    const [postoFerramentaValorSelecionado, setPostoFerramentaValorSelecionado] = useState<string>("");
+    const [postoFerramentaValorSelecionado, setPostoFerramentaValorSelecionado] = useState<any>(null);
 
     // agrupamentos
     const [exibirProducaoSelecionado, setExibirProducaoSelecionado]= useState<any>("pecas");
@@ -78,7 +78,7 @@ const Filtros = (props : any) => {
         postoFerramentaSelecionado==="ferramentas" ? propriedade = "FERRAMENTA" : 
         postoFerramentaSelecionado==="grupoFerramenta" ? propriedade = "GRUPO DE FERRAMENTA" : propriedade = "POSTO"
 
-        let grupoTrabalho = "TODOS OS POSTOS";
+        let grupoTrabalho = "TODOS";
 
         if(payload.cdGt!==null)  grupoTrabalho = `${payload.cdGt}`
         if(payload.cdPt!==null)  grupoTrabalho = `${payload.cdPt}`
