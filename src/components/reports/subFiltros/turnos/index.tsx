@@ -1,4 +1,4 @@
-import { getAllShiftsSemCalativos } from "../../services";
+import { getAllShiftsSemCalativos } from "../../../../services";
 import SelectIDW from "../../filtros/customInput/select";
 import { useEffect, useState } from "react";
 

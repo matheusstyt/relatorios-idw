@@ -1,24 +1,22 @@
-import { IFichaTecnicaResponse } from "../../../../components/reports/interface/reports/engenharia/fichaTecnica";
-import { FichaTecnicaServices } from "../../../../components/reports/services/reports/engenharia";
 import { FichaTecnicaBody, Header, TableDinamic } from "../../../../components/reports/pdf";
+import { IFichaTecnicaResponse } from "../../../../interface/reports/engenharia/fichaTecnica";
+import { FichaTecnicaServices } from "../../../../services/reports/engenharia";
+import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 import headers from "../../../../components/reports/pdf/headers.json";
 import { Preloader } from "../../../../components/reports/preloader";
 import AccordionDinamic from "../../../../components/accordion";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import Filtros from "./filtros";
-import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 
 
 const FichaTecnica = (props: any) =>{
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [openReport, setOpenReport] = useState<boolean>(false);
-    const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
 
     const [fichaTecnicaResponse, setFichaTecnicaResponse] = useState<IFichaTecnicaResponse>();
     async function getfichaTecnica (value : any) {
-        setCargaUtil(value);
         await FichaTecnicaServices( value)
         .then( (data: any) => {
             setFichaTecnicaResponse(data);

@@ -1,19 +1,19 @@
-import { IParadaIndiceParadaXPosto, ISubRelatorioIndiceParada } from '../interface/reports/paradas/indiceParadasXPosto';
-import { IListaDTO, IOperador, ItemProducaoEficienciaHoraAHora } from '../interface/reports/producao/analiseProducao';
-import { IItemIndiceParada, IParada, IPostoParada } from '../interface/reports/paradas/indiceParadas';
-import { IItemPlanejaxRealizado } from '../interface/reports/planejamento/planejadoxrealizado';
-import { IFerramenta, IPosto, IProduto } from '../interface/reports/producao/consolidados';
-import { IPostoIntervalo } from '../interface/reports/producao/acompanhamentoProducao';
-import { IProdutoFichaTecnica } from '../interface/reports/engenharia/fichaTecnica';
-import { convertSecondsToTime } from './datetime';
-import { DecimalParaReal } from './DOM/functions';
+import { IParadaOcorrenciasParada, IParadaProducaoRegulagem, IPostoPeriodo } from '../../../interface/reports/producao/producaoRegulagem';
+import { IPostoIndiceRefugo, IProdutosIndiceRefugo, IRefugoIndiceRefugo } from '../../../interface/reports/producao/indiceRefugos';
+import { IParadaIndiceParadaXPosto, ISubRelatorioIndiceParada } from '../../../interface/reports/paradas/indiceParadasXPosto';
+import { IListaDTO, IOperador, ItemProducaoEficienciaHoraAHora } from '../../../interface/reports/producao/analiseProducao';
+import { IItemIndiceParada, IParada, IPostoParada } from '../../../interface/reports/paradas/indiceParadas';
+import { IItemPlanejaxRealizado } from '../../../interface/reports/planejamento/planejadoxrealizado';
+import { IFerramenta, IPosto, IProduto } from '../../../interface/reports/producao/consolidados';
+import { IPostoIntervalo } from '../../../interface/reports/producao/acompanhamentoProducao';
+import { IProdutoFichaTecnica } from '../../../interface/reports/engenharia/fichaTecnica';
 import { FiDownload, FiPrinter } from "react-icons/fi";
-import { BsEyeFill } from "react-icons/bs";
+import { DecimalParaReal } from './DOM/functions';
+import { convertSecondsToTime } from './datetime';
 import { Button } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import "./export.scss";
-import { IParadaOcorrenciasParada, IParadaProducaoRegulagem, IPostoPeriodo } from '../interface/reports/producao/producaoRegulagem';
-import {  IPostoIndiceRefugo, IProdutosIndiceRefugo, IRefugoIndiceRefugo } from '../interface/reports/producao/indiceRefugos';
+
 import { Fragment } from 'react';
 
 export function Header(props : any) {
@@ -401,10 +401,10 @@ export function IndiceParadaXPostoBody( props : any ){
                     <tr>
                         <td>{row?.maquina}</td>
                         <td>{ convertSecondsToTime( row?.tempoAtivo ) }</td>
-                        <td>{row?.listaParadasRelatorio?.map((i: IParadaIndiceParadaXPosto, index) => <p key={index}>{i.parada}</p>)}</td>
-                        <td>{row?.listaParadasRelatorio?.map((i: IParadaIndiceParadaXPosto, index) => <p key={index}>{i.quantidade}</p>)}</td>
-                        <td>{row?.listaParadasRelatorio?.map((i: IParadaIndiceParadaXPosto, index) => <p key={index}>{convertSecondsToTime(i.tempoParada)}</p>)}</td>
-                        <td>{row?.listaParadasRelatorio?.map((i: IParadaIndiceParadaXPosto, index) => <p key={index}>{i.indiceBA}</p>)}</td>
+                        <td>{row?.listaParadasRelatorio?.map((i: IParadaIndiceParadaXPosto, index: number) => <p key={index}>{i.parada}</p>)}</td>
+                        <td>{row?.listaParadasRelatorio?.map((i: IParadaIndiceParadaXPosto, index: number) => <p key={index}>{i.quantidade}</p>)}</td>
+                        <td>{row?.listaParadasRelatorio?.map((i: IParadaIndiceParadaXPosto, index: number) => <p key={index}>{convertSecondsToTime(i.tempoParada)}</p>)}</td>
+                        <td>{row?.listaParadasRelatorio?.map((i: IParadaIndiceParadaXPosto, index: number) => <p key={index}>{i.indiceBA}</p>)}</td>
                     
                     </tr>
                     <tr>

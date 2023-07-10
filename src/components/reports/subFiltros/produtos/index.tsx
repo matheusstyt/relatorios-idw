@@ -1,7 +1,6 @@
-import { getAllProducts } from "../../services/filters/produto";
+import { getAllProducts } from "../../../../services/filters/produto";
 import SelectIDW from "../../filtros/customInput/select";
 import { useEffect, useState } from "react";
-import { Checkbox, Divider, FormControlLabel } from "@mui/material";
 
 const Produtos = (props : any) => {
     const [listaProdutos, setListaProdutos] = useState<any[]>([]);

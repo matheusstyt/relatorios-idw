@@ -1,6 +1,4 @@
 import { Header, IndiceParadasFerramentaBody, IndiceParadasPadraoBody, IndiceParadasProdutoBody, TableDinamic, TotalGeralIndiceParadas } from '../../../../components/reports/pdf';
-import { IIndiceParadasResponse } from '../../../../components/reports/interface/reports/paradas/indiceParadas';
-import { IndiceParadaServices } from '../../../../components/reports/services/reports/paradas';
 import { getTableDinamicDOM } from '../../../../components/reports/pdf/DOM';
 import headers from "../../../../components/reports/pdf/headers.json";
 import { Preloader } from '../../../../components/reports/preloader';
@@ -9,6 +7,8 @@ import { useState } from 'react';
 import { FiFilter } from "react-icons/fi";
 import Filtros from "./filtros";
 import "../../../pages.scss";
+import { IndiceParadaServices } from '../../../../services/reports/paradas';
+import { IIndiceParadasResponse } from '../../../../interface/reports/paradas/indiceParadas';
 
 export default function IndiceParadas (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);

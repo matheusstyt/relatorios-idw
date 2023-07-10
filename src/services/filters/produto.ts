@@ -1,4 +1,4 @@
-import api from "../../../../config/api";
+import api from "../../config/api";
 
 import { IProdutosResponse } from "../../interface/filters/produtos";
 

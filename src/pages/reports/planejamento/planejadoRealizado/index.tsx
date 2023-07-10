@@ -1,24 +1,22 @@
-import { IPlanejadoXRealizadoResponse } from "../../../../components/reports/interface/reports/planejamento/planejadoxrealizado";
-import { PlanejadoXRealizadoServices } from "../../../../components/reports/services/reports/planejamentos";
+import { IPlanejadoXRealizadoResponse } from "../../../../interface/reports/planejamento/planejadoxrealizado";
 import { Header, PlanejadoXRealizadoBody, TableDinamic } from "../../../../components/reports/pdf";
+import { PlanejadoXRealizadoServices } from "../../../../services/reports/planejamentos";
+import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 import headers from "../../../../components/reports/pdf/headers.json";
 import { Preloader } from "../../../../components/reports/preloader";
 import AccordionDinamic from "../../../../components/accordion";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import Filtros from "./filtro";
-import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 
 const PlanejadoRealizado = (props : any) => {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [openReport, setOpenReport] = useState<boolean>(false);
-    const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<any>({});
     
     const [planejadoXRealizadoResponse, setPlanejadoXRealizadoResponse] = useState<IPlanejadoXRealizadoResponse>();
 
     async function getPlanejadoXRealizado (value : any) {
-        setCargaUtil(value);
         await PlanejadoXRealizadoServices( value)
         .then( (data) => {
             setPlanejadoXRealizadoResponse(data);
@@ -26,7 +24,6 @@ const PlanejadoRealizado = (props : any) => {
         setExibirPreloader(false);
         setOpenReport(true);
     }
-
     const previewPDF = () => {
         return (
             <div className="export-content">

@@ -1,10 +1,11 @@
-import { IAcompanhamentoProducaoResponse } from "../../interface/reports/producao/acompanhamentoProducao";
 import { IAnaliseProducaoResponse } from "../../interface/reports/producao/analiseProducao";
 import { IConsolidadosResponse } from "../../interface/reports/producao/consolidados";
-import api from "../../../../config/api";
 import { AxiosResponse } from "axios";
+import api from "../../config/api";
+import { IAcompanhamentoProducaoResponse } from "../../interface/reports/producao/acompanhamentoProducao";
 import { IProducaoRegulagemResponse } from "../../interface/reports/producao/producaoRegulagem";
 import { IIndiceRefugoResponse } from "../../interface/reports/producao/indiceRefugos";
+
 
 const APP_API = "http://170.10.0.206:8080";
 

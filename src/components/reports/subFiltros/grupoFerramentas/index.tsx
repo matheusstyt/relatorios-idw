@@ -1,11 +1,10 @@
+import { getAllToolsGroupActive } from "../../../../services";
 import SelectIDW from "../../filtros/customInput/select";
-import { getAllToolsGroupActive } from "../../services";
 import  { useEffect, useState } from "react";
 
 
 const GrupoFerramentas = (props : any) => {
 
-    
     const [listaGrupoFerramentas, setListaGrupoFerramentas] = useState<any[]>([]);
         
     const startGetAllWorkstation = () => {

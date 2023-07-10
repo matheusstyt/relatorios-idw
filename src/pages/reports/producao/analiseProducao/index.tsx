@@ -1,6 +1,6 @@
-import { IAnaliseProducaoResponse } from "../../../../components/reports/interface/reports/producao/analiseProducao";
-import { AnaliseProducaoServices } from "../../../../components/reports/services/reports/produtos";
+import { IAnaliseProducaoResponse } from "../../../../interface/reports/producao/analiseProducao";
 import { AnaliseProducaoBody, Header, TableDinamic } from "../../../../components/reports/pdf";
+import { AnaliseProducaoServices } from "../../../../services/reports/produtos";
 import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 import headers from "../../../../components/reports/pdf/headers.json";
 import { Preloader } from "../../../../components/reports/preloader";
@@ -13,12 +13,10 @@ import "../../../pages.scss";
 export default function AnaliseProducao (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [openReport, setOpenReport] = useState<boolean>(false);
-    const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
 
     const [analiseProducaoResponse, setAnaliseProducaoResponse] = useState<IAnaliseProducaoResponse>();
     async function getAnaliseProducao (value : any) {
-        setCargaUtil(value);
         await AnaliseProducaoServices( value)
         .then((data) => {
             setAnaliseProducaoResponse(data);  

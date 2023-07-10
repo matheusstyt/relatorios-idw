@@ -1,5 +1,5 @@
+import { getAllJobGroupActive } from "../../../../services";
 import SelectIDW from "../../filtros/customInput/select";
-import { getAllJobGroupActive } from "../../services";
 import { useEffect, useState } from "react";
 
 const GrupoTrabalho = (props : any) => {

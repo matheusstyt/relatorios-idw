@@ -1,7 +1,8 @@
+
+import { AxiosResponse } from "axios";
+import api from "../../config/api";
 import { IIndiceParadaPostoResponse } from "../../interface/reports/paradas/indiceParadasXPosto";
 import { IIndiceParadasResponse } from "../../interface/reports/paradas/indiceParadas";
-import api from "../../../../config/api";
-import { AxiosResponse } from "axios";
 
 const APP_API = "http://170.10.0.206:8080";
 

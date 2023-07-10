@@ -1,25 +1,23 @@
 import { Header, IndiceParadaXPostoBody, TableDinamic, TotalGeralIndiceParadaXPosto } from "../../../../components/reports/pdf";
-import { IIndiceParadaPostoResponse } from "../../../../components/reports/interface/reports/paradas/indiceParadasXPosto";
-import { IndiceParadaXPostoServices } from "../../../../components/reports/services/reports/paradas";
+import { IIndiceParadaPostoResponse } from "../../../../interface/reports/paradas/indiceParadasXPosto";
+import { IndiceParadaXPostoServices } from "../../../../services/reports/paradas";
 import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 import headers from "../../../../components/reports/pdf/headers.json";
+import { Preloader } from "../../../../components/reports/preloader";
+import AccordionDinamic from "../../../../components/accordion";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import { Preloader } from "../../../../components/reports/preloader";
-import AccordionDinamic from "../../../../components/accordion";
 
 
 export default function IndiceParadasXPosto (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [openReport, setOpenReport] = useState<boolean>(false);
-    const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<any>({});
     
     const [listaIndiceParadaPosto, setListIndiceParadaPosto] = useState<IIndiceParadaPostoResponse>();
     async function getIndiceRelatorioPosto (value : any) {
-        setCargaUtil(value);
         await IndiceParadaXPostoServices( value)
         .then( (data) => {
             setListIndiceParadaPosto(data)            

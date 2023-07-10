@@ -1,6 +1,6 @@
-import { IIndiceRefugoResponse, INewIndiceRefugoResponse } from "../../../../components/reports/interface/reports/producao/indiceRefugos";
 import { Header, IndiceRefugoPostoBody, IndiceRefugoProdutoBody, IndiceRefugoRefugoBody, TableDinamic, TotalGeralIndiceRefugo } from "../../../../components/reports/pdf";
-import { IndiceRefugosServices } from "../../../../components/reports/services/reports/produtos";
+import { INewIndiceRefugoResponse } from "../../../../interface/reports/producao/indiceRefugos";
+import mocks from "../../../../interface/reports/producao/indiceRefugoMocks.json";
 import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 import headers from "../../../../components/reports/pdf/headers.json";
 import { Preloader } from "../../../../components/reports/preloader";
@@ -9,7 +9,6 @@ import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import mocks from "../../../../components/reports/interface/reports/producao/indiceRefugoMocks.json";
 
 export default function IndiceRefugos (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
@@ -18,8 +17,6 @@ export default function IndiceRefugos (props : any) {
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
 
     const [indiceRefugosResponse, setIndiceRefugosResponse] = useState<INewIndiceRefugoResponse>();
-    const [isProducaoRegulagem, setIsProducaoRegulagem] = useState<boolean>(true);
-    const [exibirParadas, setExibirParadas] = useState<boolean>(false);
 
     async function getIndiceRefugo (value : any) {
        setCargaUtil(value);
@@ -41,9 +38,7 @@ export default function IndiceRefugos (props : any) {
         setOpenReport(true);
         setExibirPreloader(false);
     }
-    const limpar = () => {
-        
-    }
+
     const previewPDF = () => {
         return (
             <div className="export-content">

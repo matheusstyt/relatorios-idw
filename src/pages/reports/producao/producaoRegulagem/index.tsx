@@ -1,5 +1,4 @@
 import { Header, OcorrenciaParadaRegulagemBody, ProducaoEmRegulagemBody, TableDinamic, TotalGeralProducaoRegulagem } from "../../../../components/reports/pdf";
-import { OcorrenciasParadaServices, ProducaoRegulagemServices } from "../../../../components/reports/services/reports/produtos";
 import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 import headers from "../../../../components/reports/pdf/headers.json";
 import { Preloader } from "../../../../components/reports/preloader";
@@ -8,7 +7,8 @@ import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
-import { IOcorrenciasParadaResponse, IProducaoRegulagemResponse } from "../../../../components/reports/interface/reports/producao/producaoRegulagem";
+import { IOcorrenciasParadaResponse, IProducaoRegulagemResponse } from "../../../../interface/reports/producao/producaoRegulagem";
+import { OcorrenciasParadaServices, ProducaoRegulagemServices } from "../../../../services/reports/produtos";
 
 export default function ProducaoRegulagem (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);

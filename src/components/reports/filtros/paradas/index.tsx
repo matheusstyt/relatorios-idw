@@ -1,13 +1,10 @@
 import { Box, Checkbox, Chip, FormControl, FormControlLabel, InputLabel, MenuItem, OutlinedInput, Select } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { getStops } from "../../services";
+import { getStops } from "../../../../services";
 
 const Paradas = (props : any) => {
 
-    
-    const [listParadas, setListParadas] = useState<any[]>([]);
-    const [listaParadasSelecionadas, setlistaParadasSelecionadas] = useState<any[]>([]);
-    
+    const [listParadas, setListParadas] = useState<any[]>([]);   
     
     const startGetStops = () => {
 

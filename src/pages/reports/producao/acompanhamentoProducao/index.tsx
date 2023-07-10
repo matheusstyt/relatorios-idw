@@ -1,9 +1,9 @@
-import { IAcompanhamentoProducaoResponse, IIntervalo } from "../../../../components/reports/interface/reports/producao/acompanhamentoProducao";
 import { AcompanhamentoProducaoBody, Header, TotalGeralAcompanhamentoProducao } from "../../../../components/reports/pdf";
-import { AcompanhamentoProducaoServices } from "../../../../components/reports/services/reports/produtos";
 import { getTableAcompanhamentoDOM } from "../../../../components/reports/pdf/DOM/acompanhamentoproducao";
 import headers from "../../../../components/reports/pdf/headers.json"
 import { Preloader } from "../../../../components/reports/preloader";
+import { IAcompanhamentoProducaoResponse, IIntervalo } from "../../../../interface/reports/producao/acompanhamentoProducao";
+import { AcompanhamentoProducaoServices } from "../../../../services/reports/produtos";
 import AccordionDinamic from "../../../../components/accordion";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
@@ -13,13 +13,10 @@ import "../../../pages.scss";
 export default function AcompanhamentoProducao (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [openReport, setOpenReport] = useState<boolean>(false);
-    const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<Object[]>([]);
 
     const [analiseProducaoResponse, setAnaliseProducaoResponse] = useState<IAcompanhamentoProducaoResponse>();
     async function getAcompanhamentoProducao (value : any) {
-        setCargaUtil(value);
-     
         await AcompanhamentoProducaoServices( value)
         .then((data) => {
             if(data?.request?.status && data?.request?.status === 500){
