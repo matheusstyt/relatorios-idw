@@ -46,7 +46,7 @@ export default function IndiceParadasXPosto (props : any) {
                 <div className="table-content">
                     <TableDinamic headers={headers.paradas.indiceParadasPosto} body={<IndiceParadaXPostoBody className="indiceparadaxposto" parada={listaIndiceParadaPosto} />} />
                 </div>
-                <h2>Total Geral</h2>
+                <h2 className="total-geral-h2">Total:</h2>
                 <TotalGeralIndiceParadaXPosto dados={listaIndiceParadaPosto} />
             </div>
         )

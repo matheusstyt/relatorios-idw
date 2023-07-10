@@ -1,17 +1,75 @@
+
 h2{
     margin: 0.5em 0;
     font-size: 1.3em;
     color: #414141;
 }
+// CONSOLIDADOS
 .nv2{
     background-color: #90b5d83b;
 }
 .nv3{
     background-color: #94bce27c;
 }
+
+// SCSS DO HEADER DE TODOS OS FILTROS
+.MuiPaper-root{
+    padding: 0;
+}
+.export-content{
+    width: 100%;
+    padding: 1em;
+    .export-header{
+        border-bottom: 2px solid #414141b0;
+        padding: 0;
+        .title-content{
+            background-color: rgb(52, 121, 233);
+            border-top-left-radius: 0.5em;
+            border-top-right-radius: 0.5em;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1em;
+            display: flex;
+            h2, p{
+                color: #fff;
+            }
+        }
+        .flex-header{
+            .descricao-list{
+                display: flex; gap: 1em;
+                flex-flow: row wrap;
+                padding: 1em;
+                p{ font-weight: 500; font-size: 0.7em; }
+            }
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .btn-pdf{
+                display: flex;
+                flex-flow: row;
+                gap: 1em;
+            }
+        }
+    }
+}
+// FIM DO HEADER
+// TODAS AS TABELAS DE "EXPORTAR"
 .table-content{
+    margin: 1em 0;
     max-height: 70vh;
     overflow-x: auto;
+    // scroll bar para tabela
+    &::-webkit-scrollbar-track { 
+        border: 0.02em solid #64646462; 
+        background-color: transparent }
+
+    &::-webkit-scrollbar { width: 8px; height: 8px; }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(15, 66, 148);
+        border-radius: 4px;
+    }
+    // fim do scroll 
 
     #table-main{
         width: 100%;
@@ -133,31 +191,15 @@ h2{
     color: #fff;
     }
 }
-.span-nv2{
-    background-color: #00000021;
+// FIM DAS TABELAS
 
-}
-.span-nv3{
-    background-color: #00000021;
-
-}
-// SCSS DO HEADER DE TODOS OS FILTROS
-.export-header{
-    border-bottom: 2px solid #414141b0;
-    padding: 1em;
-    p{
-        font-weight: 500;
-    }
-    .flex-header{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        .btn-pdf{
-            display: flex;
-            flex-flow: row;
-            gap: 1em;
-        }
-    }
+// titulo do "Total:"
+.total-geral-h2{
+    background-color: rgb(212, 225, 249);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 0.5em;
+    text-align: left;
 }
 .container-totais{
     background-color: #c6dbfa;
@@ -166,7 +208,7 @@ h2{
     margin: 0 auto;
     display: flex;
     flex-flow: column wrap;
-    max-height: 120px;
+    max-height: 145px;
     h3{
         width: 100%;
         color: #fff;
@@ -177,9 +219,18 @@ h2{
     }
 }
 
+// consolidados, índice de paradas
 #totais-totais{
-    background-color: #85affc;
+    background-color: rgb(14, 87, 204);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    p{ color: #fff; font-size: 11px; padding: 0.2em 0}
+    @media only screen and (max-width: 1300px) {
+        max-height: none;
+        
+    }
 }
+
 .total-td{
     padding: 0.5em;
     box-sizing: border-box;

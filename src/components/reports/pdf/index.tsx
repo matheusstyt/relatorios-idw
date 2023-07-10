@@ -9,7 +9,7 @@ import { IPostoIntervalo } from '../../../interface/reports/producao/acompanhame
 import { IProdutoFichaTecnica } from '../../../interface/reports/engenharia/fichaTecnica';
 import { FiDownload, FiPrinter } from "react-icons/fi";
 import { DecimalParaReal } from './DOM/functions';
-import { convertSecondsToTime } from './datetime';
+import { Formatar, convertSecondsToTime } from './datetime';
 import { Button } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import "./export.scss";
@@ -19,20 +19,32 @@ import { Fragment } from 'react';
 export function Header(props : any) {
     return (
         <div className="export-header">
-            <h2>{props.title}</h2>
+            <div className='title-content'>
+                <h2>{props.title}</h2>
+                <span>
+                    <p>{new Formatar(new Date()).dataGeralPT()}</p>
+                    <p>v0.131.10</p>
+                </span>
+            </div>
             <div className="flex-header">
                 <div className='descricao-list'>
                     { props.components}
                 </div>
                 <div className="btn-pdf">
-                    <Button variant="contained" 
+                    {/* <Button variant="contained" 
                     startIcon={<FiDownload className='header-btn-ico' size={20}/>} 
                     onClick={(e) => {  props.getTableDOM(true) }}>Baixar</Button>
                     <Button  
                     variant="contained" 
                     startIcon={<FiPrinter className='header-btn-ico' size={20}/>} 
-                    onClick={(e) => { props.getTableDOM(false) }}>Imprimir</Button>
+                    onClick={(e) => { props.getTableDOM(false) }}>Imprimir</Button> */}
 
+                    {/* só icones */}
+
+                    <Button variant="contained" 
+                    onClick={(e) => {  props.getTableDOM(true) }}><FiDownload className='header-btn-ico' size={20}/></Button>
+                    <Button variant="contained" 
+                    onClick={(e) => { props.getTableDOM(false) }}><FiPrinter className='header-btn-ico' size={20}/></Button>
                 </div>
             </div>
         </div>
