@@ -9,11 +9,13 @@ import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
+import FontRange from "../../../../components/reports/fontRange";
 
 export default function AcompanhamentoProducao (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [openReport, setOpenReport] = useState<boolean>(false);
     const [descricao, setDescricao] = useState<Object[]>([]);
+    const [fontTable, setfontTable] = useState(14); 
 
     const [analiseProducaoResponse, setAnaliseProducaoResponse] = useState<IAcompanhamentoProducaoResponse>();
     async function getAcompanhamentoProducao (value : any) {
@@ -48,9 +50,9 @@ export default function AcompanhamentoProducao (props : any) {
                     }
                     components={<> {descricao.map((i : any, index: number) => <p key={index}><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
+                <FontRange changed={(size : number) => setfontTable(size)} />
                 <div className="table-content">
-                    
-                    <table id="table-acompanhamento" >
+                    <table id="table-acompanhamento" style={{fontSize : fontTable}}>
                         {analiseProducaoResponse?.intervalos?.map((intervalo: IIntervalo, index: number) => {
                             return <>
                                 <thead key={index} id="thead-acompanhamento">

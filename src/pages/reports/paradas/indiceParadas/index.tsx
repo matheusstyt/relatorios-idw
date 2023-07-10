@@ -9,13 +9,14 @@ import Filtros from "./filtros";
 import "../../../pages.scss";
 import { IndiceParadaServices } from '../../../../services/reports/paradas';
 import { IIndiceParadasResponse } from '../../../../interface/reports/paradas/indiceParadas';
+import FontRange from '../../../../components/reports/fontRange';
 
 export default function IndiceParadas (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<Object[]>([]);
-
+    const [fontTable, setfontTable] = useState(14); 
     const [listaIndiceParada, setListIndiceParada] = useState<IIndiceParadasResponse>();
 
     async function getIndiceParadas (value : any) {
@@ -44,15 +45,16 @@ export default function IndiceParadas (props : any) {
                     }
                     components={<> {descricao.map((i : any, index: number) => <p key={index}><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
+                <FontRange changed={(size : number) => setfontTable(size)} />
                 <div className="table-content">
                     {
                         cargaUtil.isAgrupamentoPadrao ?
                                                                                                                                                         // tem um array dentro do array kkk, enfim
-                        <TableDinamic headers={headers.paradas.indiceParadasPadrao} body={<IndiceParadasPadraoBody className="indiceparadaxposto" paradas={listaIndiceParada?.itens[0]?.paradas} />} />
+                        <TableDinamic headers={headers.paradas.indiceParadasPadrao} body={<IndiceParadasPadraoBody className="indiceparadaxposto" paradas={listaIndiceParada?.itens[0]?.paradas} />} fontTable={fontTable} />
                         :cargaUtil.isAgrupadoPorProduto ?
-                        <TableDinamic headers={headers.paradas.indiceParadasProduto} body={<IndiceParadasProdutoBody className="indiceparadaxposto" paradas={listaIndiceParada?.itens} />} />
+                        <TableDinamic headers={headers.paradas.indiceParadasProduto} body={<IndiceParadasProdutoBody className="indiceparadaxposto" paradas={listaIndiceParada?.itens} />} fontTable={fontTable} />
                         :cargaUtil.isAgrupadoPorFerramenta ?
-                        <TableDinamic headers={headers.paradas.indiceParadasFerramenta} body={<IndiceParadasFerramentaBody className="indiceparadaxposto" paradas={listaIndiceParada?.itens} />} />
+                        <TableDinamic headers={headers.paradas.indiceParadasFerramenta} body={<IndiceParadasFerramentaBody className="indiceparadaxposto" paradas={listaIndiceParada?.itens} />} fontTable={fontTable} />
                         : <></>
                     }
                 </div>
@@ -61,6 +63,7 @@ export default function IndiceParadas (props : any) {
             </div>
         )
     }
+    console.log(fontTable)
     return (
         <div className="container-page">
 

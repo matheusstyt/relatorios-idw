@@ -32,9 +32,10 @@ export function getTableAcompanhamentoDOM (descricao : Object, title: string, or
                 let arrRow: any[] = [];
 
                 Array.from(tr?.children).forEach((td : any) => {
-                    // verifica através do colspan se é o header do périodo de intervalo, adiciona-se a mesma propriedade.
+                    // verifica através do colspan se é o header do período de intervalo, adiciona-se a mesma propriedade.
                     // aproveitando o else, verifica a class para alterar a cor de fundo.
                     const colspan = parseInt(td.getAttribute("colspan") || "1");
+                    // 9 é o numero total de colunas da tabela
                     if(colspan == 9){
                         arrRow.push({text: td?.textContent, fontSize: fontSize, colSpan: 9, marginBottom: 10, border: [false, false, false, false]}  as types.TableCellProperties)
                     }else{

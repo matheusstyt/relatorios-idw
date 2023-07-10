@@ -9,11 +9,14 @@ import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
+import FontRange from "../../../../components/reports/fontRange";
 
 
 export default function IndiceParadasXPosto (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [openReport, setOpenReport] = useState<boolean>(false);
+    const [fontTable, setfontTable] = useState(14); 
+
     const [descricao, setDescricao] = useState<any>({});
     
     const [listaIndiceParadaPosto, setListIndiceParadaPosto] = useState<IIndiceParadaPostoResponse>();
@@ -43,8 +46,9 @@ export default function IndiceParadasXPosto (props : any) {
                     }
                     components={<> {descricao.map((i : any, index: number) => <p key={index}><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
+                <FontRange changed={(size : number) => setfontTable(size)} />
                 <div className="table-content">
-                    <TableDinamic headers={headers.paradas.indiceParadasPosto} body={<IndiceParadaXPostoBody className="indiceparadaxposto" parada={listaIndiceParadaPosto} />} />
+                    <TableDinamic headers={headers.paradas.indiceParadasPosto} body={<IndiceParadaXPostoBody className="indiceparadaxposto" parada={listaIndiceParadaPosto} fontTable={fontTable}/>} fontTable={fontTable} />
                 </div>
                 <h2 className="total-geral-h2">Total:</h2>
                 <TotalGeralIndiceParadaXPosto dados={listaIndiceParadaPosto} />

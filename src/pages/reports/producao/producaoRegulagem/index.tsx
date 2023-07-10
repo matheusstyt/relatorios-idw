@@ -9,12 +9,14 @@ import Filtros from "./filtros";
 import "../../../pages.scss";
 import { IOcorrenciasParadaResponse, IProducaoRegulagemResponse } from "../../../../interface/reports/producao/producaoRegulagem";
 import { OcorrenciasParadaServices, ProducaoRegulagemServices } from "../../../../services/reports/produtos";
+import FontRange from "../../../../components/reports/fontRange";
 
 export default function ProducaoRegulagem (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
+    const [fontTable, setfontTable] = useState(14); 
 
     const [producaoRegulagemResponse, setProducaoRegulagemResponse] = useState<IProducaoRegulagemResponse>();
     const [ocorrenciasParadaResponse, setOcorrenciasParadaResponse] = useState<IOcorrenciasParadaResponse>();
@@ -76,6 +78,7 @@ export default function ProducaoRegulagem (props : any) {
                     components={<> {descricao.map((i : any, index: number) => <p key={index}><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 
                 />
+                <FontRange changed={(size : number) => setfontTable(size)} />
                 <div className="table-content">
                     { isProducaoRegulagem ? <TableDinamic 
                         aux={
@@ -109,10 +112,12 @@ export default function ProducaoRegulagem (props : any) {
                                 isProduto={cargaUtil?.isAgrupadoPorProduto}
                                 exibirParadas={exibirParadas}
                             />}
+                        fontTable={fontTable}
                     /> : 
                     <TableDinamic 
                         headers={headers.producao.ocorrenciaParadaRegulagem}
                         body={<OcorrenciaParadaRegulagemBody paradas={ocorrenciasParadaResponse?.paradas} />}
+                        fontTable={fontTable}
                     /> }
 
                 </div>

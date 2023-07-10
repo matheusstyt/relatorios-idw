@@ -9,12 +9,14 @@ import Filtros from "./filtros";
 import "../../../pages.scss";
 import { IConsolidadosResponse } from "../../../../interface/reports/producao/consolidados";
 import { ConsolidadosServices } from "../../../../services/reports/produtos";
+import FontRange from "../../../../components/reports/fontRange";
 
 export default function Consolidados (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
+    const [fontTable, setfontTable] = useState(14); 
 
     const [consolidadosResponse, setConsolidadosResponse] = useState<IConsolidadosResponse>();
     async function getConsolidados (value : any) {
@@ -46,14 +48,15 @@ export default function Consolidados (props : any) {
                     components={<> {descricao.map((i : any, index: number) => <p key={index}><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 
                 />
+                <FontRange changed={(size : number) => setfontTable(size)} />
                 <div className="table-content">
                     {
                         cargaUtil.isAgrupadoPorPt === true ? 
-                        <TableDinamic headers={headers.producao.consolidadoPosto} body={<ConsolidadosPostoBody postos={consolidadosResponse?.postos} />}/>
+                        <TableDinamic headers={headers.producao.consolidadoPosto} body={<ConsolidadosPostoBody postos={consolidadosResponse?.postos} />} fontTable={fontTable}/>
                         : cargaUtil.isAgrupadoPorFerramenta === true ?
-                        <TableDinamic headers={headers.producao.consolidadoFerramenta} body={<ConsolidadosFerramentaBody ferramentas={consolidadosResponse?.ferramentas} />}/>
+                        <TableDinamic headers={headers.producao.consolidadoFerramenta} body={<ConsolidadosFerramentaBody ferramentas={consolidadosResponse?.ferramentas} />} fontTable={fontTable}/>
                         : cargaUtil.isAgrupadoPorProduto === true ?
-                        <TableDinamic headers={headers.producao.consolidadoProduto} body={<ConsolidadosProdutoBody produtos={consolidadosResponse?.produtos} />}/>
+                        <TableDinamic headers={headers.producao.consolidadoProduto} body={<ConsolidadosProdutoBody produtos={consolidadosResponse?.produtos} />} fontTable={fontTable}/>
                         : <></>
                     }
                 </div>

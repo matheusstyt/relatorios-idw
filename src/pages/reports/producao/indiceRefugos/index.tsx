@@ -9,13 +9,14 @@ import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
+import FontRange from "../../../../components/reports/fontRange";
 
 export default function IndiceRefugos (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [openReport, setOpenReport] = useState<boolean>(false);
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
-
+    const [fontTable, setfontTable] = useState(14); 
     const [indiceRefugosResponse, setIndiceRefugosResponse] = useState<INewIndiceRefugoResponse>();
 
     async function getIndiceRefugo (value : any) {
@@ -61,20 +62,21 @@ export default function IndiceRefugos (props : any) {
                     components={<> {descricao.map((i : any, index: number) => <p key={index}><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 
                 />
+                <FontRange changed={(size : number) => setfontTable(size)} />
                 <div className="table-content">
                     {
                         cargaUtil?.isAgrupadoPorPt ? 
                         <TableDinamic 
                             headers={ headers.producao.indiceRefugo.posto } 
-                            body={ <IndiceRefugoPostoBody postos={indiceRefugosResponse?.itens} /> }
+                            body={ <IndiceRefugoPostoBody postos={indiceRefugosResponse?.itens} /> } fontTable={fontTable}
                         /> : cargaUtil?.isAgrupadoPorProduto ?
                         <TableDinamic 
                             headers={ headers.producao.indiceRefugo.produto } 
-                            body={ <IndiceRefugoProdutoBody produtos={indiceRefugosResponse?.itens} /> }
+                            body={ <IndiceRefugoProdutoBody produtos={indiceRefugosResponse?.itens} /> } fontTable={fontTable}
                         /> : cargaUtil?.isAgrupadoPorRefugo ?
                         <TableDinamic 
                             headers={ headers.producao.indiceRefugo.refugo } 
-                            body={ <IndiceRefugoRefugoBody refugos={indiceRefugosResponse?.itens} /> }
+                            body={ <IndiceRefugoRefugoBody refugos={indiceRefugosResponse?.itens} /> } fontTable={fontTable}
                         /> : <></>
                     }
                 </div>

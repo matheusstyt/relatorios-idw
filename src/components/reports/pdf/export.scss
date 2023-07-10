@@ -19,6 +19,7 @@ h2{
 .export-content{
     width: 100%;
     padding: 1em;
+    box-sizing: border-box;
     .export-header{
         border-bottom: 2px solid #414141b0;
         padding: 0;
@@ -53,6 +54,18 @@ h2{
     }
 }
 // FIM DO HEADER
+
+// INPUT TAMANHO DA FONTE DA TABELA
+.input-field{
+    align-items: center;
+    padding-top: 0.5em;
+    position: sticky;
+    display: flex;
+    
+    gap: 1em;
+    label{ font-size: 0.8em }
+    
+}
 // TODAS AS TABELAS DE "EXPORTAR"
 .table-content{
     margin: 1em 0;
@@ -70,7 +83,7 @@ h2{
         border-radius: 4px;
     }
     // fim do scroll 
-
+    
     #table-main{
         width: 100%;
         thead{
@@ -82,7 +95,7 @@ h2{
             margin-bottom: 1em;
         }
         th{
-            font-size: 0.8em;
+        //    font-size: 0.8em;
             background-color: #ebebeb;
             color: #585858;
             border-bottom: 2px solid #8a8a8ab6;
@@ -93,7 +106,7 @@ h2{
             background-color: #41414115;
         }
         td{
-            font-size: 0.8em;
+       //     font-size: 0.8em;
             padding: 0.5em;
             background-color: #ffffff36;
             border-bottom: 2px solid #4141418a;
@@ -204,7 +217,7 @@ h2{
 .container-totais{
     background-color: #c6dbfa;
     padding: 1em;
-    box-sizing: border-box;
+    box-sizing: content-box;
     margin: 0 auto;
     display: flex;
     flex-flow: column wrap;

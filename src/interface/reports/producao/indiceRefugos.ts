@@ -25,8 +25,8 @@ export interface IPostoIndiceRefugo {
     totalProduzido?: string;
     totalRefugado?: string;
     totalBoas?: string;
-    indiceC?: string;
     indiceB?: string;
+    indiceC?: string;
     produtos?: IProdutosIndiceRefugo[];
 }
 export interface IProdutosIndiceRefugo{

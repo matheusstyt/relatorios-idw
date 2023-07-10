@@ -8,12 +8,14 @@ import AccordionDinamic from "../../../../components/accordion";
 import { FiFilter } from "react-icons/fi";
 import { useState } from "react";
 import Filtros from "./filtros";
+import FontRange from "../../../../components/reports/fontRange";
 
 
 const FichaTecnica = (props: any) =>{
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
     const [openReport, setOpenReport] = useState<boolean>(false);
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
+    const [fontTable, setfontTable] = useState(14); 
 
     const [fichaTecnicaResponse, setFichaTecnicaResponse] = useState<IFichaTecnicaResponse>();
     async function getfichaTecnica (value : any) {
@@ -41,8 +43,9 @@ const FichaTecnica = (props: any) =>{
                     }
                     components={<> {descricao.map((i : any, index: number) => <p key={index}><strong>{i.propery}:</strong> {i.description}</p> )} </>}
                 />
+                <FontRange changed={(size : number) => setfontTable(size)} />
                 <div className="table-content">
-                    {<TableDinamic headers={headers.engenharia.fichatecnica} body={<FichaTecnicaBody itens={fichaTecnicaResponse?.itens} />}/>}
+                    {<TableDinamic headers={headers.engenharia.fichatecnica} body={<FichaTecnicaBody itens={fichaTecnicaResponse?.itens} />} fontTable={fontTable}/>}
                 </div>
             </div>
         )

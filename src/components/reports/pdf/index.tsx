@@ -7,16 +7,20 @@ import { IItemPlanejaxRealizado } from '../../../interface/reports/planejamento/
 import { IFerramenta, IPosto, IProduto } from '../../../interface/reports/producao/consolidados';
 import { IPostoIntervalo } from '../../../interface/reports/producao/acompanhamentoProducao';
 import { IProdutoFichaTecnica } from '../../../interface/reports/engenharia/fichaTecnica';
+import { Formatar, convertSecondsToTime } from './datetime';
 import { FiDownload, FiPrinter } from "react-icons/fi";
 import { DecimalParaReal } from './DOM/functions';
-import { Formatar, convertSecondsToTime } from './datetime';
+import { Fragment, useState } from 'react';
 import { Button } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import "./export.scss";
 
-import { Fragment } from 'react';
+
 
 export function Header(props : any) {
+
+    
+
     return (
         <div className="export-header">
             <div className='title-content'>
@@ -47,43 +51,50 @@ export function Header(props : any) {
                     onClick={(e) => { props.getTableDOM(false) }}><FiPrinter className='header-btn-ico' size={20}/></Button>
                 </div>
             </div>
+            
         </div>
     )
 }
 
 export function TableDinamic ( props : any ){
+    
+
     return (
-        <table id="table-main">
-            <thead>
-            {/* header auxiliar para "produção e regulagem" */}
-            {props?.aux ? (
+        <>
+            
+            <table id="table-main" style={{ fontSize: `${props.fontTable}px` }}>
+                <thead>
+                {/* header auxiliar para "produção e regulagem" */}
+                {props?.aux ? (
+                    <tr>
+                    {props?.aux?.map((item: string, index: number) => {
+                        if (index === 2 || index === 3) {
+                        return (
+                            <th style={{ backgroundColor: "#d9d9d9" }} colSpan={2} key={`${index}-${item}`}>
+                            {item}
+                            </th>
+                        );
+                        } else {
+                        return <th colSpan={1} key={`${index}-${item}`}>{item}</th>;
+                        }
+                    })}
+                    </tr>
+                ) : (
+                    <></>
+                )}
+
+                {/* header padrão dinâmico */}
                 <tr>
-                {props?.aux?.map((item: string, index: number) => {
-                    if (index === 2 || index === 3) {
-                    return (
-                        <th style={{ backgroundColor: "#d9d9d9" }} colSpan={2} key={`${index}-${item}`}>
-                        {item}
-                        </th>
-                    );
-                    } else {
-                    return <th colSpan={1} key={`${index}-${item}`}>{item}</th>;
-                    }
-                })}
+                    {props?.headers?.map((item: string, index: number) => (
+                    <th key={`${index} -  ${item}`}>{item}</th>
+                    ))}
                 </tr>
-            ) : (
-                <></>
-            )}
+                </thead>
 
-            {/* header padrão dinâmico */}
-            <tr>
-                {props?.headers?.map((item: string, index: number) => (
-                <th key={`${index} -  ${item}`}>{item}</th>
-                ))}
-            </tr>
-            </thead>
+                {props.body}
+            </table>
+        </>
 
-            {props.body}
-        </table>
     )
 }
 // CONSOLIDADOS 
@@ -420,7 +431,7 @@ export function IndiceParadaXPostoBody( props : any ){
                     
                     </tr>
                     <tr>
-                        <td colSpan={6} style={{backgroundColor : "#c6dbfa"}}>
+                        <td colSpan={6} style={{backgroundColor : "#c6dbfa", height: props.fontTable * 9}}>
                             <div className="container-totais sub-totais">
                                 <p>TEMPO DE PARADAS DO POSTO (C): { props.parada?.itensRelatorio[index]?.tempoParada }</p>
                                 <p>HORAS PRODUTIVAS: {props.parada?.itensRelatorio[index]?.horasProdutivas }</p>
@@ -510,17 +521,17 @@ export function AnaliseProducaoBody( props : any){
                         })}
                         <tr className='tr-total'>
                             <td  colSpan={15}>
-                                <div className="container-totais total-geral" id="totais-totais">
-                                    <p>TOTAL PREVISTO: { item?.totalProducaoPrevista }</p>
-                                    <p>TOTAL PRODUZIDO: { item?.totalProducaoBruta }</p>
-                                    <p>TOTAL REFUGOS: { item?.totalProducaoRefugada }</p>
-                                    <p>TOTAL BOAS: {item?.totalProducaoLiquida}</p>
-                                    <p>TOTAL TEMPO ATIVO: {item?.totalTempoAtivoFormatado}</p>
-                                    <p>TOTAL TEMPO PARADAS: {item?.totalTempoParadaCPFormatado}</p>
-                                    <p>EFICIÊNCIA REALIZAÇÃO: { item?.totalIndiceEficienciaRealizacao }</p>
-                                    <p>ÍNDICE CAV. ATIVAS: {item?.totalCavidadesAtivas}</p>
-                                    <p>ÍNDICE REFUGOS: {item?.totalIndiceRefugo}</p>
-                                    <p>ÍNDICE PARADAS: {item?.totalIndiceParadas}</p>
+                                <div className="container-totais total-geral" id="totais-totais" style={{height : props.fontTable * 8}}>
+                                    <p style={{fontSize : props.fontTable}}>TOTAL PREVISTO: { item?.totalProducaoPrevista }</p>
+                                    <p style={{fontSize : props.fontTable}}>TOTAL PRODUZIDO: { item?.totalProducaoBruta }</p>
+                                    <p style={{fontSize : props.fontTable}}>TOTAL REFUGOS: { item?.totalProducaoRefugada }</p>
+                                    <p style={{fontSize : props.fontTable}}>TOTAL BOAS: {item?.totalProducaoLiquida}</p>
+                                    <p style={{fontSize : props.fontTable}}>TOTAL TEMPO ATIVO: {item?.totalTempoAtivoFormatado}</p>
+                                    <p style={{fontSize : props.fontTable}}>TOTAL TEMPO PARADAS: {item?.totalTempoParadaCPFormatado}</p>
+                                    <p style={{fontSize : props.fontTable}}>EFICIÊNCIA REALIZAÇÃO: { item?.totalIndiceEficienciaRealizacao }</p>
+                                    <p style={{fontSize : props.fontTable}}>ÍNDICE CAV. ATIVAS: {item?.totalCavidadesAtivas}</p>
+                                    <p style={{fontSize : props.fontTable}}>ÍNDICE REFUGOS: {item?.totalIndiceRefugo}</p>
+                                    <p style={{fontSize : props.fontTable}}>ÍNDICE PARADAS: {item?.totalIndiceParadas}</p>
                                 </div>
                             </td>
                         </tr>
