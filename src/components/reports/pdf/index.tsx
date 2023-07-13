@@ -2,7 +2,7 @@ import { IParadaOcorrenciasParada, IParadaProducaoRegulagem, IPostoPeriodo } fro
 import { IPostoIndiceRefugo, IProdutosIndiceRefugo, IRefugoIndiceRefugo } from '../../../interface/reports/producao/indiceRefugos';
 import { IParadaIndiceParadaXPosto, ISubRelatorioIndiceParada } from '../../../interface/reports/paradas/indiceParadasXPosto';
 import { IListaDTO, IOperador, ItemProducaoEficienciaHoraAHora } from '../../../interface/reports/producao/analiseProducao';
-import { IItemIndiceParada, IParada, IPostoParada } from '../../../interface/reports/paradas/indiceParadas';
+import { IItemIndiceParada, IParada, IParadaPadrao, IPostoParada } from '../../../interface/reports/paradas/indiceParadas';
 import { IItemPlanejaxRealizado } from '../../../interface/reports/planejamento/planejadoxrealizado';
 import { IFerramenta, IPosto, IProduto } from '../../../interface/reports/producao/consolidados';
 import { IPostoIntervalo } from '../../../interface/reports/producao/acompanhamentoProducao';
@@ -613,12 +613,12 @@ export function TotalGeralAcompanhamentoProducao ( props : any ) {
 export function IndiceParadasPadraoBody ( props : any ) {
     return <tbody className='t-indiceparadapadrao'>
         {
-            props?.paradas?.map( (parada : IParada ,index : number) => {
+            props?.paradas?.map( (parada : IParadaPadrao ,index : number) => {
                 return <tr key={index}>
                     {/* PRIMEIRA CAMADA */}
-                    <td className='td-indiceparada'>{parada?.parada}</td>
-                    <td className='td-indiceparada'>{parada?.tempo}</td>
-                    <td className='td-indiceparada'>{parada?.indice}</td>
+                    <td className='td-indiceparada'>{parada?.parada?.parada}</td>
+                    <td className='td-indiceparada'>{parada?.parada?.tempo}</td>
+                    <td className='td-indiceparada'>{parada?.parada?.indice}</td>
                 </tr>
             })
         }   
@@ -883,7 +883,7 @@ export function IndiceRefugoPostoBody ( props : any ) {
                                 <td className='td-subtotais' colSpan={5} style={{backgroundColor : "#D0D9ED", fontWeight: 500}}>
                                     <div className='container-subtotais-indice-refugo'>
                                         <p>QTD. BOAS : {item?.totalBoas}</p>
-                                        <p>QTD. PRODUZIDA (A) : {item?.totalProduzido}</p>
+                                        <p>QTD. PRODUZIDA (B) : {item?.totalProduzido}</p>
                                         <p>QTD. REFUGADA : {item?.totalRefugado}</p>
                                         <p>ÍNDICE COM BASE EM (B) : {item?.indiceB}</p>
                                         <p>ÍNDICE COM BASE EM (C) : {item?.indiceC}</p>

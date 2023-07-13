@@ -1,5 +1,5 @@
 export interface IIndiceParadasResponse {
-  itens: IItemIndiceParada[];
+  itens: IItemIndiceParada[] | IParadaPadrao[];
   tempoParadasTotal: string;
   tempoParadasCP: string;
   tempoParadasSP: string;
@@ -19,6 +19,9 @@ export interface IPostoParada {
   paradas: IParada[];
   tempoParadasPosto: string;
   indice: string; // faltando
+}
+export interface IParadaPadrao {
+  parada?: IParada;
 }
 export interface IParada {
   parada: string;

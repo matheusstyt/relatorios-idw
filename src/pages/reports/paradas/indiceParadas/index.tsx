@@ -22,7 +22,8 @@ export default function IndiceParadas (props : any) {
     async function getIndiceParadas (value : any) {
         setCargaUtil(value);
         await IndiceParadaServices(value)
-            .then( async (data) => {
+        .then( async (data) => {
+                console.log(data)
                 await setListIndiceParada(data);
             })
         setExibirPreloader(false);
@@ -49,8 +50,8 @@ export default function IndiceParadas (props : any) {
                 <div className="table-content">
                     {
                         cargaUtil.isAgrupamentoPadrao ?
-                                                                                                                                                        // tem um array dentro do array kkk, enfim
-                        <TableDinamic headers={headers.paradas.indiceParadasPadrao} body={<IndiceParadasPadraoBody className="indiceparadaxposto" paradas={listaIndiceParada?.itens[0]?.paradas} />} fontTable={fontTable} />
+                                                                                                                                                        
+                        <TableDinamic headers={headers.paradas.indiceParadasPadrao} body={<IndiceParadasPadraoBody className="indiceparadaxposto" paradas={listaIndiceParada?.itens} />} fontTable={fontTable} />
                         :cargaUtil.isAgrupadoPorProduto ?
                         <TableDinamic headers={headers.paradas.indiceParadasProduto} body={<IndiceParadasProdutoBody className="indiceparadaxposto" paradas={listaIndiceParada?.itens} />} fontTable={fontTable} />
                         :cargaUtil.isAgrupadoPorFerramenta ?
