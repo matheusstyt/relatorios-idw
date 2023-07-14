@@ -80,8 +80,8 @@ function SelectIDW({
                     <Option
                         
                         key={`${index} - ${option?.value}`}
-                        value={option?.value}
-                        _value={option?.value}
+                        value={`${option?.value} - ${option?.name}`}
+                        _value={`${option?.value} - ${option?.name}`}
                         color_mode={colorMode}
                         disabled={disableOptions(option, option.value)}
                         

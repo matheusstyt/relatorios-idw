@@ -17,7 +17,7 @@ const Filtros = (props : any) => {
     const [periodoChecked, setPeriodoChecked] = useState<boolean>(false);
     const [dataInicio, setDataInicio] = useState<any>(new Date());
     const [dataTermino, setDataTermino] = useState<any>(new Date());
-    const [turnoSelecionado, setTurnoSelecionado] = useState<any>("");
+    const [turnoSelecionado, setTurnoSelecionado] = useState<any>();
 
     // tipo
     const [tipoSelecionado, setTipoSelecionado]= useState<any>("padrao")
@@ -66,15 +66,17 @@ const Filtros = (props : any) => {
             })
         : null
         // fim da lógica
-
+            console.log(turnoSelecionado)
         // carga útil
         const payload = {
             op : OPNumber,
             dthrIni : periodoChecked? new Formatar(dataInicio).dataAbreviada() : null,
             dthrFim : periodoChecked? new Formatar(dataTermino).dataAbreviada() : null,
-            cdTurno : turnoSelecionado === "todos" ? null : turnoSelecionado,
-            cdPt : postoFerramentaSelecionado === "Postos" ? postoFerramentaValorSelecionado : null,
-            cdGt : postoFerramentaSelecionado === "grupoTrabalho" ? postoFerramentaValorSelecionado : null,
+            cdTurno : turnoSelecionado ? turnoSelecionado.split(" - ")[0] : null,
+            cdPt : postoFerramentaSelecionado === "Postos" && postoFerramentaValorSelecionado ? (postoFerramentaValorSelecionado.split(" - "))[0] : null,
+            cdGt : postoFerramentaSelecionado === "grupoTrabalho" && postoFerramentaValorSelecionado ? (postoFerramentaValorSelecionado.split(" - "))[0] : null,
+            cdFerrameta : postoFerramentaSelecionado === "ferramentas" && postoFerramentaValorSelecionado ? (postoFerramentaValorSelecionado.split(" - "))[0] : null,
+            cdGrpFerramenta : postoFerramentaSelecionado === "grupoFerramenta" && postoFerramentaValorSelecionado ? (postoFerramentaValorSelecionado.split(" - "))[0] : null,
 
             isTodasAreas: todasAreaSelecioando,
             isTodasParadas: todasParadasSelecionado,
@@ -94,8 +96,10 @@ const Filtros = (props : any) => {
 
         let grupoTrabalho = "TODOS";
 
-        if(payload.cdGt!=null)  grupoTrabalho = `${payload.cdGt}`
-        if(payload.cdPt!=null)  grupoTrabalho = `${payload.cdPt}`
+        if(payload.cdGt!=null)  grupoTrabalho = postoFerramentaValorSelecionado ? `${(postoFerramentaValorSelecionado.split(" - "))[2]}` : "TODOS"
+        if(payload.cdPt!=null)  grupoTrabalho = postoFerramentaValorSelecionado ? `${(postoFerramentaValorSelecionado.split(" - "))[2]}` : "TODOS"
+        if(payload.cdFerrameta!=null)  grupoTrabalho = postoFerramentaValorSelecionado ? `${(postoFerramentaValorSelecionado.split(" - "))[2]}` : "TODOS"
+        if(payload.cdGrpFerramenta!=null)  grupoTrabalho = postoFerramentaValorSelecionado ? `${(postoFerramentaValorSelecionado.split(" - "))[2]}` : "TODOS"
         
         let modelo = "";
         tipoSelecionado === "padrao" ? modelo = "PADRÃO" :
@@ -105,7 +109,7 @@ const Filtros = (props : any) => {
         let descricao : Object[] = [];
         descricao.push({propery : "MODELO", description : modelo})
         descricao.push({propery : propriedade, description : grupoTrabalho})
-        descricao.push({propery : "TURNOS", description: payload.cdTurno === "todos" || payload.cdTurno === null || payload.cdTurno === ""? "TODOS OS TURNOS" : payload.cdTurno})
+        descricao.push({propery : "TURNOS", description: payload.cdTurno === "todos" || payload.cdTurno === null || payload.cdTurno === ""? "TODOS OS TURNOS" : turnoSelecionado ? turnoSelecionado.split(" - ")[2] : ""})
         descricao.push({propery : "PERÍODO", description :`${new Date(dataInicio).toLocaleDateString()} - ${new Date(dataTermino).toLocaleDateString()}`})
 
         console.log(payload);
