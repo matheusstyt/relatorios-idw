@@ -1,5 +1,5 @@
 import { Header, IndiceRefugoPostoBody, IndiceRefugoProdutoBody, IndiceRefugoRefugoBody, TableDinamic, TotalGeralIndiceRefugo } from "../../../../components/reports/pdf";
-import { INewIndiceRefugoResponse } from "../../../../interface/reports/producao/indiceRefugos";
+import { IIndiceRefugoResponse } from "../../../../interface/reports/producao/indiceRefugos";
 import mocks from "../../../../interface/reports/producao/indiceRefugoMocks.json";
 import { getTableDinamicDOM } from "../../../../components/reports/pdf/DOM";
 import headers from "../../../../components/reports/pdf/headers.json";
@@ -10,6 +10,7 @@ import { useState } from "react";
 import Filtros from "./filtros";
 import "../../../pages.scss";
 import FontRange from "../../../../components/reports/fontRange";
+import { IndiceRefugosServices } from "../../../../services/reports/produtos";
 
 export default function IndiceRefugos (props : any) {
     const [exibirPreloader, setExibirPreloader] = useState<boolean>(false);
@@ -17,25 +18,16 @@ export default function IndiceRefugos (props : any) {
     const [cargaUtil, setCargaUtil] = useState<any>({});
     const [descricao, setDescricao] = useState<{propery?: string, description?: string}[]>([]);
     const [fontTable, setfontTable] = useState(14); 
-    const [indiceRefugosResponse, setIndiceRefugosResponse] = useState<INewIndiceRefugoResponse>();
+    const [indiceRefugosResponse, setIndiceRefugosResponse] = useState<IIndiceRefugoResponse>();
 
     async function getIndiceRefugo (value : any) {
        setCargaUtil(value);
-        // console.log(value)
-        // await IndiceRefugosServices( value)
-        // .then( (data) => {
-        //     console.log(data)
-        //     setIndiceRefugosResponse(data);
-        // })
+        await IndiceRefugosServices( value)
+        .then( (data) => {
+            console.log(data)
+            setIndiceRefugosResponse(data);
+        })
 
-        if(value?.isAgrupadoPorPt){
-            setIndiceRefugosResponse(mocks.posto)
-        }else if( value?.isAgrupadoPorProduto){
-            setIndiceRefugosResponse(mocks.produto)
-        }else if( value?.isAgrupadoPorRefugo){
-            setIndiceRefugosResponse(mocks.refugo)
-        }
-        
         setOpenReport(true);
         setExibirPreloader(false);
     }
@@ -99,7 +91,7 @@ export default function IndiceRefugos (props : any) {
                     <Filtros
                         getPayload={(value: any ) => getIndiceRefugo(value) }
                         getDescricao={(value: any ) => setDescricao(value)}
-                        openPreview={(value: boolean) =>  setExibirPreloader(false) }
+                        openPreview={(value: boolean) =>  setExibirPreloader(true) }
                         closeReport={(value: boolean) => setOpenReport(value) }
                     />
                 }

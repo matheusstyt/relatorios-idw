@@ -1,5 +1,5 @@
 import { IParadaOcorrenciasParada, IParadaProducaoRegulagem, IPostoPeriodo } from '../../../interface/reports/producao/producaoRegulagem';
-import { IPostoIndiceRefugo, IProdutosIndiceRefugo, IRefugoIndiceRefugo } from '../../../interface/reports/producao/indiceRefugos';
+import { IPostoIndiceRefugo, IProdutosIndiceRefugo, IRefugoIndiceRefugo, IRefugoIndiceRefugoExtra } from '../../../interface/reports/producao/indiceRefugos';
 import { IParadaIndiceParadaXPosto, ISubRelatorioIndiceParada } from '../../../interface/reports/paradas/indiceParadasXPosto';
 import { IListaDTO, IOperador, ItemProducaoEficienciaHoraAHora } from '../../../interface/reports/producao/analiseProducao';
 import { IItemIndiceParada, IParada, IParadaPadrao, IPostoParada } from '../../../interface/reports/paradas/indiceParadas';
@@ -863,11 +863,11 @@ export function IndiceRefugoPostoBody ( props : any ) {
                                     <tr>
                                         <td className='td-subtotais' colSpan={5} style={{backgroundColor : "#E7EEF8", borderBottom: "2px dashed #414141"}}>
                                             <div className='container-subtotais-indice-refugo'>
-                                                <p>QTD. BOAS : {produto?.totalBoas}</p>
-                                                <p>QTD. PRODUZIDA (A) : {produto?.totalProduzido}</p>
-                                                <p>QTD. REFUGADA : {produto?.totalRefugado}</p>
-                                                <p>ÍNDICE COM BASE EM (A) : {produto?.indiceA}</p>
                                                 <p>ÍNDICE COM BASE EM (B) : {produto?.indiceB}</p>
+                                                <p>ÍNDICE COM BASE EM (A) : {produto?.indiceA}</p>
+                                                <p>QTD. REFUGADA : {produto?.totalRefugado}</p>
+                                                <p>QTD. PRODUZIDA (A) : {produto?.totalProduzido}</p>
+                                                <p>QTD. BOAS : {produto?.totalBoas}</p>
                                             </div>
                                         </td>
                                     </tr>
@@ -880,13 +880,14 @@ export function IndiceRefugoPostoBody ( props : any ) {
                                 <td colSpan={5} style={{backgroundColor : "#D0D9ED", fontWeight: 500}}>TOTAIS DO POSTO</td>
                             </tr>
                             <tr>
+                                {/* usando o "column-reverse wrap-reverse" */}
                                 <td className='td-subtotais' colSpan={5} style={{backgroundColor : "#D0D9ED", fontWeight: 500}}>
                                     <div className='container-subtotais-indice-refugo'>
-                                        <p>QTD. BOAS : {item?.totalBoas}</p>
-                                        <p>QTD. PRODUZIDA (B) : {item?.totalProduzido}</p>
-                                        <p>QTD. REFUGADA : {item?.totalRefugado}</p>
-                                        <p>ÍNDICE COM BASE EM (B) : {item?.indiceB}</p>
                                         <p>ÍNDICE COM BASE EM (C) : {item?.indiceC}</p>
+                                        <p>ÍNDICE COM BASE EM (B) : {item?.indiceB}</p>
+                                        <p>QTD. REFUGADA : {item?.totalRefugado}</p>
+                                        <p>QTD. PRODUZIDA (B) : {item?.totalProduzido}</p>
+                                        <p>QTD. BOAS : {item?.totalBoas}</p>
                                     </div>
                                 </td>
                             </tr>
@@ -916,12 +917,13 @@ export function IndiceRefugoProdutoBody ( props : any ) {
                         </tr>
                         <tr>
                             <td className='td-subtotais por-produtos' colSpan={4} style={{backgroundColor : "#E7EEF8", borderBottom: "2px dashed #414141", fontWeight: 500}}>
+                                {/* usando o "column-reverse wrap-reverse" */}
                                 <div className='container-subtotais-indice-refugo'>
-                                    <p>QTD. BOAS : {produto?.totalBoas}</p>
-                                    <p>QTD. PRODUZIDA (A) : {produto?.totalProduzido}</p>
-                                    <p>QTD. REFUGADA : {produto?.totalRefugado}</p>
-                                    <p>ÍNDICE COM BASE EM (A) : {produto?.indiceA}</p>
                                     <p>ÍNDICE COM BASE EM (B) : {produto?.indiceB}</p>
+                                    <p>ÍNDICE COM BASE EM (A) : {produto?.indiceA}</p>
+                                    <p>QTD. REFUGADA : {produto?.totalRefugado}</p>
+                                    <p>QTD. PRODUZIDA (A) : {produto?.totalProduzido}</p>
+                                    <p>QTD. BOAS : {produto?.totalBoas}</p>
                                 </div>
                             </td>
                         </tr>
@@ -936,11 +938,11 @@ export function IndiceRefugoRefugoBody ( props : any ) {
     return (
         <tbody className='t-indicerefugo'>
             {
-                props?.refugos?.map((refugo: IRefugoIndiceRefugo, index : number) => {
+                props?.refugos?.map((refugo: IRefugoIndiceRefugoExtra, index : number) => {
                     return <tr key={index}>
-                        <td className='td-indicerefugo-refugo'>{refugo.refugo}</td>
-                        <td className='td-indicerefugo-refugo'>{refugo.qtdRefugada}</td>
-                        <td className='td-indicerefugo-refugo'>{refugo.indice}</td>
+                        <td className='td-indicerefugo-refugo'>{refugo.refugo.refugo}</td>
+                        <td className='td-indicerefugo-refugo'>{refugo.refugo.qtdRefugada}</td>
+                        <td className='td-indicerefugo-refugo'>{refugo.refugo.indice}</td>
                     </tr>
                 })
             }
