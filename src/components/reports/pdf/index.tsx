@@ -867,6 +867,8 @@ export function IndiceRefugoPostoBody ( props : any ) {
                                                 <p>ÍNDICE COM BASE EM (A) : {produto?.indiceA}</p>
                                                 <p>QTD. REFUGADA : {produto?.totalRefugado}</p>
                                                 <p>QTD. PRODUZIDA (A) : {produto?.totalProduzido}</p>
+                                                {/* espaço para ficar igual o original :D */}
+                                                <p style={{color: "#fff"}}>-</p>
                                                 <p>QTD. BOAS : {produto?.totalBoas}</p>
                                             </div>
                                         </td>
@@ -887,6 +889,8 @@ export function IndiceRefugoPostoBody ( props : any ) {
                                         <p>ÍNDICE COM BASE EM (B) : {item?.indiceB}</p>
                                         <p>QTD. REFUGADA : {item?.totalRefugado}</p>
                                         <p>QTD. PRODUZIDA (B) : {item?.totalProduzido}</p>
+                                        {/* espaço para ficar igual o original :D */}
+                                        <p style={{color: "#fff"}}>-</p>
                                         <p>QTD. BOAS : {item?.totalBoas}</p>
                                     </div>
                                 </td>
@@ -923,6 +927,8 @@ export function IndiceRefugoProdutoBody ( props : any ) {
                                     <p>ÍNDICE COM BASE EM (A) : {produto?.indiceA}</p>
                                     <p>QTD. REFUGADA : {produto?.totalRefugado}</p>
                                     <p>QTD. PRODUZIDA (A) : {produto?.totalProduzido}</p>
+                                    {/* espaço para ficar igual o original :D */}
+                                    <p style={{color: "#fff"}}>-</p>
                                     <p>QTD. BOAS : {produto?.totalBoas}</p>
                                 </div>
                             </td>
